@@ -128,7 +128,7 @@ function Player:update(dt)
 end
 
 function Player:draw()
-    love.graphics.rectangle('fill', math.floor(self.position.x), math.floor(self.position.y), self.width, self.height)
+    love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
     local offset = 0
     if self.facing == -1 then
         offset = 13
@@ -136,11 +136,11 @@ function Player:draw()
 
     local image = self.idleImage
 
-    if self.jumpTimer > 0 then
+    if self.jumpTimer > 0 or not self.canJump then
         image = self.jumpImage
     end
 
-    love.graphics.draw(image, math.floor(self.position.x + self.imageOffset.x*self.facing + offset), math.floor(self.position.y + self.imageOffset.y), 0, self.facing, 1)
+    love.graphics.draw(image, self.position.x + self.imageOffset.x*self.facing + offset, self.position.y + self.imageOffset.y, 0, self.facing, 1)
 end
 
 return Player
