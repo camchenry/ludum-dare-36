@@ -42,6 +42,9 @@ function Player:initialize(x, y)
     self.attackImage = love.graphics.newImage("assets/images/Hero/Hero_WrenchAttack.png")
     local g = Anim8.newGrid(45, 45, self.attackImage:getWidth(), self.attackImage:getHeight())
     self.attackAnimation = Anim8.newAnimation(g('1-5', 1), self.attackTime/5)
+
+    self.attackBoxOffset = Vector(20, 5)
+    self.attackBoxSize = Vector(20, 25)
 end
 
 function Player:keypressed(key)
@@ -56,6 +59,18 @@ function Player:doAction()
     if self.wrenchPower and self.touchingGround and self.attackTimer == 0 then
         self.attackTimer = self.attackTime
         self.attackAnimation:gotoFrame(1)
+
+        local offset = 0
+        if self.facing == -1 then
+            offset = -8
+        end
+        local x, y = math.floor(self.position.x-self.attackBoxOffset.x*self.facing+offset+1), math.floor(self.position.y+0.5+1+self.attackBoxOffset.y)
+        local items, len = game.world:queryRect(x, y, self.attackBoxSize.x, self.attackBoxSize.y)
+        for k, item in pairs(items) do
+            if item.class and item:isInstanceOf(Enemy) then
+                item:hit()
+            end
+        end
     end
 end
 
@@ -142,9 +157,11 @@ function Player:update(dt)
                 other.visible = false
             end
         elseif other.class and other:isInstanceOf(Enemy) then
-            -- return to last checkpoint
-            -- revive any enemies that have died since the last checkpoint
-            -- return any moving platforms and levers to their state before the last checkpoint
+            if other.visible then
+                -- return to last checkpoint
+                -- revive any enemies that have died since the last checkpoint
+                -- return any moving platforms and levers to their state before the last checkpoint
+            end
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
@@ -173,6 +190,13 @@ function Player:draw()
     if DEBUG then
         love.graphics.setColor(255, 0, 0)
         love.graphics.rectangle('line', math.floor(self.position.x+0.5+1), math.floor(self.position.y+0.5+1), self.width-1, self.height-1)
+
+        love.graphics.setColor(0, 0, 255)
+        local offset = 0
+        if self.facing == -1 then
+            offset = -8
+        end
+        love.graphics.rectangle('line', math.floor(self.position.x+0.5+1-self.attackBoxOffset.x*self.facing+offset), math.floor(self.position.y+0.5+1+self.attackBoxOffset.y), self.attackBoxSize.x, self.attackBoxSize.y)
     end
     love.graphics.setColor(255, 255, 255)
 

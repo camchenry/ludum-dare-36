@@ -18,7 +18,7 @@ return {
       tileheight = 16,
       spacing = 0,
       margin = 0,
-      image = "../../../../../images/spritesheet.png",
+      image = "../images/spritesheet.png",
       imagewidth = 692,
       imageheight = 692,
       transparentcolor = "#c83784",
@@ -137,33 +137,10 @@ return {
           height = 16,
           rotation = 0,
           visible = true,
-          properties = {}
-        },
-        {
-          id = 18,
-          name = "",
-          type = "Enemy",
-          shape = "rectangle",
-          x = 336,
-          y = 112,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 19,
-          name = "",
-          type = "Enemy",
-          shape = "rectangle",
-          x = 336,
-          y = 192,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {}
+          properties = {
+            ["movement"] = "true",
+            ["right"] = "2"
+          }
         }
       }
     }
