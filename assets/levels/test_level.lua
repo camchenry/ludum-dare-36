@@ -8,7 +8,7 @@ return {
   height = 32,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 8,
+  nextobjectid = 13,
   properties = {},
   tilesets = {
     {
@@ -86,23 +86,22 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       properties = {},
       objects = {
         {
-          id = 3,
+          id = 12,
           name = "",
           type = "Wrench",
           shape = "rectangle",
           x = 176,
-          y = 112,
-          width = 16,
-          height = 16,
+          y = 96,
+          width = 15.75,
+          height = 15.875,
           rotation = 0,
-          gid = 972,
           visible = true,
           properties = {}
         }
