@@ -26,10 +26,11 @@ function game:reset()
 
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
-            self.wrench = object
-            self.world:add(object, object.x, object.y - object.height, object.width, object.height)
+            self.wrench = Wrench:new(object.x, object.y, object.width, object.height)
         end
     end
+
+    love.graphics.setLineStyle("rough")
 end
 
 function game:update(dt)
@@ -55,6 +56,7 @@ function game:draw()
             self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
             self.player:draw()
+            self.wrench:draw()
         end)
     end)
 
