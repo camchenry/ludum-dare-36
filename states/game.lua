@@ -10,7 +10,7 @@ function game:enter(from, ...)
 end
 
 function game:reset()
-    self.map = sti("assets/maps/map01.lua", {"bump"}) 
+    self.map = sti("assets/levels/test_level.lua", {"bump"}) 
     self.canvas = love.graphics.newCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
@@ -23,7 +23,6 @@ end
 
 function game:update(dt)
     self.map:update(dt)
-    self.world:update(dt)
 end
 
 function game:keypressed(key, code)
