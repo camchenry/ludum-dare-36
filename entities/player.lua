@@ -4,18 +4,18 @@ function Player:initialize(x, y)
     self.width, self.height = 16, 16
     game.world:add(self, x, y, self.width, self.height)
 
-    self.position = vector(x, y)
-    self.velocity = vector(0, 0)
-    self.acceleration = vector(0, 0)
+    self.position = Vector(x, y)
+    self.velocity = Vector(0, 0)
+    self.acceleration = Vector(0, 0)
 
-    self.gravity = 9.8
+    self.gravity = 160
     self.velMax = 20
     self.moveAccel = 2
     self.jumpAccel = 20
 end
 
 function Player:update(dt)
-    self.acceleration = vector(0, self.gravity)
+    self.acceleration = Vector(0, self.gravity)
 
     if love.keyboard.isDown("w", "up") then
         self.acceleration.y = self.acceleration.y - self.jumpAccel
@@ -27,8 +27,8 @@ function Player:update(dt)
         self.acceleration.x = self.moveAccel
     end
 
-    self.velocity = self.velocty + self.acceleration * dt
-    local actualX, actualY, cols, len = gameworld:move(self, self.position.x + self.velocty.x*dt, self.position.y + self.velocity.y*dt)
+    self.velocity = self.velocity + self.acceleration * dt
+    local actualX, actualY, cols, len = game.world:move(self, self.position.x + self.velocity.x*dt, self.position.y + self.velocity.y*dt)
 
     -- stop player from moving if they hit a wall
     -- horizontal collisions will stop horizontal velocity
@@ -47,7 +47,7 @@ function Player:update(dt)
         end
     end
 
-    self.position = vector(actualX, actualY)
+    self.position = Vector(actualX, actualY)
 end
 
 function Player:draw()
