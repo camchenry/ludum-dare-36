@@ -11,6 +11,7 @@ Flux    = require 'libs.flux'
 Cron    = require 'libs.cron'
 Inspect = require 'libs.inspect'
 Camera  = require 'libs.camera'
+Anim8   = require 'libs.anim8'
 
 require 'states'
 require 'entities'
