@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="20">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="21">
  <tileset firstgid="1" name="spritesheet" tilewidth="16" tileheight="16" tilecount="1849" columns="43">
   <image source="../images/spritesheet.png" trans="c83784" width="692" height="692"/>
  </tileset>
@@ -55,10 +55,24 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="16" type="Enemy" x="240" y="128" width="16" height="16">
+  <object id="16" type="Enemy" x="224" y="128" width="16" height="16">
    <properties>
+    <property name="direction" value="-1"/>
+    <property name="jumpAccel" value="8000"/>
+    <property name="jumpInterval" value="3"/>
+    <property name="jumping" value="true"/>
+    <property name="movement" value="false"/>
+    <property name="right" value="50"/>
+   </properties>
+  </object>
+  <object id="20" type="Enemy" x="176" y="128" width="16" height="16">
+   <properties>
+    <property name="direction" value="-1"/>
+    <property name="jumpAccel" value="8000"/>
+    <property name="jumpInterval" value="3"/>
+    <property name="jumping" value="false"/>
     <property name="movement" value="true"/>
-    <property name="right" value="2"/>
+    <property name="right" value="50"/>
    </properties>
   </object>
  </objectgroup>

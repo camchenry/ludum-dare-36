@@ -37,7 +37,7 @@ function game:reset()
         if object.type == "Wrench" then
             self.wrench = add(Wrench:new(object.x, object.y, object.width, object.height))
         elseif object.type == "Enemy" then
-            add(Enemy:new(object.x, object.y, object.direction, object.movement, object.right))
+            add(Enemy:new(object.x, object.y, object.properties.direction, object.properties.movement, object.properties.right, object.properties.jumping, object.properties.jumpInterval, object.properties.jumpAccel))
         end
 
         if object.type == "MovingPlatform" then

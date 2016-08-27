@@ -143,7 +143,7 @@ function Player:update(dt)
 
     self.touchingGround = false
 
-    self.velocity = self.velocity + self.acceleration * dt
+    self.velocity = self.velocity + self.acceleration*dt
     self.velocity.x = math.min(self.velMax, self.velocity.x)
 
 

@@ -8,7 +8,7 @@ return {
   height = 32,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 20,
+  nextobjectid = 21,
   properties = {},
   tilesets = {
     {
@@ -131,15 +131,39 @@ return {
           name = "",
           type = "Enemy",
           shape = "rectangle",
-          x = 240,
+          x = 224,
           y = 128,
           width = 16,
           height = 16,
           rotation = 0,
           visible = true,
           properties = {
+            ["direction"] = "-1",
+            ["jumpAccel"] = "8000",
+            ["jumpInterval"] = "3",
+            ["jumping"] = "true",
+            ["movement"] = "false",
+            ["right"] = "50"
+          }
+        },
+        {
+          id = 20,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 176,
+          y = 128,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "-1",
+            ["jumpAccel"] = "8000",
+            ["jumpInterval"] = "3",
+            ["jumping"] = "false",
             ["movement"] = "true",
-            ["right"] = "2"
+            ["right"] = "50"
           }
         }
       }
