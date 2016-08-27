@@ -1,1 +1,1 @@
-require 'player'
+require 'entities.player'
