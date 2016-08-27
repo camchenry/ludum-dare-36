@@ -2,7 +2,6 @@ local Player = Class("Player")
 
 function Player:initialize(x, y)
     self.width, self.height = 13, 35
-    game.world:add(self, x, y, self.width, self.height)
 
     self.position = Vector(x, y)
     self.velocity = Vector(0, 0)

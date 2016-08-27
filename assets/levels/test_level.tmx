@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="21">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="20">
  <tileset firstgid="1" name="spritesheet" tilewidth="16" tileheight="16" tilecount="1849" columns="43">
-  <image source="../images/spritesheet.png" trans="c83784" width="692" height="692"/>
+  <image source="../../../../../images/spritesheet.png" trans="c83784" width="692" height="692"/>
  </tileset>
  <layer name="Tile Layer 1" width="32" height="32">
   <properties>
@@ -42,13 +42,21 @@
 182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182
 </data>
  </layer>
- <objectgroup name="Object Layer 1" visible="0">
+ <objectgroup name="Object Layer 1">
   <object id="12" type="Wrench" x="176" y="96" width="15.75" height="15.875"/>
-  <object id="13" type="Enemy" x="208" y="128" width="16" height="16"/>
-  <object id="16" type="Enemy" x="256" y="112" width="16" height="16"/>
-  <object id="17" type="Enemy" x="448" y="176" width="16" height="16"/>
-  <object id="18" type="Enemy" x="336" y="240" width="16" height="16"/>
-  <object id="19" type="Enemy" x="336" y="320" width="16" height="16"/>
-  <object id="20" type="Enemy" x="336" y="416" width="16" height="16"/>
+  <object id="15" type="MovingPlatform" x="80" y="112" width="16" height="16">
+   <properties>
+    <property name="bottom" type="int" value="0"/>
+    <property name="dirX" type="int" value="1"/>
+    <property name="dirY" type="int" value="0"/>
+    <property name="left" type="int" value="0"/>
+    <property name="right" type="int" value="5"/>
+    <property name="speed" type="int" value="30"/>
+    <property name="top" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="16" type="Enemy" x="240" y="128" width="16" height="16"/>
+  <object id="18" type="Enemy" x="336" y="112" width="16" height="16"/>
+  <object id="19" type="Enemy" x="336" y="192" width="16" height="16"/>
  </objectgroup>
 </map>

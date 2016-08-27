@@ -1,18 +1,15 @@
-Wrench = Class("Wrench")
+local Wrench = Class("Wrench")
 
 function Wrench:initialize(x, y)
     self.width, self.height = 16, 16
-    game.world:add(self, x, y, self.width, self.height)
-
-    self.x = x
-    self.y = y
+    self.position = Vector(x, y)
 
     self.visible = true
 end
 
 function Wrench:draw()
     if self.visible then
-        love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+        love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
     end
 end
 
