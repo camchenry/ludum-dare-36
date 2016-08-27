@@ -31,9 +31,8 @@ function love.load()
         default = nil,
         monoDefault = nil,
 
-        regular = makeFont 'assets/fonts/OpenSans-Regular.ttf',
-        bold    = makeFont 'assets/fonts/OpenSans-Bold.ttf',
-        light   = makeFont 'assets/fonts/OpenSans-Light.ttf',
+        regular = makeFont 'assets/fonts/DisposableDroidBB.otf',
+        bold    = makeFont 'assets/fonts/DisposableDroidBB_bld.otf',
         mono    = makeFont 'assets/fonts/SourceCodePro-Regular.ttf',
     }
     Fonts.default = Fonts.regular

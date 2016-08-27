@@ -2,11 +2,11 @@ menu = {}
 
 function menu:init()
     self.titleText = "Unfinished game"
-    self.titleFont = Fonts.bold[48]
+    self.titleFont = Fonts.bold[96]
 
     self.startKey = "space"
-    self.startText = "Press " .. self.startKey .. " to start"
-    self.startFont = Fonts.regular[24]
+    self.startText = "< Press " .. self.startKey .. " to start >"
+    self.startFont = Fonts.regular[40]
 end
 
 function menu:enter()
