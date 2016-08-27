@@ -18,11 +18,17 @@ function game:reset()
     self.world = Bump.newWorld()
     self.map:bump_init(self.world)
 
-    self.camera = Camera(0, 0)
+    self.camera = Camera()
+
+    self.player = Player:new(50, 50)
 end
 
 function game:update(dt)
     self.map:update(dt)
+
+    self.player:update(dt)
+    self.camera:lockX(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2)
+    self.camera:lockY(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2)
 end
 
 function game:keypressed(key, code)
@@ -36,12 +42,11 @@ end
 function game:draw()
     self.canvas:renderTo(function()
         love.graphics.clear()  
-        self.camera:attach()
-        self.map:setDrawRange(self.camera.x, self.camera.y, CANVAS_WIDTH, CANVAS_HEIGHT)
-        self.map:draw()
-        love.graphics.setColor(255, 255, 255)
-        love.graphics.circle("fill", 40, 40, 10)
-        self.camera:detach()
+        self.camera:draw(function()
+            self.map:setDrawRange(self.camera.x, self.camera.y, CANVAS_WIDTH, CANVAS_HEIGHT)
+            self.map:draw()
+            self.player:draw()
+        end)
     end)
 
     love.graphics.setColor(255, 255, 255, 255)

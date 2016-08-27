@@ -4,6 +4,9 @@
   <image source="../images/spritesheet.png" trans="c83784" width="692" height="692"/>
  </tileset>
  <layer name="Tile Layer 1" width="32" height="32">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+  </properties>
   <data encoding="csv">
 182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,
 182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,

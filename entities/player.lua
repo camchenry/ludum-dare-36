@@ -10,7 +10,7 @@ function Player:initialize(x, y)
 
     self.gravity = 160
     self.velMax = 20
-    self.moveAccel = 2
+    self.moveAccel = 60
     self.jumpAccel = 20
 end
 
