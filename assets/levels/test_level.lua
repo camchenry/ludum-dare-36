@@ -1,14 +1,14 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "0.16.0",
+  tiledversion = "2016.08.26",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 32,
   height = 32,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 13,
+  nextobjectid = 16,
   properties = {},
   tilesets = {
     {
@@ -86,10 +86,11 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      draworder = "topdown",
       properties = {},
       objects = {
         {
@@ -104,6 +105,27 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 15,
+          name = "",
+          type = "MovingPlatform",
+          shape = "rectangle",
+          x = 80,
+          y = 112,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["bottom"] = 0,
+            ["dirX"] = 1,
+            ["dirY"] = 0,
+            ["left"] = 0,
+            ["right"] = 5,
+            ["speed"] = 30,
+            ["top"] = 0
+          }
         }
       }
     }

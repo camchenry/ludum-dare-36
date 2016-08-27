@@ -15,18 +15,27 @@ function game:reset()
     SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
 
+    self.objects = {}
     self.world = Bump.newWorld()
     self.map:bump_init(self.world)
 
+    local function add(obj)
+        table.insert(self.objects, obj)
+        self.world:add(obj, obj.position.x, obj.position.y, obj.width, obj.height)
+        return obj
+    end
+
     self.camera = Camera()
 
-    self.player = Player:new(100, 100)
-
-    self.wrench = nil
+    self.player = add(Player:new(100, 100))
 
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
-            self.wrench = Wrench:new(object.x, object.y, object.width, object.height)
+            self.wrench = add(Wrench:new(object.x, object.y, object.width, object.height))
+        end
+
+        if object.type == "MovingPlatform" then
+            local platform = add(MovingPlatform:new(object.x, object.y, object.width, object.height, object.properties))
         end
     end
 
@@ -36,7 +45,11 @@ end
 function game:update(dt)
     self.map:update(dt)
 
-    self.player:update(dt)
+    for _, obj in ipairs(self.objects) do
+        if obj.update then
+            obj:update(dt, self.world)
+        end
+    end
     self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2))
     self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2))
 end
@@ -55,8 +68,11 @@ function game:draw()
         self.camera:draw(function()
             self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
-            self.player:draw()
-            self.wrench:draw()
+            for _, obj in ipairs(self.objects) do
+                if obj.draw then
+                    obj:draw()
+                end
+            end
         end)
     end)
 
