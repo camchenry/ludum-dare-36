@@ -1,1 +1,1 @@
-require 'entities.player'
+Player = require "entities.player"
