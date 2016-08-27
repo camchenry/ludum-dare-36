@@ -21,14 +21,23 @@ function game:reset()
     self.camera = Camera()
 
     self.player = Player:new(50, 50)
+
+    self.wrench = nil
+
+    for i, object in pairs(self.map.objects) do
+        if object.type == "Wrench" then
+            self.wrench = object
+            self.world:add(object, object.x, object.y - object.height, object.width, object.height)
+        end
+    end
 end
 
 function game:update(dt)
     self.map:update(dt)
 
     self.player:update(dt)
-    self.camera:lockX(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2)
-    self.camera:lockY(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2)
+    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2))
+    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2))
 end
 
 function game:keypressed(key, code)
@@ -43,7 +52,7 @@ function game:draw()
     self.canvas:renderTo(function()
         love.graphics.clear()  
         self.camera:draw(function()
-            self.map:setDrawRange(self.camera.x, self.camera.y, CANVAS_WIDTH, CANVAS_HEIGHT)
+            self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
             self.player:draw()
         end)

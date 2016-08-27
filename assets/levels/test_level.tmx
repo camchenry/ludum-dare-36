@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="8">
  <tileset firstgid="1" name="spritesheet" tilewidth="16" tileheight="16" tilecount="1849" columns="43">
   <image source="../images/spritesheet.png" trans="c83784" width="692" height="692"/>
  </tileset>
@@ -42,4 +42,7 @@
 182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182,182
 </data>
  </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="3" type="Wrench" gid="972" x="176" y="112" width="16" height="16"/>
+ </objectgroup>
 </map>
