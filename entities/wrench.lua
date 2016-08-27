@@ -1,8 +1,8 @@
 Wrench = Class("Wrench")
 
-function Wrench:initialize(x, y, w, h)
-    self.width, self.height = w, h
-    game.world:add(self, x, y, w, h)
+function Wrench:initialize(x, y)
+    self.width, self.height = 16, 16
+    game.world:add(self, x, y, self.width, self.height)
 
     self.x = x
     self.y = y

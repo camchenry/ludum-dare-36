@@ -24,9 +24,13 @@ function game:reset()
 
     self.wrench = nil
 
+    self.enemies = {}
+
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
-            self.wrench = Wrench:new(object.x, object.y, object.width, object.height)
+            self.wrench = Wrench:new(object.x, object.y)
+        elseif object.type == "Enemy" then
+            table.insert(self.enemies, Enemy:new(object.x, object.y))
         end
     end
 
@@ -42,7 +46,7 @@ function game:update(dt)
 end
 
 function game:keypressed(key, code)
-
+    self.player:keypressed(key)
 end
 
 function game:mousepressed(x, y, mbutton)
@@ -55,8 +59,12 @@ function game:draw()
         self.camera:draw(function()
             self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
+            for k, enemy in pairs(self.enemies) do
+                enemy:draw()
+            end
             self.player:draw()
             self.wrench:draw()
+
         end)
     end)
 
