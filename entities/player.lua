@@ -30,8 +30,16 @@ function Player:update(dt)
     self.velocity = self.velocty + self.acceleration * dt
     local actualX, actualY, cols, len = gameworld:move(self, self.position.x + self.velocty.x*dt, self.position.y + self.velocity.y*dt)
 
-    if #cols > 0 then
-        self.velocity = vector(0, 0)
+    -- stop player from moving if they hit a wall
+    -- horizontal collisions will stop horizontal velocity
+    -- vertical collisions will stop vertical velocity
+    for k, col in pairs(cols) do
+        if col.normal.x == -1 or col.normal.x == 1 then
+            self.velocity.x = 0
+        end
+        if col.normal.y == -1 or col.normal.y == 1 then
+            self.velocity.y = 0
+        end
     end
 
     self.position = vector(actualX, actualY)
