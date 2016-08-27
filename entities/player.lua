@@ -34,6 +34,11 @@ function Player:update(dt)
     -- horizontal collisions will stop horizontal velocity
     -- vertical collisions will stop vertical velocity
     for k, col in pairs(cols) do
+        local other = col.other
+        --if other.class and other:isInstanceOf(Pickup) then
+            --do thing
+        --end
+        
         if col.normal.x == -1 or col.normal.x == 1 then
             self.velocity.x = 0
         end
