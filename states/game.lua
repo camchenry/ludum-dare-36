@@ -20,7 +20,7 @@ function game:reset()
 
     self.camera = Camera()
 
-    self.player = Player:new(50, 50)
+    self.player = Player:new(100, 100)
 
     self.wrench = nil
 

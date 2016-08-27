@@ -1,7 +1,7 @@
 local Player = Class("Player")
 
 function Player:initialize(x, y)
-    self.width, self.height = 16, 16
+    self.width, self.height = 13, 35
     game.world:add(self, x, y, self.width, self.height)
 
     self.position = Vector(x, y)
@@ -21,6 +21,13 @@ function Player:initialize(x, y)
     self.startedJump = false
 
     self.wrenchPower = false
+
+    self.facing = 1
+
+    self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
+    self.jumpImage = love.graphics.newImage("assets/images/Hero/Hero_Jump.png")
+
+    self.imageOffset = Vector(-18, -10)
 end
 
 function Player:keypressed(key)
@@ -71,8 +78,10 @@ function Player:update(dt)
 
     if love.keyboard.isDown("a", "left") then
         self.velocity.x = -self.moveVel
+        self.facing = 1
     elseif love.keyboard.isDown("d", "right") then
         self.velocity.x = self.moveVel
+        self.facing = -1
     else
         self.velocity.x = 0
     end
@@ -120,6 +129,18 @@ end
 
 function Player:draw()
     love.graphics.rectangle('fill', math.floor(self.position.x), math.floor(self.position.y), self.width, self.height)
+    local offset = 0
+    if self.facing == -1 then
+        offset = 13
+    end
+
+    local image = self.idleImage
+
+    if self.jumpTimer > 0 then
+        image = self.jumpImage
+    end
+
+    love.graphics.draw(image, math.floor(self.position.x + self.imageOffset.x*self.facing + offset), math.floor(self.position.y + self.imageOffset.y), 0, self.facing, 1)
 end
 
 return Player
