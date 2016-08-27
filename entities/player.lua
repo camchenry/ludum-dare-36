@@ -20,6 +20,7 @@ function Player:initialize(x, y)
     self.startedJump = false
 
     self.touchingGround = false
+    self.onPlatform = false
 
     self.wrenchPower = false
 
@@ -79,6 +80,12 @@ function Player:update(dt)
                 -- note that this calculation is fighting against gravity, so it will offer diminishing returns in a way
                 self.acceleration.y = self.acceleration.y - self.jumpAccel
             end
+
+            -- we jumped, we are no longer on a platform
+            if self.onPlatform then
+                self.onPlatform = false
+                self.attachedPlatform = nil
+            end
         end
 
         self.startedJump = true
@@ -105,19 +112,30 @@ function Player:update(dt)
         end
         self.velocity.x = -self.moveVel
         self.facing = 1
+        self.onPlatform = false
     elseif isRight then
         if self.velocity.x == 0 then
             self.runAnimation:gotoFrame(1)
         end
         self.velocity.x = self.moveVel
         self.facing = -1
+        self.onPlatform = false
+    end
+
+    if self.onPlatform then
+        self.velocity.x = self.attachedPlatform.velocity.x
     end
 
     self.touchingGround = false
 
     self.velocity = self.velocity + self.acceleration * dt
     self.velocity.x = math.min(self.velMax, self.velocity.x)
-    local actualX, actualY, cols, len = game.world:move(self, self.position.x + self.velocity.x*dt, self.position.y + self.velocity.y*dt, function(item, other)
+
+
+    self.position = self.position + self.velocity * dt 
+
+
+    local actualX, actualY, cols, len = game.world:move(self, self.position.x, self.position.y, function(item, other)
         if other.class and other:isInstanceOf(Wrench) then
             return "cross"
         end
@@ -145,6 +163,16 @@ function Player:update(dt)
             -- return to last checkpoint
             -- revive any enemies that have died since the last checkpoint
             -- return any moving platforms and levers to their state before the last checkpoint
+        elseif other.class and other:isInstanceOf(MovingPlatform) then
+            if col.normal.y == -1 then
+                self.onPlatform = true
+                self.attachedPlatform = other
+                self.jumpTimer = 0
+                self.jumpState = false
+                self.canJump = true
+                self.touchingGround = true
+                self.velocity.y = 0
+            end
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
@@ -191,7 +219,7 @@ function Player:draw()
 
     if self.attackTimer > 0 then
         self.attackAnimation:draw(self.attackImage, x + self.attackImageOffset.x, y + self.attackImageOffset.y, 0, self.facing, 1)
-    elseif self.velocity.x == 0 or not self.touchingGround then
+    elseif self.velocity.x == 0 or not self.touchingGround or self.onPlatform then
         love.graphics.draw(image, x, y, 0, self.facing, 1)
     else
         self.runAnimation:draw(self.runImage, x + self.runImageOffset.x, y + self.runImageOffset.y, 0, self.facing, 1)
