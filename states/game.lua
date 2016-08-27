@@ -12,7 +12,7 @@ end
 function game:reset()
     love.graphics.setBackgroundColor(99, 155, 133)
 
-    self.map = sti("assets/levels/test_level.lua", {"bump"}) 
+    self.map = sti("assets/levels/main_level.lua", {"bump"}) 
     self.canvas = love.graphics.newCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
@@ -29,19 +29,25 @@ function game:reset()
 
     self.camera = Camera()
 
-    self.player = add(Player:new(100, 100))
+    self.player = add(Player:new(100, 550))
 
     self.enemies = {}
 
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
             self.wrench = add(Wrench:new(object.x, object.y, object.width, object.height))
-        elseif object.type == "Enemy" then
-            add(Enemy:new(object.x, object.y, object.properties.direction, object.properties.movement, object.properties.right, object.properties.jumping, object.properties.jumpInterval, object.properties.jumpAccel))
+        end
+
+        if object.type == "Enemy" then
+            add(Enemy:new(object.x, object.y, object.properties))
         end
 
         if object.type == "MovingPlatform" then
             local platform = add(MovingPlatform:new(object.x, object.y, object.width, object.height, object.properties))
+        end
+        
+        if object.type == "Console" then
+            self.console = Console:new(object.x, object.y)
         end
     end
 
@@ -50,6 +56,7 @@ end
 
 function game:update(dt)
     self.map:update(dt)
+    self.console:update(dt)
 
     for _, obj in ipairs(self.objects) do
         if obj.update then
@@ -74,6 +81,7 @@ function game:draw()
         self.camera:draw(function()
             self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
+            self.console:draw()
 
             for _, obj in ipairs(self.objects) do
                 if obj.draw then

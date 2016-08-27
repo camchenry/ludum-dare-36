@@ -1,21 +1,23 @@
 Enemy = Class("Enemy")
 
-function Enemy:initialize(x, y, direction, movement, right, jumping, jumpInterval, jumpAccel)
+function Enemy:initialize(x, y, properties)
     self.width, self.height = 32, 16
     self.startPosition = Vector(x, y)
     self.position = Vector(x, y)
 
-    self.direction    = tonumber(direction) or 1
-    self.right        = tonumber(right) or 0
-    self.jumpInterval = tonumber(jumpInterval) or 0
-    self.jumpAccel    = tonumber(jumpAccel) or 0
+    self.direction    = tonumber(properties.direction) or 1
+    self.right        = tonumber(properties.right) or 0
+    self.jumpInterval = tonumber(properties.jumpInterval) or 0
+    self.jumpAccel    = tonumber(properties.jumpAccel) or 0
 
-    if movement and movement == "true" then
+    self.startDirection = self.direction
+
+    if properties.movement and properties.movement == "true" then
         self.movement = true
     else
         self.movement = false
     end
-    if jumping and jumping == "true" then
+    if properties.jumping and properties.jumping == "true" then
         self.jumping = true
     else
         self.jumping = false
@@ -30,7 +32,16 @@ function Enemy:initialize(x, y, direction, movement, right, jumping, jumpInterva
     self.jumpTimer = self.jumpInterval
 
     self.image = love.graphics.newImage("assets/images/Enemy/Bug.png")
-    self.imageOffset = Vector(-self.image:getWidth()/2 + 16, -self.image:getHeight()/2 - 16)
+    self.imageOffset = Vector(16, -self.image:getHeight()/2 - 16)
+end
+
+function Enemy:reset()
+    self.position = Vector(self.startPosition.x, self.startPosition.y)
+    self.direction = self.startDirection
+    self.visible = true
+    self.acceleration = Vector(0, 0)
+    self.velocity = Vector(0, 0)
+    self.jumpTimer = self.jumpInterval
 end
 
 function Enemy:update(dt, world)
@@ -71,9 +82,12 @@ function Enemy:update(dt, world)
 
     local actualX, actualY, cols, len = game.world:move(self, self.position.x, self.position.y, function(item, other)
         if other.class and other:isInstanceOf(Player) then
-            return "cross"
+            return nil
         end
         if other.class and other:isInstanceOf(Enemy) then
+            return nil
+        end
+        if other.class and other:isInstanceOf(Console) then
             return nil
         end
         return "slide"
@@ -97,12 +111,12 @@ function Enemy:draw()
     love.graphics.setColor(255, 255, 255)
 
     if self.visible then
-        love.graphics.draw(self.image, self.position.x + self.imageOffset.x, self.position.y + self.imageOffset.y)
+        love.graphics.draw(self.image, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y), 0, self.direction, 1, self.image:getWidth()/2, 0)
     end
 
     if DEBUG then
         love.graphics.setColor(255, 0, 0)
-        love.graphics.rectangle('line', self.position.x + 0.5, self.position.y + 0.5, self.width - 0.5, self.height - 0.5)
+        love.graphics.rectangle('line', math.floor(self.position.x + 0.5), math.floor(self.position.y + 0.5), self.width - 0.5, self.height - 0.5)
     end
 
     love.graphics.setColor(255, 255, 255)

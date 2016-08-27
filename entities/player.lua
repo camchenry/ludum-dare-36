@@ -7,13 +7,13 @@ function Player:initialize(x, y)
     self.velocity = Vector(0, 0)
     self.acceleration = Vector(0, 0)
 
-    self.gravity = 160
+    self.gravity = 300
     self.velMax = 70
     self.moveVel = 60
-    self.jumpAccel = 100
-    self.jumpBurst = 8000
+    self.jumpAccel = 200
+    self.jumpBurst = 9000
 
-    self.jumpTime = 0.5
+    self.jumpTime = 0.3
     self.jumpTimer = 0
     self.jumpState = false
     self.canJump = true
