@@ -44,14 +44,15 @@ function MovingPlatform:update(dt, world)
         end
     end
 
-    local goalX = self.position.x + self.speed * dt * self.dirX
-    local goalY = self.position.y + self.speed * dt * self.dirY
+    self.velocity = Vector(self.speed * self.dirX, self.speed * self.dirY)
+
+    self.position = self.position + self.velocity * dt
 
     -- do a check of what the platform would hit. move the player first if it would hit a player
-    local actualX, actualY, collisions, len = world:check(self, goalX, goalY)
+    -- local actualX, actualY, collisions, len = world:check(self, self.position.x, self.position.y)
 
     -- now move the platform
-    local actualX, actualY, collisions = world:move(self, goalX, goalY, function(item, other)
+    local actualX, actualY, collisions = world:move(self, self.position.x, self.position.y, function(item, other)
         if other.isInstanceOf and other:isInstanceOf(Player) then
             return "slide"
         end
