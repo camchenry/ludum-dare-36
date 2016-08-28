@@ -8,6 +8,8 @@ Dropfloor       = require "entities.dropfloor"
 Lever           = require "entities.lever"
 Gate            = require "entities.gate"
 Crusher         = require "entities.crusher"
+Bot             = require "entities.bot"
+Spikes          = require "entities.spikes"
 
 SoundManager    = require "entities.sound.soundmanager"
 

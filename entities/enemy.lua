@@ -49,9 +49,9 @@ function Enemy:initialize(x, y, properties)
     end)
 end
 
-function Enemy:reset()
+function Enemy:reset(world)
     self.position = Vector(self.startPosition.x, self.startPosition.y)
-    game.world:update(self, self.position.x, self.position.y)
+    world:update(self, self.position.x, self.position.y)
     self.direction = self.startDirection
     self.visible = true
     self.dead = false
