@@ -10,11 +10,11 @@ function Player:initialize(x, y)
 
     self.prevX = x
 
-    self.gravity = 300
-    self.velMax = 70
-    self.moveVel = 60
-    self.jumpAccel = 250
-    self.jumpBurst = 10000
+    self.gravity = 600
+    self.velMax = 75
+    self.moveVel = 65
+    self.jumpAccel = 300
+    self.jumpBurst = 13500
 
     self.jumpTime = 0.3
     self.jumpTimer = 0
