@@ -897,6 +897,7 @@ return {
           visible = true,
           properties = {
             ["ID"] = "6",
+            ["canClose"] = "false",
             ["dir"] = "up"
           }
         },

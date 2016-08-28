@@ -321,6 +321,7 @@
   <object id="51" type="Gate" x="640" y="1040" width="16" height="48">
    <properties>
     <property name="ID" value="6"/>
+    <property name="canClose" value="false"/>
     <property name="dir" value="up"/>
    </properties>
   </object>

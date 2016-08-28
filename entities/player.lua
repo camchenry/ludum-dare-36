@@ -33,6 +33,8 @@ function Player:initialize(x, y)
 
     self.attackTimer = 0
     self.attackTime = 1
+    self.actionTimer = 0
+    self.actionTime = 2.2
 
     self.crusherTouchTimer = 0
     self.crusherTouchTime = 0.2
@@ -84,7 +86,7 @@ end
 function Player:doAction()
     -- check if the player is colliding with a lever
 
-    if self.wrenchPower and self.touchingGround and self.attackTimer == 0 then
+    if self.wrenchPower and self.touchingGround and self.attackTimer == 0 and self.actionTimer == 0 then
         self.attackTimer = self.attackTime
         self.attackAnimation:gotoFrame(1)
 
@@ -101,6 +103,7 @@ function Player:doAction()
                 end
                 if item.class and item:isInstanceOf(Lever) then
                     item:hit()
+                    self.actionTimer = self.actionTime
                 end
             end
         end)
@@ -119,7 +122,7 @@ function Player:update(dt, world)
         end
     end
 
-    if (isUp and not isDown) and self.attackTimer == 0 then
+    if (isUp and not isDown) and self.attackTimer == 0 and self.actionTimer == 0 then
         if not self.jumpState then
             self.jumpTimer = math.min(self.jumpTime, self.jumpTimer + dt)
         else
@@ -160,7 +163,7 @@ function Player:update(dt, world)
         self.jumpState = false
     end
 
-    if isLeft == isRight or self.attackTimer > 0 then
+    if isLeft == isRight or self.attackTimer > 0 or self.actionTimer > 0 then
         self.velocity.x = 0
     elseif isLeft then
         if self.velocity.x == 0 then
@@ -420,6 +423,7 @@ function Player:update(dt, world)
     --world:update(self, self.position.x, self.position.y)
 
     self.attackTimer = math.max(0, self.attackTimer - dt)
+    self.actionTimer = math.max(0, self.actionTimer - dt)
     self.crusherTouchTimer = math.max(0, self.crusherTouchTimer - dt)
     self.lastJumpTimer = math.max(0, self.lastJumpTimer - dt)
 
