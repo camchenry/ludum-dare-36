@@ -39,4 +39,18 @@ function love.conf(t)
     t.modules.video = true              -- Enable the video module (boolean)
     t.modules.window = true             -- Enable the window module (boolean)
     t.modules.thread = true             -- Enable the thread module (boolean)
+
+    t.releases = {
+        title = "LudumDare36",
+        version = "1.0.0",
+        package = "ludum-dare-36",
+        identifier = "com.camchenry.ludum-dare-36",
+        loveVersion = "0.10.1",
+
+        author = "Ikroth, Ikroth2",
+        email = "cameronamchenry@gmail.com",
+        description = "A game made for Ludum Dare 36",
+        homepage = "camchenry.com",
+        releaseDirectory = "releases",
+    }
 end
