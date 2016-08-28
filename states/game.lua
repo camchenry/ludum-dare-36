@@ -60,6 +60,10 @@ function game:reset()
         if object.type == "Checkpoint" then
             add(Checkpoint:new(object.x, object.y, object.width, object.height))
         end
+
+        if object.type == "Dropfloor" then
+            add(Dropfloor:new(object.x, object.y, object.width, object.height))
+        end
     end
 
     love.graphics.setLineStyle("rough")

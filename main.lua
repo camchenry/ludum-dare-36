@@ -64,12 +64,12 @@ function love.draw()
         local stats = love.graphics.getStats()
         local info = {
             "FPS: " .. love.timer.getFPS(),
-            "RAM: " .. lume.round(collectgarbage("count")/1024, .1) .. "MB",
+            "RAM: " .. Lume.round(collectgarbage("count")/1024, .1) .. "MB",
         }
         if DETAILED_DEBUG then
-            lume.push(info,
-                "DRW: " .. stats.drawcalls,
-                "TEX: " .. lume.round(stats.texturememory / 1024 / 1024, .01) .. "MB",
+            Lume.push(info,
+                "DRW: "  .. stats.drawcalls,
+                "TEX: "  .. Lume.round(stats.texturememory / 1024 / 1024, .01) .. "MB",
                 "IMG#: " .. stats.images,
                 "FNT#: " .. stats.fonts,
                 "CVS#: " .. stats.canvases

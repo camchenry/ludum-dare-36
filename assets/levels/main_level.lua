@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 15,
+  nextobjectid = 19,
   properties = {},
   tilesets = {
     {
@@ -235,7 +235,7 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -266,7 +266,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["movement"] = "true",
+            ["movement"] = "false",
             ["right"] = "200"
           }
         },
@@ -295,22 +295,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
-        },
-        {
-          id = 6,
-          name = "",
-          type = "Enemy",
-          shape = "rectangle",
-          x = 608,
-          y = 608,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["movement"] = "true",
-            ["right"] = "50"
-          }
         },
         {
           id = 7,
@@ -399,6 +383,45 @@ return {
           y = 192,
           width = 16,
           height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 15,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 608,
+          y = 560,
+          width = 64,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 17,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 1088,
+          y = 448,
+          width = 32,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 18,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 1280,
+          y = 272,
+          width = 32,
+          height = 16,
           rotation = 0,
           visible = true,
           properties = {}

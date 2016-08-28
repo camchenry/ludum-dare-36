@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="15">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="19">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -137,22 +137,16 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1" visible="0">
+ <objectgroup name="Object Layer 1">
   <object id="1" type="Console" x="160" y="496" width="208" height="128"/>
   <object id="3" type="Enemy" x="128" y="608" width="16" height="16">
    <properties>
-    <property name="movement" value="true"/>
+    <property name="movement" value="false"/>
     <property name="right" value="200"/>
    </properties>
   </object>
   <object id="4" type="Checkpoint" x="16" y="528" width="16" height="96"/>
   <object id="5" type="Checkpoint" x="496" y="576" width="16" height="53"/>
-  <object id="6" type="Enemy" x="608" y="608" width="16" height="16">
-   <properties>
-    <property name="movement" value="true"/>
-    <property name="right" value="50"/>
-   </properties>
-  </object>
   <object id="7" type="Checkpoint" x="832" y="576" width="16" height="48"/>
   <object id="8" type="Checkpoint" x="1056" y="400" width="16" height="48"/>
   <object id="9" type="Checkpoint" x="1248" y="256" width="80" height="16"/>
@@ -160,5 +154,8 @@
   <object id="11" type="Checkpoint" x="704" y="176" width="14.5" height="48"/>
   <object id="12" type="Checkpoint" x="464" y="176" width="14.5" height="48"/>
   <object id="13" type="Wrench" x="592" y="192" width="16" height="32"/>
+  <object id="15" type="Dropfloor" x="608" y="560" width="64" height="16"/>
+  <object id="17" type="Dropfloor" x="1088" y="448" width="32" height="16"/>
+  <object id="18" type="Dropfloor" x="1280" y="272" width="32" height="16"/>
  </objectgroup>
 </map>

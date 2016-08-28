@@ -87,7 +87,10 @@ end
 function Player:update(dt)
     self.acceleration = Vector(0, self.gravity)
 
-    if love.keyboard.isDown("w", "up", "space") and self.attackTimer == 0 then
+    local isLeft, isRight = love.keyboard.isDown("a", "left"), love.keyboard.isDown("d", "right")
+    local isUp, isDown    = love.keyboard.isDown("w", "up", "space"), love.keyboard.isDown("s", "down")
+
+    if (isUp and not isDown) and self.attackTimer == 0 then
         if not self.jumpState then
             self.jumpTimer = math.min(self.jumpTime, self.jumpTimer + dt)
         else
@@ -100,7 +103,7 @@ function Player:update(dt)
             -- even a small jump will give a large jump, but it can still be held for a bigger jump
             if not self.startedJump then
                 self.acceleration.y = -self.jumpBurst
-                signal.emit("startJump")
+                Signal.emit("startJump")
             else
                 -- note that this calculation is fighting against gravity, so it will offer diminishing returns in a way
                 self.acceleration.y = self.acceleration.y - self.jumpAccel
@@ -127,14 +130,12 @@ function Player:update(dt)
         self.jumpState = false
     end
 
-    local isLeft, isRight = love.keyboard.isDown("a", "left"), love.keyboard.isDown("d", "right")
-
     if isLeft == isRight or self.attackTimer > 0 then
         self.velocity.x = 0
     elseif isLeft then
         if self.velocity.x == 0 then
             self.runAnimation:gotoFrame(1)
-            signal.emit("beginRun")
+            Signal.emit("beginRun")
         end
         self.velocity.x = -self.moveVel
         self.facing = 1
@@ -142,7 +143,7 @@ function Player:update(dt)
     elseif isRight then
         if self.velocity.x == 0 then
             self.runAnimation:gotoFrame(1)
-            signal.emit("beginRun")
+            Signal.emit("beginRun")
         end
         self.velocity.x = self.moveVel
         self.facing = -1
@@ -159,10 +160,10 @@ function Player:update(dt)
     self.velocity.x = math.min(self.velMax, self.velocity.x)
 
 
-    self.position = self.position + self.velocity * dt 
+    local newPos = self.position + self.velocity * dt 
 
 
-    local actualX, actualY, cols, len = game.world:move(self, self.position.x, self.position.y, function(item, other)
+    local actualX, actualY, cols, len = game.world:move(self, newPos.x, newPos.y, function(item, other)
         if other.class and other:isInstanceOf(Wrench) then
             return "cross"
         end
@@ -171,6 +172,17 @@ function Player:update(dt)
         end
         if other.class and other:isInstanceOf(Checkpoint) then
             return "cross"
+        end
+
+        local offset = 0
+        if item.velocity.y > 0 then
+            offset = -5
+        elseif item.velocity.y < 0 then
+            offset = 5
+        end
+
+        if other.class and other:isInstanceOf(Dropfloor) and ((isUp and isDown) or (item.position.y + item.height + offset > other.position.y) or (item.velocity.y > 0 and item.position.y + item.height > other.position.y)) then
+            return false
         end
         return "slide"
     end)
@@ -190,7 +202,7 @@ function Player:update(dt)
             if not self.wrenchPower then
                 self.wrenchPower = true
                 other.visible = false
-                signal.emit("getWrench")
+                Signal.emit("getWrench")
             end
         elseif other.class and other:isInstanceOf(Enemy) then
             if other.visible then
@@ -199,7 +211,7 @@ function Player:update(dt)
                 -- return any moving platforms and levers to their state before the last checkpoint
                 game:resetToCheckpoint()
                 changePos = false
-                signal.emit("playerDeath")
+                Signal.emit("playerDeath")
             end
         elseif other.class and other:isInstanceOf(Checkpoint) then
             self.resetPosition = Vector(other.position.x, other.position.y)
@@ -216,11 +228,11 @@ function Player:update(dt)
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
-                signal.emit("hitWall")
+                Signal.emit("hitWall")
             end
             if col.normal.y == -1 or col.normal.y == 1 then
                 self.velocity.y = 0
-                signal.emit("hitCeiling")
+                Signal.emit("hitCeiling")
             end
             if col.normal.y == -1 then
                 -- allow the player to jump again once they hit the ground
@@ -228,7 +240,7 @@ function Player:update(dt)
                 self.jumpState = false
                 self.canJump = true
                 self.touchingGround = true
-                signal.emit("hitGround")
+                Signal.emit("hitGround")
             end
         end
     end
