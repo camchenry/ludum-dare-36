@@ -24,6 +24,7 @@ function SoundManager:initialize(directory)
 	end
 
     self.sounds.startJump:setVolume(0.8)
+    self.sounds.bugDeath:setVolume(0.9)
 
     local signals = {
         'hitCeiling',
@@ -31,6 +32,7 @@ function SoundManager:initialize(directory)
         'hitGround',
         'startJump',
         'playerDeath',
+        'enemyDeath',
         'getWrench',
         'activate',
     }
@@ -104,6 +106,10 @@ function SoundManager:onPlayerDeath()
     self.sounds.deathScream:play()
 
     self:playDelayed(0.175, self.sounds.respawn)
+end
+
+function SoundManager:onEnemyDeath()
+    self.sounds.bugDeath:play()
 end
 
 function SoundManager:onGetWrench()

@@ -148,6 +148,8 @@ function Enemy:hit()
     self.fallOffset = 0
     self.dead = true
 
+    Signal.emit("enemyDeath")
+
     Flux.to(self.color, self.hitColorTime, {255, 0, 0})
         :after(self.hitColorTime, {255, 255, 255})
             :after(self, self.fallTime, {fallOffset = self.fallAmount})
