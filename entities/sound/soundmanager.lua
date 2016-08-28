@@ -81,16 +81,13 @@ function SoundManager:update(dt)
 end
 
 function SoundManager:onHitCeiling()
-    if self.timers.hitCeiling == 0 then
-        self.sounds.hitCeiling:play()
-        self.timers.hitCeiling = 1
-    end
+    self.sounds.hitCeiling:play()
 end
 
 function SoundManager:onHitWall()
     if self.timers.hitWall == 0 then
         self.sounds.hitWall:play()
-        self.timers.hitWall = 1
+        self.timers.hitWall = 0.5
     end
 end
 
