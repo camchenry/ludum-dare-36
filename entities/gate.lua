@@ -12,6 +12,12 @@ function Gate:initialize(x, y, w, h, properties)
     self.ID = tonumber(properties.ID) or 0
     self.ID2 = tonumber(properties.ID2) or 0
 
+    if properties.canClose and properties.canClose == "false" then
+        self.canClose = false
+    else
+        self.canClose = true
+    end
+
     self.activateTime = 2
     self.activating = false
 
@@ -48,12 +54,12 @@ end
 
 function Gate:activateUp()
     if self.activeOn then
-        -- it is time to close
+        -- it is time to open
         Flux.to(self, self.activateTime, {height = 1}):oncomplete(function()
             self.activating = false
         end)
-    else
-        -- it is time to open
+    elseif self.canClose then
+        -- it is time to close
         Flux.to(self, self.activateTime, {height = self.startHeight}):oncomplete(function()
             self.activating = false
         end)
@@ -62,12 +68,12 @@ end
 
 function Gate:activateLeft()
     if self.activeOn then
-        -- it is time to close
+        -- it is time to open
         Flux.to(self, self.activateTime, {width = 1}):oncomplete(function()
             self.activating = false
         end)
-    else
-        -- it is time to open
+    elseif self.canClose then
+        -- it is time to close
         Flux.to(self, self.activateTime, {width = self.startWidth}):oncomplete(function()
             self.activating = false
         end)
