@@ -1,7 +1,7 @@
 local Player = Class("Player")
 
 function Player:initialize(x, y)
-    self.width, self.height = 13, 32
+    self.width, self.height = 13, 31
 
     self.position = Vector(x, y)
     self.resetPosition = Vector(x, y)
@@ -51,7 +51,7 @@ function Player:initialize(x, y)
     self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
     self.jumpImage = love.graphics.newImage("assets/images/Hero/Hero_Jump.png")
 
-    self.imageOffset = Vector(-18, -13)
+    self.imageOffset = Vector(-18, -14)
     self.runImageOffset = Vector(0, -3)
     self.attackImageOffset = Vector(0, 0)
 
@@ -230,7 +230,7 @@ function Player:update(dt, world)
 
     local crushed = {}
 
-    local actualX, actualY, cols, len = game.world:move(self, newPos.x, newPos.y, function(item, other)
+    local actualX, actualY, cols, len = game.world:check(self, newPos.x, newPos.y, function(item, other)
         if other.class and other:isInstanceOf(Wrench) then
             return "cross"
         end
