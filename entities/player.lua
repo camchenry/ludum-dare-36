@@ -354,6 +354,8 @@ function Player:update(dt, world)
     if changePos then
         if math.abs(actualY - self.position.y) < self.height then
             self.position = Vector(actualX, actualY)
+        else
+            self.position = Vector(actualX, self.position.y)
         end
 
         world:update(self, self.position.x, self.position.y)
@@ -371,9 +373,47 @@ function Player:update(dt, world)
 end
 
 function Player:tryMove(dx, dy, world, limit)
-    local actualX, actualY, collisions = world:move(self, self.position.x + dx, self.position.y + dy)
+    local actualX, actualY, collisions = world:move(self, self.position.x + dx, self.position.y + dy, function(item, other)
+        if other.class and other:isInstanceOf(Wrench) then
+            return "cross"
+        end
+        if other.class and other:isInstanceOf(Enemy) then
+            return "cross"
+        end
+        if other.class and other:isInstanceOf(Checkpoint) then
+            return "cross"
+        end
+        if other.class and other:isInstanceOf(Lever) then
+            return false
+        end
+        if other.class and other:isInstanceOf(Crusher) then
+            return "slide"
+        end
+
+        if other.class and other:isInstanceOf(Gate) then
+            if other.width == 0 or other.height == 0 then
+                return "touch"
+            else
+                return "touch"
+            end
+        end
+
+        local offset = 0
+        if item.velocity.y > 0 then
+            offset = -5
+        elseif item.velocity.y < 0 then
+            offset = 5
+        end
+
+        if other.class and other:isInstanceOf(Dropfloor) and ((isUp and isDown) or (item.position.y + item.height + offset > other.position.y) or (item.velocity.y > 0 and item.position.y + item.height > other.position.y)) then
+            return false
+        end
+        return "slide"
+    end)
     if math.abs(actualY - self.position.y) < self.height then
         self.position.x, self.position.y = actualX, actualY
+    else
+        self.position.x = actualX
     end
 
     world:update(self, self.position.x, self.position.y)

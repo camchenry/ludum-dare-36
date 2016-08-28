@@ -38,14 +38,7 @@ function Crusher:update(dt, world)
 
             return "slide"
         end)
-
-        for k, col in pairs(cols) do
-            local other = col.other
-            if other.class and other:isInstanceOf(Player) then -- if the platform would move into a player 
-                other:tryMove(0, (goal-other.position.y)*dt, world) -- not sure why multiplying dt works here
-            end
-        end
-
+        
         -- now move the platform
         local actualX, actualY, collisions = world:move(self, self.position.x, self.position.y + moveAmount, function(item, other)
             if other.class and other:isInstanceOf(Player) then
