@@ -4,6 +4,7 @@ function Enemy:initialize(x, y, properties)
     self.width, self.height = 32, 16
     self.startPosition = Vector(x, y)
     self.position = Vector(x, y)
+    self.color = {255, 255, 255, 255}
 
     self.direction    = tonumber(properties.direction) or 1
     self.right        = tonumber(properties.right) or 0
@@ -24,12 +25,18 @@ function Enemy:initialize(x, y, properties)
     end
 
     self.visible = true
+    self.dead = false
+
+    self.hitColorTime = 0.1
+    self.fallAmount = 500
+    self.fallTime = 2
 
     self.speed = 25
     self.gravity = 160
     self.acceleration = Vector(0, 0)
     self.velocity = Vector(0, 0)
     self.jumpTimer = self.jumpInterval
+    self.fallOffset = 0
 
     self.image = love.graphics.newImage("assets/images/Enemy/Bug.png")
     self.imageOffset = Vector(16, -self.image:getHeight()/2 - 16)
@@ -40,6 +47,8 @@ function Enemy:reset()
     game.world:update(self, self.position.x, self.position.y)
     self.direction = self.startDirection
     self.visible = true
+    self.dead = false
+    self.fallOffset = 0
     self.acceleration = Vector(0, 0)
     self.velocity = Vector(0, 0)
     self.jumpTimer = self.jumpInterval
@@ -50,7 +59,7 @@ function Enemy:update(dt, world)
 
     local newPos = Vector(self.position.x, self.position.y)
 
-    if self.movement then
+    if self.movement and not self.dead then
         if self.direction == -1 then
             local distance = self.startPosition.x + self.right - self.position.x
             if distance > 0 then
@@ -68,7 +77,7 @@ function Enemy:update(dt, world)
         end
     end
 
-    if self.jumping then
+    if self.jumping and not self.dead then
         if self.jumpTimer <= 0 then
             self.jumpTimer = self.jumpInterval
             self.acceleration.y = -self.jumpAccel
@@ -114,7 +123,8 @@ function Enemy:draw()
     love.graphics.setColor(255, 255, 255)
 
     if self.visible then
-        love.graphics.draw(self.image, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y), 0, self.direction, 1, self.image:getWidth()/2, 0)
+        love.graphics.setColor(self.color)
+        love.graphics.draw(self.image, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, self.image:getWidth()/2, 0)
     end
 
     if DEBUG then
@@ -128,7 +138,15 @@ end
 function Enemy:hit()
     -- keep the enemy loaded, just make them invisible
     -- they will need to be restored if you return to a checkpoint
-    self.visible = false
+    self.fallOffset = 0
+    self.dead = true
+
+    Flux.to(self.color, self.hitColorTime, {255, 0, 0})
+        :after(self.hitColorTime, {255, 255, 255})
+            :after(self, self.fallTime, {fallOffset = self.fallAmount})
+                :oncomplete(function()
+                    self.visible = false
+                end)
 end
 
 return Enemy

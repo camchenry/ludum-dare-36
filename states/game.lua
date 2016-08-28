@@ -38,8 +38,8 @@ function game:reset()
 
     self.camera = Camera()
 
-    --self.player = add(Player:new(20, 560))
-    self.player = add(Player:new(620, 188))
+    self.player = add(Player:new(20, 560))
+    --self.player = add(Player:new(1200, 180))
 
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
