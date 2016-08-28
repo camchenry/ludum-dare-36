@@ -1,14 +1,14 @@
 local Crusher = Class("Crusher")
 
 function Crusher:initialize(x, y, w, h, properties)
-    self.position = Vector(x-1, y-1)
-    self.width = w+1
-    self.height = h+1
+    self.position = Vector(x, y)
+    self.width = w
+    self.height = h
 
-    self.prevHeight = h+1
+    self.prevHeight = h
 
-    self.startPosition = Vector(x-1, y-1)
-    self.startHeight = h+1
+    self.startPosition = Vector(x, y)
+    self.startHeight = h
 
     self.direction = properties.dir or "up"
     self.ID = tonumber(properties.ID) or 0
