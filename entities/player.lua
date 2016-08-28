@@ -163,6 +163,8 @@ function Player:update(dt, world)
         self.jumpState = false
     end
 
+    self.canMove = (not isLeft == isRight) and self.attackTimer == 0 and self.actionTimer == 0
+
     if isLeft == isRight or self.attackTimer > 0 or self.actionTimer > 0 then
         self.velocity.x = 0
     elseif isLeft then
@@ -429,7 +431,17 @@ function Player:update(dt, world)
     self.lastJumpTimer = math.max(0, self.lastJumpTimer - dt)
 
     self.attackAnimation:update(dt)
-    self.runAnimation:update(dt)
+    -- Don't update the run animation if we aren't actually able to run
+    if self.canMove and self.jumpTimer == 0 then
+        self.runAnimation:update(dt)
+    else
+        self.runAnimation:gotoFrame(1)
+    end
+
+    -- Only emit footstep signal if we are running and in the right frame
+    if self.canMove and (self.runAnimation.position == 2 or self.runAnimation.position == 6) then
+        Signal.emit("playerFootstep")
+    end
 end
 
 function Player:tryMove(dx, dy, world, limit)

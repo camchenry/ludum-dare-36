@@ -35,6 +35,7 @@ function SoundManager:initialize(directory)
         'enemyDeath',
         'getWrench',
         'activate',
+        'playerFootstep',
     }
 
     local function firstToUpper(str)
@@ -53,6 +54,8 @@ function SoundManager:initialize(directory)
     end
 
     self.delays = {}
+
+    self.lastFootstep = 1
 end
 
 function SoundManager:playDelayed(delay, sound)
@@ -118,6 +121,18 @@ end
 
 function SoundManager:onActivate()
     self.sounds.leverActivate:play()
+end
+
+function SoundManager:onPlayerFootstep()
+    if self.lastFootstep == 1 then
+        self.lastFootstep = 2
+    else
+        self.lastFootstep = 1
+    end
+    local s = self.sounds["footstep" .. self.lastFootstep]
+    s:setVolume(0.15)
+    s:setPitch(love.math.random(95, 105)/100)
+    s:play()
 end
 
 return SoundManager
