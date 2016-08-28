@@ -5,6 +5,7 @@ function Gate:initialize(x, y, w, h, properties)
     self.width = w
     self.height = h
 
+    self.startX = x
     self.startWidth = w
     self.startHeight = h
 
@@ -27,6 +28,8 @@ function Gate:initialize(x, y, w, h, properties)
             self.height = 1
         elseif self.direction == "left" then
             self.width = 1
+        elseif self.direction == "right" then
+            self.width = 1
         end
     else
         self.activeOn = true
@@ -45,6 +48,8 @@ function Gate:activate()
     if self.direction == "up" then
         self:activateUp()
     elseif self.direction == "left" then
+        self:activateLeft()
+    elseif self.direction == "right" then
         self:activateLeft()
     end
 
@@ -81,7 +86,13 @@ function Gate:activateLeft()
 end
 
 function Gate:update(dt, world)
-    world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
+    if self.direction == "right" then
+        local goal = self.startX + self.startWidth - self.width
+        world:update(self, goal, self.position.y, math.max(1, self.width), math.max(1, self.height))
+        self.position.x = goal
+    else
+        world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
+    end
 end
 
 function Gate:draw()
