@@ -4,14 +4,15 @@ function Player:initialize(x, y)
     self.width, self.height = 13, 35
 
     self.position = Vector(x, y)
+    self.resetPosition = Vector(x, y)
     self.velocity = Vector(0, 0)
     self.acceleration = Vector(0, 0)
 
     self.gravity = 300
     self.velMax = 70
     self.moveVel = 60
-    self.jumpAccel = 200
-    self.jumpBurst = 9000
+    self.jumpAccel = 250
+    self.jumpBurst = 10000
 
     self.jumpTime = 0.3
     self.jumpTimer = 0
@@ -46,6 +47,14 @@ function Player:initialize(x, y)
 
     self.attackBoxOffset = Vector(20, 5)
     self.attackBoxSize = Vector(20, 25)
+end
+
+function Player:reset()
+    self.position = Vector(self.resetPosition.x, self.resetPosition.y)
+    game.world:update(self, self.resetPosition.x, self.resetPosition.y)
+    self.acceleration = Vector(0, 0)
+    self.velocity = Vector(0, 0)
+    self.jumpTimer = 0
 end
 
 function Player:keypressed(key)
@@ -91,6 +100,7 @@ function Player:update(dt)
             -- even a small jump will give a large jump, but it can still be held for a bigger jump
             if not self.startedJump then
                 self.acceleration.y = -self.jumpBurst
+                signal.emit("startJump")
             else
                 -- note that this calculation is fighting against gravity, so it will offer diminishing returns in a way
                 self.acceleration.y = self.acceleration.y - self.jumpAccel
@@ -124,6 +134,7 @@ function Player:update(dt)
     elseif isLeft then
         if self.velocity.x == 0 then
             self.runAnimation:gotoFrame(1)
+            signal.emit("beginRun")
         end
         self.velocity.x = -self.moveVel
         self.facing = 1
@@ -131,6 +142,7 @@ function Player:update(dt)
     elseif isRight then
         if self.velocity.x == 0 then
             self.runAnimation:gotoFrame(1)
+            signal.emit("beginRun")
         end
         self.velocity.x = self.moveVel
         self.facing = -1
@@ -157,8 +169,13 @@ function Player:update(dt)
         if other.class and other:isInstanceOf(Enemy) then
             return "cross"
         end
+        if other.class and other:isInstanceOf(Checkpoint) then
+            return "cross"
+        end
         return "slide"
     end)
+
+    local changePos = true
 
     -- stop player from moving if they hit a wall
     -- horizontal collisions will stop horizontal velocity
@@ -173,13 +190,19 @@ function Player:update(dt)
             if not self.wrenchPower then
                 self.wrenchPower = true
                 other.visible = false
+                signal.emit("getWrench")
             end
         elseif other.class and other:isInstanceOf(Enemy) then
             if other.visible then
                 -- return to last checkpoint
                 -- revive any enemies that have died since the last checkpoint
                 -- return any moving platforms and levers to their state before the last checkpoint
+                game:resetToCheckpoint()
+                changePos = false
+                signal.emit("playerDeath")
             end
+        elseif other.class and other:isInstanceOf(Checkpoint) then
+            self.resetPosition = Vector(other.position.x, other.position.y)
         elseif other.class and other:isInstanceOf(MovingPlatform) then
             if col.normal.y == -1 then
                 self.onPlatform = true
@@ -193,9 +216,11 @@ function Player:update(dt)
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
+                signal.emit("hitWall")
             end
             if col.normal.y == -1 or col.normal.y == 1 then
                 self.velocity.y = 0
+                signal.emit("hitCeiling")
             end
             if col.normal.y == -1 then
                 -- allow the player to jump again once they hit the ground
@@ -203,11 +228,14 @@ function Player:update(dt)
                 self.jumpState = false
                 self.canJump = true
                 self.touchingGround = true
+                signal.emit("hitGround")
             end
         end
     end
 
-    self.position = Vector(actualX, actualY)
+    if changePos then
+        self.position = Vector(actualX, actualY)
+    end
 
     self.attackTimer = math.max(0, self.attackTimer - dt)
     self.attackAnimation:update(dt)

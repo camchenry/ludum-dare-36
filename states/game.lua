@@ -9,6 +9,15 @@ function game:enter(from, ...)
     self:reset() 
 end
 
+function game:resetToCheckpoint()
+    self.player:reset()
+    for _, obj in ipairs(self.objects) do
+        if obj.reset then
+            obj:reset()
+        end
+    end
+end
+
 function game:reset()
     love.graphics.setBackgroundColor(99, 155, 133)
 
@@ -29,9 +38,7 @@ function game:reset()
 
     self.camera = Camera()
 
-    self.player = add(Player:new(100, 550))
-
-    self.enemies = {}
+    self.player = add(Player:new(20, 560))
 
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
@@ -48,6 +55,10 @@ function game:reset()
         
         if object.type == "Console" then
             self.console = Console:new(object.x, object.y)
+        end
+
+        if object.type == "Checkpoint" then
+            add(Checkpoint:new(object.x, object.y, object.width, object.height))
         end
     end
 

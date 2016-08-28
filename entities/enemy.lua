@@ -37,6 +37,7 @@ end
 
 function Enemy:reset()
     self.position = Vector(self.startPosition.x, self.startPosition.y)
+    game.world:update(self, self.position.x, self.position.y)
     self.direction = self.startDirection
     self.visible = true
     self.acceleration = Vector(0, 0)
@@ -98,7 +99,9 @@ function Enemy:update(dt, world)
         if other.class and other:isInstanceOf(Wrench) then
 
         else
-            if col.normal.y == -1 then
+            if math.abs(col.normal.x) == 1 then
+                self.direction = self.direction * -1
+            elseif col.normal.y == -1 then
                 self.velocity.y = 0
             end
         end

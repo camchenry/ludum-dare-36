@@ -1,6 +1,6 @@
 require 'globals'
 
-lume    = require 'libs.lume'
+Lume    = require 'libs.lume'
 husl    = require 'libs.husl'
 Bump    = require 'libs.bump'
 Class   = require 'libs.middleclass'

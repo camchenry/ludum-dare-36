@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 4,
+  nextobjectid = 15,
   properties = {},
   tilesets = {
     {
@@ -34,46 +34,6 @@ return {
     }
   },
   layers = {
-    {
-      type = "objectgroup",
-      name = "Object Layer 1",
-      visible = false,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      properties = {},
-      objects = {
-        {
-          id = 1,
-          name = "",
-          type = "Console",
-          shape = "rectangle",
-          x = 160,
-          y = 496,
-          width = 208,
-          height = 128,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 3,
-          name = "",
-          type = "Enemy",
-          shape = "rectangle",
-          x = 128,
-          y = 608,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["movement"] = "true",
-            ["right"] = "200"
-          }
-        }
-      }
-    },
     {
       type = "imagelayer",
       name = "RoomGate",
@@ -270,6 +230,179 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "Object Layer 1",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      objects = {
+        {
+          id = 1,
+          name = "",
+          type = "Console",
+          shape = "rectangle",
+          x = 160,
+          y = 496,
+          width = 208,
+          height = 128,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 3,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 128,
+          y = 608,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["movement"] = "true",
+            ["right"] = "200"
+          }
+        },
+        {
+          id = 4,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 16,
+          y = 528,
+          width = 16,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 5,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 496,
+          y = 576,
+          width = 16,
+          height = 53,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 6,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 608,
+          y = 608,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["movement"] = "true",
+            ["right"] = "50"
+          }
+        },
+        {
+          id = 7,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 832,
+          y = 576,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 8,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 1056,
+          y = 400,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 9,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 1248,
+          y = 256,
+          width = 80,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 10,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 1024,
+          y = 176,
+          width = 14.5,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 11,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 704,
+          y = 176,
+          width = 14.5,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 12,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 464,
+          y = 176,
+          width = 14.5,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 13,
+          name = "",
+          type = "Wrench",
+          shape = "rectangle",
+          x = 592,
+          y = 192,
+          width = 16,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
       }
     }
   }

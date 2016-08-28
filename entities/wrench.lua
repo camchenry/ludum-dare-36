@@ -1,7 +1,7 @@
 local Wrench = Class("Wrench")
 
-function Wrench:initialize(x, y)
-    self.width, self.height = 16, 16
+function Wrench:initialize(x, y, w, h)
+    self.width, self.height = w, h
     self.position = Vector(x, y)
 
     self.visible = true
