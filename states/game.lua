@@ -79,6 +79,8 @@ function game:reset()
         end
     end
 
+    self.soundManager = SoundManager:new()
+
     love.graphics.setLineStyle("rough")
 end
 
@@ -93,6 +95,8 @@ function game:update(dt)
     end
     self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2))
     self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2))
+
+    self.soundManager:update(dt)
 end
 
 function game:keypressed(key, code)
