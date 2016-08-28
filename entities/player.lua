@@ -213,6 +213,7 @@ function Player:update(dt, world)
                 game:resetToCheckpoint()
                 changePos = false
                 Signal.emit("playerDeath")
+                self.attackTimer = 0
             end
 
             world:update(self, self.position.x, newPos.y)
