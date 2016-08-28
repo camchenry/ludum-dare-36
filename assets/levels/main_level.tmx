@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="19">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="26">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -137,7 +137,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1" visible="0">
+ <objectgroup name="Object Layer 1">
   <object id="1" type="Console" x="160" y="496" width="208" height="128"/>
   <object id="3" type="Enemy" x="128" y="608" width="16" height="16">
    <properties>
@@ -152,10 +152,34 @@
   <object id="9" type="Checkpoint" x="1248" y="256" width="80" height="16"/>
   <object id="10" type="Checkpoint" x="1024" y="176" width="14.5" height="48"/>
   <object id="11" type="Checkpoint" x="704" y="176" width="14.5" height="48"/>
-  <object id="12" type="Checkpoint" x="464" y="176" width="14.5" height="48"/>
+  <object id="12" type="Checkpoint" x="464" y="176" width="16" height="48"/>
   <object id="13" type="Wrench" x="592" y="192" width="16" height="32"/>
   <object id="15" type="Dropfloor" x="608" y="560" width="64" height="16"/>
   <object id="17" type="Dropfloor" x="1088" y="448" width="32" height="16"/>
   <object id="18" type="Dropfloor" x="1280" y="272" width="32" height="16"/>
+  <object id="19" type="Lever" x="512" y="192" width="16" height="32">
+   <properties>
+    <property name="ID" value="1"/>
+   </properties>
+  </object>
+  <object id="22" type="Enemy" x="992" y="608" width="16" height="16">
+   <properties>
+    <property name="movement" value="false"/>
+    <property name="right" value="200"/>
+   </properties>
+  </object>
+  <object id="23" type="Enemy" x="1136" y="384" width="16" height="16">
+   <properties>
+    <property name="direction" value="-1"/>
+    <property name="movement" value="true"/>
+    <property name="right" value="64"/>
+   </properties>
+  </object>
+  <object id="25" type="Gate" x="480" y="176" width="16" height="48">
+   <properties>
+    <property name="ID" value="1"/>
+    <property name="dir" value="up"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

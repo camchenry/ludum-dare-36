@@ -80,6 +80,9 @@ function Player:doAction()
             if item.class and item:isInstanceOf(Enemy) then
                 item:hit()
             end
+            if item.class and item:isInstanceOf(Lever) then
+                item:hit()
+            end
         end
     end
 end
@@ -173,6 +176,17 @@ function Player:update(dt)
         if other.class and other:isInstanceOf(Checkpoint) then
             return "cross"
         end
+        if other.class and other:isInstanceOf(Lever) then
+            return false
+        end
+
+        if other.class and other:isInstanceOf(Gate) then
+            if other.width == 0 or other.height == 0 then
+                return "touch"
+            else
+                return "touch"
+            end
+        end
 
         local offset = 0
         if item.velocity.y > 0 then
@@ -188,6 +202,8 @@ function Player:update(dt)
     end)
 
     local changePos = true
+
+    local crushed = {top = false, bottom = false, left = false, right = false}
 
     -- stop player from moving if they hit a wall
     -- horizontal collisions will stop horizontal velocity
@@ -243,6 +259,28 @@ function Player:update(dt)
                 Signal.emit("hitGround")
             end
         end
+
+        if not other.class or not (other.class and (other:isInstanceOf(Checkpoint) or other:isInstanceOf(Wrench) or other:isInstanceOf(Enemy) or other:isInstanceOf(Lever) or other:isInstanceOf(Console))) then
+            if col.normal.y == 1 then
+                crushed.top = true
+            end
+            if col.normal.y == -1 then
+                crushed.bottom = true
+            end
+            if col.normal.x == 1 then
+                crushed.left = true
+            end
+            if col.normal.x == -1 then
+                crushed.right = true
+            end
+        end
+    end
+
+    if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
+        -- death by crushed
+        game:resetToCheckpoint()
+        changePos = false
+        Signal.emit("playerDeath")
     end
 
     if changePos then

@@ -38,7 +38,8 @@ function game:reset()
 
     self.camera = Camera()
 
-    self.player = add(Player:new(20, 560))
+    --self.player = add(Player:new(20, 560))
+    self.player = add(Player:new(620, 188))
 
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
@@ -63,6 +64,14 @@ function game:reset()
 
         if object.type == "Dropfloor" then
             add(Dropfloor:new(object.x, object.y, object.width, object.height))
+        end
+
+        if object.type == "Lever" then
+            add(Lever:new(object.x, object.y, object.properties))
+        end
+
+        if object.type == "Gate" then
+            add(Gate:new(object.x, object.y, object.width, object.height, object.properties))
         end
     end
 

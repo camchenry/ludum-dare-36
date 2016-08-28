@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 19,
+  nextobjectid = 26,
   properties = {},
   tilesets = {
     {
@@ -235,7 +235,7 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -368,7 +368,7 @@ return {
           shape = "rectangle",
           x = 464,
           y = 176,
-          width = 14.5,
+          width = 16,
           height = 48,
           rotation = 0,
           visible = true,
@@ -425,6 +425,70 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 19,
+          name = "",
+          type = "Lever",
+          shape = "rectangle",
+          x = 512,
+          y = 192,
+          width = 16,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = "1"
+          }
+        },
+        {
+          id = 22,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 992,
+          y = 608,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["movement"] = "false",
+            ["right"] = "200"
+          }
+        },
+        {
+          id = 23,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 1136,
+          y = 384,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "-1",
+            ["movement"] = "true",
+            ["right"] = "64"
+          }
+        },
+        {
+          id = 25,
+          name = "",
+          type = "Gate",
+          shape = "rectangle",
+          x = 480,
+          y = 176,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = "1",
+            ["dir"] = "up"
+          }
         }
       }
     }

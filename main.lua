@@ -75,6 +75,12 @@ function love.draw()
                 "CVS#: " .. stats.canvases
             )
         end
+        if game.player then
+            Lume.push(info,
+                "X: " .. game.player.position.x,
+                "Y: " .. game.player.position.y
+            )
+        end
         for i, text in ipairs(info) do
             love.graphics.print(text, 5, 2 + (i-1)*15)
         end
