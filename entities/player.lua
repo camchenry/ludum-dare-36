@@ -378,7 +378,7 @@ function Player:draw()
     end
     love.graphics.setColor(255, 255, 255)
 
-    if self.crusherTouchTimer > 0 then
+    if DEBUG and self.crusherTouchTimer > 0 then
         love.graphics.setColor(255, 0, 255)
     end
 
