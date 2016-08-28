@@ -92,6 +92,12 @@ function game:update(dt)
     self.console:update(dt)
 
     for _, obj in ipairs(self.objects) do
+        if obj.class and obj:isInstanceOf(Crusher) then
+            obj.hasMoved = false
+        end
+    end
+
+    for _, obj in ipairs(self.objects) do
         if obj.update then
             obj:update(dt, self.world)
         end
@@ -102,8 +108,8 @@ function game:update(dt)
     if true then
         dx, dy = self.effects.screenShake:getOffset()
     end
-    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2) + dx)
-    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2) + dy)
+    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2 + dx))
+    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2 + dy))
 
     self.soundManager:update(dt)
     for _, effect in pairs(self.effects) do

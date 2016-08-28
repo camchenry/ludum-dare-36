@@ -1,12 +1,14 @@
 local Player = Class("Player")
 
 function Player:initialize(x, y)
-    self.width, self.height = 13, 35
+    self.width, self.height = 13, 32
 
     self.position = Vector(x, y)
     self.resetPosition = Vector(x, y)
     self.velocity = Vector(0, 0)
     self.acceleration = Vector(0, 0)
+
+    self.prevX = x
 
     self.gravity = 300
     self.velMax = 70
@@ -33,7 +35,12 @@ function Player:initialize(x, y)
     self.attackTime = 1
 
     self.crusherTouchTimer = 0
-    self.crusherTouchTime = 0.3
+    self.crusherTouchTime = 0.2
+
+    self.lastJumpTimer = 0
+    self.lastJumpTime = 0.4
+
+    self.crusherReference = nil
 
     self.actionDelay = 0.7
 
@@ -42,7 +49,7 @@ function Player:initialize(x, y)
     self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
     self.jumpImage = love.graphics.newImage("assets/images/Hero/Hero_Jump.png")
 
-    self.imageOffset = Vector(-18, -10)
+    self.imageOffset = Vector(-18, -13)
     self.runImageOffset = Vector(0, -3)
     self.attackImageOffset = Vector(0, 0)
 
@@ -56,6 +63,8 @@ function Player:initialize(x, y)
 
     self.attackBoxOffset = Vector(20, 5)
     self.attackBoxSize = Vector(20, 25)
+
+    self.lastCrush = {}
 end
 
 function Player:reset()
@@ -105,7 +114,9 @@ function Player:update(dt, world)
     local isUp, isDown    = love.keyboard.isDown("w", "up", "space"), love.keyboard.isDown("s", "down")
 
     if self.crusherTouchTimer > 0 then
-        self.canJump = true
+        if self.lastJumpTimer == 0 then
+            self.canJump = true
+        end
     end
 
     if (isUp and not isDown) and self.attackTimer == 0 then
@@ -121,6 +132,7 @@ function Player:update(dt, world)
             -- even a small jump will give a large jump, but it can still be held for a bigger jump
             if not self.startedJump then
                 self.acceleration.y = -self.jumpBurst
+                self.lastJumpTimer = self.lastJumpTime
                 Signal.emit("startJump")
             else
                 -- note that this calculation is fighting against gravity, so it will offer diminishing returns in a way
@@ -180,7 +192,40 @@ function Player:update(dt, world)
 
     local newPos = self.position + self.velocity * dt 
 
+    local changePos = true
+
+    if self.crusherReference then
+        if not self.crusherReference.hasMoved then
+            -- move crusher first
+            self.crusherReference:update(dt, world, true)
+
+            newPos.y = self.crusherReference.position.y - self.height
+
+            if self.crusherReference.direction == "up" then
+                newPos.y = self.crusherReference.position.y + self.crusherReference.height + self.velocity.y * dt + 5
+            end
+
+            if math.abs(newPos.y - self.position.y) > self.height/2 or math.abs(self.prevX - self.position.x) > self.width/2 then
+                -- death by crushed
+                game:resetToCheckpoint()
+                changePos = false
+                Signal.emit("playerDeath")
+            end
+
+            world:update(self, self.position.x, newPos.y)
+            self.position.y = newPos.y
+
+        end
+        -- move the player to crusher y position
+    end
+
+
     local hitGround, hitCeil, hitWall = false, false, false
+
+
+    local touchedCrusher = false
+
+    local crushed = {}
 
     local actualX, actualY, cols, len = game.world:move(self, newPos.x, newPos.y, function(item, other)
         if other.class and other:isInstanceOf(Wrench) then
@@ -220,11 +265,11 @@ function Player:update(dt, world)
         return "slide"
     end)
 
-    local changePos = true
-
     local additionalX, additionalY = 0, 0
 
-    local crushed = {top = false, bottom = false, left = false, right = false}
+    if self.crusherReference then
+        self.crusherReference = nil
+    end
 
     -- stop player from moving if they hit a wall
     -- horizontal collisions will stop horizontal velocity
@@ -251,8 +296,10 @@ function Player:update(dt, world)
                 Signal.emit("playerDeath")
             end
         elseif other.class and other:isInstanceOf(Checkpoint) then
-            self.resetPosition = Vector(other.position.x + other.width/2, other.position.y + other.height/2)
+            self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
         elseif other.class and other:isInstanceOf(Crusher) then
+            touchedCrusher = true
+
             if col.normal.y == -1 then
                 self.jumpTimer = 0
                 self.jumpState = false
@@ -260,14 +307,15 @@ function Player:update(dt, world)
                 self.touchingGround = true
                 self.velocity.y = 0
                 self.crusherTouchTimer = self.crusherTouchTime
+                self.crusherReference = other
             elseif col.normal.y == 1 then
                 self.velocity.y = 0
                 if not self.prevCeil then
                     self.prevCeil = true
                     Signal.emit("hitCeiling")
                 end
-                additionalX, additionalY = 0, (other.startHeight-other.height)*dt+5
                 hitCeil = true
+                self.crusherReference = other
             end
         elseif other.class and other:isInstanceOf(MovingPlatform) then
             if col.normal.y == -1 then
@@ -312,7 +360,6 @@ function Player:update(dt, world)
             end
         end
 
-
         if not other.class or (other.class and not (other:isInstanceOf(Checkpoint) or other:isInstanceOf(Wrench) or other:isInstanceOf(Enemy) or other:isInstanceOf(Lever) or other:isInstanceOf(Console))) then
             local fine = true
 
@@ -334,6 +381,13 @@ function Player:update(dt, world)
         end
     end
 
+    if math.abs(actualX - self.position.x) > self.width/2 then
+        -- death by crushed
+        game:resetToCheckpoint()
+        changePos = false
+        Signal.emit("playerDeath")
+    end
+
     if not hitGround then
         self.prevGround = false
     end
@@ -351,22 +405,27 @@ function Player:update(dt, world)
         Signal.emit("playerDeath")
     end
 
+    self.lastCrush = crushed
+
+    self.prevX = self.position.x
+
     if changePos then
-        if math.abs(actualY - self.position.y) < self.height then
+        --if math.abs(actualY - self.position.y) < self.height then
             self.position = Vector(actualX, actualY)
-        else
-            self.position = Vector(actualX, self.position.y)
-        end
+        --else
+        --    self.position = Vector(actualX, self.position.y)
+        --end
 
         world:update(self, self.position.x, self.position.y)
     end
 
-    self:tryMove(additionalX, additionalY, world) -- not sure why multiplying dt works here
+    --self:tryMove(additionalX, additionalY, world) -- not sure why multiplying dt works here
     --self.position.y = self.position.y+1
     --world:update(self, self.position.x, self.position.y)
 
     self.attackTimer = math.max(0, self.attackTimer - dt)
     self.crusherTouchTimer = math.max(0, self.crusherTouchTimer - dt)
+    self.lastJumpTimer = math.max(0, self.lastJumpTimer - dt)
 
     self.attackAnimation:update(dt)
     self.runAnimation:update(dt)

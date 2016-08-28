@@ -15,51 +15,58 @@ function Crusher:initialize(x, y, w, h, properties)
     self.interval = 5
     
     self.crushing = false
+
+    self.hasMoved = false
 end
 
-function Crusher:update(dt, world)
-    if not self.crushing then
-        self.crushing = true
+function Crusher:update(dt, world, override)
+    local dy = 0
 
-        Flux.to(self, self.interval/2, {height = 0}):ease("linear"):after(self.interval/2, {height = self.startHeight}):ease("linear"):oncomplete(function()
-            self.crushing = false
-        end)
+    if not self.hasMoved then
+        if not self.crushing then
+            self.crushing = true
+
+            Flux.to(self, self.interval/2, {height = 0}):ease("linear"):after(self.interval/2, {height = self.startHeight}):ease("linear"):oncomplete(function()
+                self.crushing = false
+            end)
+        end
+
+        if self.direction == "down" then
+            local goal = self.startHeight - self.height
+            local moveAmount = self.startPosition.y + goal - self.position.y
+            
+            -- now move the platform
+            local actualX, actualY, collisions = world:move(self, self.position.x, self.position.y + moveAmount, function(item, other)
+                if other.class and other:isInstanceOf(Player) then
+                    if override then
+                        return false
+                    else
+                        return "cross"
+                    end
+                end
+
+                return "cross"
+            end)
+
+            dy = self.position.y - actualY
+
+            self.position.x, self.position.y = actualX, actualY
+        end
+
+        world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
+
+        self.prevHeight = self.height
     end
 
-    if self.direction == "down" then
-        local goal = self.startHeight - self.height
-        local moveAmount = self.startPosition.y + goal - self.position.y
+    self.hasMoved = true
 
-        -- do a check of what the platform would hit. move the player first if it would hit a player
-        local actualX, actualY, cols, len = world:check(self, self.position.x, self.position.y + moveAmount, function(item, other)
-            if other.class and other:isInstanceOf(Player) then
-                return "cross"
-            end
-
-            return "slide"
-        end)
-        
-        -- now move the platform
-        local actualX, actualY, collisions = world:move(self, self.position.x, self.position.y + moveAmount, function(item, other)
-            if other.class and other:isInstanceOf(Player) then
-                return "cross"
-            end
-
-            return "cross"
-        end)
-
-        self.position.x, self.position.y = actualX, actualY
-    end
-
-    world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
-
-    self.prevHeight = self.height
+    return dy
 end
 
 function Crusher:draw()
     --if DEBUG then
         love.graphics.setColor(0, 0, 0)
-        love.graphics.rectangle('line', self.position.x+1, self.position.y+1, self.width-1, self.height-1)
+        love.graphics.rectangle('line', math.floor(self.position.x+1), math.floor(self.position.y+1), self.width-1, self.height-1)
     --end
 
     if self.width > 0 and self.height > 0 then

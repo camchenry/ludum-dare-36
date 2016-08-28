@@ -78,7 +78,8 @@ function love.draw()
         if game.player then
             Lume.push(info,
                 "X: " .. game.player.position.x,
-                "Y: " .. game.player.position.y
+                "Y: " .. game.player.position.y,
+                "Crush: " .. Inspect(game.player.lastCrush)
             )
         end
         for i, text in ipairs(info) do
