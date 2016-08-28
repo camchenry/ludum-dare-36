@@ -98,7 +98,7 @@ function Player:doAction()
     end
 end
 
-function Player:update(dt)
+function Player:update(dt, world)
     self.acceleration = Vector(0, self.gravity)
 
     local isLeft, isRight = love.keyboard.isDown("a", "left"), love.keyboard.isDown("d", "right")
@@ -222,6 +222,8 @@ function Player:update(dt)
 
     local changePos = true
 
+    local additionalX, additionalY = 0, 0
+
     local crushed = {top = false, bottom = false, left = false, right = false}
 
     -- stop player from moving if they hit a wall
@@ -264,6 +266,7 @@ function Player:update(dt)
                     self.prevCeil = true
                     Signal.emit("hitCeiling")
                 end
+                additionalX, additionalY = 0, (other.startHeight-other.height)*dt+5
                 hitCeil = true
             end
         elseif other.class and other:isInstanceOf(MovingPlatform) then
@@ -321,10 +324,10 @@ function Player:update(dt)
                 if col.normal.y == -1 then
                     crushed.bottom = true
                 end
-                if col.normal.x == 1 then
+                if col.normal.x == 1 and self.prevGround then
                     crushed.left = true
                 end
-                if col.normal.x == -1 then
+                if col.normal.x == -1 and self.prevGround then
                     crushed.right = true
                 end
             end
@@ -349,8 +352,16 @@ function Player:update(dt)
     end
 
     if changePos then
-        self.position = Vector(actualX, actualY)
+        if math.abs(actualY - self.position.y) < self.height then
+            self.position = Vector(actualX, actualY)
+        end
+
+        world:update(self, self.position.x, self.position.y)
     end
+
+    self:tryMove(additionalX, additionalY, world) -- not sure why multiplying dt works here
+    --self.position.y = self.position.y+1
+    --world:update(self, self.position.x, self.position.y)
 
     self.attackTimer = math.max(0, self.attackTimer - dt)
     self.crusherTouchTimer = math.max(0, self.crusherTouchTimer - dt)
@@ -359,9 +370,13 @@ function Player:update(dt)
     self.runAnimation:update(dt)
 end
 
-function Player:tryMove(dx, dy, world)
+function Player:tryMove(dx, dy, world, limit)
     local actualX, actualY, collisions = world:move(self, self.position.x + dx, self.position.y + dy)
-    self.position.x, self.position.y = actualX, actualY
+    if math.abs(actualY - self.position.y) < self.height then
+        self.position.x, self.position.y = actualX, actualY
+    end
+
+    world:update(self, self.position.x, self.position.y)
 end
 
 function Player:draw()
