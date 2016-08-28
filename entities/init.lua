@@ -10,3 +10,5 @@ Gate            = require "entities.gate"
 Crusher         = require "entities.crusher"
 
 SoundManager    = require "entities.sound.soundmanager"
+
+ScreenShake     = require "entities.fx.screenshake"

@@ -81,6 +81,9 @@ function game:reset()
 
     self.soundManager = SoundManager:new()
 
+    self.effects = {}
+    self.effects.screenShake = ScreenShake:new()
+
     love.graphics.setLineStyle("rough")
 end
 
@@ -93,10 +96,19 @@ function game:update(dt)
             obj:update(dt, self.world)
         end
     end
-    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2))
-    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2))
+
+    -- Change this to an option for disabling screen shake
+    local dx, dy = 0, 0
+    if true then
+        dx, dy = self.effects.screenShake:getOffset()
+    end
+    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2) + dx)
+    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2) + dy)
 
     self.soundManager:update(dt)
+    for _, effect in pairs(self.effects) do
+        effect:update(dt)
+    end
 end
 
 function game:keypressed(key, code)
