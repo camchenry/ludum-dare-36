@@ -1,4 +1,4 @@
-Checkpoint = Class("Checkpoint")
+local Checkpoint = Class("Checkpoint")
 
 function Checkpoint:initialize(x, y, w, h)
     self.position = Vector(x, y)

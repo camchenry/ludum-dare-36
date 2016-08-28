@@ -1,4 +1,4 @@
-Crusher = Class("Crusher")
+local Crusher = Class("Crusher")
 
 function Crusher:initialize(x, y, w, h, properties)
     self.position = Vector(x-1, y-1)

@@ -1,4 +1,4 @@
-Lever = Class("Lever")
+local Lever = Class("Lever")
 
 function Lever:initialize(x, y, properties)
     self.position = Vector(x, y)

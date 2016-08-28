@@ -49,7 +49,7 @@ function Player:initialize(x, y)
     self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
     self.jumpImage = love.graphics.newImage("assets/images/Hero/Hero_Jump.png")
 
-    self.imageOffset = Vector(-18, -13)
+    self.imageOffset = Vector(-18, -12)
     self.runImageOffset = Vector(0, -3)
     self.attackImageOffset = Vector(0, 0)
 

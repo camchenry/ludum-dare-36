@@ -1,4 +1,4 @@
-Enemy = Class("Enemy")
+local Enemy = Class("Enemy")
 
 function Enemy:initialize(x, y, properties)
     self.width, self.height = 32, 16

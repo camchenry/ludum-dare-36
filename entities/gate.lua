@@ -1,4 +1,4 @@
-Gate = Class("Gate")
+local Gate = Class("Gate")
 
 function Gate:initialize(x, y, w, h, properties)
     self.position = Vector(x, y)
@@ -10,13 +10,24 @@ function Gate:initialize(x, y, w, h, properties)
 
     self.direction = properties.dir or "up"
     self.ID = tonumber(properties.ID) or 0
+    self.ID2 = tonumber(properties.ID2) or 0
 
     self.activateTime = 2
     self.activating = false
-    self.activeOn = true
+
+    if properties.open and properties.open == "true" then
+        self.activeOn = false
+        if self.direction == "up" then
+            self.height = 1
+        elseif self.direction == "left" then
+            self.width = 1
+        end
+    else
+        self.activeOn = true
+    end
 
     Signal.register("activate", function(ID)
-        if ID == self.ID then
+        if ID == self.ID or ID == self.ID2 then
             if not self.activating then
                 self:activate()
             end
@@ -38,7 +49,7 @@ end
 function Gate:activateUp()
     if self.activeOn then
         -- it is time to close
-        Flux.to(self, self.activateTime, {height = 0}):oncomplete(function()
+        Flux.to(self, self.activateTime, {height = 1}):oncomplete(function()
             self.activating = false
         end)
     else
@@ -52,7 +63,7 @@ end
 function Gate:activateLeft()
     if self.activeOn then
         -- it is time to close
-        Flux.to(self, self.activateTime, {width = 0}):oncomplete(function()
+        Flux.to(self, self.activateTime, {width = 1}):oncomplete(function()
             self.activating = false
         end)
     else
@@ -73,7 +84,7 @@ function Gate:draw()
         love.graphics.rectangle('line', self.position.x, self.position.y, self.width, self.height)
     --end
 
-    if self.width > 0 and self.height > 0 then
+    if self.width > 1 and self.height > 1 then
         -- draw image
         -- image may need to use a scissor
     end
