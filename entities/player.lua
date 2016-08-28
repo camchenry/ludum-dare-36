@@ -69,9 +69,9 @@ function Player:initialize(x, y)
     self.lastCrush = {}
 end
 
-function Player:reset()
+function Player:reset(world)
     self.position = Vector(self.resetPosition.x, self.resetPosition.y)
-    game.world:update(self, self.resetPosition.x, self.resetPosition.y)
+    world:update(self, self.resetPosition.x, self.resetPosition.y)
     self.acceleration = Vector(0, 0)
     self.velocity = Vector(0, 0)
     self.jumpTimer = 0
@@ -226,9 +226,6 @@ function Player:update(dt, world)
 
     local hitGround, hitCeil, hitWall = false, false, false
 
-
-    local touchedCrusher = false
-
     local crushed = {}
 
     local actualX, actualY, cols, len = game.world:check(self, newPos.x, newPos.y, function(item, other)
@@ -247,9 +244,14 @@ function Player:update(dt, world)
         if other.class and other:isInstanceOf(Crusher) then
             return "slide"
         end
-
         if other.class and other:isInstanceOf(Gate) then
             return "slide"
+        end
+        if other.class and other:isInstanceOf(Bot) then
+            return "cross"
+        end
+        if other.class and other:isInstanceOf(Spikes) then
+            return "cross"
         end
 
         local offset = 0
@@ -298,8 +300,6 @@ function Player:update(dt, world)
         elseif other.class and other:isInstanceOf(Checkpoint) then
             self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
         elseif other.class and other:isInstanceOf(Crusher) then
-            touchedCrusher = true
-
             if col.normal.y == -1 then
                 self.jumpTimer = 0
                 self.jumpState = false
@@ -317,6 +317,7 @@ function Player:update(dt, world)
                 hitCeil = true
                 self.crusherReference = other
             end
+        elseif other.class and other:isInstanceOf(Bot) then
         elseif other.class and other:isInstanceOf(MovingPlatform) then
             if col.normal.y == -1 then
                 self.onPlatform = true
@@ -327,6 +328,8 @@ function Player:update(dt, world)
                 self.touchingGround = true
                 self.velocity.y = 0
             end
+        elseif other.class and other:isInstanceOf(Spikes) then
+            self:reset(world)
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
@@ -360,7 +363,7 @@ function Player:update(dt, world)
             end
         end
 
-        if not other.class or (other.class and not (other:isInstanceOf(Checkpoint) or other:isInstanceOf(Wrench) or other:isInstanceOf(Enemy) or other:isInstanceOf(Lever) or other:isInstanceOf(Console))) then
+        if not other.class or (other.class and not (other:isInstanceOf(Checkpoint) or other:isInstanceOf(Wrench) or other:isInstanceOf(Enemy) or other:isInstanceOf(Lever) or other:isInstanceOf(Console) or other:isInstanceOf(Bot))) then
             local fine = true
 
             

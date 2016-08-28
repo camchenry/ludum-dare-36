@@ -10,10 +10,10 @@ function game:enter(from, ...)
 end
 
 function game:resetToCheckpoint()
-    self.player:reset()
+    self.player:reset(self.world)
     for _, obj in ipairs(self.objects) do
         if obj.reset then
-            obj:reset()
+            obj:reset(self.world)
         end
     end
 end
@@ -76,6 +76,14 @@ function game:reset()
 
         if object.type == "Crusher" then
             add(Crusher:new(object.x, object.y, object.width, object.height, object.properties))
+        end
+
+        if object.type == "Bot" then
+            add(Bot:new(object.x, object.y, object.width, object.height, object.properties))
+        end
+
+        if object.type == "Spikes" then
+            add(Spikes:new(object.x, object.y, object.width, object.height, object.properties))
         end
     end
 
