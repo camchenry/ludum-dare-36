@@ -23,6 +23,10 @@ function Player:initialize(x, y)
     self.touchingGround = false
     self.onPlatform = false
 
+    self.prevGround = false
+    self.prevCeil = false
+    self.prevWall = false
+
     self.wrenchPower = false
 
     self.attackTimer = 0
@@ -176,6 +180,7 @@ function Player:update(dt)
 
     local newPos = self.position + self.velocity * dt 
 
+    local hitGround, hitCeil, hitWall = false, false, false
 
     local actualX, actualY, cols, len = game.world:move(self, newPos.x, newPos.y, function(item, other)
         if other.class and other:isInstanceOf(Wrench) then
@@ -255,7 +260,11 @@ function Player:update(dt)
                 self.crusherTouchTimer = self.crusherTouchTime
             elseif col.normal.y == 1 then
                 self.velocity.y = 0
-                Signal.emit("hitCeiling")
+                if not self.prevCeil then
+                    self.prevCeil = true
+                    Signal.emit("hitCeiling")
+                end
+                hitCeil = true
             end
         elseif other.class and other:isInstanceOf(MovingPlatform) then
             if col.normal.y == -1 then
@@ -270,7 +279,11 @@ function Player:update(dt)
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
-                Signal.emit("hitWall")
+                if not self.prevWall then
+                    self.prevWall = true
+                    Signal.emit("hitWall")
+                end
+                hitWall = true
             end
             if col.normal.y == -1 or col.normal.y == 1 then
                 self.velocity.y = 0
@@ -281,10 +294,18 @@ function Player:update(dt)
                 self.jumpState = false
                 self.canJump = true
                 self.touchingGround = true
-                Signal.emit("hitGround")
+                if not self.prevGround then
+                    self.prevGround = true
+                    Signal.emit("hitGround")
+                end
+                hitGround = true
             end
             if col.normal.y == 1 then
-                Signal.emit("hitCeiling")
+                if not self.prevCeil then
+                    self.prevCeil = true
+                    Signal.emit("hitCeiling")
+                end
+                hitCeil = true
             end
         end
 
@@ -308,6 +329,16 @@ function Player:update(dt)
                 end
             end
         end
+    end
+
+    if not hitGround then
+        self.prevGround = false
+    end
+    if not hitCeil then
+        self.prevCeil = false
+    end
+    if not hitWall then
+        self.prevWall = false
     end
 
     if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
