@@ -68,10 +68,10 @@ function Gate:update(dt, world)
 end
 
 function Gate:draw()
-    if DEBUG then
+    --if DEBUG then
         love.graphics.setColor(0, 0, 0)
         love.graphics.rectangle('line', self.position.x, self.position.y, self.width, self.height)
-    end
+    --end
 
     if self.width > 0 and self.height > 0 then
         -- draw image

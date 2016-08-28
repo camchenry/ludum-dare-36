@@ -266,7 +266,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["movement"] = "false",
+            ["movement"] = "true",
             ["right"] = "200"
           }
         },
@@ -328,7 +328,7 @@ return {
           type = "Checkpoint",
           shape = "rectangle",
           x = 1248,
-          y = 256,
+          y = 224,
           width = 80,
           height = 16,
           rotation = 0,

@@ -64,10 +64,10 @@ function Crusher:update(dt, world)
 end
 
 function Crusher:draw()
-    if DEBUG then
+    --if DEBUG then
         love.graphics.setColor(0, 0, 0)
         love.graphics.rectangle('line', self.position.x+1, self.position.y+1, self.width-1, self.height-1)
-    end
+    --end
 
     if self.width > 0 and self.height > 0 then
         -- draw image
