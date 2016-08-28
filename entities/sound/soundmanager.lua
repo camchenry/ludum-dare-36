@@ -32,6 +32,7 @@ function SoundManager:initialize(directory)
         'startJump',
         'playerDeath',
         'getWrench',
+        'activate',
     }
 
     local function firstToUpper(str)
