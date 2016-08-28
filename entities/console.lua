@@ -1,4 +1,4 @@
-Console = Class("Console")
+local Console = Class("Console")
 
 function Console:initialize(x, y)
     self.position = Vector(x, y)
