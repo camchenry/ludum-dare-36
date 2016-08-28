@@ -10,6 +10,7 @@ function Enemy:initialize(x, y, properties)
     self.right        = tonumber(properties.right) or 0
     self.jumpInterval = tonumber(properties.jumpInterval) or 0
     self.jumpAccel    = tonumber(properties.jumpAccel) or 0
+    self.ID           = tonumber(properties.ID) or 0
 
     self.startDirection = self.direction
 
@@ -40,6 +41,12 @@ function Enemy:initialize(x, y, properties)
 
     self.image = love.graphics.newImage("assets/images/Enemy/Bug.png")
     self.imageOffset = Vector(16, -self.image:getHeight()/2 - 16)
+
+    Signal.register("activate", function(ID)
+        if ID == self.ID then
+            self:reset()
+        end
+    end)
 end
 
 function Enemy:reset()

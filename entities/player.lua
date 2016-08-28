@@ -49,7 +49,7 @@ function Player:initialize(x, y)
     self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
     self.jumpImage = love.graphics.newImage("assets/images/Hero/Hero_Jump.png")
 
-    self.imageOffset = Vector(-18, -12)
+    self.imageOffset = Vector(-18, -13)
     self.runImageOffset = Vector(0, -3)
     self.attackImageOffset = Vector(0, 0)
 
@@ -245,11 +245,7 @@ function Player:update(dt, world)
         end
 
         if other.class and other:isInstanceOf(Gate) then
-            if other.width == 0 or other.height == 0 then
-                return "touch"
-            else
-                return "touch"
-            end
+            return "slide"
         end
 
         local offset = 0

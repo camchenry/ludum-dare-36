@@ -854,15 +854,16 @@ return {
           name = "",
           type = "Enemy",
           shape = "rectangle",
-          x = 1200,
+          x = 1192,
           y = 768,
           width = 16,
           height = 16,
           rotation = 0,
           visible = true,
           properties = {
+            ["ID"] = "2",
             ["direction"] = "-1",
-            ["jumpAccel"] = "500",
+            ["jumpAccel"] = "10000",
             ["jumpInterval"] = "3",
             ["jumping"] = "true"
           }
@@ -903,15 +904,16 @@ return {
           name = "",
           type = "Enemy",
           shape = "rectangle",
-          x = 1120,
+          x = 1112,
           y = 768,
           width = 16,
           height = 16,
           rotation = 0,
           visible = true,
           properties = {
+            ["ID"] = "2",
             ["direction"] = "-1",
-            ["jumpAccel"] = "500",
+            ["jumpAccel"] = "10000",
             ["jumpInterval"] = "3",
             ["jumping"] = "true"
           }

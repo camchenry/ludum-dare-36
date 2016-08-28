@@ -152,7 +152,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1">
+ <objectgroup name="Object Layer 1" visible="0">
   <object id="1" type="Console" x="160" y="496" width="208" height="128"/>
   <object id="4" type="Checkpoint" x="16" y="528" width="16" height="96"/>
   <object id="5" type="Checkpoint" x="496" y="576" width="16" height="53"/>
@@ -303,10 +303,11 @@
     <property name="dir" value="left"/>
    </properties>
   </object>
-  <object id="49" type="Enemy" x="1200" y="768" width="16" height="16">
+  <object id="49" type="Enemy" x="1192" y="768" width="16" height="16">
    <properties>
+    <property name="ID" value="2"/>
     <property name="direction" value="-1"/>
-    <property name="jumpAccel" value="2000"/>
+    <property name="jumpAccel" value="10000"/>
     <property name="jumpInterval" value="3"/>
     <property name="jumping" value="true"/>
    </properties>
@@ -322,10 +323,11 @@
     <property name="dir" value="up"/>
    </properties>
   </object>
-  <object id="52" type="Enemy" x="1120" y="768" width="16" height="16">
+  <object id="52" type="Enemy" x="1112" y="768" width="16" height="16">
    <properties>
+    <property name="ID" value="2"/>
     <property name="direction" value="-1"/>
-    <property name="jumpAccel" value="2000"/>
+    <property name="jumpAccel" value="10000"/>
     <property name="jumpInterval" value="3"/>
     <property name="jumping" value="true"/>
    </properties>
