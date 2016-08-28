@@ -124,14 +124,9 @@ function SoundManager:onActivate()
 end
 
 function SoundManager:onPlayerFootstep()
-    if self.lastFootstep == 1 then
-        self.lastFootstep = 2
-    else
-        self.lastFootstep = 1
-    end
     local s = self.sounds["footstep" .. self.lastFootstep]
     s:setVolume(0.15)
-    s:setPitch(love.math.random(95, 105)/100)
+    s:setPitch(love.math.random(90, 110)/100)
     s:play()
 end
 

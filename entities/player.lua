@@ -42,6 +42,8 @@ function Player:initialize(x, y)
     self.lastJumpTimer = 0
     self.lastJumpTime = 0.4
 
+    self.footstepTimer = 0
+
     self.crusherReference = nil
 
     self.actionDelay = 0.7
@@ -437,12 +439,14 @@ function Player:update(dt, world)
     -- Don't update the run animation if we aren't actually able to run
     if self.canMove and self.jumpTimer == 0 then
         self.runAnimation:update(dt)
+        self.footstepTimer = (self.footstepTimer + dt)
     else
         self.runAnimation:gotoFrame(1)
     end
 
     -- Only emit footstep signal if we are running and in the right frame
-    if self.canMove and (self.runAnimation.position == 2 or self.runAnimation.position == 6) then
+    if self.footstepTimer >= 0.4 then
+        self.footstepTimer = 0
         Signal.emit("playerFootstep")
     end
 end
