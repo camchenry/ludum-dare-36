@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 26,
+  nextobjectid = 32,
   properties = {},
   tilesets = {
     {
@@ -488,6 +488,96 @@ return {
           properties = {
             ["ID"] = "1",
             ["dir"] = "up"
+          }
+        },
+        {
+          id = 26,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 1136,
+          y = 128,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "up"
+          }
+        },
+        {
+          id = 27,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 1088,
+          y = 128,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "up"
+          }
+        },
+        {
+          id = 28,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 752,
+          y = 128,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "up"
+          }
+        },
+        {
+          id = 29,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 848,
+          y = 128,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "up"
+          }
+        },
+        {
+          id = 30,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 800,
+          y = 128,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "down"
+          }
+        },
+        {
+          id = 31,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 896,
+          y = 128,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "down"
           }
         }
       }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="26">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="32">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -179,6 +179,36 @@
    <properties>
     <property name="ID" value="1"/>
     <property name="dir" value="up"/>
+   </properties>
+  </object>
+  <object id="26" type="Crusher" x="1136" y="128" width="32" height="96">
+   <properties>
+    <property name="dir" value="up"/>
+   </properties>
+  </object>
+  <object id="27" type="Crusher" x="1088" y="128" width="32" height="96">
+   <properties>
+    <property name="dir" value="up"/>
+   </properties>
+  </object>
+  <object id="28" type="Crusher" x="752" y="128" width="32" height="96">
+   <properties>
+    <property name="dir" value="up"/>
+   </properties>
+  </object>
+  <object id="29" type="Crusher" x="848" y="128" width="32" height="96">
+   <properties>
+    <property name="dir" value="up"/>
+   </properties>
+  </object>
+  <object id="30" type="Crusher" x="800" y="128" width="32" height="96">
+   <properties>
+    <property name="dir" value="down"/>
+   </properties>
+  </object>
+  <object id="31" type="Crusher" x="896" y="128" width="32" height="96">
+   <properties>
+    <property name="dir" value="down"/>
    </properties>
   </object>
  </objectgroup>

@@ -28,6 +28,9 @@ function Player:initialize(x, y)
     self.attackTimer = 0
     self.attackTime = 1
 
+    self.crusherTouchTimer = 0
+    self.crusherTouchTime = 0.3
+
     self.facing = 1
 
     self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
@@ -92,6 +95,10 @@ function Player:update(dt)
 
     local isLeft, isRight = love.keyboard.isDown("a", "left"), love.keyboard.isDown("d", "right")
     local isUp, isDown    = love.keyboard.isDown("w", "up", "space"), love.keyboard.isDown("s", "down")
+
+    if self.crusherTouchTimer > 0 then
+        self.canJump = true
+    end
 
     if (isUp and not isDown) and self.attackTimer == 0 then
         if not self.jumpState then
@@ -179,6 +186,9 @@ function Player:update(dt)
         if other.class and other:isInstanceOf(Lever) then
             return false
         end
+        if other.class and other:isInstanceOf(Crusher) then
+            return "slide"
+        end
 
         if other.class and other:isInstanceOf(Gate) then
             if other.width == 0 or other.height == 0 then
@@ -231,6 +241,15 @@ function Player:update(dt)
             end
         elseif other.class and other:isInstanceOf(Checkpoint) then
             self.resetPosition = Vector(other.position.x, other.position.y)
+        elseif other.class and other:isInstanceOf(Crusher) then
+            if col.normal.y == -1 then
+                self.jumpTimer = 0
+                self.jumpState = false
+                self.canJump = true
+                self.touchingGround = true
+                self.velocity.y = 0
+                self.crusherTouchTimer = self.crusherTouchTime
+            end
         elseif other.class and other:isInstanceOf(MovingPlatform) then
             if col.normal.y == -1 then
                 self.onPlatform = true
@@ -288,8 +307,15 @@ function Player:update(dt)
     end
 
     self.attackTimer = math.max(0, self.attackTimer - dt)
+    self.crusherTouchTimer = math.max(0, self.crusherTouchTimer - dt)
+
     self.attackAnimation:update(dt)
     self.runAnimation:update(dt)
+end
+
+function Player:tryMove(dx, dy, world)
+    local actualX, actualY, collisions = world:move(self, self.position.x + dx, self.position.y + dy)
+    self.position.x, self.position.y = actualX, actualY
 end
 
 function Player:draw()
@@ -306,6 +332,10 @@ function Player:draw()
     end
     love.graphics.setColor(255, 255, 255)
 
+    if self.crusherTouchTimer > 0 then
+        love.graphics.setColor(255, 0, 255)
+    end
+
     local offset = 0
     if self.facing == -1 then
         offset = 13
@@ -313,7 +343,7 @@ function Player:draw()
 
     local image = self.idleImage
 
-    if self.jumpTimer > 0 or not self.canJump then
+    if self.jumpTimer > 0 or not self.canJump and self.crusherTouchTimer == 0 then
         image = self.jumpImage
     end
 
@@ -321,7 +351,7 @@ function Player:draw()
 
     if self.attackTimer > 0 then
         self.attackAnimation:draw(self.attackImage, x + self.attackImageOffset.x, y + self.attackImageOffset.y, 0, self.facing, 1)
-    elseif self.velocity.x == 0 or not self.touchingGround or self.onPlatform then
+    elseif self.velocity.x == 0 or ((not self.touchingGround or self.onPlatform) and self.crusherTouchTimer == 0) then
         love.graphics.draw(image, x, y, 0, self.facing, 1)
     else
         self.runAnimation:draw(self.runImage, x + self.runImageOffset.x, y + self.runImageOffset.y, 0, self.facing, 1)

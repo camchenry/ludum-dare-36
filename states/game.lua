@@ -73,6 +73,10 @@ function game:reset()
         if object.type == "Gate" then
             add(Gate:new(object.x, object.y, object.width, object.height, object.properties))
         end
+
+        if object.type == "Crusher" then
+            add(Crusher:new(object.x, object.y, object.width, object.height, object.properties))
+        end
     end
 
     love.graphics.setLineStyle("rough")
