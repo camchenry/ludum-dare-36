@@ -7,9 +7,11 @@ function ScreenShake:initialize()
     self.velocity = Vector(0, 0)
     self.angle = 0
 
-    -- Signal.register('hitGround', function()
-
-    -- end)
+    Signal.register('activate', function(id)
+        if id == 1 then
+            self:shake(2, 2, true) 
+        end
+    end)
 end
 
 function ScreenShake:update(dt)
