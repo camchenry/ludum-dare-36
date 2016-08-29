@@ -118,6 +118,10 @@ function game:reset()
         if object.type == "Teleport" then
             add(Teleport:new(object.x, object.y, object.width, object.height, object.properties))
         end
+
+        if object.type == "VictoryCondition" then
+            self.victoryCondition = VictoryCondition:new(object.x, object.y, object.width, object.height, object.properties)
+        end
     end
 
     self.soundManager = SoundManager:new()
