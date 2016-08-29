@@ -5,12 +5,16 @@ function ShowText:initialize(x, y, w, h, properties)
     self.height = h
 
     self.ID = tonumber(properties.ID) or 0
-    self.imgID = tonumber(properties.img) or 0
+    self.textID = tonumber(properties.textID) or 0
 
     self.showImage = false
 
-    if self.imgID == 1 then
-        --self.image = love.graphics.newImage("assets/images/Misc/Room_Gate_TrapDoor.png")
+    if self.textID == 1 then
+        self.image = love.graphics.newImage("assets/images/Text/GateMonitor.png")
+    elseif self.textID == 2 then
+        self.image = love.graphics.newImage("assets/images/Text/1stSkeletonMonitor.png")
+    elseif self.textID == 3 then
+        self.image = love.graphics.newImage("assets/images/Text/2ndSkeletonMonitor.png")
     end
 
     self.position = Vector(x+w/2, y+h/2)
@@ -35,8 +39,6 @@ function ShowText:draw()
         if self.image then
             love.graphics.draw(self.image, self.position.x, self.position.y)
         end
-        love.graphics.setColor(0, 0, 0)
-        love.graphics.rectangle("fill", self.position.x, self.position.y, 20, 20)
     end
 end
 

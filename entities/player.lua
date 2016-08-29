@@ -32,13 +32,16 @@ function Player:initialize(x, y)
     self.wrenchPower = false
 
     self.attackTimer = 0
-    self.attackTime = 1
+    self.attackTime = 0.5
 
     self.crusherTouchTimer = 0
     self.crusherTouchTime = 0.2
 
     self.lastJumpTimer = 0
     self.lastJumpTime = 0.4
+
+    self.foundTimer = 0
+    self.foundTime = 1.2
 
     self.footstepTimer = 0
 
@@ -62,6 +65,10 @@ function Player:initialize(x, y)
     self.attackImage = love.graphics.newImage("assets/images/Hero/Hero_WrenchAttack.png")
     local g = Anim8.newGrid(45, 45, self.attackImage:getWidth(), self.attackImage:getHeight())
     self.attackAnimation = Anim8.newAnimation(g('1-5', 1), self.attackTime/5)
+
+    self.foundImage = love.graphics.newImage("assets/images/Hero/Hero_FoundWrench.png")
+    local g = Anim8.newGrid(45, 45, self.foundImage:getWidth(), self.foundImage:getHeight())
+    self.foundAnimation = Anim8.newAnimation(g('1-10', 1), self.foundTime/10)
 
     self.attackBoxOffset = Vector(20, 5)
     self.attackBoxSize = Vector(20, 25)
@@ -262,6 +269,9 @@ function Player:update(dt, world)
         if other.class and other:isInstanceOf(AreaTrigger) then
             return false
         end
+        if other.class and other:isInstanceOf(Teleport) then
+            return false
+        end
 
         local offset = 0
         if item.velocity.y > 0 then
@@ -294,8 +304,10 @@ function Player:update(dt, world)
         if other.class and other:isInstanceOf(Wrench) then
             if not self.wrenchPower then
                 self.wrenchPower = true
-                other.visible = false
+                other:activate()
                 Signal.emit("getWrench")
+                self.foundAnimation:gotoFrame(1)
+                self.foundTimer = self.foundTime
             end
         elseif other.class and other:isInstanceOf(Enemy) then
             if other.visible and not other.dead then
@@ -438,8 +450,11 @@ function Player:update(dt, world)
     self.attackTimer = math.max(0, self.attackTimer - dt)
     self.crusherTouchTimer = math.max(0, self.crusherTouchTimer - dt)
     self.lastJumpTimer = math.max(0, self.lastJumpTimer - dt)
+    self.foundTimer = math.max(0, self.foundTimer - dt)
 
     self.attackAnimation:update(dt)
+    self.foundAnimation:update(dt)
+
     -- Don't update the run animation if we aren't actually able to run
     if self.canMove and self.jumpTimer == 0 then
         self.runAnimation:update(dt)
@@ -457,53 +472,6 @@ function Player:update(dt, world)
         self.footstepTimer = 0
         Signal.emit("playerFootstep")
     end
-end
-
-function Player:tryMove(dx, dy, world, limit)
-    local actualX, actualY, collisions = world:move(self, self.position.x + dx, self.position.y + dy, function(item, other)
-        if other.class and other:isInstanceOf(Wrench) then
-            return "cross"
-        end
-        if other.class and other:isInstanceOf(Enemy) then
-            return "cross"
-        end
-        if other.class and other:isInstanceOf(Checkpoint) then
-            return "cross"
-        end
-        if other.class and other:isInstanceOf(Lever) then
-            return false
-        end
-        if other.class and other:isInstanceOf(Crusher) then
-            return "slide"
-        end
-
-        if other.class and other:isInstanceOf(Gate) then
-            if other.width == 0 or other.height == 0 then
-                return "touch"
-            else
-                return "touch"
-            end
-        end
-
-        local offset = 0
-        if item.velocity.y > 0 then
-            offset = -5
-        elseif item.velocity.y < 0 then
-            offset = 5
-        end
-
-        if other.class and other:isInstanceOf(Dropfloor) and ((isUp and isDown) or (item.position.y + item.height + offset > other.position.y) or (item.velocity.y > 0 and item.position.y + item.height > other.position.y)) then
-            return false
-        end
-        return "slide"
-    end)
-    if math.abs(actualY - self.position.y) < self.height then
-        self.position.x, self.position.y = actualX, actualY
-    else
-        self.position.x = actualX
-    end
-
-    world:update(self, self.position.x, self.position.y)
 end
 
 function Player:draw()
@@ -537,7 +505,9 @@ function Player:draw()
 
     local x, y = math.floor(self.position.x + self.imageOffset.x*self.facing + offset + 0.5), math.floor(self.position.y + self.imageOffset.y + 0.5)
 
-    if self.attackTimer > 0 then
+    if self.foundTimer > 0 then
+        self.foundAnimation:draw(self.foundImage, x + self.attackImageOffset.x, y + self.attackImageOffset.y, 0, self.facing, 1)
+    elseif self.attackTimer > 0 then
         self.attackAnimation:draw(self.attackImage, x + self.attackImageOffset.x, y + self.attackImageOffset.y, 0, self.facing, 1)
     elseif self.velocity.x == 0 or ((not self.touchingGround or self.onPlatform) and self.crusherTouchTimer == 0) then
         love.graphics.draw(image, x, y, 0, self.facing, 1)

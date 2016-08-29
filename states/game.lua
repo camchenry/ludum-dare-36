@@ -50,7 +50,7 @@ function game:reset()
     self.camera = Camera()
 
     self.player = add(Player:new(20, 1550))
-    --self.player = add(Player:new(700, 2033))
+    --self.player = add(Player:new(680, 1169))
 
     self.textItems = {}
 
@@ -110,6 +110,10 @@ function game:reset()
         if object.type == "ShowText" then
             table.insert(self.textItems, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
         end
+
+        if object.type == "Teleport" then
+            add(Teleport:new(object.x, object.y, object.width, object.height, object.properties))
+        end
     end
 
     self.soundManager = SoundManager:new()
@@ -161,6 +165,8 @@ function game:mousepressed(x, y, mbutton)
 end
 
 function game:draw()
+    love.graphics.setBackgroundColor(32, 65, 77)
+
     self.canvas:renderTo(function()
         love.graphics.clear()  
         self.camera:draw(function()
