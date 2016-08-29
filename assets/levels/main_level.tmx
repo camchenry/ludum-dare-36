@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="81">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="83">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -152,7 +152,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1" visible="0">
+ <objectgroup name="Object Layer 1">
   <object id="1" type="Console" x="160" y="496" width="208" height="128"/>
   <object id="4" type="Checkpoint" x="16" y="528" width="16" height="96"/>
   <object id="5" type="Checkpoint" x="496" y="576" width="16" height="53"/>
@@ -190,40 +190,47 @@
     <property name="ID" value="1"/>
     <property name="canClose" value="false"/>
     <property name="dir" value="up"/>
+    <property name="img" value="4"/>
    </properties>
   </object>
   <object id="26" type="Crusher" x="1152" y="128" width="32" height="96">
    <properties>
     <property name="dir" value="up"/>
+    <property name="img" value="2"/>
    </properties>
   </object>
   <object id="27" type="Crusher" x="1088" y="128" width="32" height="96">
    <properties>
     <property name="dir" value="up"/>
+    <property name="img" value="2"/>
    </properties>
   </object>
   <object id="28" type="Crusher" x="752" y="128" width="32" height="96">
    <properties>
     <property name="dir" value="up"/>
+    <property name="img" value="2"/>
    </properties>
   </object>
   <object id="29" type="Crusher" x="848" y="128" width="32" height="96">
    <properties>
     <property name="dir" value="up"/>
+    <property name="img" value="2"/>
    </properties>
   </object>
   <object id="30" type="Crusher" x="800" y="128" width="32" height="96">
    <properties>
     <property name="dir" value="down"/>
+    <property name="img" value="3"/>
    </properties>
   </object>
   <object id="31" type="Crusher" x="896" y="128" width="32" height="96">
    <properties>
     <property name="dir" value="down"/>
+    <property name="img" value="3"/>
    </properties>
   </object>
   <object id="32" type="Dropfloor" x="1280" y="288" width="32" height="16"/>
-  <object id="33" type="Lever" x="336" y="144" width="16" height="32">
+  <object id="33" type="Lever" x="344" y="144" width="16" height="32">
    <properties>
     <property name="ID" value="7"/>
    </properties>
@@ -234,27 +241,32 @@
     <property name="auto" value="false"/>
     <property name="botDir" value="1"/>
     <property name="dir" value="down"/>
+    <property name="img" value="11"/>
    </properties>
   </object>
   <object id="35" type="Crusher" x="992" y="960" width="32" height="64">
    <properties>
     <property name="dir" value="up"/>
+    <property name="img" value="8"/>
    </properties>
   </object>
   <object id="36" type="Crusher" x="1088" y="960" width="32" height="64">
    <properties>
     <property name="dir" value="up"/>
+    <property name="img" value="8"/>
    </properties>
   </object>
   <object id="37" type="Crusher" x="1136" y="960" width="32" height="64">
    <properties>
     <property name="dir" value="up"/>
+    <property name="img" value="8"/>
    </properties>
   </object>
   <object id="38" type="Gate" x="1104" y="720" width="48" height="12.75">
    <properties>
     <property name="ID" value="2"/>
     <property name="dir" value="left"/>
+    <property name="img" value="5"/>
     <property name="open" value="true"/>
    </properties>
   </object>
@@ -262,6 +274,7 @@
    <properties>
     <property name="ID" value="2"/>
     <property name="dir" value="left"/>
+    <property name="img" value="5"/>
     <property name="open" value="true"/>
    </properties>
   </object>
@@ -289,6 +302,7 @@
     <property name="ID" value="6"/>
     <property name="canClose" value="false"/>
     <property name="dir" value="up"/>
+    <property name="img" value="9"/>
    </properties>
   </object>
   <object id="52" type="Enemy" x="1112" y="768" width="16" height="16">
@@ -301,7 +315,7 @@
    </properties>
   </object>
   <object id="53" type="Dropfloor" x="1232" y="624" width="32" height="16"/>
-  <object id="54" type="Lever" x="320" y="304" width="16" height="32">
+  <object id="54" type="Lever" x="312" y="304" width="16" height="32">
    <properties>
     <property name="ID" value="8"/>
    </properties>
@@ -312,6 +326,7 @@
     <property name="auto" value="false"/>
     <property name="botDir" value="1"/>
     <property name="dir" value="down"/>
+    <property name="img" value="12"/>
    </properties>
   </object>
   <object id="56" type="Gate" x="336" y="336" width="32" height="12.75">
@@ -319,6 +334,7 @@
     <property name="ID" value="8"/>
     <property name="auto" value="false"/>
     <property name="dir" value="left"/>
+    <property name="img" value="13"/>
     <property name="open" value="true"/>
    </properties>
   </object>
@@ -327,6 +343,7 @@
     <property name="ID" value="8"/>
     <property name="auto" value="false"/>
     <property name="dir" value="left"/>
+    <property name="img" value="13"/>
    </properties>
   </object>
   <object id="59" type="Gate" x="304" y="176" width="32" height="12.75">
@@ -334,6 +351,7 @@
     <property name="ID" value="7"/>
     <property name="auto" value="false"/>
     <property name="dir" value="right"/>
+    <property name="img" value="14"/>
     <property name="open" value="true"/>
    </properties>
   </object>
@@ -343,6 +361,7 @@
     <property name="auto" value="false"/>
     <property name="canClose" value="false"/>
     <property name="dir" value="down"/>
+    <property name="img" value="10"/>
     <property name="waitTwo" value="true"/>
    </properties>
   </object>
@@ -357,6 +376,7 @@
     <property name="ID" value="3"/>
     <property name="auto" value="false"/>
     <property name="dir" value="right"/>
+    <property name="img" value="6"/>
    </properties>
   </object>
   <object id="74" type="Gate" x="1504" y="944" width="48" height="12.75">
@@ -364,6 +384,7 @@
     <property name="ID" value="3"/>
     <property name="auto" value="false"/>
     <property name="dir" value="right"/>
+    <property name="img" value="6"/>
    </properties>
   </object>
   <object id="75" type="Gate" x="1456" y="1008" width="32" height="12.75">
@@ -371,6 +392,7 @@
     <property name="ID" value="3"/>
     <property name="auto" value="false"/>
     <property name="dir" value="left"/>
+    <property name="img" value="7"/>
    </properties>
   </object>
   <object id="76" type="Lever" x="1296" y="976" width="16" height="32">
@@ -394,6 +416,22 @@
     <property name="limit" value="false"/>
     <property name="movement" value="true"/>
     <property name="right" value="64"/>
+   </properties>
+  </object>
+  <object id="81" type="Gate" x="368" y="480" width="32" height="12.75">
+   <properties>
+    <property name="ID" value="20"/>
+    <property name="auto" value="false"/>
+    <property name="dir" value="left"/>
+    <property name="img" value="1"/>
+   </properties>
+  </object>
+  <object id="82" type="Gate" x="368" y="624" width="32" height="12.75">
+   <properties>
+    <property name="ID" value="40"/>
+    <property name="auto" value="false"/>
+    <property name="dir" value="left"/>
+    <property name="img" value="1"/>
    </properties>
   </object>
  </objectgroup>

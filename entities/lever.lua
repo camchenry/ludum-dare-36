@@ -11,16 +11,18 @@ function Lever:initialize(x, y, properties)
 
     self.onImage = love.graphics.newImage("assets/images/Misc/Switch_On.png")
     self.offImage = love.graphics.newImage("assets/images/Misc/Switch_Off.png")
+
+    self.imageOffset = Vector(-2, -1)
 end
 
 function Lever:draw()
     local image = self.offImage
 
-    if active then
+    if self.active then
         image = self.onImage
     end
 
-    love.graphics.draw(image, self.position.x, self.position.y)
+    love.graphics.draw(image, self.position.x + self.imageOffset.x, self.position.y + self.imageOffset.y)
 end
 
 function Lever:hit()

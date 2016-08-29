@@ -13,6 +13,21 @@ function Crusher:initialize(x, y, w, h, properties)
     self.direction = properties.dir or "up"
     self.ID = tonumber(properties.ID) or 0
     self.botDir = tonumber(properties.botDir) or 0
+    self.imgID = tonumber(properties.img) or 0
+
+    if self.imgID == 2 then
+        self.image = love.graphics.newImage("assets/images/Misc/Room4_Crusher.png")
+    elseif self.imgID == 3 then
+        self.image = love.graphics.newImage("assets/images/Misc/Room5_UpwardCrusher.png")
+    elseif self.imgID == 8 then
+        self.image = love.graphics.newImage("assets/images/Misc/Room10_Crushers.png")
+    elseif self.imgID == 10 then
+        self.image = love.graphics.newImage("assets/images/Misc/puzzleRoom1_LargeElevator.png")
+    elseif self.imgID == 11 then
+        self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_SmallElevator_FirstPart.png")
+    elseif self.imgID == 11 then
+        self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_SmallElevator_SecondPart.png")
+    end
 
     if properties.canClose and properties.canClose == "false" then
         self.canClose = false
@@ -141,14 +156,26 @@ function Crusher:update(dt, world, override)
 end
 
 function Crusher:draw()
-    --if DEBUG then
-        love.graphics.setColor(0, 0, 0)
-        love.graphics.rectangle('line', math.floor(self.position.x+1), math.floor(self.position.y+1), self.width-1, self.height-1)
-    --end
+    love.graphics.setColor(255, 255, 255)
 
-    if self.width > 0 and self.height > 0 then
-        -- draw image
-        -- image may need to use a scissor
+    -- use a scissor
+    if self.image then
+        local height = math.max(2, self.height)
+
+        if self.direction == "up" then
+            love.graphics.setScissor(self.position.x - game.camera.x, self.position.y - game.camera.y, self.width, height + 2)
+            love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y - (self.startHeight - height)))
+            love.graphics.setScissor()
+        elseif self.direction == "down" then
+            love.graphics.setScissor(self.position.x - game.camera.x, self.position.y - game.camera.y, self.width, height + 2)
+            love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y))
+            love.graphics.setScissor()
+        end
+    end
+
+    if DEBUG then
+        love.graphics.setColor(0, 0, 0)
+        love.graphics.rectangle('line', self.position.x, self.position.y, self.width, self.height)
     end
 
     love.graphics.setColor(255, 255, 255)

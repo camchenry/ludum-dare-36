@@ -12,6 +12,25 @@ function Gate:initialize(x, y, w, h, properties)
     self.direction = properties.dir or "up"
     self.ID = tonumber(properties.ID) or 0
     self.ID2 = tonumber(properties.ID2) or 0
+    self.imgID = tonumber(properties.img) or 0
+
+    if self.imgID == 1 then
+        self.image = love.graphics.newImage("assets/images/Misc/Room_Gate_TrapDoor.png")
+    elseif self.imgID == 4 then
+        self.image = love.graphics.newImage("assets/images/Misc/Room6_Door.png")
+    elseif self.imgID == 5 then
+        self.image = love.graphics.newImage("assets/images/Misc/Room7_TrapDoor.png")
+    elseif self.imgID == 6 then
+        self.image = love.graphics.newImage("assets/images/Misc/Room9_LargeTrapDoor.png")
+    elseif self.imgID == 7 then
+        self.image = love.graphics.newImage("assets/images/Misc/Room9_SmallTrapDoor.png")
+    elseif self.imgID == 9 then
+        self.image = love.graphics.newImage("assets/images/Misc/Room11_Door.png")
+    elseif self.imgID == 13 then
+        self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_TrapDoor_GoingLeft.png")
+    elseif self.imgID == 14 then
+        self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_TrapDoor_GoingRight.png")
+    end
 
     if properties.canClose and properties.canClose == "false" then
         self.canClose = false
@@ -96,14 +115,16 @@ function Gate:update(dt, world)
 end
 
 function Gate:draw()
-    --if DEBUG then
+    love.graphics.setColor(255, 255, 255)
+
+    -- use a scissor
+    if self.image then
+        love.graphics.draw(self.image, self.position.x, self.position.y)
+    end
+
+    if DEBUG then
         love.graphics.setColor(0, 0, 0)
         love.graphics.rectangle('line', self.position.x, self.position.y, self.width, self.height)
-    --end
-
-    if self.width > 1 and self.height > 1 then
-        -- draw image
-        -- image may need to use a scissor
     end
 
     love.graphics.setColor(255, 255, 255)

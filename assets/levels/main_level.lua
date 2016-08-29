@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 81,
+  nextobjectid = 83,
   properties = {},
   tilesets = {
     {
@@ -285,7 +285,7 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -523,7 +523,8 @@ return {
           properties = {
             ["ID"] = "1",
             ["canClose"] = "false",
-            ["dir"] = "up"
+            ["dir"] = "up",
+            ["img"] = "4"
           }
         },
         {
@@ -538,7 +539,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dir"] = "up"
+            ["dir"] = "up",
+            ["img"] = "2"
           }
         },
         {
@@ -553,7 +555,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dir"] = "up"
+            ["dir"] = "up",
+            ["img"] = "2"
           }
         },
         {
@@ -568,7 +571,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dir"] = "up"
+            ["dir"] = "up",
+            ["img"] = "2"
           }
         },
         {
@@ -583,7 +587,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dir"] = "up"
+            ["dir"] = "up",
+            ["img"] = "2"
           }
         },
         {
@@ -598,7 +603,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dir"] = "down"
+            ["dir"] = "down",
+            ["img"] = "3"
           }
         },
         {
@@ -613,7 +619,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dir"] = "down"
+            ["dir"] = "down",
+            ["img"] = "3"
           }
         },
         {
@@ -634,7 +641,7 @@ return {
           name = "",
           type = "Lever",
           shape = "rectangle",
-          x = 336,
+          x = 344,
           y = 144,
           width = 16,
           height = 32,
@@ -659,7 +666,8 @@ return {
             ["ID"] = "7",
             ["auto"] = "false",
             ["botDir"] = "1",
-            ["dir"] = "down"
+            ["dir"] = "down",
+            ["img"] = "11"
           }
         },
         {
@@ -674,7 +682,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dir"] = "up"
+            ["dir"] = "up",
+            ["img"] = "8"
           }
         },
         {
@@ -689,7 +698,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dir"] = "up"
+            ["dir"] = "up",
+            ["img"] = "8"
           }
         },
         {
@@ -704,7 +714,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["dir"] = "up"
+            ["dir"] = "up",
+            ["img"] = "8"
           }
         },
         {
@@ -721,6 +732,7 @@ return {
           properties = {
             ["ID"] = "2",
             ["dir"] = "left",
+            ["img"] = "5",
             ["open"] = "true"
           }
         },
@@ -738,6 +750,7 @@ return {
           properties = {
             ["ID"] = "2",
             ["dir"] = "left",
+            ["img"] = "5",
             ["open"] = "true"
           }
         },
@@ -804,7 +817,8 @@ return {
           properties = {
             ["ID"] = "6",
             ["canClose"] = "false",
-            ["dir"] = "up"
+            ["dir"] = "up",
+            ["img"] = "9"
           }
         },
         {
@@ -844,7 +858,7 @@ return {
           name = "",
           type = "Lever",
           shape = "rectangle",
-          x = 320,
+          x = 312,
           y = 304,
           width = 16,
           height = 32,
@@ -869,7 +883,8 @@ return {
             ["ID"] = "8",
             ["auto"] = "false",
             ["botDir"] = "1",
-            ["dir"] = "down"
+            ["dir"] = "down",
+            ["img"] = "12"
           }
         },
         {
@@ -887,6 +902,7 @@ return {
             ["ID"] = "8",
             ["auto"] = "false",
             ["dir"] = "left",
+            ["img"] = "13",
             ["open"] = "true"
           }
         },
@@ -904,7 +920,8 @@ return {
           properties = {
             ["ID"] = "8",
             ["auto"] = "false",
-            ["dir"] = "left"
+            ["dir"] = "left",
+            ["img"] = "13"
           }
         },
         {
@@ -922,6 +939,7 @@ return {
             ["ID"] = "7",
             ["auto"] = "false",
             ["dir"] = "right",
+            ["img"] = "14",
             ["open"] = "true"
           }
         },
@@ -953,6 +971,7 @@ return {
             ["auto"] = "false",
             ["canClose"] = "false",
             ["dir"] = "down",
+            ["img"] = "10",
             ["waitTwo"] = "true"
           }
         },
@@ -1048,7 +1067,8 @@ return {
           properties = {
             ["ID"] = "3",
             ["auto"] = "false",
-            ["dir"] = "right"
+            ["dir"] = "right",
+            ["img"] = "6"
           }
         },
         {
@@ -1065,7 +1085,8 @@ return {
           properties = {
             ["ID"] = "3",
             ["auto"] = "false",
-            ["dir"] = "right"
+            ["dir"] = "right",
+            ["img"] = "6"
           }
         },
         {
@@ -1082,7 +1103,8 @@ return {
           properties = {
             ["ID"] = "3",
             ["auto"] = "false",
-            ["dir"] = "left"
+            ["dir"] = "left",
+            ["img"] = "7"
           }
         },
         {
@@ -1136,6 +1158,42 @@ return {
             ["limit"] = "false",
             ["movement"] = "true",
             ["right"] = "64"
+          }
+        },
+        {
+          id = 81,
+          name = "",
+          type = "Gate",
+          shape = "rectangle",
+          x = 368,
+          y = 480,
+          width = 32,
+          height = 12.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = "20",
+            ["auto"] = "false",
+            ["dir"] = "left",
+            ["img"] = "1"
+          }
+        },
+        {
+          id = 82,
+          name = "",
+          type = "Gate",
+          shape = "rectangle",
+          x = 368,
+          y = 624,
+          width = 32,
+          height = 12.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = "40",
+            ["auto"] = "false",
+            ["dir"] = "left",
+            ["img"] = "1"
           }
         }
       }
