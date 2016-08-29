@@ -7,6 +7,7 @@ CANVAS_HEIGHT = 160
 
 function game:enter(from, ...)
     self:reset() 
+    Signal.emit("gameEntered")
 end
 
 function game:resetToCheckpoint(override)
@@ -32,7 +33,6 @@ function game:resetToCheckpoint(override)
 end
 
 function game:reset()
-    print(debug.traceback())
     -- self.map = sti("assets/levels/main_level.lua", {"bump"}) 
     self.canvas = love.graphics.newCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     SCALEX = love.graphics.getWidth() / CANVAS_WIDTH

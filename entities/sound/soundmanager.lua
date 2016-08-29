@@ -26,6 +26,20 @@ function SoundManager:initialize(directory)
     self.sounds.startJump:setVolume(0.8)
     self.sounds.bugDeath:setVolume(0.9)
 
+	self.musicVolume = 0.75
+    self.currentMusicVolume = 0.75
+    self.music = {
+        boom = "assets/music/boom.wav",
+        ambient1 = "assets/music/ambient1.mp3",
+    }
+	for name, music in pairs(self.music) do
+        self.music[name] = love.audio.newSource(music)
+        self.music[name]:setVolume(self.musicVolume)
+        self.music[name]:setLooping(true)
+	end
+
+    self.music.boom:setLooping(false)
+
     local signals = {
         'hitCeiling',
         'hitWall',
@@ -36,6 +50,7 @@ function SoundManager:initialize(directory)
         'getWrench',
         'activate',
         'playerFootstep',
+        'gameEntered',
     }
 
     local function firstToUpper(str)
@@ -63,11 +78,7 @@ function SoundManager:playDelayed(delay, sound)
 end
 
 function SoundManager:playSequence(...)
-    -- local t = 0
-    -- for i, sound in ipairs(sounds) do
-    --     self:playDelayed(t, sound)
-    --     t = t + sound:tell()
-    -- end
+
 end
 
 function SoundManager:update(dt)
@@ -83,6 +94,10 @@ function SoundManager:update(dt)
             sound.sound:play()
             table.remove(self.delays, i)
         end
+    end
+
+    if self.currentMusic and self.currentMusic:isPlaying() then
+        self.currentMusic:setVolume(self.currentMusicVolume)
     end
 end
 
@@ -128,6 +143,13 @@ function SoundManager:onPlayerFootstep()
     s:setVolume(0.15)
     s:setPitch(love.math.random(90, 110)/100)
     s:play()
+end
+
+function SoundManager:onGameEntered()
+    self.music.boom:play()
+
+    self.currentMusic = self.music.ambient1
+    self.currentMusic:play()
 end
 
 return SoundManager
