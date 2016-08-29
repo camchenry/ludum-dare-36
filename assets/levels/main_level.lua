@@ -1015,19 +1015,6 @@ return {
           properties = {}
         },
         {
-          id = 70,
-          name = "",
-          type = "Dropfloor",
-          shape = "rectangle",
-          x = 432,
-          y = 384,
-          width = 32,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 71,
           name = "",
           type = "Spikes",
