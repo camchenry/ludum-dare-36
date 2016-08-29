@@ -103,7 +103,8 @@ function Bot:update(dt, world)
             end
         elseif other.class and other:isInstanceOf(Spikes) then
             --self:reset(world)
-            game:resetToCheckpoint(true)
+            --game:resetToCheckpoint(true)
+            game:resetToCheckpoint()
         elseif other.class and other:isInstanceOf(Checkpoint) then
             self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
         end

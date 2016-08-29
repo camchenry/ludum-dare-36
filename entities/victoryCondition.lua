@@ -20,7 +20,7 @@ end
 
 function VictoryCondition:check()
     if self.condition1 and self.condition2 then
-        signal.emit("GameVictory")
+        Signal.emit("GameVictory")
     end
 end
 

@@ -40,8 +40,6 @@ function Gate:initialize(x, y, w, h, properties)
         self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_SmallTrapDoor.png")
     elseif self.imgID == 21 then
         self.image = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_Bridges.png")
-    elseif self.imgID == 22 then
-        self.image = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_SmallDoors.png")
     end
 
     if properties.canClose and properties.canClose == "false" then

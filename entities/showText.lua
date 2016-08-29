@@ -17,6 +17,16 @@ function ShowText:initialize(x, y, w, h, properties)
         self.image = love.graphics.newImage("assets/images/Text/2ndSkeletonMonitor.png")
     elseif self.textID == 4 then
         self.image = love.graphics.newImage("assets/images/Text/OldManIntro.png")
+    elseif self.textID == 5 then
+        self.image = love.graphics.newImage("assets/images/Text/CoreRoomMonitor1.png")
+    elseif self.textID == 6 then
+        self.image = love.graphics.newImage("assets/images/Text/CoreRoomMonitor2.png")
+    elseif self.textID == 7 then
+        self.image = love.graphics.newImage("assets/images/Text/CoreRoomMonitor3.png")
+    elseif self.textID == 8 then
+        self.image = love.graphics.newImage("assets/images/Text/CoreRoomMonitor4.png")
+    elseif self.textID == 9 then
+        self.image = love.graphics.newImage("assets/images/Text/CoreRoomMonitor5.png")
     end
 
     self.position = Vector(x+w/2, y+h/2)

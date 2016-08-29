@@ -40,6 +40,8 @@ function Crusher:initialize(x, y, w, h, properties)
         self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_LongElevator.png")
     elseif self.imgID == 19 then
         self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_SmallElevator.png")
+    elseif self.imgID == 22 then
+        self.image = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_SmallDoors.png")
     elseif self.imgID == 23 then
         self.image = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_Elevator.png")
     end
@@ -205,7 +207,7 @@ function Crusher:update(dt, world, override)
     end
 
     if not self.hasMoved and self.waitTimer <= 0 then
-        if not self.crushing and self.auto then
+        if not self.crushing and (self.auto or (self.waitPlayer and game.player.position.y > self.position.y + 20)) then
             self.crushing = true
 
             self.moveTween = Flux.to(self, self.retractTime, {height = 0}):ease("linear"):after(self.crushTime, {height = self.startHeight}):ease("linear"):oncomplete(function()
