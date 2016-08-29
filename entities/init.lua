@@ -14,6 +14,7 @@ SecretLayer     = require "entities.secretLayer"
 AreaTrigger     = require "entities.areaTrigger"
 ShowText        = require "entities.showText"
 Teleport        = require "entities.teleport"
+Mask            = require "entities.mask"
 
 SoundManager    = require "entities.sound.soundmanager"
 

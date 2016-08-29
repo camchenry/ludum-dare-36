@@ -50,6 +50,10 @@ function intro:reset()
             table.insert(self.textItems, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
+        if object.type == "Mask" then
+            self.mask = Mask:new(object.x, object.y, object.width, object.height, object.properties)
+        end
+
         if object.type == "AreaTrigger" then
             local trigger = add(AreaTrigger:new(object.x, object.y, object.width, object.height, object.properties))
             
@@ -117,6 +121,8 @@ function intro:draw()
                     end
                 end
             end
+
+            self.mask:draw()
 
             for _, textItem in pairs(self.textItems) do
                 textItem:draw()

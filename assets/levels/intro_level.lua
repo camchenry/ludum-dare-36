@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 8,
+  nextobjectid = 9,
   properties = {},
   tilesets = {
     {
@@ -229,6 +229,19 @@ return {
             ["id"] = "1",
             ["signalOff"] = true
           }
+        },
+        {
+          id = 8,
+          name = "",
+          type = "Mask",
+          shape = "rectangle",
+          x = 686,
+          y = 331,
+          width = 49.8182,
+          height = 84.7273,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }
