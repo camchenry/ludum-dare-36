@@ -8,10 +8,19 @@ function Lever:initialize(x, y, properties)
     self.ID = tonumber(properties.ID) or 0
     self.active = false
     self.oneTime = properties.oneTime
+
+    self.onImage = love.graphics.newImage("assets/images/Misc/Switch_On.png")
+    self.offImage = love.graphics.newImage("assets/images/Misc/Switch_Off.png")
 end
 
 function Lever:draw()
+    local image = self.offImage
 
+    if active then
+        image = self.onImage
+    end
+
+    love.graphics.draw(image, self.position.x, self.position.y)
 end
 
 function Lever:hit()

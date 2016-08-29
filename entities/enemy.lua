@@ -24,6 +24,11 @@ function Enemy:initialize(x, y, properties)
     else
         self.jumping = false
     end
+    if properties.limit and properties.limit == "false" then
+        self.limit = false
+    else
+        self.limit = true
+    end
 
     self.visible = true
     self.dead = false
@@ -67,19 +72,27 @@ function Enemy:update(dt, world)
     local newPos = Vector(self.position.x, self.position.y)
 
     if self.movement and not self.dead then
-        if self.direction == -1 then
-            local distance = self.startPosition.x + self.right - self.position.x
-            if distance > 0 then
-                newPos.x = math.min(self.startPosition.x + self.right, self.position.x + self.speed*dt)
-            elseif distance <= 0 then
-                self.direction = self.direction * -1
+        if self.limit then
+            if self.direction == -1 then
+                local distance = self.startPosition.x + self.right - self.position.x
+                if distance > 0 then
+                    newPos.x = math.min(self.startPosition.x + self.right, self.position.x + self.speed*dt)
+                elseif distance <= 0 then
+                    self.direction = self.direction * -1
+                end
+            elseif self.direction == 1 then
+                local distance = self.position.x - self.startPosition.x
+                if distance > 0 then
+                    newPos.x = math.max(self.startPosition.x, self.position.x - self.speed*dt)
+                elseif distance <= 0 then
+                    self.direction = self.direction * -1
+                end
             end
-        elseif self.direction == 1 then
-            local distance = self.position.x - self.startPosition.x
-            if distance > 0 then
-                newPos.x = math.max(self.startPosition.x, self.position.x - self.speed*dt)
-            elseif distance <= 0 then
-                self.direction = self.direction * -1
+        else
+            if self.direction == -1 then
+                newPos.x = self.position.x + self.speed*dt
+            elseif self.direction == 1 then
+                newPos.x = self.position.x - self.speed*dt
             end
         end
     end
@@ -114,10 +127,20 @@ function Enemy:update(dt, world)
         local other = col.other
         if other.class and other:isInstanceOf(Wrench) then
 
+        elseif other.class and other:isInstanceOf(Gate) then
+            if col.normal.y == 1 then
+                --self.acceleration.y = 0
+            end
+            if math.abs(col.normal.x) == 1 then
+                if other.width > 2 and other.height > 2 then
+                    self.direction = self.direction * -1
+                end
+            end
         else
             if math.abs(col.normal.x) == 1 then
                 self.direction = self.direction * -1
-            elseif col.normal.y == -1 then
+            end
+            if col.normal.y == -1 then
                 self.velocity.y = 0
             end
         end
