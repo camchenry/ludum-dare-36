@@ -185,7 +185,7 @@
     <property name="right" value="64"/>
    </properties>
   </object>
-  <object id="25" type="Gate" x="480" y="176" width="16" height="48">
+  <object id="25" type="Gate" x="481" y="176" width="14" height="48">
    <properties>
     <property name="ID" value="1"/>
     <property name="canClose" value="false"/>
@@ -232,6 +232,7 @@
    <properties>
     <property name="ID" value="7"/>
     <property name="auto" value="false"/>
+    <property name="botDir" value="1"/>
     <property name="dir" value="down"/>
    </properties>
   </object>
@@ -319,7 +320,7 @@
     <property name="ID" value="6"/>
    </properties>
   </object>
-  <object id="51" type="Gate" x="640" y="1040" width="16" height="48">
+  <object id="51" type="Gate" x="641" y="1040" width="14" height="48">
    <properties>
     <property name="ID" value="6"/>
     <property name="canClose" value="false"/>
@@ -345,6 +346,7 @@
    <properties>
     <property name="ID" value="8"/>
     <property name="auto" value="false"/>
+    <property name="botDir" value="1"/>
     <property name="dir" value="down"/>
    </properties>
   </object>

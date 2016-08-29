@@ -62,6 +62,10 @@ function Bot:update(dt, world)
     end)
 
     if self.crusherReference then
+        if self.crusherReference.botDir ~= 0 then
+            --self.direction = self.crusherReference.botDir
+        end
+
         if self.crusherTimer == 0 then
             self.crusherReference = nil
         end
@@ -78,6 +82,9 @@ function Bot:update(dt, world)
             elseif col.normal.y == 1 then
                 self.velocity.y = 0
                 self.crusherReference = other
+            end
+            if other.botDir ~= 0 then
+                --self.direction = other.botDir
             end
         elseif other.class and other:isInstanceOf(Spikes) then
             self:reset(world)
@@ -156,7 +163,7 @@ function Bot:draw()
         love.graphics.setColor(0, 255, 255)
     end
 
-    love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y))
+    love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y-1))
 end
 
 return Bot

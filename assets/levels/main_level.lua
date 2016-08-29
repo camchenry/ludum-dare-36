@@ -515,9 +515,9 @@ return {
           name = "",
           type = "Gate",
           shape = "rectangle",
-          x = 480,
+          x = 481,
           y = 176,
-          width = 16,
+          width = 14,
           height = 48,
           rotation = 0,
           visible = true,
@@ -659,6 +659,7 @@ return {
           properties = {
             ["ID"] = "7",
             ["auto"] = "false",
+            ["botDir"] = "1",
             ["dir"] = "down"
           }
         },
@@ -891,9 +892,9 @@ return {
           name = "",
           type = "Gate",
           shape = "rectangle",
-          x = 640,
+          x = 641,
           y = 1040,
-          width = 16,
+          width = 14,
           height = 48,
           rotation = 0,
           visible = true,
@@ -964,6 +965,7 @@ return {
           properties = {
             ["ID"] = "8",
             ["auto"] = "false",
+            ["botDir"] = "1",
             ["dir"] = "down"
           }
         },

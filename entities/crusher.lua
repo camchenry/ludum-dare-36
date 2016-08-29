@@ -12,6 +12,7 @@ function Crusher:initialize(x, y, w, h, properties)
 
     self.direction = properties.dir or "up"
     self.ID = tonumber(properties.ID) or 0
+    self.botDir = tonumber(properties.botDir) or 0
 
     if properties.canClose and properties.canClose == "false" then
         self.canClose = false
@@ -111,6 +112,9 @@ function Crusher:update(dt, world, override)
                 end
 
                 if other.class and other:isInstanceOf(Bot) then
+                    if self.botDir ~= 0 then
+                        --other.direction = self.botDir
+                    end
                     if override then
                         return false
                     else
