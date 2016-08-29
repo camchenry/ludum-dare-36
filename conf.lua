@@ -47,7 +47,7 @@ function love.conf(t)
         identifier = "com.camchenry.ludum-dare-36",
         loveVersion = "0.10.1",
 
-        author = "Ikroth, Ikroth2",
+        author = "Undefined",
         email = "cameronamchenry@gmail.com",
         description = "A game made for Ludum Dare 36",
         homepage = "camchenry.com",
