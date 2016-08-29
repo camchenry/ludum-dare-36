@@ -25,7 +25,7 @@ function Crusher:initialize(x, y, w, h, properties)
         self.image = love.graphics.newImage("assets/images/Misc/puzzleRoom1_LargeElevator.png")
     elseif self.imgID == 11 then
         self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_SmallElevator_FirstPart.png")
-    elseif self.imgID == 11 then
+    elseif self.imgID == 12 then
         self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_SmallElevator_SecondPart.png")
     end
 
@@ -167,7 +167,10 @@ function Crusher:draw()
             love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y - (self.startHeight - height)))
             love.graphics.setScissor()
         elseif self.direction == "down" then
-            love.graphics.setScissor(self.position.x - game.camera.x, self.position.y - game.camera.y, self.width, height + 2)
+            love.graphics.setScissor(self.position.x - game.camera.x, self.startPosition.y - game.camera.y, self.width, self.startHeight)
+
+            --local y = math.min(self.position.y, self.startPosition.y + self.startHeight-2)
+
             love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y))
             love.graphics.setScissor()
         end

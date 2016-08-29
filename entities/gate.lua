@@ -5,6 +5,8 @@ function Gate:initialize(x, y, w, h, properties)
     self.width = w
     self.height = h
 
+    self.startPosition = Vector(x, y)
+
     self.startX = x
     self.startWidth = w
     self.startHeight = h
@@ -119,7 +121,29 @@ function Gate:draw()
 
     -- use a scissor
     if self.image then
-        love.graphics.draw(self.image, self.position.x, self.position.y)
+        local width = math.max(2, self.width)
+        local height = math.max(2, self.height)
+
+        if self.direction == "up" then
+            love.graphics.setScissor(self.position.x - game.camera.x, self.position.y - game.camera.y, self.width, height + 2)
+            love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y - (self.startHeight - height)))
+            love.graphics.setScissor()
+        elseif self.direction == "down" then
+            love.graphics.setScissor(self.position.x - game.camera.x, self.position.y - game.camera.y - 40, self.width, height + 40)
+
+            --local y = math.min(self.position.y, self.startPosition.y + self.startHeight-2)
+
+            love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y))
+            love.graphics.setScissor()
+        elseif self.direction == "left" then
+            love.graphics.setScissor(self.position.x - game.camera.x, self.position.y - game.camera.y, width + 2, self.height)
+            love.graphics.draw(self.image, math.floor(self.position.x - (self.startWidth - width)), math.floor(self.position.y))
+            love.graphics.setScissor()
+        elseif self.direction == "right" then
+            love.graphics.setScissor(self.startPosition.x - game.camera.x, self.position.y - game.camera.y, self.startWidth, self.height)
+            love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y))
+            love.graphics.setScissor()
+        end
     end
 
     if DEBUG then
