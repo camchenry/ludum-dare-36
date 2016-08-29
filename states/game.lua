@@ -47,10 +47,13 @@ function game:reset()
         return obj
     end
 
+    loads = loads + 1
+
     self.camera = Camera()
     self.camera.smoother = Camera.smooth.damped(5)
 
-    self.player = add(Player:new(20, 1550))
+    --self.player = add(Player:new(20, 1550))
+    self.player = add(Player:new(1280, 1665))
 
     self.textItems = {}
 

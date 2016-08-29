@@ -29,7 +29,7 @@ function Player:initialize(x, y)
     self.prevCeil = false
     self.prevWall = false
 
-    self.wrenchPower = false
+    self.wrenchPower = true
 
     self.attackTimer = 0
     self.attackTime = 0.5

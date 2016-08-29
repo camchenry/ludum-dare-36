@@ -192,7 +192,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1" visible="0">
+ <objectgroup name="Object Layer 1">
   <object id="524" type="Console" x="160" y="1472" width="208" height="128">
    <properties>
     <property name="ID" value="20"/>
@@ -301,11 +301,11 @@
   <object id="554" type="Gate" x="1184" y="1696" width="48" height="12.75">
    <properties>
     <property name="ID" value="2"/>
-    <property name="crushTime" value="1"/>
+    <property name="crushTime" value="10"/>
     <property name="dir" value="left"/>
     <property name="img" value="5"/>
     <property name="open" value="true"/>
-    <property name="retractTime" value="1"/>
+    <property name="retractTime" value="10"/>
    </properties>
   </object>
   <object id="555" type="Lever" x="1520" y="1664" width="16" height="32">

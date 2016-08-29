@@ -16,6 +16,8 @@ Anim8   = require 'libs.anim8'
 require 'states'
 require 'entities'
 
+loads = 0
+
 function love.load()
     local function makeFont(path)
         return setmetatable({}, {
@@ -73,7 +75,8 @@ function love.draw()
                 "TEX: "  .. Lume.round(stats.texturememory / 1024 / 1024, .01) .. "MB",
                 "IMG#: " .. stats.images,
                 "FNT#: " .. stats.fonts,
-                "CVS#: " .. stats.canvases
+                "CVS#: " .. stats.canvases,
+                "Loads: " .. loads
             )
         end
         if game.player then
