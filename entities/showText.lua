@@ -15,6 +15,8 @@ function ShowText:initialize(x, y, w, h, properties)
         self.image = love.graphics.newImage("assets/images/Text/1stSkeletonMonitor.png")
     elseif self.textID == 3 then
         self.image = love.graphics.newImage("assets/images/Text/2ndSkeletonMonitor.png")
+    elseif self.textID == 4 then
+        self.image = love.graphics.newImage("assets/images/Text/OldManIntro.png")
     end
 
     self.position = Vector(x+w/2, y+h/2)

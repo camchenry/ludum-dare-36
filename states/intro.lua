@@ -39,9 +39,15 @@ function intro:reset()
     self.camera = Camera()
     self.camera.smoother = Camera.smooth.damped(5)
 
+    self.textItems = {}
+
     for i, object in pairs(self.map.objects) do
         if object.type == "Spawn" then
             self.player = add(Player:new(object.x, object.y))
+        end
+
+        if object.type == "ShowText" then
+            table.insert(self.textItems, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "AreaTrigger" then
@@ -110,6 +116,10 @@ function intro:draw()
                         obj:draw()
                     end
                 end
+            end
+
+            for _, textItem in pairs(self.textItems) do
+                textItem:draw()
             end
         end)
     end)

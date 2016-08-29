@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 5,
+  nextobjectid = 8,
   properties = {},
   tilesets = {
     {
@@ -196,6 +196,38 @@ return {
           visible = true,
           properties = {
             ["transition"] = "game"
+          }
+        },
+        {
+          id = 5,
+          name = "",
+          type = "ShowText",
+          shape = "rectangle",
+          x = 352,
+          y = 352,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["id"] = "1",
+            ["textID"] = "4"
+          }
+        },
+        {
+          id = 7,
+          name = "",
+          type = "AreaTrigger",
+          shape = "rectangle",
+          x = 336,
+          y = 368,
+          width = 48,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["id"] = "1",
+            ["signalOff"] = true
           }
         }
       }
