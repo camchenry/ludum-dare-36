@@ -9,11 +9,24 @@ function game:enter(from, ...)
     self:reset() 
 end
 
-function game:resetToCheckpoint()
-    self.player:reset(self.world)
+function game:resetToCheckpoint(override)
+    if not override then
+        self.player:reset(self.world)
+    end
+
     for _, obj in ipairs(self.objects) do
         if obj.reset then
-            obj:reset(self.world)
+            if not obj:isInstanceOf(Bot) and not obj:isInstanceOf(Player) then
+                obj:reset(self.world)
+            end
+        end
+    end
+
+    for _, obj in ipairs(self.objects) do
+        if obj.reset then
+            if obj:isInstanceOf(Bot) then
+                obj:reset(self.world)
+            end
         end
     end
 end
@@ -36,8 +49,8 @@ function game:reset()
 
     self.camera = Camera()
 
-    self.player = add(Player:new(20, 560))
-    --self.player = add(Player:new(1200, 193))
+    self.player = add(Player:new(20, 1550))
+    --self.player = add(Player:new(700, 2033))
 
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
@@ -53,7 +66,7 @@ function game:reset()
         end
         
         if object.type == "Console" then
-            self.console = Console:new(object.x, object.y)
+            self.console = Console:new(object.x, object.y, object.width, object.height, object.properties)
         end
 
         if object.type == "Checkpoint" then
@@ -83,6 +96,14 @@ function game:reset()
         if object.type == "Spikes" then
             add(Spikes:new(object.x, object.y, object.width, object.height, object.properties))
         end
+
+        if object.type == "AreaTrigger" then
+            add(AreaTrigger:new(object.x, object.y, object.width, object.height, object.properties))
+        end
+
+        if object.type == "SecretLayer" then
+            self.secretLayer = SecretLayer:new(object.x, object.y, object.width, object.height, object.properties)
+        end
     end
 
     self.soundManager = SoundManager:new()
@@ -108,6 +129,8 @@ function game:update(dt)
             obj:update(dt, self.world)
         end
     end
+
+    self.secretLayer:update(dt)
 
     -- Change this to an option for disabling screen shake
     local dx, dy = 0, 0
@@ -146,6 +169,8 @@ function game:draw()
             end
 
             self.player:draw()
+
+            self.secretLayer:draw()
         end)
     end)
 

@@ -32,6 +32,10 @@ function Gate:initialize(x, y, w, h, properties)
         self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_TrapDoor_GoingLeft.png")
     elseif self.imgID == 14 then
         self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_TrapDoor_GoingRight.png")
+    elseif self.imgID == 17 then
+        self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_Gate.png")
+    elseif self.imgID == 20 then
+        self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_SmallTrapDoor.png")
     end
 
     if properties.canClose and properties.canClose == "false" then
@@ -43,7 +47,10 @@ function Gate:initialize(x, y, w, h, properties)
     self.activateTime = 2
     self.activating = false
 
+    self.dontReset = properties.dontReset
+
     if properties.open and properties.open == "true" then
+        self.startOpen = true
         self.activeOn = false
         if self.direction == "up" then
             self.height = 1
@@ -53,6 +60,7 @@ function Gate:initialize(x, y, w, h, properties)
             self.width = 1
         end
     else
+        self.startOpen = false
         self.activeOn = true
     end
 
@@ -65,28 +73,61 @@ function Gate:initialize(x, y, w, h, properties)
     end)
 end
 
-function Gate:activate()
-    if self.direction == "up" then
-        self:activateUp()
-    elseif self.direction == "left" then
-        self:activateLeft()
-    elseif self.direction == "right" then
-        self:activateLeft()
-    end
+function Gate:reset()
+    if not self.dontReset then
+        if self.moveTween then
+            self.moveTween:stop()
+            self.moveTween = nil
+        end
 
-    self.activating = true
-    self.activeOn = not self.activeOn
+        self.width = self.startWidth
+        self.height = self.startHeight
+
+        self.position = Vector(self.startPosition.x, self.startPosition.y)
+
+        if self.startOpen then
+            self.activeOn = false
+            if self.direction == "up" then
+                self.height = 1
+            elseif self.direction == "left" then
+                self.width = 1
+            elseif self.direction == "right" then
+                self.width = 1
+            end
+        else
+            self.activeOn = true
+        end
+
+        self.activating = false
+    end
+end
+
+function Gate:activate()
+    if not self.moveTween then
+        if self.direction == "up" then
+            self:activateUp()
+        elseif self.direction == "left" then
+            self:activateLeft()
+        elseif self.direction == "right" then
+            self:activateLeft()
+        end
+
+        self.activating = true
+        self.activeOn = not self.activeOn
+    end
 end
 
 function Gate:activateUp()
     if self.activeOn then
         -- it is time to open
-        Flux.to(self, self.activateTime, {height = 1}):oncomplete(function()
+        self.moveTween = Flux.to(self, self.activateTime, {height = 1}):oncomplete(function()
+            self.moveTween = nil
             self.activating = false
         end)
     elseif self.canClose then
         -- it is time to close
-        Flux.to(self, self.activateTime, {height = self.startHeight}):oncomplete(function()
+        self.moveTween = Flux.to(self, self.activateTime, {height = self.startHeight}):oncomplete(function()
+            self.moveTween = nil
             self.activating = false
         end)
     end
@@ -95,12 +136,14 @@ end
 function Gate:activateLeft()
     if self.activeOn then
         -- it is time to open
-        Flux.to(self, self.activateTime, {width = 1}):oncomplete(function()
+        self.moveTween = Flux.to(self, self.activateTime, {width = 1}):oncomplete(function()
+            self.moveTween = nil
             self.activating = false
         end)
     elseif self.canClose then
         -- it is time to close
-        Flux.to(self, self.activateTime, {width = self.startWidth}):oncomplete(function()
+        self.moveTween = Flux.to(self, self.activateTime, {width = self.startWidth}):oncomplete(function()
+            self.moveTween = nil
             self.activating = false
         end)
     end

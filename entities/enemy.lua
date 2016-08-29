@@ -44,8 +44,15 @@ function Enemy:initialize(x, y, properties)
     self.jumpTimer = self.jumpInterval
     self.fallOffset = 0
 
-    self.image = love.graphics.newImage("assets/images/Enemy/Bug.png")
-    self.imageOffset = Vector(16, -self.image:getHeight()/2 - 16)
+    self.idleImage = love.graphics.newImage("assets/images/Enemy/Bug_Idle.png")
+
+    self.jumpImage = love.graphics.newImage("assets/images/Enemy/Bug_Jump.png")
+
+    self.walkImage = love.graphics.newImage("assets/images/Enemy/Bug_Walk.png")
+    local g = Anim8.newGrid(64, 64, self.walkImage:getWidth(), self.walkImage:getHeight())
+    self.walkAnimation = Anim8.newAnimation(g('1-5', 1), 0.110)
+
+    self.imageOffset = Vector(16, -self.idleImage:getHeight()/2 - 16)
 
     Signal.register("activate", function(ID)
         if ID == self.ID then
@@ -147,14 +154,27 @@ function Enemy:update(dt, world)
     end
 
     self.position = Vector(actualX, actualY)
+
+    self.walkAnimation:update(dt)
 end
 
 function Enemy:draw()
     love.graphics.setColor(255, 255, 255)
 
     if self.visible then
-        love.graphics.setColor(self.color)
-        love.graphics.draw(self.image, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, self.image:getWidth()/2, 0)
+        local image = self.idleImage
+
+        if not self.movement then
+            if self.position.y < self.startPosition.y then
+                image = self.jumpImage
+            end
+
+            love.graphics.setColor(self.color)
+            love.graphics.draw(image, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, image:getWidth()/2, 0)
+
+        else
+            self.walkAnimation:draw(self.walkImage, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, self.idleImage:getWidth()/2, 0)
+        end
     end
 
     if DEBUG then
