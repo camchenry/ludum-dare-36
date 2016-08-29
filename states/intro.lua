@@ -61,6 +61,7 @@ function intro:reset()
                 Flux.to(self.overlay, 1.5, {0, 0, 0, 255})
                     :oncomplete(function()
                         State.switch(_G[trigger.transition])
+                        return
                     end)
             end
         end

@@ -12,6 +12,7 @@ Cron    = require 'libs.cron'
 Inspect = require 'libs.inspect'
 Camera  = require 'libs.camera'
 Anim8   = require 'libs.anim8'
+STI     = require 'libs.sti'
 
 require 'states'
 require 'entities'
@@ -41,6 +42,8 @@ function love.load()
     love.window.setIcon(love.image.newImageData('assets/images/icon.png'))
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setFont(Fonts.default[14])
+
+    game.map = STI("assets/levels/main_level.lua", {"bump"}) 
 
     -- Draw is left out so we can override it ourselves
     local callbacks = {'errhand', 'update'}

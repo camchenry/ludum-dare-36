@@ -32,7 +32,8 @@ function game:resetToCheckpoint(override)
 end
 
 function game:reset()
-    self.map = sti("assets/levels/main_level.lua", {"bump"}) 
+    print(debug.traceback())
+    -- self.map = sti("assets/levels/main_level.lua", {"bump"}) 
     self.canvas = love.graphics.newCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
