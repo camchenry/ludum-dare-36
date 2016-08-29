@@ -745,11 +745,11 @@ return {
           visible = true,
           properties = {
             ["ID"] = "2",
-            ["crushTime"] = "10",
+            ["crushTime"] = "1",
             ["dir"] = "left",
             ["img"] = "5",
             ["open"] = "true",
-            ["retractTime"] = "10"
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1896,7 +1896,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "0.4",
+            ["crushTime"] = "0.7",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "8",
