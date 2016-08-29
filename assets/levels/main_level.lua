@@ -1,7 +1,7 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "2016.08.26",
+  tiledversion = "0.16.0",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
@@ -285,11 +285,10 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      draworder = "topdown",
       properties = {},
       objects = {
         {
