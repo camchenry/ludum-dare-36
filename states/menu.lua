@@ -33,6 +33,7 @@ function menu:draw()
     if self.prev then
         self.prev:draw()
     end
+    love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(self.titleFont)
     love.graphics.printf(self.titleText, 0, 100, love.graphics.getWidth(), "center")
     love.graphics.setFont(self.startFont)

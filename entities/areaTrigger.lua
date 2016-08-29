@@ -38,7 +38,7 @@ function AreaTrigger:update(dt, world)
     end
 
     if self.active and self.transition then
-        State.switch(_G[self.transition])
+        self.onTransition()
         return
     end
 

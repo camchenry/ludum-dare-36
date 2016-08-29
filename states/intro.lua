@@ -16,6 +16,8 @@ end
 function intro:enter(prev, ...)
     self:reset()
     self.camera:lookAt(30*16, 17*16)
+
+    self.overlay = {0, 0, 0, 0}
 end
 
 function intro:reset()
@@ -43,7 +45,14 @@ function intro:reset()
         end
 
         if object.type == "AreaTrigger" then
-            add(AreaTrigger:new(object.x, object.y, object.width, object.height, object.properties))
+            local trigger = add(AreaTrigger:new(object.x, object.y, object.width, object.height, object.properties))
+            
+            trigger.onTransition = function()
+                Flux.to(self.overlay, 1.5, {0, 0, 0, 255})
+                    :oncomplete(function()
+                        State.switch(_G[trigger.transition])
+                    end)
+            end
         end
     end
 
@@ -107,4 +116,7 @@ function intro:draw()
 
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(self.canvas, 0, 0, 0, SCALEX, SCALEY)
+
+    love.graphics.setColor(self.overlay)
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 end
