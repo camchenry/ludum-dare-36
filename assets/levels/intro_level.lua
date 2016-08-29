@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 4,
+  nextobjectid = 5,
   properties = {},
   tilesets = {
     {
@@ -163,7 +163,7 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -182,6 +182,21 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 4,
+          name = "",
+          type = "AreaTrigger",
+          shape = "rectangle",
+          x = 688,
+          y = 336,
+          width = 32,
+          height = 80,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["transition"] = "game"
+          }
         }
       }
     }

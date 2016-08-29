@@ -41,6 +41,10 @@ function intro:reset()
         if object.type == "Spawn" then
             self.player = add(Player:new(object.x, object.y))
         end
+
+        if object.type == "AreaTrigger" then
+            add(AreaTrigger:new(object.x, object.y, object.width, object.height, object.properties))
+        end
     end
 
     self.soundManager = SoundManager:new()

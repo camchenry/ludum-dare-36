@@ -10,6 +10,7 @@ function AreaTrigger:initialize(x, y, w, h, properties)
     self.oneTime = properties.oneTime
     self.killBot = properties.killBot
     self.signalOff = properties.signalOff
+    self.transition = properties.transition
 
     self.prevActive = false
     self.active = false
@@ -34,6 +35,11 @@ function AreaTrigger:update(dt, world)
 
             self.active = true
         end
+    end
+
+    if self.active and self.transition then
+        State.switch(_G[self.transition])
+        return
     end
 
     if self.active and not self.prevActive then
