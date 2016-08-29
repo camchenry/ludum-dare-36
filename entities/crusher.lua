@@ -14,6 +14,11 @@ function Crusher:initialize(x, y, w, h, properties)
     self.ID = tonumber(properties.ID) or 0
     self.botDir = tonumber(properties.botDir) or 0
     self.imgID = tonumber(properties.img) or 0
+    self.retractTime = tonumber(properties.retractTime) or 0
+    self.crushTime = tonumber(properties.crushTime) or 0
+    self.waitTime = tonumber(properties.waitTime) or 0
+
+    self.waitTimer = self.waitTime
 
     if self.imgID == 2 then
         self.image = love.graphics.newImage("assets/images/Misc/Room4_Crusher.png")
@@ -137,18 +142,20 @@ function Crusher:reset()
         Flux.to(self, self.resetWaitTime, {}):oncomplete(function()
             self.crushing = false
         end)
+
+        self.waitTimer = self.waitTime
     end
 end
 
 function Crusher:activate()
     if not self.crushing and not self.auto and not self.moveTween then
         if self.open and self.canOpen then
-            self.moveTween = Flux.to(self, self.interval/2, {height = 0}):ease("linear"):oncomplete(function()
+            self.moveTween = Flux.to(self, self.retractTime, {height = 0}):ease("linear"):oncomplete(function()
                 self.moveTween = nil
                 self.crushing = false
             end)
         elseif self.canClose then
-            self.moveTween = Flux.to(self, self.interval/2, {height = self.startHeight}):ease("linear"):oncomplete(function()
+            self.moveTween = Flux.to(self, self.crushTime, {height = self.startHeight}):ease("linear"):oncomplete(function()
                 self.moveTween = nil
                 self.crushing = false
             end)
@@ -195,11 +202,11 @@ function Crusher:update(dt, world, override)
         end
     end
 
-    if not self.hasMoved then
+    if not self.hasMoved and self.waitTimer <= 0 then
         if not self.crushing and self.auto then
             self.crushing = true
 
-            self.moveTween = Flux.to(self, self.interval/2, {height = 0}):ease("linear"):after(self.interval/2, {height = self.startHeight}):ease("linear"):oncomplete(function()
+            self.moveTween = Flux.to(self, self.retractTime, {height = 0}):ease("linear"):after(self.crushTime, {height = self.startHeight}):ease("linear"):oncomplete(function()
                 self.moveTween = nil
                 self.crushing = false
             end)
@@ -244,6 +251,8 @@ function Crusher:update(dt, world, override)
     end
 
     self.hasMoved = true
+
+    self.waitTimer = math.max(0, self.waitTimer - dt)
 
     return dy
 end

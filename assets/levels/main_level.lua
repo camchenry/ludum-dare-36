@@ -8,7 +8,7 @@ return {
   height = 130,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 623,
+  nextobjectid = 633,
   properties = {},
   tilesets = {
     {
@@ -325,7 +325,7 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -368,7 +368,7 @@ return {
           x = 496,
           y = 1552,
           width = 16,
-          height = 53,
+          height = 48,
           rotation = 0,
           visible = true,
           properties = {}
@@ -549,7 +549,7 @@ return {
           properties = {
             ["direction"] = "-1",
             ["movement"] = "true",
-            ["right"] = "64"
+            ["right"] = "80"
           }
         },
         {
@@ -566,8 +566,10 @@ return {
           properties = {
             ["ID"] = "1",
             ["canClose"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "up",
-            ["img"] = "4"
+            ["img"] = "4",
+            ["retractTime"] = ""
           }
         },
         {
@@ -582,77 +584,12 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["crushTime"] = "1",
             ["dir"] = "up",
             ["dontReset"] = true,
-            ["img"] = "2"
-          }
-        },
-        {
-          id = 542,
-          name = "",
-          type = "Crusher",
-          shape = "rectangle",
-          x = 1088,
-          y = 1104,
-          width = 32,
-          height = 96,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["dir"] = "up",
-            ["dontReset"] = true,
-            ["img"] = "2"
-          }
-        },
-        {
-          id = 543,
-          name = "",
-          type = "Crusher",
-          shape = "rectangle",
-          x = 752,
-          y = 1104,
-          width = 32,
-          height = 96,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["dir"] = "up",
-            ["dontReset"] = true,
-            ["img"] = "2"
-          }
-        },
-        {
-          id = 544,
-          name = "",
-          type = "Crusher",
-          shape = "rectangle",
-          x = 848,
-          y = 1104,
-          width = 32,
-          height = 96,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["dir"] = "up",
-            ["dontReset"] = true,
-            ["img"] = "2"
-          }
-        },
-        {
-          id = 545,
-          name = "",
-          type = "Crusher",
-          shape = "rectangle",
-          x = 800,
-          y = 1104,
-          width = 32,
-          height = 96,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["dir"] = "down",
-            ["dontReset"] = true,
-            ["img"] = "3"
+            ["img"] = "2",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
           }
         },
         {
@@ -667,9 +604,12 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["crushTime"] = "1",
             ["dir"] = "down",
             ["dontReset"] = true,
-            ["img"] = "3"
+            ["img"] = "3",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
           }
         },
         {
@@ -715,8 +655,11 @@ return {
             ["ID"] = "7",
             ["auto"] = "false",
             ["botDir"] = "1",
+            ["crushTime"] = "1",
             ["dir"] = "down",
-            ["img"] = "11"
+            ["img"] = "11",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
           }
         },
         {
@@ -731,43 +674,12 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["crushTime"] = "0.4",
             ["dir"] = "up",
             ["dontReset"] = true,
-            ["img"] = "8"
-          }
-        },
-        {
-          id = 551,
-          name = "",
-          type = "Crusher",
-          shape = "rectangle",
-          x = 1088,
-          y = 1936,
-          width = 32,
-          height = 64,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["dir"] = "up",
-            ["dontReset"] = true,
-            ["img"] = "8"
-          }
-        },
-        {
-          id = 552,
-          name = "",
-          type = "Crusher",
-          shape = "rectangle",
-          x = 1136,
-          y = 1936,
-          width = 32,
-          height = 64,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["dir"] = "up",
-            ["dontReset"] = true,
-            ["img"] = "8"
+            ["img"] = "8",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
           }
         },
         {
@@ -783,9 +695,11 @@ return {
           visible = true,
           properties = {
             ["ID"] = "2",
+            ["crushTime"] = "1",
             ["dir"] = "left",
             ["img"] = "5",
-            ["open"] = "true"
+            ["open"] = "true",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -801,9 +715,11 @@ return {
           visible = true,
           properties = {
             ["ID"] = "2",
+            ["crushTime"] = "1",
             ["dir"] = "left",
             ["img"] = "5",
-            ["open"] = "true"
+            ["open"] = "true",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -869,8 +785,10 @@ return {
           properties = {
             ["ID"] = "6",
             ["canClose"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "up",
-            ["img"] = "9"
+            ["img"] = "9",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -935,8 +853,11 @@ return {
             ["ID"] = "8",
             ["auto"] = "false",
             ["botDir"] = "1",
+            ["crushTime"] = "1",
             ["dir"] = "down",
-            ["img"] = "12"
+            ["img"] = "12",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
           }
         },
         {
@@ -953,9 +874,11 @@ return {
           properties = {
             ["ID"] = "8",
             ["auto"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "left",
             ["img"] = "13",
-            ["open"] = "true"
+            ["open"] = "true",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -972,8 +895,10 @@ return {
           properties = {
             ["ID"] = "8",
             ["auto"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "left",
-            ["img"] = "13"
+            ["img"] = "13",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -989,9 +914,11 @@ return {
           visible = true,
           properties = {
             ["ID"] = "7",
+            ["crushTime"] = "1",
             ["dir"] = "right",
             ["img"] = "14",
-            ["open"] = "true"
+            ["open"] = "true",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1021,9 +948,12 @@ return {
           properties = {
             ["auto"] = "false",
             ["canClose"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "down",
             ["dontReset"] = true,
             ["img"] = "10",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0",
             ["waitTwo"] = "true"
           }
         },
@@ -1106,8 +1036,10 @@ return {
           properties = {
             ["ID"] = "3",
             ["auto"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "right",
-            ["img"] = "6"
+            ["img"] = "6",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1124,8 +1056,10 @@ return {
           properties = {
             ["ID"] = "3",
             ["auto"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "right",
-            ["img"] = "6"
+            ["img"] = "6",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1142,8 +1076,10 @@ return {
           properties = {
             ["ID"] = "3",
             ["auto"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "left",
-            ["img"] = "7"
+            ["img"] = "7",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1213,8 +1149,10 @@ return {
           properties = {
             ["ID"] = "20",
             ["auto"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "left",
-            ["img"] = "1"
+            ["img"] = "1",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1389,8 +1327,10 @@ return {
           properties = {
             ["ID"] = "20",
             ["auto"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "left",
-            ["img"] = "1"
+            ["img"] = "1",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1406,9 +1346,11 @@ return {
           visible = true,
           properties = {
             ["ID"] = "200",
+            ["crushTime"] = "1",
             ["dir"] = "up",
             ["img"] = "4",
-            ["open"] = "true"
+            ["open"] = "true",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1454,7 +1396,9 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["ID"] = "500"
+          }
         },
         {
           id = 597,
@@ -1534,9 +1478,11 @@ return {
           visible = true,
           properties = {
             ["ID"] = "52",
+            ["crushTime"] = "1",
             ["dir"] = "right",
             ["img"] = "20",
-            ["open"] = "true"
+            ["open"] = "true",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1552,8 +1498,10 @@ return {
           visible = true,
           properties = {
             ["ID"] = "51",
+            ["crushTime"] = "1",
             ["dir"] = "right",
-            ["img"] = "20"
+            ["img"] = "20",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1571,9 +1519,11 @@ return {
             ["ID"] = "51",
             ["auto"] = "false",
             ["botDir"] = "1",
+            ["crushTime"] = "1",
             ["dir"] = "down",
             ["img"] = "19",
-            ["open"] = "true"
+            ["open"] = "true",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1606,8 +1556,11 @@ return {
             ["ID"] = "52",
             ["auto"] = "false",
             ["botDir"] = "52",
+            ["crushTime"] = "1",
             ["dir"] = "down",
-            ["img"] = "18"
+            ["img"] = "18",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
           }
         },
         {
@@ -1641,8 +1594,10 @@ return {
           properties = {
             ["ID"] = "71",
             ["auto"] = "false",
+            ["crushTime"] = "",
             ["dir"] = "left",
-            ["img"] = "1"
+            ["img"] = "1",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1676,24 +1631,6 @@ return {
           }
         },
         {
-          id = 611,
-          name = "",
-          type = "Gate",
-          shape = "rectangle",
-          x = 512,
-          y = 1856,
-          width = 16,
-          height = 80,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = "51",
-            ["dir"] = "up",
-            ["dontReset"] = true,
-            ["img"] = "17"
-          }
-        },
-        {
           id = 612,
           name = "",
           type = "Crusher",
@@ -1705,9 +1642,11 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["crushTime"] = "1",
             ["dir"] = "up",
             ["dontReset"] = true,
-            ["img"] = "15"
+            ["img"] = "15",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1722,9 +1661,11 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["crushTime"] = "1",
             ["dir"] = "up",
             ["dontReset"] = true,
-            ["img"] = "15"
+            ["img"] = "15",
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1848,11 +1789,188 @@ return {
           properties = {
             ["auto"] = "false",
             ["canOpen"] = "false",
+            ["crushTime"] = "1",
             ["dir"] = "down",
             ["dontReset"] = true,
             ["img"] = "16",
             ["open"] = "true",
-            ["waitPlayer"] = "true"
+            ["retractTime"] = "1",
+            ["waitPlayer"] = "true",
+            ["waitTime"] = "1"
+          }
+        },
+        {
+          id = 623,
+          name = "",
+          type = "Gate",
+          shape = "rectangle",
+          x = 480,
+          y = 1552,
+          width = 14,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = "71",
+            ["crushTime"] = "1",
+            ["dir"] = "up",
+            ["img"] = "4",
+            ["open"] = "true",
+            ["retractTime"] = "1"
+          }
+        },
+        {
+          id = 625,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 1408,
+          y = 1744,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "-1",
+            ["movement"] = "true",
+            ["right"] = "80"
+          }
+        },
+        {
+          id = 626,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 1048,
+          y = 1984,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "-1",
+            ["movement"] = "false",
+            ["right"] = "200"
+          }
+        },
+        {
+          id = 627,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 1088,
+          y = 1936,
+          width = 32,
+          height = 64,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["crushTime"] = "0.4",
+            ["dir"] = "up",
+            ["dontReset"] = true,
+            ["img"] = "8",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0.6"
+          }
+        },
+        {
+          id = 628,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 1136,
+          y = 1936,
+          width = 32,
+          height = 64,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["crushTime"] = "0.4",
+            ["dir"] = "up",
+            ["dontReset"] = true,
+            ["img"] = "8",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
+          }
+        },
+        {
+          id = 629,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 1088,
+          y = 1104,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["crushTime"] = "1",
+            ["dir"] = "up",
+            ["dontReset"] = true,
+            ["img"] = "2",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
+          }
+        },
+        {
+          id = 630,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 752,
+          y = 1104,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["crushTime"] = "1",
+            ["dir"] = "up",
+            ["dontReset"] = true,
+            ["img"] = "2",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
+          }
+        },
+        {
+          id = 631,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 848,
+          y = 1104,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["crushTime"] = "1",
+            ["dir"] = "up",
+            ["dontReset"] = true,
+            ["img"] = "2",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
+          }
+        },
+        {
+          id = 632,
+          name = "",
+          type = "Crusher",
+          shape = "rectangle",
+          x = 800,
+          y = 1104,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["crushTime"] = "1",
+            ["dir"] = "down",
+            ["dontReset"] = true,
+            ["img"] = "3",
+            ["retractTime"] = "1",
+            ["waitTime"] = "0"
           }
         }
       }

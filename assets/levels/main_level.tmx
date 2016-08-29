@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="623">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="633">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -185,7 +185,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1" visible="0">
+ <objectgroup name="Object Layer 1">
   <object id="524" type="Console" x="160" y="1472" width="208" height="128">
    <properties>
     <property name="ID" value="20"/>
@@ -193,7 +193,7 @@
    </properties>
   </object>
   <object id="525" type="Checkpoint" x="16" y="1504" width="16" height="96"/>
-  <object id="526" type="Checkpoint" x="496" y="1552" width="16" height="53"/>
+  <object id="526" type="Checkpoint" x="496" y="1552" width="16" height="48"/>
   <object id="527" type="Checkpoint" x="832" y="1552" width="16" height="48"/>
   <object id="528" type="Checkpoint" x="1056" y="1376" width="16" height="48"/>
   <object id="529" type="Checkpoint" x="1248" y="1200" width="80" height="16"/>
@@ -220,57 +220,37 @@
    <properties>
     <property name="direction" value="-1"/>
     <property name="movement" value="true"/>
-    <property name="right" value="64"/>
+    <property name="right" value="80"/>
    </properties>
   </object>
   <object id="540" type="Gate" x="480" y="1152" width="16" height="48">
    <properties>
     <property name="ID" value="1"/>
     <property name="canClose" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="up"/>
     <property name="img" value="4"/>
+    <property name="retractTime" value=""/>
    </properties>
   </object>
   <object id="541" type="Crusher" x="1152" y="1104" width="32" height="96">
    <properties>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="up"/>
     <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="2"/>
-   </properties>
-  </object>
-  <object id="542" type="Crusher" x="1088" y="1104" width="32" height="96">
-   <properties>
-    <property name="dir" value="up"/>
-    <property name="dontReset" type="bool" value="true"/>
-    <property name="img" value="2"/>
-   </properties>
-  </object>
-  <object id="543" type="Crusher" x="752" y="1104" width="32" height="96">
-   <properties>
-    <property name="dir" value="up"/>
-    <property name="dontReset" type="bool" value="true"/>
-    <property name="img" value="2"/>
-   </properties>
-  </object>
-  <object id="544" type="Crusher" x="848" y="1104" width="32" height="96">
-   <properties>
-    <property name="dir" value="up"/>
-    <property name="dontReset" type="bool" value="true"/>
-    <property name="img" value="2"/>
-   </properties>
-  </object>
-  <object id="545" type="Crusher" x="800" y="1104" width="32" height="96">
-   <properties>
-    <property name="dir" value="down"/>
-    <property name="dontReset" type="bool" value="true"/>
-    <property name="img" value="3"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
    </properties>
   </object>
   <object id="546" type="Crusher" x="896" y="1104" width="32" height="96">
    <properties>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="down"/>
     <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="3"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
    </properties>
   </object>
   <object id="547" type="Dropfloor" x="1280" y="1264" width="32" height="16"/>
@@ -284,45 +264,41 @@
     <property name="ID" value="7"/>
     <property name="auto" value="false"/>
     <property name="botDir" value="1"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="down"/>
     <property name="img" value="11"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
    </properties>
   </object>
   <object id="550" type="Crusher" x="992" y="1936" width="32" height="64">
    <properties>
+    <property name="crushTime" value="0.4"/>
     <property name="dir" value="up"/>
     <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="8"/>
-   </properties>
-  </object>
-  <object id="551" type="Crusher" x="1088" y="1936" width="32" height="64">
-   <properties>
-    <property name="dir" value="up"/>
-    <property name="dontReset" type="bool" value="true"/>
-    <property name="img" value="8"/>
-   </properties>
-  </object>
-  <object id="552" type="Crusher" x="1136" y="1936" width="32" height="64">
-   <properties>
-    <property name="dir" value="up"/>
-    <property name="dontReset" type="bool" value="true"/>
-    <property name="img" value="8"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
    </properties>
   </object>
   <object id="553" type="Gate" x="1104" y="1696" width="48" height="12.75">
    <properties>
     <property name="ID" value="2"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="left"/>
     <property name="img" value="5"/>
     <property name="open" value="true"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="554" type="Gate" x="1184" y="1696" width="48" height="12.75">
    <properties>
     <property name="ID" value="2"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="left"/>
     <property name="img" value="5"/>
     <property name="open" value="true"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="555" type="Lever" x="1520" y="1664" width="16" height="32">
@@ -348,8 +324,10 @@
    <properties>
     <property name="ID" value="6"/>
     <property name="canClose" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="up"/>
     <property name="img" value="9"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="559" type="Enemy" x="1112" y="1744" width="16" height="16">
@@ -372,33 +350,42 @@
     <property name="ID" value="8"/>
     <property name="auto" value="false"/>
     <property name="botDir" value="1"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="down"/>
     <property name="img" value="12"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
    </properties>
   </object>
   <object id="563" type="Gate" x="336" y="1312" width="32" height="12.75">
    <properties>
     <property name="ID" value="8"/>
     <property name="auto" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="left"/>
     <property name="img" value="13"/>
     <property name="open" value="true"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="564" type="Gate" x="384" y="1312" width="32" height="12.75">
    <properties>
     <property name="ID" value="8"/>
     <property name="auto" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="left"/>
     <property name="img" value="13"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="565" type="Gate" x="304" y="1152" width="32" height="12.75">
    <properties>
     <property name="ID" value="7"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="right"/>
     <property name="img" value="14"/>
     <property name="open" value="true"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="566" type="Bot" x="400.5" y="1200" width="16" height="16"/>
@@ -406,9 +393,12 @@
    <properties>
     <property name="auto" value="false"/>
     <property name="canClose" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="down"/>
     <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="10"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
     <property name="waitTwo" value="true"/>
    </properties>
   </object>
@@ -421,24 +411,30 @@
    <properties>
     <property name="ID" value="3"/>
     <property name="auto" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="right"/>
     <property name="img" value="6"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="574" type="Gate" x="1504" y="1920" width="48" height="12.75">
    <properties>
     <property name="ID" value="3"/>
     <property name="auto" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="right"/>
     <property name="img" value="6"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="575" type="Gate" x="1456" y="1984" width="32" height="12.75">
    <properties>
     <property name="ID" value="3"/>
     <property name="auto" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="left"/>
     <property name="img" value="7"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="576" type="Lever" x="1296" y="1952" width="16" height="32">
@@ -468,8 +464,10 @@
    <properties>
     <property name="ID" value="20"/>
     <property name="auto" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="left"/>
     <property name="img" value="1"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="580" type="Gate" x="368" y="1600" width="32" height="12.75">
@@ -512,16 +510,20 @@
    <properties>
     <property name="ID" value="20"/>
     <property name="auto" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="left"/>
     <property name="img" value="1"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="592" type="Gate" x="720" y="1152" width="14" height="48">
    <properties>
     <property name="ID" value="200"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="up"/>
     <property name="img" value="4"/>
     <property name="open" value="true"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="593" type="AreaTrigger" x="608" y="1168" width="16" height="32">
@@ -536,7 +538,11 @@
     <property name="signalOff" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="595" type="ShowText" x="316" y="1550.27"/>
+  <object id="595" type="ShowText" x="316" y="1550.27">
+   <properties>
+    <property name="ID" value="500"/>
+   </properties>
+  </object>
   <object id="597" type="Spikes" x="464" y="1984" width="32" height="16"/>
   <object id="598" type="Spikes" x="512" y="1984" width="32" height="16"/>
   <object id="599" type="Dropfloor" x="400" y="1936" width="32" height="16"/>
@@ -545,16 +551,20 @@
   <object id="602" type="Gate" x="512" y="1968" width="32" height="12.75">
    <properties>
     <property name="ID" value="52"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="right"/>
     <property name="img" value="20"/>
     <property name="open" value="true"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="603" type="Gate" x="464" y="1968" width="32" height="12.75">
    <properties>
     <property name="ID" value="51"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="right"/>
     <property name="img" value="20"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="604" type="Crusher" x="560" y="1968" width="16" height="32">
@@ -562,9 +572,11 @@
     <property name="ID" value="51"/>
     <property name="auto" value="false"/>
     <property name="botDir" value="1"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="down"/>
     <property name="img" value="19"/>
     <property name="open" value="true"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="605" type="Bot" x="560" y="1984" width="16" height="16">
@@ -577,8 +589,11 @@
     <property name="ID" value="52"/>
     <property name="auto" value="false"/>
     <property name="botDir" value="52"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="down"/>
     <property name="img" value="18"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
    </properties>
   </object>
   <object id="607" type="AreaTrigger" x="624" y="1920" width="16" height="16">
@@ -592,8 +607,10 @@
    <properties>
     <property name="ID" value="71"/>
     <property name="auto" value="false"/>
+    <property name="crushTime" value=""/>
     <property name="dir" value="left"/>
     <property name="img" value="1"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="609" type="Lever" x="464" y="1904" width="16" height="32">
@@ -606,26 +623,22 @@
     <property name="ID" value="52"/>
    </properties>
   </object>
-  <object id="611" type="Gate" x="512" y="1856" width="16" height="80">
-   <properties>
-    <property name="ID" value="51"/>
-    <property name="dir" value="up"/>
-    <property name="dontReset" type="bool" value="true"/>
-    <property name="img" value="17"/>
-   </properties>
-  </object>
   <object id="612" type="Crusher" x="480" y="1856" width="32" height="80">
    <properties>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="up"/>
     <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="15"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="613" type="Crusher" x="528" y="1856" width="32" height="80">
    <properties>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="up"/>
     <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="15"/>
+    <property name="retractTime" value="1"/>
    </properties>
   </object>
   <object id="614" type="Checkpoint" x="400" y="1888" width="32" height="48"/>
@@ -661,11 +674,98 @@
    <properties>
     <property name="auto" value="false"/>
     <property name="canOpen" value="false"/>
+    <property name="crushTime" value="1"/>
     <property name="dir" value="down"/>
     <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="16"/>
     <property name="open" value="true"/>
+    <property name="retractTime" value="1"/>
     <property name="waitPlayer" value="true"/>
+    <property name="waitTime" value="1"/>
+   </properties>
+  </object>
+  <object id="623" type="Gate" x="480" y="1552" width="14" height="48">
+   <properties>
+    <property name="ID" value="71"/>
+    <property name="crushTime" value="1"/>
+    <property name="dir" value="up"/>
+    <property name="img" value="4"/>
+    <property name="open" value="true"/>
+    <property name="retractTime" value="1"/>
+   </properties>
+  </object>
+  <object id="625" type="Enemy" x="1408" y="1744" width="16" height="16">
+   <properties>
+    <property name="direction" value="-1"/>
+    <property name="movement" value="true"/>
+    <property name="right" value="80"/>
+   </properties>
+  </object>
+  <object id="626" type="Enemy" x="1048" y="1984" width="16" height="16">
+   <properties>
+    <property name="direction" value="-1"/>
+    <property name="movement" value="false"/>
+    <property name="right" value="200"/>
+   </properties>
+  </object>
+  <object id="627" type="Crusher" x="1088" y="1936" width="32" height="64">
+   <properties>
+    <property name="crushTime" value="0.4"/>
+    <property name="dir" value="up"/>
+    <property name="dontReset" type="bool" value="true"/>
+    <property name="img" value="8"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0.6"/>
+   </properties>
+  </object>
+  <object id="628" type="Crusher" x="1136" y="1936" width="32" height="64">
+   <properties>
+    <property name="crushTime" value="0.4"/>
+    <property name="dir" value="up"/>
+    <property name="dontReset" type="bool" value="true"/>
+    <property name="img" value="8"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
+   </properties>
+  </object>
+  <object id="629" type="Crusher" x="1088" y="1104" width="32" height="96">
+   <properties>
+    <property name="crushTime" value="1"/>
+    <property name="dir" value="up"/>
+    <property name="dontReset" type="bool" value="true"/>
+    <property name="img" value="2"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
+   </properties>
+  </object>
+  <object id="630" type="Crusher" x="752" y="1104" width="32" height="96">
+   <properties>
+    <property name="crushTime" value="1"/>
+    <property name="dir" value="up"/>
+    <property name="dontReset" type="bool" value="true"/>
+    <property name="img" value="2"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
+   </properties>
+  </object>
+  <object id="631" type="Crusher" x="848" y="1104" width="32" height="96">
+   <properties>
+    <property name="crushTime" value="1"/>
+    <property name="dir" value="up"/>
+    <property name="dontReset" type="bool" value="true"/>
+    <property name="img" value="2"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
+   </properties>
+  </object>
+  <object id="632" type="Crusher" x="800" y="1104" width="32" height="96">
+   <properties>
+    <property name="crushTime" value="1"/>
+    <property name="dir" value="down"/>
+    <property name="dontReset" type="bool" value="true"/>
+    <property name="img" value="3"/>
+    <property name="retractTime" value="1"/>
+    <property name="waitTime" value="0"/>
    </properties>
   </object>
  </objectgroup>

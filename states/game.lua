@@ -52,6 +52,8 @@ function game:reset()
     self.player = add(Player:new(20, 1550))
     --self.player = add(Player:new(700, 2033))
 
+    self.textItems = {}
+
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
             self.wrench = add(Wrench:new(object.x, object.y, object.width, object.height))
@@ -103,6 +105,10 @@ function game:reset()
 
         if object.type == "SecretLayer" then
             self.secretLayer = SecretLayer:new(object.x, object.y, object.width, object.height, object.properties)
+        end
+
+        if object.type == "ShowText" then
+            table.insert(self.textItems, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
         end
     end
 
@@ -166,6 +172,10 @@ function game:draw()
                 if obj.draw then
                     obj:draw()
                 end
+            end
+
+            for _, textItem in pairs(self.textItems) do
+                textItem:draw()
             end
 
             self.player:draw()

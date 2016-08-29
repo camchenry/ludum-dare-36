@@ -9,6 +9,7 @@ function AreaTrigger:initialize(x, y, w, h, properties)
     self.ID = tonumber(properties.ID) or 0
     self.oneTime = properties.oneTime
     self.killBot = properties.killBot
+    self.signalOff = properties.signalOff
 
     self.prevActive = false
     self.active = false
@@ -36,6 +37,10 @@ function AreaTrigger:update(dt, world)
     end
 
     if self.active and not self.prevActive then
+        Signal.emit("activate", self.ID)
+    end
+
+    if not self.active and self.prevActive and self.signalOff then
         Signal.emit("activate", self.ID)
     end
 end

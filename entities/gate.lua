@@ -15,6 +15,8 @@ function Gate:initialize(x, y, w, h, properties)
     self.ID = tonumber(properties.ID) or 0
     self.ID2 = tonumber(properties.ID2) or 0
     self.imgID = tonumber(properties.img) or 0
+    self.retractTime = tonumber(properties.retractTime) or 0
+    self.crushTime = tonumber(properties.crushTime) or 0
 
     if self.imgID == 1 then
         self.image = love.graphics.newImage("assets/images/Misc/Room_Gate_TrapDoor.png")
@@ -99,6 +101,8 @@ function Gate:reset()
         end
 
         self.activating = false
+
+        self.waitTimer = self.waitTime
     end
 end
 
@@ -120,13 +124,13 @@ end
 function Gate:activateUp()
     if self.activeOn then
         -- it is time to open
-        self.moveTween = Flux.to(self, self.activateTime, {height = 1}):oncomplete(function()
+        self.moveTween = Flux.to(self, self.retractTime, {height = 1}):oncomplete(function()
             self.moveTween = nil
             self.activating = false
         end)
     elseif self.canClose then
         -- it is time to close
-        self.moveTween = Flux.to(self, self.activateTime, {height = self.startHeight}):oncomplete(function()
+        self.moveTween = Flux.to(self, self.crushTime, {height = self.startHeight}):oncomplete(function()
             self.moveTween = nil
             self.activating = false
         end)
@@ -136,13 +140,13 @@ end
 function Gate:activateLeft()
     if self.activeOn then
         -- it is time to open
-        self.moveTween = Flux.to(self, self.activateTime, {width = 1}):oncomplete(function()
+        self.moveTween = Flux.to(self, self.retractTime, {width = 1}):oncomplete(function()
             self.moveTween = nil
             self.activating = false
         end)
     elseif self.canClose then
         -- it is time to close
-        self.moveTween = Flux.to(self, self.activateTime, {width = self.startWidth}):oncomplete(function()
+        self.moveTween = Flux.to(self, self.crushTime, {width = self.startWidth}):oncomplete(function()
             self.moveTween = nil
             self.activating = false
         end)

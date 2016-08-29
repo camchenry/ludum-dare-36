@@ -12,6 +12,7 @@ Bot             = require "entities.bot"
 Spikes          = require "entities.spikes"
 SecretLayer     = require "entities.secretLayer"
 AreaTrigger     = require "entities.areaTrigger"
+ShowText        = require "entities.showText"
 
 SoundManager    = require "entities.sound.soundmanager"
 
