@@ -37,7 +37,6 @@ function intro:reset()
     end
 
     self.camera = Camera()
-    self.camera.smoother = Camera.smooth.damped(5)
 
     self.textItems = {}
 
