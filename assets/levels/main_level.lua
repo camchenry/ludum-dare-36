@@ -355,7 +355,7 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -745,11 +745,11 @@ return {
           visible = true,
           properties = {
             ["ID"] = "2",
-            ["crushTime"] = "1",
+            ["crushTime"] = "10",
             ["dir"] = "left",
             ["img"] = "5",
             ["open"] = "true",
-            ["retractTime"] = "1"
+            ["retractTime"] = "10"
           }
         },
         {
