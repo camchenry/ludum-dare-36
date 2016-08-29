@@ -11,9 +11,13 @@ function Bot:initialize(x, y, w, h, properties)
 
     self.noCheckpoint = properties.noCheckpoint
 
+    self.animationTime = 0.5
+
     self.prevX = x
 
     self.image = love.graphics.newImage("assets/images/Misc/Bot.png")
+    local g = Anim8.newGrid(16, 16, self.image:getWidth(), self.image:getHeight())
+    self.animation = Anim8.newAnimation(g('1-2', 1), self.animationTime)
 
     self.gravity = 160
     self.direction = 1
@@ -166,6 +170,8 @@ function Bot:update(dt, world)
     end
 
     self.crusherTimer = math.max(0, self.crusherTimer - dt)
+
+    self.animation:update(dt)
 end
 
 function Bot:draw()
@@ -180,7 +186,7 @@ function Bot:draw()
     end
 
     if not self.dead then
-        love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y-1))
+        self.animation:draw(self.image, math.floor(self.position.x), math.floor(self.position.y-1))
     end
 end
 
