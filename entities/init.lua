@@ -15,6 +15,7 @@ AreaTrigger     = require "entities.areaTrigger"
 ShowText        = require "entities.showText"
 Teleport        = require "entities.teleport"
 Mask            = require "entities.mask"
+VictoryCondition= require "entities.victoryCondition"
 
 SoundManager    = require "entities.sound.soundmanager"
 
