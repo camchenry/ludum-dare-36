@@ -48,7 +48,8 @@ function love.load()
         callbacks[#callbacks+1] = k
     end
     State.registerEvents(callbacks)
-    State.switch(menu)
+    State.switch(intro)
+    State.push(menu)
 end
 
 function love.update(dt)

@@ -11,8 +11,8 @@ function menu:init()
     love.graphics.setBackgroundColor(99, 155, 133)
 end
 
-function menu:enter()
-
+function menu:enter(prev, ...)
+    self.prev = prev
 end
 
 function menu:update(dt)
@@ -21,7 +21,7 @@ end
 
 function menu:keyreleased(key, code)
     if key == self.startKey then
-        State.switch(game)
+        State.pop()
     end
 end
 
@@ -30,6 +30,9 @@ function menu:mousepressed(x, y, mbutton)
 end
 
 function menu:draw()
+    if self.prev then
+        self.prev:draw()
+    end
     love.graphics.setFont(self.titleFont)
     love.graphics.printf(self.titleText, 0, 100, love.graphics.getWidth(), "center")
     love.graphics.setFont(self.startFont)

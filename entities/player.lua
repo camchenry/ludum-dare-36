@@ -29,7 +29,7 @@ function Player:initialize(x, y)
     self.prevCeil = false
     self.prevWall = false
 
-    self.wrenchPower = true
+    self.wrenchPower = false
 
     self.attackTimer = 0
     self.attackTime = 1
@@ -96,7 +96,7 @@ function Player:doAction()
                 offset = -8
             end
             local x, y = math.floor(self.position.x-self.attackBoxOffset.x*self.facing+offset+1), math.floor(self.position.y+0.5+1+self.attackBoxOffset.y)
-            local items, len = game.world:queryRect(x, y, self.attackBoxSize.x, self.attackBoxSize.y)
+            local items, len = self.world:queryRect(x, y, self.attackBoxSize.x, self.attackBoxSize.y)
             for k, item in pairs(items) do
                 if item.class and item:isInstanceOf(Enemy) then
                     item:hit()
@@ -110,6 +110,7 @@ function Player:doAction()
 end
 
 function Player:update(dt, world)
+    self.world = world
     self.acceleration = Vector(0, self.gravity)
 
     local isLeft, isRight = love.keyboard.isDown("a", "left"), love.keyboard.isDown("d", "right")
@@ -229,7 +230,7 @@ function Player:update(dt, world)
 
     local crushed = {}
 
-    local actualX, actualY, cols, len = game.world:check(self, newPos.x, newPos.y, function(item, other)
+    local actualX, actualY, cols, len = self.world:check(self, newPos.x, newPos.y, function(item, other)
         if other.class and other:isInstanceOf(Wrench) then
             return "cross"
         end
