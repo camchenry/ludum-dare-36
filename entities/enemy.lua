@@ -186,19 +186,21 @@ function Enemy:draw()
 end
 
 function Enemy:hit()
-    -- keep the enemy loaded, just make them invisible
-    -- they will need to be restored if you return to a checkpoint
-    self.fallOffset = 0
-    self.dead = true
+    if not self.dead then
+        -- keep the enemy loaded, just make them invisible
+        -- they will need to be restored if you return to a checkpoint
+        self.fallOffset = 0
+        self.dead = true
 
-    Signal.emit("enemyDeath")
+        Signal.emit("enemyDeath")
 
-    Flux.to(self.color, self.hitColorTime, {255, 0, 0})
-        :after(self.hitColorTime, {255, 255, 255})
-            :after(self, self.fallTime, {fallOffset = self.fallAmount})
-                :oncomplete(function()
-                    self.visible = false
-                end)
+        Flux.to(self.color, self.hitColorTime, {255, 0, 0})
+            :after(self.hitColorTime, {255, 255, 255})
+                :after(self, self.fallTime, {fallOffset = self.fallAmount})
+                    :oncomplete(function()
+                        self.visible = false
+                    end)
+    end
 end
 
 return Enemy
