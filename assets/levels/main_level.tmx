@@ -169,6 +169,7 @@
   <object id="19" type="Lever" x="512" y="192" width="16" height="32">
    <properties>
     <property name="ID" value="1"/>
+    <property name="oneTime" type="bool" value="true"/>
    </properties>
   </object>
   <object id="22" type="Enemy" x="992" y="608" width="16" height="16">

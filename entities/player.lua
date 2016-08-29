@@ -104,8 +104,9 @@ function Player:doAction()
                     item:hit()
                 end
                 if item.class and item:isInstanceOf(Lever) then
-                    item:hit()
-                    self.actionTimer = self.actionTime
+                    if item:hit() then
+                        self.actionTimer = self.actionTime
+                    end
                 end
             end
         end)
