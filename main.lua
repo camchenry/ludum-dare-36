@@ -78,7 +78,9 @@ function love.draw()
     love.graphics.pop()
 
     if DEBUG then
+        love.graphics.setColor(255, 255, 255)
         love.graphics.push()
+        love.graphics.setColor(255, 255, 255)
         love.graphics.setFont(Fonts.mono[14])
         local stats = love.graphics.getStats()
         local info = {

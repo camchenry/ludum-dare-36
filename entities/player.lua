@@ -47,9 +47,11 @@ function Player:initialize(x, y)
 
     self.crusherReference = nil
 
-    self.actionDelay = 0.7
+    self.actionDelay = 0.4
 
     self.facing = -1
+
+    self.teleported = false
 
     self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
     self.jumpImage = love.graphics.newImage("assets/images/Hero/Hero_Jump.png")
@@ -405,7 +407,7 @@ function Player:update(dt, world)
         end
     end
 
-    if math.abs(actualX - self.position.x) > self.width/2 then
+    if math.abs(actualX - self.position.x) > self.width/2 and not self.teleported then
         -- death by crushed
         game:resetToCheckpoint()
         changePos = false
