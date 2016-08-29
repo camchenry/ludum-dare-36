@@ -41,7 +41,7 @@ function Crusher:initialize(x, y, w, h, properties)
     elseif self.imgID == 19 then
         self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_SmallElevator.png")
     elseif self.imgID == 23 then
-        self.image = love.graphics.newImage("assets/images/Misc/PuzzleRoom3_Elevator.png")
+        self.image = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_Elevator.png")
     end
 
     if properties.canClose and properties.canClose == "false" then

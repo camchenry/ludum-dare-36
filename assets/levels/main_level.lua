@@ -211,7 +211,7 @@ return {
       y = 0,
       width = 100,
       height = 130,
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -355,7 +355,7 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

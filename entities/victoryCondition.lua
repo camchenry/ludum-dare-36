@@ -1,6 +1,6 @@
 VictoryCondition = Class("VictoryCondition")
 
-function VictoryCondition:initialize()
+function VictoryCondition:initialize(x, y, w, h, properties)
     self.ID = tonumber(properties.ID) or 0
     self.ID2 = tonumber(properties.ID2) or 0
 
