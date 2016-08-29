@@ -44,7 +44,7 @@ function Enemy:initialize(x, y, properties)
 
     Signal.register("activate", function(ID)
         if ID == self.ID then
-            self:reset()
+            self:reset(game.world)
         end
     end)
 end

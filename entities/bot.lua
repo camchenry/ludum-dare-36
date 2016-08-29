@@ -15,12 +15,14 @@ function Bot:initialize(x, y)
 
     self.gravity = 160
     self.direction = 1
-    self.speed = 20
+    self.speed = 15
 
     self.movement = true
     self.dead = false
 
     self.crusherReference = nil
+    self.crusherTimer = 0
+    self.crusherTime = 0.3
 end
 
 function Bot:reset(world)
@@ -60,7 +62,9 @@ function Bot:update(dt, world)
     end)
 
     if self.crusherReference then
-        self.crusherReference = nil
+        if self.crusherTimer == 0 then
+            self.crusherReference = nil
+        end
     end
 
     for k, col in pairs(cols) do
@@ -70,6 +74,7 @@ function Bot:update(dt, world)
                 self.touchingGround = true
                 self.velocity.y = 0
                 self.crusherReference = other
+                self.crusherTimer = self.crusherTime
             elseif col.normal.y == 1 then
                 self.velocity.y = 0
                 self.crusherReference = other
@@ -136,6 +141,8 @@ function Bot:update(dt, world)
 
         self.position = Vector(actualX, actualY)
     end
+
+    self.crusherTimer = math.max(0, self.crusherTimer - dt)
 end
 
 function Bot:draw()
