@@ -1,14 +1,14 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "0.16.0",
+  tiledversion = "2016.08.26",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 83,
+  nextobjectid = 89,
   properties = {},
   tilesets = {
     {
@@ -289,6 +289,7 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      draworder = "topdown",
       properties = {},
       objects = {
         {
@@ -1195,6 +1196,84 @@ return {
             ["dir"] = "left",
             ["img"] = "1"
           }
+        },
+        {
+          id = 83,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 1056,
+          y = 576,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 84,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 1408,
+          y = 880,
+          width = 16,
+          height = 64,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 85,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 1200,
+          y = 960,
+          width = 16,
+          height = 64,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 86,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 832,
+          y = 1040,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 87,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 1440,
+          y = 1024,
+          width = 16,
+          height = 64,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 88,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 1248,
+          y = 672,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }

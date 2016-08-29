@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="83">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="89">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -434,5 +434,11 @@
     <property name="img" value="1"/>
    </properties>
   </object>
+  <object id="83" type="Checkpoint" x="1056" y="576" width="16" height="48"/>
+  <object id="84" type="Checkpoint" x="1408" y="880" width="16" height="64"/>
+  <object id="85" type="Checkpoint" x="1200" y="960" width="16" height="64"/>
+  <object id="86" type="Checkpoint" x="832" y="1040" width="16" height="48"/>
+  <object id="87" type="Checkpoint" x="1440" y="1024" width="16" height="64"/>
+  <object id="88" type="Checkpoint" x="1248" y="672" width="16" height="48"/>
  </objectgroup>
 </map>
