@@ -35,6 +35,7 @@ function intro:reset()
     end
 
     self.camera = Camera()
+    self.camera.smoother = Camera.smooth.damped(5)
 
     for i, object in pairs(self.map.objects) do
         if object.type == "Spawn" then
