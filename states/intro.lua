@@ -9,8 +9,13 @@ function intro:init()
 
 end
 
-function intro:enter()
+function intro:resume()
+
+end
+
+function intro:enter(prev, ...)
     self:reset()
+    self.camera:lookAt(30*16, 17*16)
 end
 
 function intro:reset()
@@ -85,11 +90,13 @@ function intro:draw()
 
             for _, obj in ipairs(self.objects) do
                 if obj.draw then
-                    obj:draw()
+                    if obj == self.player and State.current() ~= intro then
+
+                    else
+                        obj:draw()
+                    end
                 end
             end
-
-            self.player:draw()
         end)
     end)
 
