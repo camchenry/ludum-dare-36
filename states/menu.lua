@@ -7,6 +7,8 @@ function menu:init()
     self.startKey = "space"
     self.startText = "< Press " .. self.startKey .. " to start >"
     self.startFont = Fonts.regular[40]
+
+    love.graphics.setBackgroundColor(99, 155, 133)
 end
 
 function menu:enter()

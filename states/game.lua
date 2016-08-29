@@ -19,8 +19,6 @@ function game:resetToCheckpoint()
 end
 
 function game:reset()
-    love.graphics.setBackgroundColor(99, 155, 133)
-
     self.map = sti("assets/levels/main_level.lua", {"bump"}) 
     self.canvas = love.graphics.newCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
