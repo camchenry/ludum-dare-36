@@ -1,6 +1,6 @@
 local Bot = Class("Bot")
 
-function Bot:initialize(x, y)
+function Bot:initialize(x, y, w, h, properties)
     self.width, self.height = 15, 15
 
     self.position = Vector(x, y)
@@ -8,6 +8,8 @@ function Bot:initialize(x, y)
     self.acceleration = Vector(0, 0)
 
     self.resetPosition = Vector(x, y)
+
+    self.noCheckpoint = properties.noCheckpoint
 
     self.prevX = x
 
@@ -23,6 +25,10 @@ function Bot:initialize(x, y)
     self.crusherReference = nil
     self.crusherTimer = 0
     self.crusherTime = 0.3
+end
+
+function Bot:kill()
+    self.dead = true
 end
 
 function Bot:reset(world)
@@ -54,8 +60,13 @@ function Bot:update(dt, world)
         if other.class and other:isInstanceOf(Spikes) then
             return "cross"
         end
+        if other.class and other:isInstanceOf(AreaTrigger) then
+            return false
+        end
         if other.class and other:isInstanceOf(Checkpoint) then
-            self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
+            if not self.noCheckpoint then
+                self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
+            end
             return false
         end
         return "slide"
@@ -87,7 +98,8 @@ function Bot:update(dt, world)
                 --self.direction = other.botDir
             end
         elseif other.class and other:isInstanceOf(Spikes) then
-            self:reset(world)
+            --self:reset(world)
+            game:resetToCheckpoint(true)
         elseif other.class and other:isInstanceOf(Checkpoint) then
             self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
         end
@@ -141,7 +153,11 @@ function Bot:update(dt, world)
             if other.class and other:isInstanceOf(Checkpoint) then
                 return false
             end
-                return "slide"
+            if other.class and other:isInstanceOf(AreaTrigger) then
+                return false
+            end
+
+            return "slide"
             end)
 
         self.prevX = self.position.x
@@ -163,7 +179,9 @@ function Bot:draw()
         love.graphics.setColor(0, 255, 255)
     end
 
-    love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y-1))
+    if not self.dead then
+        love.graphics.draw(self.image, math.floor(self.position.x), math.floor(self.position.y-1))
+    end
 end
 
 return Bot

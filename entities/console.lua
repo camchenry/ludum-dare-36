@@ -1,9 +1,12 @@
 local Console = Class("Console")
 
-function Console:initialize(x, y)
+function Console:initialize(x, y, w, h, properties)
     self.position = Vector(x, y)
 
     self.interval = 3
+
+    self.ID = tonumber(properties.ID) or 0
+    self.ID2 = tonumber(properties.ID2) or 0
 
     self.closedImage = love.graphics.newImage("assets/images/Misc/Room_Gate_GateClosed.png")
     local g = Anim8.newGrid(208, 128, self.closedImage:getWidth(), self.closedImage:getHeight())
@@ -16,10 +19,21 @@ function Console:initialize(x, y)
     self.openImage = love.graphics.newImage("assets/images/Misc/Room_Gate_Opened.png")
 
     self.progress = 0
+
+    Signal.register("activate", function(ID)
+        if ID == self.ID then
+            self.progress = 1
+        end
+        
+        if ID == self.ID2 then
+            self.progress = 2
+        end
+    end)
 end
 
 function Console:update(dt)
     self.closedAnimation:update(dt)
+    self.halfAnimation:update(dt)
 end
 
 function Console:draw()

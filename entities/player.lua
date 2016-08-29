@@ -46,7 +46,7 @@ function Player:initialize(x, y)
 
     self.actionDelay = 0.7
 
-    self.facing = 1
+    self.facing = -1
 
     self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
     self.jumpImage = love.graphics.newImage("assets/images/Hero/Hero_Jump.png")
@@ -247,13 +247,20 @@ function Player:update(dt, world)
             return "slide"
         end
         if other.class and other:isInstanceOf(Gate) then
-            return "slide"
+            if other.width > 2 and other.height > 2 then
+                return "slide"
+            else
+                return false
+            end
         end
         if other.class and other:isInstanceOf(Bot) then
             return "cross"
         end
         if other.class and other:isInstanceOf(Spikes) then
             return "cross"
+        end
+        if other.class and other:isInstanceOf(AreaTrigger) then
+            return false
         end
 
         local offset = 0
@@ -300,7 +307,7 @@ function Player:update(dt, world)
                 Signal.emit("playerDeath")
             end
         elseif other.class and other:isInstanceOf(Checkpoint) then
-            self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
+            self.resetPosition = Vector(other.position.x + other.width/2 - self.width/2, other.position.y)
         elseif other.class and other:isInstanceOf(Crusher) then
             if col.normal.y == -1 then
                 self.jumpTimer = 0
