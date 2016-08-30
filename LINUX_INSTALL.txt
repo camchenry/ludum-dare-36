@@ -1,0 +1,9 @@
+To play on linux, you need LOVE 0.10.1.
+
+On most systems, you can run apt-get (or equivalent) and do:
+
+$ sudo apt-get install love
+
+then just run:
+
+$ love DebugQuest.love
