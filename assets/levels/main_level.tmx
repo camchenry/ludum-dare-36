@@ -901,6 +901,7 @@
   <object id="651" type="Lever" x="1136" y="224" width="16" height="32">
    <properties>
     <property name="ID" value="133"/>
+    <property name="oneTime" type="bool" value="true"/>
    </properties>
   </object>
   <object id="652" type="Lever" x="1072" y="224" width="16" height="32">
