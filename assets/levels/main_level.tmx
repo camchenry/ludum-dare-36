@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="679">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="680">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -476,6 +476,7 @@
     <property name="auto" value="false"/>
     <property name="crushTime" value="1"/>
     <property name="dir" value="left"/>
+    <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="1"/>
     <property name="retractTime" value="1"/>
    </properties>
@@ -485,6 +486,7 @@
     <property name="ID" value="71"/>
     <property name="auto" value="false"/>
     <property name="dir" value="left"/>
+    <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="1"/>
    </properties>
   </object>
@@ -522,6 +524,7 @@
     <property name="auto" value="false"/>
     <property name="crushTime" value="1"/>
     <property name="dir" value="left"/>
+    <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="1"/>
     <property name="retractTime" value="1"/>
    </properties>
@@ -608,6 +611,7 @@
     <property name="auto" value="false"/>
     <property name="crushTime" value=""/>
     <property name="dir" value="left"/>
+    <property name="dontReset" type="bool" value="true"/>
     <property name="img" value="1"/>
     <property name="retractTime" value="1"/>
    </properties>
@@ -1038,5 +1042,6 @@
   <object id="676" type="Spikes" x="927.667" y="298" width="32" height="6"/>
   <object id="677" type="Spikes" x="864" y="186.667" width="32" height="6"/>
   <object id="678" type="Checkpoint" x="1232" y="224" width="32.6667" height="32"/>
+  <object id="679" type="Checkpoint" x="240" y="1152" width="32" height="48"/>
  </objectgroup>
 </map>

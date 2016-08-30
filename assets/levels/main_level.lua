@@ -1,14 +1,14 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "2016.08.26",
+  tiledversion = "0.16.0",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
   height = 130,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 679,
+  nextobjectid = 680,
   properties = {},
   tilesets = {
     {
@@ -359,7 +359,6 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      draworder = "topdown",
       properties = {},
       objects = {
         {
@@ -1183,6 +1182,7 @@ return {
             ["auto"] = "false",
             ["crushTime"] = "1",
             ["dir"] = "left",
+            ["dontReset"] = true,
             ["img"] = "1",
             ["retractTime"] = "1"
           }
@@ -1202,6 +1202,7 @@ return {
             ["ID"] = "71",
             ["auto"] = "false",
             ["dir"] = "left",
+            ["dontReset"] = true,
             ["img"] = "1"
           }
         },
@@ -1361,6 +1362,7 @@ return {
             ["auto"] = "false",
             ["crushTime"] = "1",
             ["dir"] = "left",
+            ["dontReset"] = true,
             ["img"] = "1",
             ["retractTime"] = "1"
           }
@@ -1607,6 +1609,7 @@ return {
             ["auto"] = "false",
             ["crushTime"] = "",
             ["dir"] = "left",
+            ["dontReset"] = true,
             ["img"] = "1",
             ["retractTime"] = "1"
           }
@@ -2693,6 +2696,19 @@ return {
           y = 224,
           width = 32.6667,
           height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 679,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 240,
+          y = 1152,
+          width = 32,
+          height = 48,
           rotation = 0,
           visible = true,
           properties = {}
