@@ -15,6 +15,10 @@ function Lever:initialize(x, y, properties)
     self.imageOffset = Vector(-2, -1)
 end
 
+function Lever:reset()
+    self.active = false
+end
+
 function Lever:draw()
     local image = self.offImage
 

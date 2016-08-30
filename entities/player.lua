@@ -95,7 +95,7 @@ end
 function Player:doAction()
     -- check if the player is colliding with a lever
 
-    if self.wrenchPower and self.touchingGround and self.attackTimer == 0 then
+    if self.wrenchPower and self.touchingGround and self.attackTimer == 0 and self.foundTimer == 0 then
         self.attackTimer = self.attackTime
         self.attackAnimation:gotoFrame(1)
 
@@ -131,7 +131,7 @@ function Player:update(dt, world)
         end
     end
 
-    if (isUp and not isDown) and self.attackTimer == 0 then
+    if (isUp and not isDown) and self.attackTimer == 0 and self.foundTimer == 0 then
         if not self.jumpState then
             self.jumpTimer = math.min(self.jumpTime, self.jumpTimer + dt)
         else
@@ -172,9 +172,9 @@ function Player:update(dt, world)
         self.jumpState = false
     end
 
-    self.canMove = (not isLeft == isRight) and self.attackTimer == 0
+    self.canMove = (not isLeft == isRight) and self.attackTimer == 0 and self.foundTimer == 0
 
-    if isLeft == isRight or self.attackTimer > 0 then
+    if isLeft == isRight or self.attackTimer > 0 or self.foundTimer > 0 then
         self.velocity.x = 0
     elseif isLeft then
         if self.velocity.x == 0 then

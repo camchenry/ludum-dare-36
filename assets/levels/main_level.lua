@@ -1785,7 +1785,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5022"
+            ["ID"] = "5022",
+            ["oneTime"] = true
           }
         },
         {
