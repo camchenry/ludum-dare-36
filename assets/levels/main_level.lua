@@ -1582,7 +1582,7 @@ return {
           name = "",
           type = "AreaTrigger",
           shape = "rectangle",
-          x = 592,
+          x = 608,
           y = 1952,
           width = 16,
           height = 16,

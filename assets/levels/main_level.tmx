@@ -598,7 +598,7 @@
     <property name="noCheckpoint" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="607" type="AreaTrigger" x="592" y="1952" width="16" height="16">
+  <object id="607" type="AreaTrigger" x="608" y="1952" width="16" height="16">
    <properties>
     <property name="ID" value="71"/>
     <property name="killBot" type="bool" value="true"/>
