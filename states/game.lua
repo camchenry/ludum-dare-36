@@ -53,9 +53,7 @@ function game:reset()
     self.camera = Camera()
     -- self.camera.smoother = Camera.smooth.damped(7)
 
-    -- self.player = add(Player:new(20, 1550))
-    self.player = add(Player:new(15*16, 29*16))
-    self.player.wrenchPower = true
+    self.player = add(Player:new(20, 1550))
 
     self.textItems = {}
 
