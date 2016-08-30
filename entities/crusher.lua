@@ -76,6 +76,12 @@ function Crusher:initialize(x, y, w, h, properties)
         self.waitPlayer = false
     end
 
+    if properties.waitBot and properties.waitBot == "true" then
+        self.waitBot = true
+    else
+        self.waitBot = false
+    end
+
     self.interval = 5
 
     self.dontReset = properties.dontReset
@@ -202,6 +208,20 @@ function Crusher:update(dt, world, override)
         end
 
         if foundPlayer then
+            self:activate()
+        end
+    elseif self.waitBot then
+        local yOffset = 4
+        local items, len = game.world:queryRect(self.position.x, self.position.y - yOffset, self.width, yOffset)
+        local foundBot = false
+
+        for k, item in pairs(items) do
+            if item.class and item:isInstanceOf(Bot) then
+                foundBot = true
+            end
+        end
+
+        if foundBot then
             self:activate()
         end
     end
