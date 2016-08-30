@@ -54,7 +54,6 @@ function game:reset()
     self.camera.smoother = Camera.smooth.damped(5)
 
     self.player = add(Player:new(20, 1550))
-    --self.player = add(Player:new(900, 481))
 
     self.textItems = {}
 

@@ -11,7 +11,7 @@ function Bot:initialize(x, y, w, h, properties)
 
     self.noCheckpoint = properties.noCheckpoint
 
-    self.animationTime = 0.5
+    self.animationTime = 0.3
 
     self.prevX = x
 

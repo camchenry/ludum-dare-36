@@ -8,7 +8,7 @@ return {
   height = 130,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 683,
+  nextobjectid = 679,
   properties = {},
   tilesets = {
     {
@@ -614,7 +614,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "1",
+            ["crushTime"] = "0.6",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "2",
@@ -634,7 +634,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "1",
+            ["crushTime"] = "1.6",
             ["dir"] = "down",
             ["dontReset"] = true,
             ["img"] = "3",
@@ -704,11 +704,11 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "0.6",
+            ["crushTime"] = "0.4",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "8",
-            ["retractTime"] = "1.",
+            ["retractTime"] = "1",
             ["waitTime"] = "0"
           }
         },
@@ -764,7 +764,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "2"
+            ["ID"] = "2",
+            ["oneTime"] = true
           }
         },
         {
@@ -982,7 +983,7 @@ return {
             ["dir"] = "down",
             ["dontReset"] = true,
             ["img"] = "10",
-            ["retractTime"] = "1",
+            ["retractTime"] = "5",
             ["waitTime"] = "0",
             ["waitTwo"] = "true"
           }
@@ -1069,7 +1070,7 @@ return {
             ["crushTime"] = "1",
             ["dir"] = "right",
             ["img"] = "6",
-            ["retractTime"] = "0.1"
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1089,7 +1090,7 @@ return {
             ["crushTime"] = "1",
             ["dir"] = "right",
             ["img"] = "6",
-            ["retractTime"] = "0.1"
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1132,7 +1133,7 @@ return {
           name = "",
           type = "Enemy",
           shape = "rectangle",
-          x = 1328,
+          x = 1344,
           y = 1904,
           width = 16,
           height = 16,
@@ -1550,11 +1551,11 @@ return {
             ["ID"] = "51",
             ["auto"] = "false",
             ["botDir"] = "1",
-            ["crushTime"] = "1",
+            ["crushTime"] = "0",
             ["dir"] = "down",
             ["img"] = "19",
             ["open"] = "true",
-            ["retractTime"] = "0"
+            ["retractTime"] = "1"
           }
         },
         {
@@ -1673,12 +1674,11 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "1.5",
+            ["crushTime"] = "0.8",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "15",
-            ["retractTime"] = "1",
-            ["waitTime"] = "1.25"
+            ["retractTime"] = "1.2"
           }
         },
         {
@@ -1693,11 +1693,12 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "1.5",
+            ["crushTime"] = "0.8",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "15",
-            ["retractTime"] = "1"
+            ["retractTime"] = "1.2",
+            ["waitTime"] = "1"
           }
         },
         {
@@ -1821,7 +1822,7 @@ return {
           properties = {
             ["auto"] = "false",
             ["canOpen"] = "false",
-            ["crushTime"] = "5",
+            ["crushTime"] = "1",
             ["dir"] = "down",
             ["dontReset"] = true,
             ["img"] = "16",
@@ -1897,12 +1898,12 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "0.6",
+            ["crushTime"] = "0.4",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "8",
-            ["retractTime"] = "1.2",
-            ["waitTime"] = "0.9"
+            ["retractTime"] = "1",
+            ["waitTime"] = "0.6"
           }
         },
         {
@@ -1917,11 +1918,11 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "0.6",
+            ["crushTime"] = "0.4",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "8",
-            ["retractTime"] = "1.2",
+            ["retractTime"] = "1",
             ["waitTime"] = "0"
           }
         },
@@ -1937,12 +1938,12 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "1",
+            ["crushTime"] = "0.6",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "2",
             ["retractTime"] = "1",
-            ["waitTime"] = "0"
+            ["waitTime"] = "0.8"
           }
         },
         {
@@ -1957,7 +1958,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "1",
+            ["crushTime"] = "0.6",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "2",
@@ -1977,7 +1978,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "1",
+            ["crushTime"] = "0.6",
             ["dir"] = "up",
             ["dontReset"] = true,
             ["img"] = "2",
@@ -1997,7 +1998,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = "1",
+            ["crushTime"] = "1.6",
             ["dir"] = "down",
             ["dontReset"] = true,
             ["img"] = "3",
@@ -2091,10 +2092,10 @@ return {
           name = "",
           type = "Teleport",
           shape = "rectangle",
-          x = 192,
-          y = 480,
-          width = 16,
-          height = 16,
+          x = 161.273,
+          y = 464,
+          width = 69.8182,
+          height = 48,
           rotation = 0,
           visible = true,
           properties = {
@@ -2178,7 +2179,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5002",
+            ["ID"] = "134",
             ["auto"] = "false",
             ["crushTime"] = "1",
             ["dir"] = "left",
@@ -2198,7 +2199,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5002",
+            ["ID"] = "134",
             ["auto"] = "false",
             ["crushTime"] = "1",
             ["dir"] = "left",
@@ -2219,7 +2220,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5003",
+            ["ID"] = "135",
             ["auto"] = "false",
             ["crushTime"] = "1",
             ["dir"] = "left",
@@ -2240,7 +2241,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5004",
+            ["ID"] = "136",
             ["auto"] = "false",
             ["crushTime"] = "1",
             ["dir"] = "left",
@@ -2261,7 +2262,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5005",
+            ["ID"] = "137",
             ["auto"] = "false",
             ["crushTime"] = "1",
             ["dir"] = "left",
@@ -2282,7 +2283,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5001",
+            ["ID"] = "133",
             ["auto"] = "false",
             ["botDir"] = "1",
             ["crushTime"] = "1",
@@ -2304,7 +2305,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5001",
+            ["ID"] = "133",
             ["auto"] = "false",
             ["botDir"] = "1",
             ["crushTime"] = "1",
@@ -2326,7 +2327,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5001"
+            ["ID"] = "133"
           }
         },
         {
@@ -2341,7 +2342,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5002"
+            ["ID"] = "134"
           }
         },
         {
@@ -2356,7 +2357,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5003"
+            ["ID"] = "135"
           }
         },
         {
@@ -2371,7 +2372,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5004"
+            ["ID"] = "136"
           }
         },
         {
@@ -2386,7 +2387,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "5005"
+            ["ID"] = "137"
           }
         },
         {
@@ -2408,9 +2409,9 @@ return {
             ["dontReset"] = true,
             ["img"] = "23",
             ["open"] = "true",
-            ["retractTime"] = "3",
+            ["retractTime"] = "4",
             ["waitPlayer"] = "true",
-            ["waitTime"] = "1"
+            ["waitTime"] = "0"
           }
         },
         {
@@ -2432,21 +2433,73 @@ return {
         {
           id = 658,
           name = "",
-          type = "ShowText",
+          type = "Enemy",
           shape = "rectangle",
-          x = 488,
-          y = 462,
-          width = 0,
-          height = 0,
+          x = 896,
+          y = 240,
+          width = 16,
+          height = 16,
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "505",
-            ["textID"] = "5"
+            ["direction"] = "-1",
+            ["movement"] = "false",
+            ["right"] = "200"
           }
         },
         {
           id = 659,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 960,
+          y = 240,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "-1",
+            ["movement"] = "false",
+            ["right"] = "200"
+          }
+        },
+        {
+          id = 660,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 1032,
+          y = 240,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "-1",
+            ["movement"] = "false",
+            ["right"] = "200"
+          }
+        },
+        {
+          id = 661,
+          name = "",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 1104,
+          y = 240,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["direction"] = "-1",
+            ["movement"] = "false",
+            ["right"] = "200"
+          }
+        },
+        {
+          id = 663,
           name = "",
           type = "AreaTrigger",
           shape = "rectangle",
@@ -2462,23 +2515,23 @@ return {
           }
         },
         {
-          id = 660,
+          id = 664,
           name = "",
-          type = "AreaTrigger",
+          type = "ShowText",
           shape = "rectangle",
-          x = 509,
-          y = 480,
-          width = 22,
-          height = 32,
+          x = 488,
+          y = 462,
+          width = 0,
+          height = 0,
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "506",
-            ["signalOff"] = true
+            ["ID"] = "505",
+            ["textID"] = "5"
           }
         },
         {
-          id = 661,
+          id = 665,
           name = "",
           type = "ShowText",
           shape = "rectangle",
@@ -2494,23 +2547,23 @@ return {
           }
         },
         {
-          id = 662,
+          id = 666,
           name = "",
           type = "AreaTrigger",
           shape = "rectangle",
-          x = 541,
+          x = 509,
           y = 480,
           width = 22,
           height = 32,
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = "507",
+            ["ID"] = "506",
             ["signalOff"] = true
           }
         },
         {
-          id = 663,
+          id = 667,
           name = "",
           type = "ShowText",
           shape = "rectangle",
@@ -2526,7 +2579,23 @@ return {
           }
         },
         {
-          id = 664,
+          id = 668,
+          name = "",
+          type = "AreaTrigger",
+          shape = "rectangle",
+          x = 541,
+          y = 480,
+          width = 22,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = "507",
+            ["signalOff"] = true
+          }
+        },
+        {
+          id = 669,
           name = "",
           type = "ShowText",
           shape = "rectangle",
@@ -2542,7 +2611,7 @@ return {
           }
         },
         {
-          id = 665,
+          id = 670,
           name = "",
           type = "AreaTrigger",
           shape = "rectangle",
@@ -2558,7 +2627,7 @@ return {
           }
         },
         {
-          id = 666,
+          id = 671,
           name = "",
           type = "AreaTrigger",
           shape = "rectangle",
@@ -2574,7 +2643,7 @@ return {
           }
         },
         {
-          id = 667,
+          id = 672,
           name = "",
           type = "ShowText",
           shape = "rectangle",
@@ -2590,79 +2659,53 @@ return {
           }
         },
         {
-          id = 668,
-          name = "",
-          type = "Checkpoint",
-          shape = "rectangle",
-          x = 176,
-          y = 464,
-          width = 48,
-          height = 48,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 669,
-          name = "",
-          type = "Spikes",
-          shape = "rectangle",
-          x = 1088,
-          y = 295.652,
-          width = 32,
-          height = 8.36364,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 670,
-          name = "",
-          type = "Spikes",
-          shape = "rectangle",
-          x = 1056,
-          y = 184.182,
-          width = 32,
-          height = 8.36364,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 671,
-          name = "",
-          type = "Spikes",
-          shape = "rectangle",
-          x = 959.818,
-          y = 184,
-          width = 32,
-          height = 8.36364,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 672,
-          name = "",
-          type = "Spikes",
-          shape = "rectangle",
-          x = 864,
-          y = 184.182,
-          width = 32,
-          height = 8.36364,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 673,
           name = "",
           type = "Spikes",
           shape = "rectangle",
-          x = 927.818,
-          y = 295.818,
+          x = 1088.12,
+          y = 297.625,
           width = 32,
-          height = 8.36364,
+          height = 6,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 674,
+          name = "",
+          type = "Spikes",
+          shape = "rectangle",
+          x = 1056.33,
+          y = 186,
+          width = 32,
+          height = 6,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 675,
+          name = "",
+          type = "Spikes",
+          shape = "rectangle",
+          x = 960.333,
+          y = 186.333,
+          width = 32,
+          height = 6,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 676,
+          name = "",
+          type = "Spikes",
+          shape = "rectangle",
+          x = 927.667,
+          y = 298,
+          width = 32,
+          height = 6,
           rotation = 0,
           visible = true,
           properties = {}
@@ -2670,105 +2713,25 @@ return {
         {
           id = 677,
           name = "",
-          type = "Enemy",
+          type = "Spikes",
           shape = "rectangle",
-          x = 895.5,
-          y = 240,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["direction"] = "-1",
-            ["jumpAccel"] = "1000",
-            ["jumpInterval"] = "3",
-            ["jumping"] = "true",
-            ["movement"] = "false",
-            ["right"] = "200"
-          }
-        },
-        {
-          id = 678,
-          name = "",
-          type = "Enemy",
-          shape = "rectangle",
-          x = 960,
-          y = 240,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["direction"] = "-1",
-            ["jumpAccel"] = "1000",
-            ["jumpInterval"] = "3",
-            ["jumping"] = "true",
-            ["movement"] = "false",
-            ["right"] = "200"
-          }
-        },
-        {
-          id = 679,
-          name = "",
-          type = "Enemy",
-          shape = "rectangle",
-          x = 1104,
-          y = 240,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["direction"] = "-1",
-            ["jumpAccel"] = "1000",
-            ["jumpInterval"] = "3",
-            ["jumping"] = "true",
-            ["movement"] = "false",
-            ["right"] = "200"
-          }
-        },
-        {
-          id = 680,
-          name = "",
-          type = "Enemy",
-          shape = "rectangle",
-          x = 1032,
-          y = 240,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["direction"] = "-1",
-            ["jumpAccel"] = "1000",
-            ["jumpInterval"] = "3",
-            ["jumping"] = "true",
-            ["movement"] = "false",
-            ["right"] = "200"
-          }
-        },
-        {
-          id = 681,
-          name = "",
-          type = "Checkpoint",
-          shape = "rectangle",
-          x = 688,
-          y = 464,
-          width = 48,
-          height = 48,
+          x = 864,
+          y = 186.667,
+          width = 32,
+          height = 6,
           rotation = 0,
           visible = true,
           properties = {}
         },
         {
-          id = 682,
+          id = 678,
           name = "",
           type = "Checkpoint",
           shape = "rectangle",
-          x = 1212,
-          y = 208,
-          width = 48,
-          height = 48,
+          x = 1232,
+          y = 224,
+          width = 32.6667,
+          height = 32,
           rotation = 0,
           visible = true,
           properties = {}

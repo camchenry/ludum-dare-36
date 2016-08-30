@@ -162,6 +162,8 @@ function Enemy:draw()
     love.graphics.setColor(255, 255, 255)
 
     if self.visible then
+        love.graphics.setColor(self.color)
+
         local image = self.idleImage
 
         if not self.movement then
@@ -169,7 +171,6 @@ function Enemy:draw()
                 image = self.jumpImage
             end
 
-            love.graphics.setColor(self.color)
             love.graphics.draw(image, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, image:getWidth()/2, 0)
 
         else
