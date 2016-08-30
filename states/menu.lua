@@ -36,10 +36,10 @@ function menu:draw()
     end
     love.graphics.setColor(255, 255, 255)
     
-    love.graphics.draw(self.titleImage, love.graphics.getWidth()/2 - self.titleImage:getWidth()/2, 100)
+    love.graphics.draw(self.titleImage, love.graphics.getWidth()/2 - self.titleImage:getWidth(), 50, 0, 2, 2)
 
     if self.timer <= 0.5 then
         love.graphics.setFont(self.startFont)
-        love.graphics.printf(self.startText, 0, love.graphics.getHeight()/2 - self.startFont:getHeight(self.startText)/2, love.graphics.getWidth(), "center")
+        love.graphics.printf(self.startText, 0, 175 + love.graphics.getHeight()/2 - self.startFont:getHeight(self.startText)/2, love.graphics.getWidth(), "center")
     end
 end
