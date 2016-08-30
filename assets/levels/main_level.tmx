@@ -670,7 +670,7 @@
   <object id="620" type="AreaTrigger" x="448" y="1952" width="16" height="16">
    <properties>
     <property name="ID" value="5022"/>
-    <property name="oneTime" type="bool" value="true"/>
+    <property name="oneTime" type="bool" value="false"/>
    </properties>
   </object>
   <object id="621" type="Crusher" x="587" y="1935" width="3" height="1.0625">

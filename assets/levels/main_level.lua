@@ -1786,7 +1786,7 @@ return {
           visible = true,
           properties = {
             ["ID"] = "5022",
-            ["oneTime"] = true
+            ["oneTime"] = false
           }
         },
         {
