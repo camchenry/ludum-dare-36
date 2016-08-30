@@ -116,13 +116,13 @@ function love.keyreleased(key, code, isRepeat)
         love.event.quit()
     end
 
-    if key == "`" or key == 'f1' then
-        if love.keyboard.isDown("lshift", "rshift") then
-            DETAILED_DEBUG = not DETAILED_DEBUG
-        else
-            DEBUG = not DEBUG
-        end
-    end
+    -- if key == "`" or key == 'f1' then
+    --     if love.keyboard.isDown("lshift", "rshift") then
+    --         DETAILED_DEBUG = not DETAILED_DEBUG
+    --     else
+    --         DEBUG = not DEBUG
+    --     end
+    -- end
 end
 
 function love.keypressed(key, code, isRepeat)

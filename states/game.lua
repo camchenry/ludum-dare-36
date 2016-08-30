@@ -51,7 +51,7 @@ function game:reset()
     loads = loads + 1
 
     self.camera = Camera()
-    self.camera.smoother = Camera.smooth.damped(5)
+    -- self.camera.smoother = Camera.smooth.damped(7)
 
     self.player = add(Player:new(20, 1550))
 

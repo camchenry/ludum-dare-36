@@ -1,12 +1,12 @@
 function love.conf(t)
-    t.identity = nil                    -- The name of the save directory (string)
+    t.identity = "Debug Quest"                    -- The name of the save directory (string)
     t.version = "0.10.1"                -- The LÖVE version this game was made for (string)
     t.console = true                   -- Attach a console (boolean, Windows only)
     t.accelerometerjoystick = true      -- Enable the accelerometer on iOS and Android by exposing it as a Joystick (boolean)
     t.externalstorage = false           -- True to save files (and read from the save directory) in external storage on Android (boolean) 
     t.gammacorrect = false              -- Enable gamma-correct rendering, when supported by the system (boolean)
  
-    t.window.title = "Untitled"         -- The window title (string)
+    t.window.title = "Debug Quest"         -- The window title (string)
     t.window.icon = nil                 -- Filepath to an image to use as the window's icon (string)
     t.window.width = 1200                -- The window width (number)
     t.window.height = 800               -- The window height (number)
@@ -41,16 +41,16 @@ function love.conf(t)
     t.modules.thread = true             -- Enable the thread module (boolean)
 
     t.releases = {
-        title = "LudumDare36",
+        title = "Debug Quest",
         version = "1.0.0",
-        package = "ludum-dare-36",
-        identifier = "com.camchenry.ludum-dare-36",
+        package = "debug-quest",
+        identifier = "com.camchenry.debug-quest",
         loveVersion = "0.10.1",
 
-        author = "Undefined",
+        author = "Robert Piepsney, Cameron McHenry, Simon Ando Chim",
         email = "cameronamchenry@gmail.com",
-        description = "A game made for Ludum Dare 36",
-        homepage = "camchenry.com",
+        description = "The ancient machine that provides for your people stopped working. You must repair it and bring it back online. Made for Ludum Dare 36.",
+        homepage = "https://ikroth.itch.io/debug-quest",
         releaseDirectory = "releases",
     }
 end
