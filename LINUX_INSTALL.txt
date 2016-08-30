@@ -6,4 +6,10 @@ $ sudo apt-get install love
 
 then just run:
 
-$ love DebugQuest.love
+$ love "Debug Quest.love"
+
+
+
+If you're using the .deb version, you will need to run:
+
+$ dpkg -i debug-quest-1.0.0_all.deb
