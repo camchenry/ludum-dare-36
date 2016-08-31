@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="Crusher" color="#aa0000"/>
+ <objecttype name="Gate" color="#55ffff"/>
+ <objecttype name="Wrench" color="#5555ff"/>
+ <objecttype name="AreaTrigger" color="#ffef0f"/>
+ <objecttype name="ShowText" color="#00b3ff"/>
+ <objecttype name="Bot" color="#7d62a4"/>
+ <objecttype name="Lever" color="#26a400"/>
+ <objecttype name="Checkpoint" color="#ffffff"/>
+ <objecttype name="Teleport" color="#b41cff"/>
+ <objecttype name="Console" color="#ffaa7f"/>
+ <objecttype name="Dropfloor" color="#250ca4"/>
+ <objecttype name="Enemy" color="#a40000"/>
+ <objecttype name="VictoryCondition" color="#000000"/>
+</objecttypes>
