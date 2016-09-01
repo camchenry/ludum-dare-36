@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
- <objecttype name="Crusher" color="#aa0000"/>
+ <objecttype name="Crusher" color="#aa0000">
+  <property name="ID" type="int" default="0"/>
+  <property name="activateOnce" type="bool" default="false"/>
+  <property name="auto" type="bool" default="true"/>
+  <property name="botDir" type="int" default="0"/>
+  <property name="crushTime" type="float" default="1"/>
+  <property name="dir" type="string" default="up"/>
+  <property name="img" type="int" default="0"/>
+  <property name="reset" type="bool" default="true"/>
+  <property name="reska" type="bool" default="true"/>
+  <property name="retractTime" type="float" default="1"/>
+  <property name="startOpen" type="bool" default="false"/>
+  <property name="waitBot" type="bool" default="false"/>
+  <property name="waitPlayer" type="bool" default="false"/>
+  <property name="waitTime" type="float" default="0"/>
+ </objecttype>
  <objecttype name="Gate" color="#55ffff"/>
  <objecttype name="Wrench" color="#5555ff"/>
  <objecttype name="AreaTrigger" color="#ffef0f"/>

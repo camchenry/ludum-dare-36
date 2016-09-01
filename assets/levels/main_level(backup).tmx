@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="703">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="702">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -344,6 +344,7 @@
     <property name="retractTime" value="1"/>
    </properties>
   </object>
+  <object id="566" type="Bot" x="400.5" y="1200" width="16" height="16"/>
   <object id="568" type="Spikes" x="304" y="1200" width="32" height="16"/>
   <object id="569" type="Checkpoint" x="240" y="1312" width="32" height="48"/>
   <object id="570" type="Dropfloor" x="432" y="1312" width="32" height="16"/>
@@ -513,6 +514,11 @@
     <property name="retractTime" value="1"/>
    </properties>
   </object>
+  <object id="605" type="Bot" x="560" y="1984" width="16" height="16">
+   <properties>
+    <property name="noCheckpoint" type="bool" value="true"/>
+   </properties>
+  </object>
   <object id="607" type="AreaTrigger" x="608" y="1952" width="16" height="16">
    <properties>
     <property name="ID" value="71"/>
@@ -620,6 +626,16 @@
    <properties>
     <property name="ID" value="91"/>
     <property name="out" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="640" type="Bot" x="1184" y="160" width="16" height="16">
+   <properties>
+    <property name="noCheckpoint" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="641" type="Bot" x="1200" y="272" width="16" height="16">
+   <properties>
+    <property name="noCheckpoint" type="bool" value="true"/>
    </properties>
   </object>
   <object id="642" type="AreaTrigger" x="720" y="160" width="16" height="16">
@@ -823,7 +839,6 @@
     <property name="crushTime" type="float" value="0.6"/>
     <property name="dir" value="up"/>
     <property name="img" type="int" value="2"/>
-    <property name="reset" type="bool" value="false"/>
    </properties>
   </object>
   <object id="682" type="Crusher" x="1088" y="1104" width="32" height="96">
@@ -832,7 +847,6 @@
     <property name="crushTime" type="float" value="0.6"/>
     <property name="dir" value="up"/>
     <property name="img" type="int" value="2"/>
-    <property name="reset" type="bool" value="false"/>
     <property name="waitTime" type="float" value="0.8"/>
    </properties>
   </object>
@@ -842,7 +856,6 @@
     <property name="crushTime" type="float" value="1.8"/>
     <property name="dir" value="down"/>
     <property name="img" type="int" value="3"/>
-    <property name="reset" type="bool" value="false"/>
    </properties>
   </object>
   <object id="684" type="Crusher" x="800" y="1104" width="32.5" height="97.5">
@@ -851,7 +864,6 @@
     <property name="crushTime" type="float" value="1.8"/>
     <property name="dir" value="down"/>
     <property name="img" type="int" value="3"/>
-    <property name="reset" type="bool" value="false"/>
    </properties>
   </object>
   <object id="685" type="Crusher" x="848" y="1104" width="32" height="96">
@@ -859,7 +871,6 @@
     <property name="auto" type="bool" value="true"/>
     <property name="crushTime" type="float" value="0.6"/>
     <property name="img" type="int" value="2"/>
-    <property name="reset" type="bool" value="false"/>
    </properties>
   </object>
   <object id="686" type="Crusher" x="752" y="1104" width="32" height="96">
@@ -867,7 +878,6 @@
     <property name="auto" type="bool" value="true"/>
     <property name="crushTime" type="float" value="0.6"/>
     <property name="img" type="int" value="2"/>
-    <property name="reset" type="bool" value="false"/>
    </properties>
   </object>
   <object id="687" type="Crusher" x="368" y="1152" width="16.5" height="63.5">
@@ -884,7 +894,6 @@
     <property name="auto" type="bool" value="false"/>
     <property name="dir" value="down"/>
     <property name="img" type="int" value="10"/>
-    <property name="reset" type="bool" value="false"/>
     <property name="retractTime" type="float" value="5"/>
     <property name="waitBot" type="bool" value="true"/>
     <property name="waitPlayer" type="bool" value="true"/>
@@ -902,21 +911,18 @@
    <properties>
     <property name="crushTime" type="float" value="0.4"/>
     <property name="img" type="int" value="8"/>
-    <property name="reset" type="bool" value="false"/>
    </properties>
   </object>
   <object id="692" type="Crusher" x="1136" y="1936" width="32" height="64">
    <properties>
     <property name="crushTime" type="float" value="0.4"/>
     <property name="img" type="int" value="8"/>
-    <property name="reset" type="bool" value="false"/>
    </properties>
   </object>
   <object id="693" type="Crusher" x="1088" y="1936" width="32" height="64">
    <properties>
     <property name="crushTime" type="float" value="0.4"/>
     <property name="img" type="int" value="8"/>
-    <property name="reset" type="bool" value="false"/>
     <property name="waitTime" type="float" value="0.6"/>
    </properties>
   </object>
@@ -924,7 +930,6 @@
    <properties>
     <property name="crushTime" type="float" value="0.8"/>
     <property name="img" type="int" value="15"/>
-    <property name="reset" type="bool" value="false"/>
     <property name="retractTime" type="float" value="1.2"/>
     <property name="waitTime" type="float" value="1"/>
    </properties>
@@ -933,7 +938,6 @@
    <properties>
     <property name="crushTime" type="float" value="0.8"/>
     <property name="img" type="int" value="15"/>
-    <property name="reset" type="bool" value="false"/>
     <property name="retractTime" type="float" value="1.2"/>
     <property name="waitTime" type="float" value="0"/>
    </properties>
@@ -986,6 +990,5 @@
     <property name="img" type="int" value="22"/>
    </properties>
   </object>
-  <object id="702" type="Spawn" x="32" y="1568" width="16" height="16"/>
  </objectgroup>
 </map>

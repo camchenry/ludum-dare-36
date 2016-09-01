@@ -29,6 +29,8 @@ function Bot:initialize(x, y, w, h, properties)
     self.crusherReference = nil
     self.crusherTimer = 0
     self.crusherTime = 0.3
+
+    self.startTimer = 5
 end
 
 function Bot:kill()
@@ -104,7 +106,11 @@ function Bot:update(dt, world)
         elseif other.class and other:isInstanceOf(Spikes) then
             --self:reset(world)
             --game:resetToCheckpoint(true)
-            game:resetToCheckpoint()
+            if self.startTimer <= 0 then
+                game:resetToCheckpoint()
+            else
+                self:reset(world)
+            end
         elseif other.class and other:isInstanceOf(Checkpoint) then
             self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
         end
@@ -171,6 +177,7 @@ function Bot:update(dt, world)
     end
 
     self.crusherTimer = math.max(0, self.crusherTimer - dt)
+    self.startTimer = math.max(0, self.startTimer - dt)
 
     self.animation:update(dt)
 end

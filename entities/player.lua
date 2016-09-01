@@ -29,7 +29,7 @@ function Player:initialize(x, y)
     self.prevCeil = false
     self.prevWall = false
 
-    self.wrenchPower = false
+    self.wrenchPower = true
 
     self.attackTimer = 0
     self.attackTime = 0.5
@@ -46,12 +46,18 @@ function Player:initialize(x, y)
     self.footstepTimer = 0
 
     self.crusherReference = nil
+    self.lastCrusherReference = nil
+
+    self.touchedNewCrusher = false
+    self.jumpControlTime = 0.3
+    self.jumpControlTimer = 0
 
     self.actionDelay = 0.4
 
     self.facing = -1
 
-    self.teleported = false
+    self.teleportedTime = 1
+    self.teleportedTimer = self.teleportedTime
 
     self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
     self.jumpImage = love.graphics.newImage("assets/images/Hero/Hero_Jump.png")
@@ -76,6 +82,7 @@ function Player:initialize(x, y)
     self.attackBoxSize = Vector(20, 25)
 
     self.lastCrush = {}
+    self.lastNormals = {}
 end
 
 function Player:reset(world)
@@ -84,6 +91,9 @@ function Player:reset(world)
     self.acceleration = Vector(0, 0)
     self.velocity = Vector(0, 0)
     self.jumpTimer = 0
+    self.crusherReference = nil
+    self.lastCrusherReference = nil
+    self.crusherTouchTimer = 0
 end
 
 function Player:keypressed(key)
@@ -118,6 +128,50 @@ function Player:doAction()
     end
 end
 
+function Player:move(world, x, y, checkCrush, crush)
+    if x ~= self.position.x or y ~= self.position.y then
+        if checkCrush then
+            local actualX, actualY, cols = world:check(self, x, y)
+
+            local crushed = crush or {}
+
+            for k, col in pairs(cols) do
+                local other = col.other
+                
+                if not other.class or (other.class and not (other:isInstanceOf(Checkpoint) or other:isInstanceOf(Wrench) or other:isInstanceOf(Enemy) or other:isInstanceOf(Lever) or other:isInstanceOf(Console) or other:isInstanceOf(Bot))) then
+                    if col.normal.y == 1 then
+                        crushed.top = true
+                    end
+                    if col.normal.y == -1 then
+                        crushed.bottom = true
+                    end
+                    if col.normal.x == 1 and self.prevGround then
+                        crushed.left = true
+                    end
+                    if col.normal.x == -1 and self.prevGround then
+                        crushed.right = true
+                    end
+                end
+            end
+
+            if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
+                -- death by crushed
+                game:resetToCheckpoint()
+                changePos = false
+                Signal.emit("playerDeath")
+            else
+                self.position.x, self.position.y = x, actualY
+                world:update(self, self.position.x, self.position.y)
+            end
+
+            self.lastCrush = crushed
+        else
+            self.position.x, self.position.y = x, y
+            world:update(self, self.position.x, self.position.y)
+        end
+    end
+end
+
 function Player:update(dt, world)
     self.world = world
     self.acceleration = Vector(0, self.gravity)
@@ -129,6 +183,10 @@ function Player:update(dt, world)
         if self.lastJumpTimer == 0 then
             self.canJump = true
         end
+    end
+
+    if self.touchedNewCrusher then
+        self.canJump = true
     end
 
     if (isUp and not isDown) and self.attackTimer == 0 and self.foundTimer == 0 then
@@ -146,6 +204,7 @@ function Player:update(dt, world)
                 self.acceleration.y = -self.jumpBurst
                 self.lastJumpTimer = self.lastJumpTime
                 Signal.emit("startJump")
+                self.jumpControlTimer = self.jumpControlTime
             else
                 -- note that this calculation is fighting against gravity, so it will offer diminishing returns in a way
                 self.acceleration.y = self.acceleration.y - self.jumpAccel
@@ -219,13 +278,16 @@ function Player:update(dt, world)
                 newPos.y = self.crusherReference.position.y + self.crusherReference.height + self.velocity.y * dt + 5
             end
 
+--[[
             if math.abs(newPos.y - self.position.y) > self.height/2 or math.abs(self.prevX - self.position.x) > self.width/2 then
                 -- death by crushed
+                error('death at 224: ' ..  math.abs(newPos.y - self.position.y) .. ' ' .. math.abs(self.prevX - self.position.x) .. ' ' .. self.height/2 .. ' ' .. self.width/2)
                 game:resetToCheckpoint()
                 changePos = false
                 Signal.emit("playerDeath")
                 self.attackTimer = 0
             end
+]]
 
             world:update(self, self.position.x, newPos.y)
             self.position.y = newPos.y
@@ -274,6 +336,9 @@ function Player:update(dt, world)
         if other.class and other:isInstanceOf(Teleport) then
             return false
         end
+        if other.class and other:isInstanceOf(NewCrusher) then
+            return "slide"
+        end
 
         local offset = 0
         if item.velocity.y > 0 then
@@ -291,6 +356,7 @@ function Player:update(dt, world)
     local additionalX, additionalY = 0, 0
 
     if self.crusherReference then
+        self.lastCrusherReference = self.crusherReference
         self.crusherReference = nil
     end
 
@@ -331,6 +397,7 @@ function Player:update(dt, world)
                 self.velocity.y = 0
                 self.crusherTouchTimer = self.crusherTouchTime
                 self.crusherReference = other
+                self.lastCrusherReference = other
             elseif col.normal.y == 1 then
                 self.velocity.y = 0
                 if not self.prevCeil then
@@ -339,6 +406,7 @@ function Player:update(dt, world)
                 end
                 hitCeil = true
                 self.crusherReference = other
+                self.lastCrusherReference = other
             end
         elseif other.class and other:isInstanceOf(Bot) then
         elseif other.class and other:isInstanceOf(MovingPlatform) then
@@ -353,6 +421,35 @@ function Player:update(dt, world)
             end
         elseif other.class and other:isInstanceOf(Spikes) then
             self:reset(world)
+        elseif other.class and other:isInstanceOf(NewCrusher) then
+            if col.normal.y == -1 or col.normal.y == 1 then
+                self.velocity.y = 0
+
+                if self.position.y <= other.position.y + self.height/2 then
+                    -- player is above
+
+                    -- allow the player to jump again once they hit the ground
+                    self.jumpTimer = 0
+                    self.jumpState = false
+                    self.canJump = true
+                    self.touchingGround = true
+                    if not self.prevGround then
+                        self.prevGround = true
+                        Signal.emit("hitGround")
+                    end
+                    hitGround = true
+                else
+                    -- player is below
+                    --actualY = other.position.y + other.height + 10
+                    if other.lastMove > 0 then
+                        self:move(world, self.position.x, actualY + 5, true, {top = true}) -- hacky
+                        changePos = false
+                    end
+                end
+            end
+
+            self.lastNormals = col.normal
+            --actualY = other.position.y + other.height
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
@@ -407,11 +504,26 @@ function Player:update(dt, world)
         end
     end
 
-    if math.abs(actualX - self.position.x) > self.width/2 and not self.teleported then
+    if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
         -- death by crushed
         game:resetToCheckpoint()
         changePos = false
         Signal.emit("playerDeath")
+    elseif math.abs(actualX - self.position.x) > self.width/2 and not self.crusherReference and self.teleportedTimer <= 0 then
+        if self.lastCrusherReference and self.crusherTouchTimer > 0 then
+            if self.lastCrusherReference then
+                local y = self.lastCrusherReference.position.y - self.height
+                changePos = false
+
+                self.position = Vector(actualX, y)
+                world:update(self, self.position.x, self.position.y)
+            end
+        else
+            -- death by crushed
+            game:resetToCheckpoint()
+            changePos = false
+            Signal.emit("playerDeath")
+        end
     end
 
     if not hitGround then
@@ -424,14 +536,18 @@ function Player:update(dt, world)
         self.prevWall = false
     end
 
-    if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
-        -- death by crushed
-        game:resetToCheckpoint()
-        changePos = false
-        Signal.emit("playerDeath")
+--[[
+    if crushed.top then
+        self.lastCrush.top = true
     end
-
-    self.lastCrush = crushed
+    self.lastCrush.bottom = crushed.bottom
+    if crushed.left then
+        self.lastCrush.left = true
+    end
+    if crushed.right then
+        self.lastCrush.right = true
+    end
+    ]]
 
     self.prevX = self.position.x
 
@@ -453,6 +569,8 @@ function Player:update(dt, world)
     self.crusherTouchTimer = math.max(0, self.crusherTouchTimer - dt)
     self.lastJumpTimer = math.max(0, self.lastJumpTimer - dt)
     self.foundTimer = math.max(0, self.foundTimer - dt)
+    self.teleportedTimer = math.max(0, self.teleportedTimer - dt)
+    self.jumpControlTimer = math.max(0, self.jumpControlTimer - dt)
 
     self.attackAnimation:update(dt)
     self.foundAnimation:update(dt)
@@ -474,6 +592,8 @@ function Player:update(dt, world)
         self.footstepTimer = 0
         Signal.emit("playerFootstep")
     end
+
+    self.touchedNewCrusher = false
 end
 
 function Player:draw()
@@ -501,7 +621,7 @@ function Player:draw()
 
     local image = self.idleImage
 
-    if self.jumpTimer > 0 or not self.canJump and self.crusherTouchTimer == 0 then
+    if self.jumpTimer > 0 or not self.canJump and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.touchedNewCrusher then
         image = self.jumpImage
     end
 
@@ -511,7 +631,7 @@ function Player:draw()
         self.foundAnimation:draw(self.foundImage, x + self.attackImageOffset.x, y + self.attackImageOffset.y, 0, self.facing, 1)
     elseif self.attackTimer > 0 then
         self.attackAnimation:draw(self.attackImage, x + self.attackImageOffset.x, y + self.attackImageOffset.y, 0, self.facing, 1)
-    elseif self.velocity.x == 0 or ((not self.touchingGround or self.onPlatform) and self.crusherTouchTimer == 0) then
+    elseif self.velocity.x == 0 or not self.touchingGround then
         love.graphics.draw(image, x, y, 0, self.facing, 1)
     else
         self.runAnimation:draw(self.runImage, x + self.runImageOffset.x, y + self.runImageOffset.y, 0, self.facing, 1)

@@ -16,7 +16,8 @@ ShowText        = require "entities.showText"
 Teleport        = require "entities.teleport"
 Mask            = require "entities.mask"
 VictoryCondition= require "entities.victoryCondition"
+NewCrusher      = require "entities.newCrusher"
 
-SoundManager    = require "entities.sound.soundmanager"
+--SoundManager    = require "entities.sound.soundmanager"
 
 ScreenShake     = require "entities.fx.screenshake"

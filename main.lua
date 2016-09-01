@@ -45,7 +45,9 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setFont(Fonts.default[14])
 
-    game.map = STI("assets/levels/main_level.lua", {"bump"}) 
+    --game.map = STI("assets/levels/main_level.lua", {"bump"}) 
+    game.map = STI("assets/levels/playground_level.lua", {"bump"}) 
+
     __overlay = {0, 0, 0, 0}
     Signal.register("GameVictory", function()
         Flux.to(__overlay, 2, {0, 0, 0, 255})
@@ -95,6 +97,11 @@ function love.draw()
                 "FNT#: " .. stats.fonts,
                 "CVS#: " .. stats.canvases,
                 "Loads: " .. loads
+            )
+        end
+        if game.world then
+            Lume.push(info,
+                "Bump items: " .. game.world:countItems()
             )
         end
         if game.player then

@@ -10,15 +10,19 @@ function Crusher:initialize(x, y, w, h, properties)
     self.startPosition = Vector(x, y)
     self.startHeight = h
 
-    self.direction = properties.dir or "up"
-    self.ID = tonumber(properties.ID) or 0
-    self.botDir = tonumber(properties.botDir) or 0
-    self.imgID = tonumber(properties.img) or 0
-    self.retractTime = tonumber(properties.retractTime) or 0
-    self.crushTime = tonumber(properties.crushTime) or 0
-    self.waitTime = tonumber(properties.waitTime) or 0
-
-    self.waitTimer = self.waitTime
+    self.direction    = properties.dir or "up"
+    self.ID           = properties.ID or 0
+    self.botDir       = properties.botDir or 0
+    self.imgID        = properties.img or 0
+    self.retractTime  = properties.retractTime or 1.0
+    self.crushTime    = properties.crushTime or 1.0
+    self.waitTime     = properties.waitTime or 1.0
+    self.activateOnce = properties.activateOnce or false
+    self.auto         = properties.auto or true
+    self.waitPlayer   = properties.waitPlayer or false
+    self.waitBot      = properties.waitBot or false
+    self.resetItem    = properties.reset or true
+    self.startOpen    = properties.startOpen or false
 
     if self.imgID == 2 then
         self.image = love.graphics.newImage("assets/images/Misc/Room4_Crusher.png")
@@ -46,51 +50,14 @@ function Crusher:initialize(x, y, w, h, properties)
         self.image = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_Elevator.png")
     end
 
-    if properties.canClose and properties.canClose == "false" then
-        self.canClose = false
-    else
-        self.canClose = true
-    end
+    self.hasBeenActivated = false
+    self.hasMoved = false
+    self.crushing = true
 
-    if properties.canOpen and properties.canOpen == "false" then
-        self.canOpen = false
-    else
-        self.canOpen = true
-    end
-
-    if properties.auto and properties.auto == "false" then
-        self.auto = false
-    else
-        self.auto = true
-    end
-
-    if properties.waitTwo and properties.waitTwo == "true" then
-        self.waitTwo = true
-    else
-        self.waitTwo = false
-    end
-
-    if properties.waitPlayer and properties.waitPlayer == "true" then
-        self.waitPlayer = true
-    else
-        self.waitPlayer = false
-    end
-
-    if properties.waitBot and properties.waitBot == "true" then
-        self.waitBot = true
-    else
-        self.waitBot = false
-    end
-
-    self.interval = 5
-
-    self.dontReset = properties.dontReset
-
-    if properties.open and properties.open == "true" then
+    if self.startOpen then
         --self.crushing = true
         --self.hasMoved = true
         self.open = false
-        self.startOpen = true
 
         if self.direction == "up" then
             self.height = 1
@@ -103,13 +70,17 @@ function Crusher:initialize(x, y, w, h, properties)
         end
     else
         self.open = true
-        self.startOpen = false
     end
 
-    self.hasMoved = false
-    self.crushing = false
+    if self.waitTween then
+        self.waitTween:stop()
+        self.waitTween = nil
+    end
 
-    self.resetWaitTime = 1
+    self.waitTween = Flux.to(self, self.waitTime, {}):oncomplete(function()
+        self.crushing = false
+        self.waitTween = nil
+    end)
 
     Signal.register("activate", function(ID)
         if ID == self.ID then
@@ -121,7 +92,7 @@ function Crusher:initialize(x, y, w, h, properties)
 end
 
 function Crusher:reset()
-    if not self.dontReset then
+    if self.resetItem then
         if self.moveTween then
             self.moveTween:stop()
             self.moveTween = nil
@@ -131,6 +102,7 @@ function Crusher:reset()
         self.prevHeight = self.startHeight
 
         self.position = Vector(self.startPosition.x, self.startPosition.y)
+        game.world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
 
         if self.startOpen then
             self.open = false
@@ -147,24 +119,44 @@ function Crusher:reset()
             self.open = true
         end
 
+        self.hasBeenActivated = false
         self.hasMoved = false
+        self.crushing = true
 
-        Flux.to(self, self.resetWaitTime, {}):oncomplete(function()
+        if self.waitTween then
+            self.waitTween:stop()
+            self.waitTween = nil
+        end
+
+        if game.world:hasItem(self) then
+            game.world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
+        end
+
+        self.waitTween = Flux.to(self, self.waitTime, {}):oncomplete(function()
             self.crushing = false
+            self.waitTween = nil
         end)
-
-        self.waitTimer = self.waitTime
     end
 end
 
 function Crusher:activate()
-    if not self.crushing and not self.auto and not self.moveTween then
-        if self.open and self.canOpen then
+    if not self.crushing and not self.auto and not self.moveTween and not self.hasBeenActivated and not self.waitTween then
+        if self.open then
+            if self.moveTween then
+                self.moveTween:stop()
+                self.moveTween = nil
+            end
+
             self.moveTween = Flux.to(self, self.retractTime, {height = 0}):ease("linear"):oncomplete(function()
                 self.moveTween = nil
                 self.crushing = false
             end)
-        elseif self.canClose then
+        else
+            if self.moveTween then
+                self.moveTween:stop()
+                self.moveTween = nil
+            end
+
             self.moveTween = Flux.to(self, self.crushTime, {height = self.startHeight}):ease("linear"):oncomplete(function()
                 self.moveTween = nil
                 self.crushing = false
@@ -174,13 +166,15 @@ function Crusher:activate()
         self.crushing = true
         self.open = not self.open
     end
+
+    self.hasBeenActivated = true
 end
 
 function Crusher:update(dt, world, override)
     local dy = 0
 
     -- crusher won't activate until both the Bot and Player are touching it
-    if self.waitTwo then
+    if self.waitPlayer or self.waitBot then
         local yOffset = 4
         local items, len = game.world:queryRect(self.position.x, self.position.y - yOffset, self.width, yOffset)
         local foundBot, foundPlayer = false, false
@@ -193,47 +187,21 @@ function Crusher:update(dt, world, override)
             end
         end
 
-        if foundBot and foundPlayer then
-            self:activate()
-        end
-    elseif self.waitPlayer then
-        local yOffset = 4
-        local items, len = game.world:queryRect(self.position.x, self.position.y - yOffset, self.width, yOffset)
-        local foundPlayer = false
-
-        for k, item in pairs(items) do
-            if item.class and item:isInstanceOf(Player) then
-                foundPlayer = true
-            end
-        end
-
-        if foundPlayer then
-            self:activate()
-        end
-    elseif self.waitBot then
-        local yOffset = 4
-        local items, len = game.world:queryRect(self.position.x, self.position.y - yOffset, self.width, yOffset)
-        local foundBot = false
-
-        for k, item in pairs(items) do
-            if item.class and item:isInstanceOf(Bot) then
-                foundBot = true
-            end
-        end
-
-        if foundBot then
+        if ( (not self.waitPlayer) or (self.waitPlayer and foundPlayer) ) and ( (not self.waitBot or (self.waitBot and foundBot) ) ) then
             self:activate()
         end
     end
 
-    if not self.hasMoved and self.waitTimer <= 0 then
-        if not self.crushing and (self.auto or (self.waitPlayer and game.player.position.y > self.position.y + 20)) then
-            self.crushing = true
+    if not self.hasMoved then
+        if not self.moveTween then
+            if not self.crushing and (self.auto or (self.waitPlayer and game.player.position.y > self.position.y + 20)) then
+                self.crushing = true
 
-            self.moveTween = Flux.to(self, self.retractTime, {height = 0}):ease("linear"):after(self.crushTime, {height = self.startHeight}):ease("linear"):oncomplete(function()
-                self.moveTween = nil
-                self.crushing = false
-            end)
+                self.moveTween = Flux.to(self, self.retractTime, {height = 0}):ease("linear"):after(self.crushTime, {height = self.startHeight}):ease("linear"):oncomplete(function()
+                    self.crushing = false
+                    self.moveTween = nil
+                end)
+            end
         end
 
         if self.direction == "down" then
@@ -241,7 +209,7 @@ function Crusher:update(dt, world, override)
             local moveAmount = self.startPosition.y + goal - self.position.y
             
             -- now move the platform
-            local actualX, actualY, collisions = world:move(self, self.position.x, self.position.y + moveAmount, function(item, other)
+            local actualX, actualY, collisions = world:check(self, self.position.x, self.position.y + moveAmount, function(item, other)
                 if other.class and other:isInstanceOf(Player) then
                     if override then
                         return false
@@ -264,19 +232,16 @@ function Crusher:update(dt, world, override)
                 return "cross"
             end)
 
-            dy = self.position.y - actualY
-
-            self.position.x, self.position.y = actualX, actualY
+            self.position.y = self.position.y + moveAmount
         end
 
-        world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
-
-        self.prevHeight = self.height
+        if self.moveTween then
+            world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
+            self.prevHeight = self.height
+        end
     end
 
     self.hasMoved = true
-
-    self.waitTimer = math.max(0, self.waitTimer - dt)
 
     return dy
 end
