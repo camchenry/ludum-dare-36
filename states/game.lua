@@ -155,6 +155,14 @@ function game:update(dt)
 
     for _, obj in ipairs(self.objects) do
         if obj.update then
+            if obj.class and not obj:isInstanceOf(NewCrusher) then
+                obj:update(dt, self.world)
+            end
+        end
+    end
+
+    for _, obj in ipairs(self.objects) do
+        if obj.class and obj:isInstanceOf(NewCrusher) then
             obj:update(dt, self.world)
         end
     end
