@@ -1,3 +1,6 @@
+-- BUG: if a crusher is moving downward and you jump into it, you will be crushed if you are up against a wall
+
+
 -- Specifications:
 
 -- There are 2 ways a collision can occur:
@@ -102,6 +105,8 @@ function NewCrusher:move(world, x, y)
                     if item.position.y <= self.position.y then
                         crush.bottom = true
                         item:move(world, item.position.x, math.floor(self.position.y - item.height), true, crush)
+                        item.touchedNewCrusher = true
+                        item.touchingGround = true
                     else
                         if self.lastMove > 0 then
                             crush.top = true
@@ -110,9 +115,6 @@ function NewCrusher:move(world, x, y)
                             item.velocity.y = math.max(0, item.velocity.y)
                         end
                     end
-                    
-                    item.touchedNewCrusher = true
-                    item.touchingGround = true
                 end
             end
         end

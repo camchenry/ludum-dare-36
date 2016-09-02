@@ -128,12 +128,13 @@ function Player:doAction()
     end
 end
 
-function Player:move(world, x, y, checkCrush, crush)
+function Player:move(world, x, y, checkCrush, crush, reference)
     if x ~= self.position.x or y ~= self.position.y then
         if checkCrush then
             local actualX, actualY, cols = world:check(self, x, y)
 
             local crushed = crush or {}
+            local crushers = {top = "", bottom = "", left = "", right = ""}
 
             for k, col in pairs(cols) do
                 local other = col.other
@@ -141,32 +142,54 @@ function Player:move(world, x, y, checkCrush, crush)
                 if not other.class or (other.class and not (other:isInstanceOf(Checkpoint) or other:isInstanceOf(Wrench) or other:isInstanceOf(Enemy) or other:isInstanceOf(Lever) or other:isInstanceOf(Console) or other:isInstanceOf(Bot))) then
                     if col.normal.y == 1 then
                         crushed.top = true
+                        crushers.top = other
                     end
                     if col.normal.y == -1 then
                         crushed.bottom = true
+                        crushers.bottom = other
                     end
                     if col.normal.x == 1 and self.prevGround then
                         crushed.left = true
+                        crushers.left = other
                     end
                     if col.normal.x == -1 and self.prevGround then
                         crushed.right = true
+                        crushers.right = other
                     end
                 end
             end
 
+            -- there is a bug related to this section
+            -- if a crusher is moving downward and a player jumps up into it, while next to a wall,
+            -- the player ends up travelling above the crusher
             if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
-                -- death by crushed
-                game:resetToCheckpoint()
-                changePos = false
-                Signal.emit("playerDeath")
+                if crushers[1] ~= crushers[2] or (not crushers[1] and not crushers[2]) then
+                    local string = Inspect(crushed)
+
+                    --if crushed.top and not crushers.top.class then error("ITS A TILE!!") end
+
+                    string = string .. '\n' .. "top: " .. tostring(crushers.top.class)
+                    string = string .. '\n' .. "bottom: " .. tostring(crushers.bottom.class)
+                    string = string .. '\n' .. "left: " .. tostring(crushers.left.class)
+                    string = string .. '\n' .. "right: " .. tostring(crushers.right.class)
+
+                    --error(string)
+
+                    -- death by crushed
+                    game:resetToCheckpoint()
+                    changePos = false
+                    Signal.emit("playerDeath")
+                else
+                    error('over here')
+                end
             else
-                self.position.x, self.position.y = x, actualY
+                self.position.x, self.position.y = x, y
                 world:update(self, self.position.x, self.position.y)
             end
 
             self.lastCrush = crushed
         else
-            self.position.x, self.position.y = x, y
+            self.position.x, self.position.y = actualX, actualY
             world:update(self, self.position.x, self.position.y)
         end
     end
@@ -427,6 +450,7 @@ function Player:update(dt, world)
 
                 if self.position.y <= other.position.y + self.height/2 then
                     -- player is above
+                    crushed.bottom = true
 
                     -- allow the player to jump again once they hit the ground
                     self.jumpTimer = 0
@@ -440,11 +464,18 @@ function Player:update(dt, world)
                     hitGround = true
                 else
                     -- player is below
+                    crushed.top = true
+
                     --actualY = other.position.y + other.height + 10
                     if other.lastMove > 0 then
-                        self:move(world, self.position.x, actualY + 5, true, {top = true}) -- hacky
+                        self:move(world, actualX, actualY + 5, true, {top = true}) -- hacky
                         changePos = false
+                        self.velocity.y = math.max(1, self.velocity.y) -- hacky
                     end
+
+                    self.jumpTimer = 0
+                    self.canJump = false
+                    self.jumpState = false
                 end
             end
 
@@ -504,7 +535,10 @@ function Player:update(dt, world)
         end
     end
 
+    --[[
     if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
+        error("crushed by normal means :(")
+
         -- death by crushed
         game:resetToCheckpoint()
         changePos = false
@@ -520,11 +554,12 @@ function Player:update(dt, world)
             end
         else
             -- death by crushed
+            error('you got served')
             game:resetToCheckpoint()
             changePos = false
             Signal.emit("playerDeath")
         end
-    end
+    end]]
 
     if not hitGround then
         self.prevGround = false
