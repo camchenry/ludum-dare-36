@@ -81,7 +81,6 @@
   <property name="auto" type="bool" default="false"/>
   <property name="collidable" type="bool" default="true"/>
   <property name="direction" type="string" default="up"/>
-  <property name="objDirection" type="int" default="0"/>
   <property name="on" type="bool" default="true"/>
   <property name="pushable" type="bool" default="false"/>
  </objecttype>
