@@ -14,9 +14,10 @@ function Player:initialize(x, y)
     self.velMax = 75
     self.moveVel = 65
     self.jumpAccel = 300
-    self.jumpBurst = 13500
+    self.jumpBurst = 250
+    self.jumpHoldGravityReduction = 0.5
 
-    self.jumpTime = 0.3
+    self.jumpTime = 0.2
     self.jumpTimer = 0
     self.jumpState = false
     self.canJump = true
@@ -196,6 +197,7 @@ function Player:update(dt, world)
     if (isUp and not isDown) and self.attackTimer == 0 and self.foundTimer == 0 then
         if not self.jumpState then
             self.jumpTimer = math.min(self.jumpTime, self.jumpTimer + dt)
+            self.acceleration.y = self.acceleration.y * self.jumpHoldGravityReduction
         else
             self.jumpTimer = math.max(0, self.jumpTimer - dt)
         end
@@ -206,13 +208,13 @@ function Player:update(dt, world)
             -- even a small jump will give a large jump, but it can still be held for a bigger jump
             if not self.startedJump then
                 -- BUG: jump height is determined by the dt of the first jump frame
-                self.acceleration.y = -self.jumpBurst
+                self.velocity.y = -self.jumpBurst
                 self.lastJumpTimer = self.lastJumpTime
                 Signal.emit("startJump")
                 self.jumpControlTimer = self.jumpControlTime
             else
                 -- note that this calculation is fighting against gravity, so it will offer diminishing returns in a way
-                self.acceleration.y = self.acceleration.y - self.jumpAccel
+                --self.acceleration.y = self.acceleration.y - self.jumpAccel
             end
 
             -- we jumped, we are no longer on a platform
