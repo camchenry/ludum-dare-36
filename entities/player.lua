@@ -45,10 +45,8 @@ function Player:initialize(x, y)
 
     self.footstepTimer = 0
 
-    self.crusherReference = nil
-    self.lastCrusherReference = nil
-
     self.touchedNewCrusher = false
+    self.prevTouchedNewCrusher = false
     self.jumpControlTime = 0.3
     self.jumpControlTimer = 0
 
@@ -131,6 +129,8 @@ end
 function Player:move(world, x, y, checkCrush, crush, reference)
     if x ~= self.position.x or y ~= self.position.y then
         if checkCrush then
+            -- potential issue here. if the postion x y has already been chosen by bump, then they are coordinates for a location already safe from crushing
+            -- this evaluates collisions between the current position and the desired position
             local actualX, actualY, cols = world:check(self, x, y)
 
             local crushed = crush or {}
@@ -159,37 +159,21 @@ function Player:move(world, x, y, checkCrush, crush, reference)
                 end
             end
 
-            -- there is a bug related to this section
-            -- if a crusher is moving downward and a player jumps up into it, while next to a wall,
-            -- the player ends up travelling above the crusher
             if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
                 if crushers[1] ~= crushers[2] or (not crushers[1] and not crushers[2]) then
-                    local string = Inspect(crushed)
-
-                    --if crushed.top and not crushers.top.class then error("ITS A TILE!!") end
-
-                    string = string .. '\n' .. "top: " .. tostring(crushers.top.class)
-                    string = string .. '\n' .. "bottom: " .. tostring(crushers.bottom.class)
-                    string = string .. '\n' .. "left: " .. tostring(crushers.left.class)
-                    string = string .. '\n' .. "right: " .. tostring(crushers.right.class)
-
-                    --error(string)
-
                     -- death by crushed
                     game:resetToCheckpoint()
                     changePos = false
                     Signal.emit("playerDeath")
-                else
-                    error('over here')
                 end
             else
-                self.position.x, self.position.y = x, y
+                self.position.x, self.position.y = actualX, actualY
                 world:update(self, self.position.x, self.position.y)
             end
 
             self.lastCrush = crushed
         else
-            self.position.x, self.position.y = actualX, actualY
+            self.position.x, self.position.y = x, y
             world:update(self, self.position.x, self.position.y)
         end
     end
@@ -201,12 +185,6 @@ function Player:update(dt, world)
 
     local isLeft, isRight = love.keyboard.isDown("a", "left"), love.keyboard.isDown("d", "right")
     local isUp, isDown    = love.keyboard.isDown("w", "up", "space"), love.keyboard.isDown("s", "down")
-
-    if self.crusherTouchTimer > 0 then
-        if self.lastJumpTimer == 0 then
-            self.canJump = true
-        end
-    end
 
     if self.touchedNewCrusher then
         self.canJump = true
@@ -224,6 +202,7 @@ function Player:update(dt, world)
             -- add a smaller amount for subsequent frames
             -- even a small jump will give a large jump, but it can still be held for a bigger jump
             if not self.startedJump then
+                -- BUG: jump height is determined by the dt of the first jump frame
                 self.acceleration.y = -self.jumpBurst
                 self.lastJumpTimer = self.lastJumpTime
                 Signal.emit("startJump")
@@ -289,36 +268,6 @@ function Player:update(dt, world)
     local newPos = self.position + self.velocity * dt 
 
     local changePos = true
-
-    if self.crusherReference then
-        if not self.crusherReference.hasMoved then
-            -- move crusher first
-            self.crusherReference:update(dt, world, true)
-
-            newPos.y = self.crusherReference.position.y - self.height
-
-            if self.crusherReference.direction == "up" then
-                newPos.y = self.crusherReference.position.y + self.crusherReference.height + self.velocity.y * dt + 5
-            end
-
---[[
-            if math.abs(newPos.y - self.position.y) > self.height/2 or math.abs(self.prevX - self.position.x) > self.width/2 then
-                -- death by crushed
-                error('death at 224: ' ..  math.abs(newPos.y - self.position.y) .. ' ' .. math.abs(self.prevX - self.position.x) .. ' ' .. self.height/2 .. ' ' .. self.width/2)
-                game:resetToCheckpoint()
-                changePos = false
-                Signal.emit("playerDeath")
-                self.attackTimer = 0
-            end
-]]
-
-            world:update(self, self.position.x, newPos.y)
-            self.position.y = newPos.y
-
-        end
-        -- move the player to crusher y position
-    end
-
 
     local hitGround, hitCeil, hitWall = false, false, false
 
@@ -388,9 +337,6 @@ function Player:update(dt, world)
     -- vertical collisions will stop vertical velocity
     for k, col in pairs(cols) do
         local other = col.other
-        --if other.class and other:isInstanceOf(Pickup) then
-            --do thing
-        --end
 
         if other.class and other:isInstanceOf(Wrench) then
             if not self.wrenchPower then
@@ -411,26 +357,6 @@ function Player:update(dt, world)
             end
         elseif other.class and other:isInstanceOf(Checkpoint) then
             self.resetPosition = Vector(other.position.x + other.width/2 - self.width/2, other.position.y)
-        elseif other.class and other:isInstanceOf(Crusher) then
-            if col.normal.y == -1 then
-                self.jumpTimer = 0
-                self.jumpState = false
-                self.canJump = true
-                self.touchingGround = true
-                self.velocity.y = 0
-                self.crusherTouchTimer = self.crusherTouchTime
-                self.crusherReference = other
-                self.lastCrusherReference = other
-            elseif col.normal.y == 1 then
-                self.velocity.y = 0
-                if not self.prevCeil then
-                    self.prevCeil = true
-                    Signal.emit("hitCeiling")
-                end
-                hitCeil = true
-                self.crusherReference = other
-                self.lastCrusherReference = other
-            end
         elseif other.class and other:isInstanceOf(Bot) then
         elseif other.class and other:isInstanceOf(MovingPlatform) then
             if col.normal.y == -1 then
@@ -446,9 +372,8 @@ function Player:update(dt, world)
             self:reset(world)
         elseif other.class and other:isInstanceOf(NewCrusher) then
             if col.normal.y == -1 or col.normal.y == 1 then
-                self.velocity.y = 0
 
-                if self.position.y <= other.position.y + self.height/2 then
+                if self.position.y <= other.position.y + other.height/2 then
                     -- player is above
                     crushed.bottom = true
 
@@ -462,25 +387,23 @@ function Player:update(dt, world)
                         Signal.emit("hitGround")
                     end
                     hitGround = true
-                else
-                    -- player is below
-                    crushed.top = true
 
-                    --actualY = other.position.y + other.height + 10
-                    if other.lastMove > 0 then
-                        self:move(world, actualX, actualY + 5, true, {top = true}) -- hacky
-                        changePos = false
-                        self.velocity.y = math.max(1, self.velocity.y) -- hacky
+                    if self.jumpControlTimer <= 0 then
+                        self.touchedNewCrusher = true
+                        self.touchingGround = true
+                        self.velocity.y = 0
                     end
+                else
+                    -- hitting the crusher from underneath
+                    -- if velocity is negavitive, make it 0. otherwise keep the current velocity
+                    -- this is intended to make the player begin to fall as soon as they hit a crusher from underneath
+                    self.velocity.y = math.max(0, self.velocity.y)
 
                     self.jumpTimer = 0
                     self.canJump = false
                     self.jumpState = false
                 end
             end
-
-            self.lastNormals = col.normal
-            --actualY = other.position.y + other.height
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
@@ -513,53 +436,7 @@ function Player:update(dt, world)
                 hitCeil = true
             end
         end
-
-        if not other.class or (other.class and not (other:isInstanceOf(Checkpoint) or other:isInstanceOf(Wrench) or other:isInstanceOf(Enemy) or other:isInstanceOf(Lever) or other:isInstanceOf(Console) or other:isInstanceOf(Bot))) then
-            local fine = true
-
-            
-            if fine then
-                if col.normal.y == 1 then
-                    crushed.top = true
-                end
-                if col.normal.y == -1 then
-                    crushed.bottom = true
-                end
-                if col.normal.x == 1 and self.prevGround then
-                    crushed.left = true
-                end
-                if col.normal.x == -1 and self.prevGround then
-                    crushed.right = true
-                end
-            end
-        end
     end
-
-    --[[
-    if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
-        error("crushed by normal means :(")
-
-        -- death by crushed
-        game:resetToCheckpoint()
-        changePos = false
-        Signal.emit("playerDeath")
-    elseif math.abs(actualX - self.position.x) > self.width/2 and not self.crusherReference and self.teleportedTimer <= 0 then
-        if self.lastCrusherReference and self.crusherTouchTimer > 0 then
-            if self.lastCrusherReference then
-                local y = self.lastCrusherReference.position.y - self.height
-                changePos = false
-
-                self.position = Vector(actualX, y)
-                world:update(self, self.position.x, self.position.y)
-            end
-        else
-            -- death by crushed
-            error('you got served')
-            game:resetToCheckpoint()
-            changePos = false
-            Signal.emit("playerDeath")
-        end
-    end]]
 
     if not hitGround then
         self.prevGround = false
@@ -571,34 +448,11 @@ function Player:update(dt, world)
         self.prevWall = false
     end
 
---[[
-    if crushed.top then
-        self.lastCrush.top = true
-    end
-    self.lastCrush.bottom = crushed.bottom
-    if crushed.left then
-        self.lastCrush.left = true
-    end
-    if crushed.right then
-        self.lastCrush.right = true
-    end
-    ]]
-
     self.prevX = self.position.x
 
     if changePos then
-        --if math.abs(actualY - self.position.y) < self.height then
-            self.position = Vector(actualX, actualY)
-        --else
-        --    self.position = Vector(actualX, self.position.y)
-        --end
-
-        world:update(self, self.position.x, self.position.y)
+        self:move(world, actualX, actualY)
     end
-
-    --self:tryMove(additionalX, additionalY, world) -- not sure why multiplying dt works here
-    --self.position.y = self.position.y+1
-    --world:update(self, self.position.x, self.position.y)
 
     self.attackTimer = math.max(0, self.attackTimer - dt)
     self.crusherTouchTimer = math.max(0, self.crusherTouchTimer - dt)
@@ -628,6 +482,7 @@ function Player:update(dt, world)
         Signal.emit("playerFootstep")
     end
 
+    self.prevTouchedNewCrusher = self.touchedNewCrusher
     self.touchedNewCrusher = false
 end
 
@@ -656,7 +511,7 @@ function Player:draw()
 
     local image = self.idleImage
 
-    if self.jumpTimer > 0 or not self.canJump and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.touchedNewCrusher then
+    if self.jumpTimer > 0 or not self.canJump and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.prevTouchedNewCrusher then
         image = self.jumpImage
     end
 

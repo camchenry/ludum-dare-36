@@ -1,4 +1,6 @@
--- BUG: if a crusher is moving downward and you jump into it, you will be crushed if you are up against a wall
+-- ISSUE: player snaps when near above of crusher
+-- BUG: when player is standing on a crusher moving downward, sometimes it can shake by a pixel or so
+-- BUG: if a player is standing on a crusher and it reaches the bottom, the player may show a jump image for a frame
 
 
 -- Specifications:
@@ -44,14 +46,15 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.auto = properties.auto or false
     self.direction = properties.dir or "up"
     self.ID = 0
+    self.objDirection = -1
 
     self.beginState = "outWait"
 
     self.stateTimes = {
         outWait = 1,
         outTime = 2,
-        inWait  = 3,
-        inTime  = 4,
+        inWait  = 2,
+        inTime  = 3,
     }
 
     self.nextState = {
@@ -99,21 +102,28 @@ function NewCrusher:move(world, x, y)
         local items, len = world:queryRect(self.position.x, self.position.y - extraCheck, self.width, self.height + extraCheck)
 
         for k, item in pairs(items) do
-            if item.class and item:isInstanceOf(Player) then
-                if item.jumpControlTimer <= 0 then
-                    local crush = {}
-                    if item.position.y <= self.position.y then
+            if item.class and (item:isInstanceOf(Player) or item:isInstanceOf(Bot)) then
+                local crush = {}
+                if item.position.y <= self.position.y then
+                    if not item.jumpControlTimer or item.jumpControlTimer <= 0 then
                         crush.bottom = true
-                        item:move(world, item.position.x, math.floor(self.position.y - item.height), true, crush)
+
+                        local x = item.position.x
+                        if item:isInstanceOf(Bot) then
+                            x = self.position.x + self.width/2 - item.width/2
+                            item.direction = self.objDirection
+                        end
+
+                        item:move(world, x, math.floor(self.position.y - item.height), true, crush)
                         item.touchedNewCrusher = true
                         item.touchingGround = true
-                    else
-                        if self.lastMove > 0 then
-                            crush.top = true
-                            item:move(world, item.position.x, math.floor(self.position.y + self.height), true, crush)
-                            
-                            item.velocity.y = math.max(0, item.velocity.y)
-                        end
+                    end
+                else
+                    if self.lastMove > 0 then
+                        crush.top = true
+                        item:move(world, item.position.x, self.position.y + self.height, true, crush)
+                        
+                        item.velocity.y = math.max(0, item.velocity.y)
                     end
                 end
             end
@@ -186,6 +196,7 @@ end
 
 function NewCrusher:draw()
     love.graphics.rectangle('line', self.position.x, math.floor(self.position.y), self.width, self.height)
+    love.graphics.print(self.lastMove, self.position.x, self.position.y + self.height)
 end
 
 return NewCrusher
