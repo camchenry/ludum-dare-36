@@ -6,11 +6,13 @@ function AreaTrigger:initialize(x, y, w, h, properties)
 
     self.position = Vector(x, y)
 
-    self.ID = tonumber(properties.ID) or 0
-    self.oneTime = properties.oneTime
-    self.killBot = properties.killBot
-    self.signalOff = properties.signalOff
-    self.transition = properties.transition
+    self.ID = properties.ID or 0
+    self.oneTime = properties.oneTime or false
+    self.killBot = properties.killBot or false
+    self.signalOff = properties.signalOff or false
+    self.transition = properties.transition or false
+    self.collidable = properties.collidable or false
+    self.pushable = properties.pushable or false
 
     self.prevActive = false
     self.active = false

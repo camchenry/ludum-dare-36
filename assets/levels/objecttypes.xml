@@ -9,23 +9,86 @@
   <property name="dir" type="string" default="up"/>
   <property name="img" type="int" default="0"/>
   <property name="reset" type="bool" default="true"/>
-  <property name="reska" type="bool" default="true"/>
   <property name="retractTime" type="float" default="1"/>
   <property name="startOpen" type="bool" default="false"/>
   <property name="waitBot" type="bool" default="false"/>
   <property name="waitPlayer" type="bool" default="false"/>
   <property name="waitTime" type="float" default="0"/>
  </objecttype>
- <objecttype name="Gate" color="#55ffff"/>
+ <objecttype name="Gate" color="#55ffff">
+  <property name="ID" type="int" default="0"/>
+  <property name="ID2" type="int" default="0"/>
+  <property name="canClose" type="bool" default="true"/>
+  <property name="crushTime" type="float" default="1"/>
+  <property name="direction" type="string" default="up"/>
+  <property name="dontReset" type="bool" default="false"/>
+  <property name="img" type="int" default="0"/>
+  <property name="open" type="bool" default="false"/>
+  <property name="retractTime" type="float" default="1"/>
+ </objecttype>
  <objecttype name="Wrench" color="#5555ff"/>
- <objecttype name="AreaTrigger" color="#ffef0f"/>
- <objecttype name="ShowText" color="#00b3ff"/>
- <objecttype name="Bot" color="#7d62a4"/>
- <objecttype name="Lever" color="#26a400"/>
+ <objecttype name="AreaTrigger" color="#ffef0f">
+  <property name="ID" type="int" default="0"/>
+  <property name="collidable" type="bool" default="false"/>
+  <property name="killBot" type="bool" default="false"/>
+  <property name="oneTime" type="bool" default="false"/>
+  <property name="pushable" type="bool" default="false"/>
+  <property name="signalOff" type="bool" default="false"/>
+  <property name="transition" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="ShowText" color="#00b3ff">
+  <property name="ID" type="int" default="0"/>
+  <property name="textID" type="int" default="0"/>
+ </objecttype>
+ <objecttype name="Bot" color="#7d62a4">
+  <property name="collidable" type="bool" default="false"/>
+  <property name="noCheckpoint" type="bool" default="false"/>
+  <property name="pushable" type="bool" default="true"/>
+ </objecttype>
+ <objecttype name="Lever" color="#26a400">
+  <property name="ID" type="int" default="0"/>
+  <property name="oneTime" type="bool" default="false"/>
+ </objecttype>
  <objecttype name="Checkpoint" color="#ffffff"/>
- <objecttype name="Teleport" color="#b41cff"/>
- <objecttype name="Console" color="#ffaa7f"/>
- <objecttype name="Dropfloor" color="#250ca4"/>
- <objecttype name="Enemy" color="#a40000"/>
- <objecttype name="VictoryCondition" color="#000000"/>
+ <objecttype name="Teleport" color="#b41cff">
+  <property name="ID" type="int" default="0"/>
+  <property name="activateID" type="int" default="0"/>
+  <property name="out" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="Console" color="#ffaa7f">
+  <property name="ID" type="int" default="0"/>
+  <property name="ID2" type="int" default="0"/>
+ </objecttype>
+ <objecttype name="Dropfloor" color="#250ca4">
+  <property name="collidable" type="bool" default="true"/>
+ </objecttype>
+ <objecttype name="Enemy" color="#a40000">
+  <property name="ID" type="int" default="0"/>
+  <property name="direction" type="int" default="1"/>
+  <property name="jumpAccel" type="float" default="1000"/>
+  <property name="jumpInterval" type="float" default="3"/>
+  <property name="jumping" type="bool" default="false"/>
+  <property name="limit" type="bool" default="true"/>
+  <property name="movement" type="bool" default="false"/>
+  <property name="right" type="float" default="2"/>
+ </objecttype>
+ <objecttype name="VictoryCondition" color="#000000">
+  <property name="ID" type="int" default="0"/>
+  <property name="ID2" type="int" default="0"/>
+ </objecttype>
+ <objecttype name="NewCrusher" color="#0000ff">
+  <property name="ID" type="int" default="0"/>
+  <property name="auto" type="bool" default="false"/>
+  <property name="collidable" type="bool" default="true"/>
+  <property name="direction" type="string" default="up"/>
+  <property name="objDirection" type="int" default="0"/>
+  <property name="on" type="bool" default="true"/>
+  <property name="pushable" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="Mask" color="#55ffff">
+  <property name="ID" type="int" default="0"/>
+ </objecttype>
+ <objecttype name="SecretLayer" color="#aa0000">
+  <property name="ID" type="int" default="0"/>
+ </objecttype>
 </objecttypes>

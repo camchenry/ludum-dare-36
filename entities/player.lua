@@ -29,7 +29,7 @@ function Player:initialize(x, y)
     self.prevCeil = false
     self.prevWall = false
 
-    self.wrenchPower = true
+    self.wrenchPower = false
 
     self.attackTimer = 0
     self.attackTime = 0.5
@@ -81,6 +81,9 @@ function Player:initialize(x, y)
 
     self.lastCrush = {}
     self.lastNormals = {}
+
+    self.collidable = false
+    self.pushable = true
 end
 
 function Player:reset(world)
@@ -139,7 +142,7 @@ function Player:move(world, x, y, checkCrush, crush, reference)
             for k, col in pairs(cols) do
                 local other = col.other
                 
-                if not other.class or (other.class and not (other:isInstanceOf(Checkpoint) or other:isInstanceOf(Wrench) or other:isInstanceOf(Enemy) or other:isInstanceOf(Lever) or other:isInstanceOf(Console) or other:isInstanceOf(Bot))) then
+                if not other.class or other.collidable then
                     if col.normal.y == 1 then
                         crushed.top = true
                         crushers.top = other
@@ -283,30 +286,16 @@ function Player:update(dt, world)
         if other.class and other:isInstanceOf(Checkpoint) then
             return "cross"
         end
-        if other.class and other:isInstanceOf(Lever) then
-            return false
-        end
         if other.class and other:isInstanceOf(Crusher) then
             return "slide"
         end
         if other.class and other:isInstanceOf(Gate) then
             if other.width > 2 and other.height > 2 then
                 return "slide"
-            else
-                return false
             end
-        end
-        if other.class and other:isInstanceOf(Bot) then
-            return "cross"
         end
         if other.class and other:isInstanceOf(Spikes) then
             return "cross"
-        end
-        if other.class and other:isInstanceOf(AreaTrigger) then
-            return false
-        end
-        if other.class and other:isInstanceOf(Teleport) then
-            return false
         end
         if other.class and other:isInstanceOf(NewCrusher) then
             return "slide"
@@ -322,15 +311,13 @@ function Player:update(dt, world)
         if other.class and other:isInstanceOf(Dropfloor) and ((isUp and isDown) or (item.position.y + item.height + offset > other.position.y) or (item.velocity.y > 0 and item.position.y + item.height > other.position.y)) then
             return false
         end
-        return "slide"
+
+        if not other.class or other.collidable then
+            return "slide"
+        end
+
+        return false
     end)
-
-    local additionalX, additionalY = 0, 0
-
-    if self.crusherReference then
-        self.lastCrusherReference = self.crusherReference
-        self.crusherReference = nil
-    end
 
     -- stop player from moving if they hit a wall
     -- horizontal collisions will stop horizontal velocity
@@ -357,7 +344,6 @@ function Player:update(dt, world)
             end
         elseif other.class and other:isInstanceOf(Checkpoint) then
             self.resetPosition = Vector(other.position.x + other.width/2 - self.width/2, other.position.y)
-        elseif other.class and other:isInstanceOf(Bot) then
         elseif other.class and other:isInstanceOf(MovingPlatform) then
             if col.normal.y == -1 then
                 self.onPlatform = true

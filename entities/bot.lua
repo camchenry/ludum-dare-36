@@ -9,7 +9,10 @@ function Bot:initialize(x, y, w, h, properties)
 
     self.resetPosition = Vector(x, y)
 
-    self.noCheckpoint = properties.noCheckpoint
+    self.noCheckpoint = properties.noCheckpoint or false
+    self.collidable = properties.collidable or false
+    self.pushable = properties.pushable or true
+    self.controlled = properties.controlled or true
 
     self.animationTime = 0.3
 

@@ -6,29 +6,16 @@ function Enemy:initialize(x, y, properties)
     self.position = Vector(x, y)
     self.color = {255, 255, 255, 255}
 
-    self.direction    = tonumber(properties.direction) or 1
-    self.right        = tonumber(properties.right) or 0
-    self.jumpInterval = tonumber(properties.jumpInterval) or 0
-    self.jumpAccel    = tonumber(properties.jumpAccel) or 0
-    self.ID           = tonumber(properties.ID) or 0
+    self.direction    = properties.direction or 1
+    self.right        = properties.right or 2.0
+    self.jumpInterval = properties.jumpInterval or 3.0
+    self.jumpAccel    = properties.jumpAccel or 1000.0
+    self.ID           = properties.ID or 0
+    self.movement     = properties.movement or false
+    self.jumping      = properties.jumping or false
+    self.limit        = properties.limit or true
 
-    self.startDirection = self.direction
-
-    if properties.movement and properties.movement == "true" then
-        self.movement = true
-    else
-        self.movement = false
-    end
-    if properties.jumping and properties.jumping == "true" then
-        self.jumping = true
-    else
-        self.jumping = false
-    end
-    if properties.limit and properties.limit == "false" then
-        self.limit = false
-    else
-        self.limit = true
-    end
+    self.startDirection = self.direction    
 
     self.visible = true
     self.dead = false

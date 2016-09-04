@@ -1,8 +1,8 @@
 VictoryCondition = Class("VictoryCondition")
 
 function VictoryCondition:initialize(x, y, w, h, properties)
-    self.ID = tonumber(properties.ID) or 0
-    self.ID2 = tonumber(properties.ID2) or 0
+    self.ID  = properties.ID or 0
+    self.ID2 = properties.ID2 or 0
 
     self.condition1 = false
     self.condition2 = false

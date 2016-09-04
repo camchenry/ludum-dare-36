@@ -1,6 +1,7 @@
 -- ISSUE: player snaps when near above of crusher
 -- BUG: when player is standing on a crusher moving downward, sometimes it can shake by a pixel or so
 -- BUG: if a player is standing on a crusher and it reaches the bottom, the player may show a jump image for a frame
+-- BUG: hit floor sound overplays while moving on a NewCrusher
 
 
 -- Specifications:
@@ -42,18 +43,20 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.position = Vector(x, y)
     self.startPosition = Vector(x, y)
 
-    self.on = true
-    self.auto = properties.auto or false
-    self.direction = properties.dir or "up"
-    self.ID = 0
-    self.objDirection = -1
+    self.on           = properties.on or true
+    self.auto         = properties.auto or false
+    self.direction    = properties.dir or "up"
+    self.ID           = properties.ID or 0
+    self.objDirection = properties.objDirection or -1
+    self.collidable   = properties.collidable or true
+    self.pushable     = properties.pushable or false
 
     self.beginState = "outWait"
 
     self.stateTimes = {
-        outWait = 1,
+        outWait = 0,
         outTime = 2,
-        inWait  = 2,
+        inWait  = 0,
         inTime  = 3,
     }
 
@@ -102,14 +105,14 @@ function NewCrusher:move(world, x, y)
         local items, len = world:queryRect(self.position.x, self.position.y - extraCheck, self.width, self.height + extraCheck)
 
         for k, item in pairs(items) do
-            if item.class and (item:isInstanceOf(Player) or item:isInstanceOf(Bot)) then
+            if item.pushable then
                 local crush = {}
                 if item.position.y <= self.position.y then
                     if not item.jumpControlTimer or item.jumpControlTimer <= 0 then
                         crush.bottom = true
 
                         local x = item.position.x
-                        if item:isInstanceOf(Bot) then
+                        if item.controlled then
                             x = self.position.x + self.width/2 - item.width/2
                             item.direction = self.objDirection
                         end

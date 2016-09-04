@@ -5,9 +5,10 @@ function Lever:initialize(x, y, properties)
     self.width = 16
     self.height = 16
 
-    self.ID = tonumber(properties.ID) or 0
+    self.ID      = properties.ID or 0
+    self.oneTime = properties.oneTime or false
+
     self.active = false
-    self.oneTime = properties.oneTime
 
     self.onImage = love.graphics.newImage("assets/images/Misc/Switch_On.png")
     self.offImage = love.graphics.newImage("assets/images/Misc/Switch_Off.png")

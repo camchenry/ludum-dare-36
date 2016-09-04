@@ -4,8 +4,8 @@ function ShowText:initialize(x, y, w, h, properties)
     self.width = w
     self.height = h
 
-    self.ID = tonumber(properties.ID) or 0
-    self.textID = tonumber(properties.textID) or 0
+    self.ID     = properties.ID or 0
+    self.textID = properties.textID or 0
 
     self.showImage = false
 

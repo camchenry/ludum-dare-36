@@ -6,9 +6,9 @@ function Teleport:initialize(x, y, w, h, properties)
 
     self.position = Vector(x, y)
 
-    self.ID = tonumber(properties.ID) or 0
-    self.activateID = tonumber(properties.activateID) or 0
-    self.out = properties.out
+    self.ID         = properties.ID or 0
+    self.activateID = properties.activateID or 0
+    self.out        = properties.out or false
 
     self.activated = false
 

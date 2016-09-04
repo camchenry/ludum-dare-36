@@ -80,7 +80,7 @@ function game:reset()
         end
 
         if object.type == "Dropfloor" then
-            add(Dropfloor:new(object.x, object.y, object.width, object.height))
+            add(Dropfloor:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Lever" then
@@ -132,7 +132,7 @@ function game:reset()
         end
     end
 
-    --self.soundManager = SoundManager:new()
+    self.soundManager = SoundManager:new()
 
     self.effects = {}
     self.effects.screenShake = ScreenShake:new()
@@ -179,7 +179,7 @@ function game:update(dt)
     self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2 + dx))
     self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2 + dy))
 
-    --self.soundManager:update(dt)
+    self.soundManager:update(dt)
     for _, effect in pairs(self.effects) do
         effect:update(dt)
     end
