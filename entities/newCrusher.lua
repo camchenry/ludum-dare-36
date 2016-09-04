@@ -51,24 +51,20 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.collidable   = properties.collidable or true
     self.pushable     = properties.pushable or false
 
-    self.beginState = "outWait"
-
     self.stateTimes = {
-        outWait = 0,
-        outTime = 2,
-        inWait  = 0,
-        inTime  = 3,
+        0,
+        2,
+        0,
+        3,
     }
+    assert(#self.stateTimes % 2 == 0, "Number of states must be even")
 
-    self.nextState = {
-      ["outWait"] = "outTime",
-      ["outTime"] = "inWait",
-      ["inWait"] = "inTime",
-      ["inTime"] = "outWait",
-    }
-
+    self.beginState = 1
     self.currentState = self.beginState
     self.currentStateTime = 0
+
+    self.moving = false
+    self.waiting = true
 
     self.lastMove = 0
 
@@ -79,12 +75,16 @@ function NewCrusher:initialize(x, y, w, h, properties)
     end)
 end
 
+function NewCrusher:getNextState()
+    return self.currentState == #self.stateTimes and 1 or self.currentState + 1
+end
+
 function NewCrusher:advanceState(world)
-    if self.auto or self.on or self.currentState == "outWait" or self.currentState == "inWait" then
+    if self.auto or self.on or self.waiting then
         local spareTime = self.currentStateTime - self.stateTimes[self.currentState]
 
-        if self.on or self.currentState == "outWait" or self.currentState == "inWait" then
-            self.currentState = self.nextState[self.currentState]
+        if self.on or self.waiting then
+            self.currentState = self:getNextState(self.currentState)
             self.currentStateTime = 0
 
             world:update(self, self.position.x, self.position.y)
@@ -92,6 +92,9 @@ function NewCrusher:advanceState(world)
             if not self.auto then
                 self.on = false
             end
+
+            self.moving = not self.moving
+            self.waiting = not self.waiting
         end
     end
 end
@@ -141,16 +144,16 @@ function NewCrusher:findGoal()
     local disp = 0
 
     -- account for reverse crushers
-    if (self.direction == "up" and self.currentState == "outTime") then
+    if (self.direction == "up" and self.currentState == 2 and self.moving) then
         goal = self.startPosition.y + self.height
         disp = self.height
-    elseif (self.direction == "up" and self.currentState == "inTime") then
+    elseif (self.direction == "up" and self.currentState == 4 and self.moving) then
         goal = self.startPosition.y
         disp = -self.height
-    elseif (self.direction == "down" and self.currentState == "outTime") then
+    elseif (self.direction == "down" and self.currentState == 2 and self.moving) then
         goal = self.startPosition.y - self.height
         disp = -self.height
-    elseif (self.direction == "down" and self.currentState == "inTime") then
+    elseif (self.direction == "down" and self.currentState == 4 and self.moving) then
         goal = self.startPosition.y
         disp = self.height
     end
@@ -177,9 +180,9 @@ function NewCrusher:update(dt, world)
     if doMove then
         local dy = 0
 
-        if self.currentState == "outWait" or self.currentState == "inWait" then
+        if self.waiting then
             -- do nothing
-        elseif self.currentState == "outTime" or self.currentState == "inTime" then
+        elseif self.moving then
             -- speed = dist / time
             local goal, disp = self:findGoal()
 
