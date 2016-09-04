@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="54">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="55">
  <tileset firstgid="1" name="Room3_Background" tilewidth="16" tileheight="16" tilecount="300" columns="20">
   <image source="../images/Backgrounds/Room3_Background.png" width="320" height="240"/>
  </tileset>
@@ -130,7 +130,7 @@
   <object id="7" type="NewCrusher" x="544" y="944" width="32" height="96">
    <properties>
     <property name="auto" type="bool" value="true"/>
-    <property name="dir" value="down"/>
+    <property name="direction" value="down"/>
    </properties>
   </object>
   <object id="8" type="Lever" x="608" y="848" width="32" height="32">

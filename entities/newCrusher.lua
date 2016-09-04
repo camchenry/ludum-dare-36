@@ -45,7 +45,7 @@ function NewCrusher:initialize(x, y, w, h, properties)
 
     self.on           = properties.on or true
     self.auto         = properties.auto or false
-    self.direction    = properties.dir or "up"
+    self.direction    = properties.direction or "up"
     self.ID           = properties.ID or 0
     self.objDirection = properties.objDirection or -1
     self.collidable   = properties.collidable or true

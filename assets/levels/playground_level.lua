@@ -1,14 +1,14 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "0.17.0",
+  tiledversion = "2016.08.26",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 54,
+  nextobjectid = 55,
   properties = {},
   tilesets = {
     {
@@ -231,7 +231,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["dir"] = "down"
+            ["direction"] = "down"
           }
         },
         {
