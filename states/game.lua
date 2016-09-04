@@ -1,7 +1,5 @@
 game = {}
 
-sti = require "libs.sti"
-
 CANVAS_WIDTH = 240
 CANVAS_HEIGHT = 160
 
@@ -48,10 +46,7 @@ function game:reset()
         return obj
     end
 
-    loads = loads + 1
-
     self.camera = Camera()
-    -- self.camera.smoother = Camera.smooth.damped(7)
 
     self.player = add(Player:new(20, 1550))
 
