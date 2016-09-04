@@ -41,8 +41,8 @@
   <property name="textID" type="int" default="0"/>
  </objecttype>
  <objecttype name="Bot" color="#7d62a4">
+  <property name="acceptCheckpoint" type="bool" default="true"/>
   <property name="collidable" type="bool" default="false"/>
-  <property name="noCheckpoint" type="bool" default="false"/>
   <property name="pushable" type="bool" default="true"/>
  </objecttype>
  <objecttype name="Lever" color="#26a400">

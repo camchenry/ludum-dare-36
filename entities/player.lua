@@ -85,6 +85,7 @@ function Player:initialize(x, y)
 
     self.collidable = false
     self.pushable = true
+    self.acceptCheckpoint = true
 end
 
 function Player:reset(world)
@@ -135,7 +136,13 @@ function Player:move(world, x, y, checkCrush, crush, reference)
         if checkCrush then
             -- potential issue here. if the postion x y has already been chosen by bump, then they are coordinates for a location already safe from crushing
             -- this evaluates collisions between the current position and the desired position
-            local actualX, actualY, cols = world:check(self, x, y)
+            local actualX, actualY, cols = world:check(self, x, y, function(item, other)
+                if not other.class or other.collidable then
+                    return "slide"
+                end
+
+                return false
+            end)
 
             local crushed = crush or {}
             local crushers = {top = "", bottom = "", left = "", right = ""}
@@ -285,9 +292,6 @@ function Player:update(dt, world)
         if other.class and other:isInstanceOf(Enemy) then
             return "cross"
         end
-        if other.class and other:isInstanceOf(Checkpoint) then
-            return "cross"
-        end
         if other.class and other:isInstanceOf(Crusher) then
             return "slide"
         end
@@ -296,11 +300,9 @@ function Player:update(dt, world)
                 return "slide"
             end
         end
+
         if other.class and other:isInstanceOf(Spikes) then
             return "cross"
-        end
-        if other.class and other:isInstanceOf(NewCrusher) then
-            return "slide"
         end
 
         local offset = 0
@@ -344,8 +346,6 @@ function Player:update(dt, world)
                 changePos = false
                 Signal.emit("playerDeath")
             end
-        elseif other.class and other:isInstanceOf(Checkpoint) then
-            self.resetPosition = Vector(other.position.x + other.width/2 - self.width/2, other.position.y)
         elseif other.class and other:isInstanceOf(MovingPlatform) then
             if col.normal.y == -1 then
                 self.onPlatform = true
@@ -358,6 +358,7 @@ function Player:update(dt, world)
             end
         elseif other.class and other:isInstanceOf(Spikes) then
             self:reset(world)
+            changePos = false
         elseif other.class and other:isInstanceOf(NewCrusher) then
             if col.normal.y == -1 or col.normal.y == 1 then
 

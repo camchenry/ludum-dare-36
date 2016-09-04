@@ -9,10 +9,10 @@ function Bot:initialize(x, y, w, h, properties)
 
     self.resetPosition = Vector(x, y)
 
-    self.noCheckpoint = properties.noCheckpoint or false
     self.collidable = properties.collidable or false
     self.pushable = properties.pushable or true
     self.controlled = properties.controlled or true
+    self.acceptCheckpoint = properties.acceptCheckpoint or true
 
     self.animationTime = 0.3
 
@@ -41,7 +41,13 @@ function Bot:move(world, x, y, checkCrush, crush, reference)
         if checkCrush then
             -- potential issue here. if the postion x y has already been chosen by bump, then they are coordinates for a location already safe from crushing
             -- this evaluates collisions between the current position and the desired position
-            local actualX, actualY, cols = world:check(self, x, y)
+            local actualX, actualY, cols = world:check(self, x, y, function(item, other)
+                if not other.class or other.collidable then
+                    return "slide"
+                end
+
+                return false
+            end)
 
             local crushed = crush or {}
             local crushers = {top = "", bottom = "", left = "", right = ""}
@@ -70,6 +76,8 @@ function Bot:move(world, x, y, checkCrush, crush, reference)
             end
 
             if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
+                error('bot crush')
+
                 if crushers[1] ~= crushers[2] or (not crushers[1] and not crushers[2]) then
                     -- death by crushed
                     game:resetToCheckpoint()
@@ -116,36 +124,25 @@ function Bot:update(dt, world)
     local newPos = newPos + self.velocity * dt 
 
     local actualX, actualY, cols, len = world:check(self, newPos.x, newPos.y, function(item, other)
-        if other.class and other:isInstanceOf(Player) then
-            return false
-        end
         if other.class and other:isInstanceOf(Spikes) then
             return "cross"
         end
-        if other.class and other:isInstanceOf(AreaTrigger) then
-            return false
+
+        if not other.class or other.collidable then
+            return "slide"
         end
-        if other.class and other:isInstanceOf(Checkpoint) then
-            if not self.noCheckpoint then
-                self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
-            end
-            return false
-        end
-        return "slide"
+
+        return false
     end)
 
     for k, col in pairs(cols) do
         local other = col.other
         if other.class and other:isInstanceOf(Spikes) then
-            --self:reset(world)
-            --game:resetToCheckpoint(true)
             if self.startTimer <= 0 then
                 game:resetToCheckpoint()
             else
                 self:reset(world)
             end
-        elseif other.class and other:isInstanceOf(Checkpoint) then
-            self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
         elseif other.class and other:isInstanceOf(NewCrusher) then
             if col.normal.y == -1 or col.normal.y == 1 then
 
@@ -186,33 +183,6 @@ function Bot:update(dt, world)
     end
 
     self:move(world, actualX, actualY)
-
---[[
-    if self.crusherReference and self.crusherReference.crushing and (not self.crusherReference.open or (self.crusherReference.open and self.crusherReference.canClose)) then
-        if not self.crusherReference.hasMoved then
-            -- move crusher first
-            self.crusherReference:update(dt, world, true)
-        end
-
-        newPos.x = self.crusherReference.position.x + self.crusherReference.width/2 - self.width/2
-        newPos.y = self.crusherReference.position.y - self.height
-
-        if self.crusherReference.direction == "up" then
-            newPos.y = self.crusherReference.position.y + self.crusherReference.height + self.velocity.y * dt + 5
-        end
-
-        --if math.abs(newPos.y - self.position.y) > self.height/2 or math.abs(self.prevX - self.position.x) > self.width/2 then
-        --    -- death by crushed
-        --    game:resetToCheckpoint()
-        --    changePos = false
-        --    error('botDeath')
-        --end
-
-        self.prevX = self.position.x
-
-        world:update(self, newPos.x, newPos.y)
-        self.position = Vector(newPos.x, newPos.y)
-    ]]
 
     self.crusherTimer = math.max(0, self.crusherTimer - dt)
     self.startTimer = math.max(0, self.startTimer - dt)
