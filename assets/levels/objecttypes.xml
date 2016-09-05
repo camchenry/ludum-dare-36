@@ -28,13 +28,15 @@
  </objecttype>
  <objecttype name="Wrench" color="#5555ff"/>
  <objecttype name="AreaTrigger" color="#ffef0f">
-  <property name="ID" type="int" default="0"/>
+  <property name="ID" type="int" default="-1"/>
+  <property name="ID2" type="int" default="-1"/>
   <property name="collidable" type="bool" default="false"/>
   <property name="killBot" type="bool" default="false"/>
   <property name="oneTime" type="bool" default="false"/>
   <property name="pushable" type="bool" default="false"/>
   <property name="signalOff" type="bool" default="false"/>
   <property name="transition" type="bool" default="false"/>
+  <property name="waitPlayerAndBot" type="bool" default="false"/>
  </objecttype>
  <objecttype name="ShowText" color="#00b3ff">
   <property name="ID" type="int" default="0"/>
@@ -43,6 +45,9 @@
  <objecttype name="Bot" color="#7d62a4">
   <property name="acceptCheckpoint" type="bool" default="true"/>
   <property name="collidable" type="bool" default="false"/>
+  <property name="controlled" type="bool" default="true"/>
+  <property name="direction" type="int" default="1"/>
+  <property name="directionOverride" type="bool" default="true"/>
   <property name="pushable" type="bool" default="true"/>
  </objecttype>
  <objecttype name="Lever" color="#26a400">
@@ -89,5 +94,14 @@
  </objecttype>
  <objecttype name="SecretLayer" color="#aa0000">
   <property name="ID" type="int" default="0"/>
+ </objecttype>
+ <objecttype name="Director" color="#005500">
+  <property name="activateID" type="int" default="0"/>
+  <property name="collidable" type="bool" default="false"/>
+  <property name="direction" type="int" default="1"/>
+  <property name="on" type="bool" default="true"/>
+  <property name="oneTime" type="bool" default="false"/>
+  <property name="pushable" type="bool" default="false"/>
+  <property name="switchID" type="int" default="0"/>
  </objecttype>
 </objecttypes>

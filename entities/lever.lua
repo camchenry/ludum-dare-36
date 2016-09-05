@@ -1,5 +1,8 @@
 local Lever = Class("Lever")
 
+Lever.static.onImage = love.graphics.newImage("assets/images/Misc/Switch_On.png")
+Lever.static.offImage = love.graphics.newImage("assets/images/Misc/Switch_Off.png")
+
 function Lever:initialize(x, y, properties)
     self.position = Vector(x, y)
     self.width = 16
@@ -10,9 +13,6 @@ function Lever:initialize(x, y, properties)
 
     self.active = false
 
-    self.onImage = love.graphics.newImage("assets/images/Misc/Switch_On.png")
-    self.offImage = love.graphics.newImage("assets/images/Misc/Switch_Off.png")
-
     self.imageOffset = Vector(-2, -1)
 end
 
@@ -21,10 +21,10 @@ function Lever:reset()
 end
 
 function Lever:draw()
-    local image = self.offImage
+    local image = Lever.offImage
 
     if self.active then
-        image = self.onImage
+        image = Lever.onImage
     end
 
     love.graphics.draw(image, self.position.x + self.imageOffset.x, self.position.y + self.imageOffset.y)

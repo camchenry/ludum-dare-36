@@ -190,13 +190,7 @@ function Player:move(world, x, y, checkCrush, crush, reference)
     end
 end
 
-function Player:update(dt, world)
-    self.world = world
-    self.acceleration = Vector(0, self.gravity)
-
-    local isLeft, isRight = love.keyboard.isDown("a", "left"), love.keyboard.isDown("d", "right")
-    local isUp, isDown    = love.keyboard.isDown("w", "up", "space"), love.keyboard.isDown("s", "down")
-
+function Player:updateJump(isUp, isDown, dt)
     if self.touchedNewCrusher then
         self.canJump = true
     end
@@ -204,6 +198,8 @@ function Player:update(dt, world)
     if (isUp and not isDown) and self.attackTimer == 0 and self.foundTimer == 0 then
         if not self.jumpState then
             self.jumpTimer = math.min(self.jumpTime, self.jumpTimer + dt)
+            -- gravity is reduced while holding a jump
+            -- this makes jumps higher if you hold longer
             self.acceleration.y = self.acceleration.y * self.jumpHoldGravityReduction
         else
             self.jumpTimer = math.max(0, self.jumpTimer - dt)
@@ -214,14 +210,10 @@ function Player:update(dt, world)
             -- add a smaller amount for subsequent frames
             -- even a small jump will give a large jump, but it can still be held for a bigger jump
             if not self.startedJump then
-                -- BUG: jump height is determined by the dt of the first jump frame
                 self.velocity.y = -self.jumpBurst
                 self.lastJumpTimer = self.lastJumpTime
                 Signal.emit("startJump")
                 self.jumpControlTimer = self.jumpControlTime
-            else
-                -- note that this calculation is fighting against gravity, so it will offer diminishing returns in a way
-                --self.acceleration.y = self.acceleration.y - self.jumpAccel
             end
 
             -- we jumped, we are no longer on a platform
@@ -244,7 +236,17 @@ function Player:update(dt, world)
     elseif self.jumpTimer == 0 then
         self.jumpState = false
     end
+end
 
+function Player:update(dt, world)
+    self.world = world
+    self.acceleration = Vector(0, self.gravity)
+
+    local isLeft, isRight = love.keyboard.isDown("a", "left"), love.keyboard.isDown("d", "right")
+    local isUp, isDown    = love.keyboard.isDown("w", "up", "space"), love.keyboard.isDown("s", "down")
+
+    self:updateJump(isUp, isDown, dt)
+    
     self.canMove = (not isLeft == isRight) and self.attackTimer == 0 and self.foundTimer == 0
 
     if isLeft == isRight or self.attackTimer > 0 or self.foundTimer > 0 then
@@ -271,15 +273,11 @@ function Player:update(dt, world)
         self.velocity.x = self.attachedPlatform.velocity.x
     end
 
-    self.touchingGround = false
-
     self.velocity = self.velocity + self.acceleration*dt
-    self.velocity.x = math.min(self.velMax, self.velocity.x)
-
-
     local newPos = self.position + self.velocity * dt 
 
     local changePos = true
+    self.touchingGround = false
 
     local hitGround, hitCeil, hitWall = false, false, false
 
@@ -292,12 +290,11 @@ function Player:update(dt, world)
         if other.class and other:isInstanceOf(Enemy) then
             return "cross"
         end
-        if other.class and other:isInstanceOf(Crusher) then
-            return "slide"
-        end
         if other.class and other:isInstanceOf(Gate) then
             if other.width > 2 and other.height > 2 then
                 return "slide"
+            else
+                return false
             end
         end
 

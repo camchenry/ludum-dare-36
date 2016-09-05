@@ -67,8 +67,8 @@ function NewCrusher:initialize(x, y, w, h, properties)
 
     self.lastMove = 0
 
-    Signal.register("activate", function(ID)
-        if ID == self.ID then
+    Signal.register("activate", function(ID, ID2)
+        if ID == self.ID or ID2 == self.ID then
             self.on = not self.on
         end
     end)

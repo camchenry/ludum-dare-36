@@ -1,5 +1,9 @@
 local Enemy = Class("Enemy")
 
+Enemy.static.idleImage = love.graphics.newImage("assets/images/Enemy/Bug_Idle.png")
+Enemy.static.jumpImage = love.graphics.newImage("assets/images/Enemy/Bug_Jump.png")
+Enemy.static.walkImage = love.graphics.newImage("assets/images/Enemy/Bug_Walk.png")
+
 function Enemy:initialize(x, y, properties)
     self.width, self.height = 32, 16
     self.startPosition = Vector(x, y)
@@ -31,15 +35,10 @@ function Enemy:initialize(x, y, properties)
     self.jumpTimer = self.jumpInterval
     self.fallOffset = 0
 
-    self.idleImage = love.graphics.newImage("assets/images/Enemy/Bug_Idle.png")
-
-    self.jumpImage = love.graphics.newImage("assets/images/Enemy/Bug_Jump.png")
-
-    self.walkImage = love.graphics.newImage("assets/images/Enemy/Bug_Walk.png")
-    local g = Anim8.newGrid(64, 64, self.walkImage:getWidth(), self.walkImage:getHeight())
+    local g = Anim8.newGrid(64, 64, Enemy.walkImage:getWidth(), Enemy.walkImage:getHeight())
     self.walkAnimation = Anim8.newAnimation(g('1-5', 1), 0.110)
 
-    self.imageOffset = Vector(16, -self.idleImage:getHeight()/2 - 16)
+    self.imageOffset = Vector(16, -48)
 
     Signal.register("activate", function(ID)
         if ID == self.ID then
@@ -151,17 +150,17 @@ function Enemy:draw()
     if self.visible then
         love.graphics.setColor(self.color)
 
-        local image = self.idleImage
+        local image = Enemy.idleImage
 
         if not self.movement then
             if self.position.y < self.startPosition.y then
-                image = self.jumpImage
+                image = Enemy.jumpImage
             end
 
             love.graphics.draw(image, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, image:getWidth()/2, 0)
 
         else
-            self.walkAnimation:draw(self.walkImage, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, self.idleImage:getWidth()/2, 0)
+            self.walkAnimation:draw(Enemy.walkImage, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, Enemy.idleImage:getWidth()/2, 0)
         end
     end
 

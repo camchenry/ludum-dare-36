@@ -1,5 +1,7 @@
 local Bot = Class("Bot")
 
+Bot.static.image = love.graphics.newImage("assets/images/Misc/Bot.png")
+
 function Bot:initialize(x, y, w, h, properties)
     self.width, self.height = 15, 15
 
@@ -13,17 +15,17 @@ function Bot:initialize(x, y, w, h, properties)
     self.pushable = properties.pushable or true
     self.controlled = properties.controlled or true
     self.acceptCheckpoint = properties.acceptCheckpoint or true
+    self.directionOverride = properties.directionOverride or true
+    self.direction = properties.direction or 1
 
     self.animationTime = 0.3
 
     self.prevX = x
 
-    self.image = love.graphics.newImage("assets/images/Misc/Bot.png")
-    local g = Anim8.newGrid(16, 16, self.image:getWidth(), self.image:getHeight())
+    local g = Anim8.newGrid(16, 16, Bot.image:getWidth(), Bot.image:getHeight())
     self.animation = Anim8.newAnimation(g('1-2', 1), self.animationTime)
 
     self.gravity = 160
-    self.direction = 1
     self.speed = 15
 
     self.movement = true
@@ -76,8 +78,6 @@ function Bot:move(world, x, y, checkCrush, crush, reference)
             end
 
             if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
-                error('bot crush')
-
                 if crushers[1] ~= crushers[2] or (not crushers[1] and not crushers[2]) then
                     -- death by crushed
                     game:resetToCheckpoint()
@@ -147,30 +147,13 @@ function Bot:update(dt, world)
             if col.normal.y == -1 or col.normal.y == 1 then
 
                 if self.position.y <= other.position.y + other.height/2 then
-                    -- player is above
-                    -- allow the player to jump again once they hit the ground
-                    self.jumpTimer = 0
-                    self.jumpState = false
-                    self.canJump = true
-                    self.touchingGround = true
-                    if not self.prevGround then
-                        self.prevGround = true
-                        Signal.emit("hitGround")
-                    end
-                    hitGround = true
-
-                    self.touchedNewCrusher = true
-                    self.touchingGround = true
+                    -- entity is above
                     self.velocity.y = 0
                 else
                     -- hitting the crusher from underneath
                     -- if velocity is negavitive, make it 0. otherwise keep the current velocity
-                    -- this is intended to make the player begin to fall as soon as they hit a crusher from underneath
+                    -- this is intended to make the entity begin to fall as soon as they hit a crusher from underneath
                     self.velocity.y = math.max(0, self.velocity.y)
-
-                    self.jumpTimer = 0
-                    self.canJump = false
-                    self.jumpState = false
                 end
             end
         end
@@ -202,7 +185,7 @@ function Bot:draw()
     end
 
     if not self.dead then
-        self.animation:draw(self.image, math.floor(self.position.x), math.floor(self.position.y-1))
+        self.animation:draw(Bot.image, math.floor(self.position.x), math.floor(self.position.y-1))
     end
 end
 

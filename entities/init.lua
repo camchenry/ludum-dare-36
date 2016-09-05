@@ -17,6 +17,7 @@ Teleport        = require "entities.teleport"
 Mask            = require "entities.mask"
 VictoryCondition= require "entities.victoryCondition"
 NewCrusher      = require "entities.newCrusher"
+Director        = require "entities.director"
 
 SoundManager    = require "entities.sound.soundmanager"
 

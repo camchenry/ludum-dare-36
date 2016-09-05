@@ -11,13 +11,9 @@ function game:enter(from, ...)
 end
 
 function game:resetToCheckpoint(override)
-    if not override then
-        self.player:reset(self.world)
-    end
-
     for _, obj in ipairs(self.objects) do
         if obj.reset then
-            if not obj:isInstanceOf(Bot) and not obj:isInstanceOf(Player) then
+            if not obj:isInstanceOf(Bot) then
                 obj:reset(self.world)
             end
         end
@@ -129,6 +125,10 @@ function game:reset()
 
         if object.type == "NewCrusher" then
             add(NewCrusher:new(object.x, object.y, object.width, object.height, object.properties))
+        end
+
+        if object.type == "Director" then
+            add(Director:new(object.x, object.y, object.width, object.height, object.properties))
         end
     end
 
