@@ -289,6 +289,12 @@ function Player:update(dt, world)
 
     local crushed = {}
 
+    if self.newCrusherReference and self.jumpControlTimer <= 0 then
+        newPos.y = self.newCrusherReference.position.y - self.height
+        self.velocity.y = 0
+        self.touchingGround = true
+    end
+
     local actualX, actualY, cols, len = self.world:check(self, newPos.x, newPos.y, function(item, other)
         if other.class and other:isInstanceOf(Wrench) then
             return "cross"
@@ -366,26 +372,6 @@ function Player:update(dt, world)
             if col.normal.y == -1 or col.normal.y == 1 then
 
                 if self.position.y <= other.position.y + other.height/2 then
-                    self.newCrusherReference = other
-
-                    -- player is above
-                    crushed.bottom = true
-
-                    -- allow the player to jump again once they hit the ground
-                    self.jumpTimer = 0
-                    self.jumpState = false
-                    self.canJump = true
-                    self.touchingGround = true
-
-                    if not (self.prevNewCrusherReference and self.newCrusherReference) then
-                        hitGround = true
-                    end
-
-                    if self.jumpControlTimer <= 0 then
-                        self.touchedNewCrusher = true
-                        self.touchingGround = true
-                        self.velocity.y = 0
-                    end
                 else
                     -- hitting the crusher from underneath
                     -- if velocity is negavitive, make it 0. otherwise keep the current velocity
@@ -437,10 +423,6 @@ function Player:update(dt, world)
 
     self.prevX = self.position.x
 
-    if self.newCrusherReference and self.jumpControlTimer <= 0 then
-        actualY = self.newCrusherReference.position.y - self.height
-    end
-
     if changePos then
         self:move(world, actualX, actualY)
     end
@@ -480,16 +462,19 @@ function Player:update(dt, world)
     self.prevNewCrusherReference = self.newCrusherReference
     self.newCrusherReference = nil
 
-    self:checkFootBox()
+    self:checkFootBox(world)
 end
 
-function Player:checkFootBox()
-    local items, len = self.world:queryRect(self.position.x, self.position.y+self.height, self.width, 1)
+function Player:checkFootBox(world)
+    local items, len = world:queryRect(self.position.x, self.position.y+self.height, self.width, 1)
     for k, item in pairs(items) do
         if item.class and item:isInstanceOf(NewCrusher) then
             if self.jumpControlTimer <= 0 then
                 self.newCrusherReference = item
-                self.position.y = item.position.y - self.height
+                local y = item.position.y - self.height
+                self:move(world, self.position.x, y, true)
+                self.velocity.y = 0
+                self.touchingGround = true
             end
         end
     end

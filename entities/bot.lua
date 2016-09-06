@@ -1,3 +1,5 @@
+-- BUG: bot gets crushed after it should be centered on a crusher
+
 local Bot = Class("Bot")
 
 Bot.static.image = love.graphics.newImage("assets/images/Misc/Bot.png")
@@ -80,6 +82,7 @@ function Bot:move(world, x, y, checkCrush, crush, reference)
             if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
                 if crushers[1] ~= crushers[2] or (not crushers[1] and not crushers[2]) then
                     -- death by crushed
+                    --error('bot crushedf')
                     game:resetToCheckpoint()
                     changePos = false
                     Signal.emit("botDeath")

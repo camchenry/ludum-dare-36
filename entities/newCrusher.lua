@@ -53,9 +53,9 @@ function NewCrusher:initialize(x, y, w, h, properties)
 
     self.stateTimes = {
         0.2,
-        2,
+        1,
         0.4,
-        3,
+        1,
     }
     assert(#self.stateTimes % 2 == 0, "Number of states must be even")
 
