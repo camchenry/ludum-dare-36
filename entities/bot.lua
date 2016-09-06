@@ -41,6 +41,10 @@ function Bot:initialize(x, y, w, h, properties)
 end
 
 function Bot:move(world, x, y, checkCrush, crush, reference)
+    if reference then
+        self.newCrusherReference = reference
+    end
+
     if x ~= self.position.x or y ~= self.position.y then
         if checkCrush then
             -- potential issue here. if the postion x y has already been chosen by bump, then they are coordinates for a location already safe from crushing
@@ -59,7 +63,7 @@ function Bot:move(world, x, y, checkCrush, crush, reference)
             for k, col in pairs(cols) do
                 local other = col.other
                 
-                if not other.class or (other.class and not (other:isInstanceOf(Checkpoint) or other:isInstanceOf(Wrench) or other:isInstanceOf(Enemy) or other:isInstanceOf(Lever) or other:isInstanceOf(Console) or other:isInstanceOf(Bot))) then
+                if not other.class or other.collidable then
                     if col.normal.y == 1 then
                         crushed.top = true
                         crushers.top = other
@@ -82,9 +86,7 @@ function Bot:move(world, x, y, checkCrush, crush, reference)
             if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
                 if crushers[1] ~= crushers[2] or (not crushers[1] and not crushers[2]) then
                     -- death by crushed
-                    --error('bot crushedf')
                     game:resetToCheckpoint()
-                    changePos = false
                     Signal.emit("botDeath")
                 end
             else
@@ -124,7 +126,13 @@ function Bot:update(dt, world)
 
     self.velocity = self.velocity + self.acceleration*dt
 
-    local newPos = newPos + self.velocity * dt 
+    local newPos = newPos + self.velocity * dt
+
+    if self.newCrusherReference then
+        newPos.y = self.newCrusherReference.position.y - self.height
+        self.velocity.y = 0
+        self.touchingGround = true
+    end
 
     local actualX, actualY, cols, len = world:check(self, newPos.x, newPos.y, function(item, other)
         if other.class and other:isInstanceOf(Spikes) then
@@ -150,12 +158,10 @@ function Bot:update(dt, world)
             if col.normal.y == -1 or col.normal.y == 1 then
 
                 if self.position.y <= other.position.y + other.height/2 then
-                    -- entity is above
-                    self.velocity.y = 0
                 else
                     -- hitting the crusher from underneath
                     -- if velocity is negavitive, make it 0. otherwise keep the current velocity
-                    -- this is intended to make the entity begin to fall as soon as they hit a crusher from underneath
+                    -- this is intended to make the player begin to fall as soon as they hit a crusher from underneath
                     self.velocity.y = math.max(0, self.velocity.y)
                 end
             end
@@ -174,6 +180,31 @@ function Bot:update(dt, world)
     self.startTimer = math.max(0, self.startTimer - dt)
 
     self.animation:update(dt)
+
+    self.prevNewCrusherReference = self.newCrusherReference
+    self.newCrusherReference = nil
+
+    self:checkFootBox(world)
+end
+
+function Bot:checkFootBox(world)
+    local items, len = world:queryRect(self.position.x, self.position.y+self.height, self.width, 1)
+    for k, item in pairs(items) do
+        if item.class and item:isInstanceOf(NewCrusher) then
+            self.newCrusherReference = item
+            local x = self.position.x
+            local y = item.position.y - self.height
+
+            -- center the bot on the crusher
+            if item.on or item.waiting then
+                x = item.position.x + item.width/2 - self.width/2
+            end
+
+            self:move(world, x, y, true)
+            self.velocity.y = 0
+            self.touchingGround = true
+        end
+    end
 end
 
 function Bot:draw()

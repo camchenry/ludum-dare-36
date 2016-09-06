@@ -1,3 +1,5 @@
+-- BUG: bots need a way to tell if a crusher is moving, or is in a state of waiting, whether from being off or from being in a waiting state
+
 -- Specifications:
 
 -- There are 2 ways a collision can occur:
@@ -205,6 +207,9 @@ end
 
 function NewCrusher:draw()
     love.graphics.rectangle('line', self.position.x, math.floor(self.position.y+0.5), self.width, self.height)
+    if self.on and self.moving then
+        love.graphics.print(self.currentState, self.position.x, math.floor(self.position.y+0.5))
+    end
 end
 
 return NewCrusher

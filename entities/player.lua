@@ -180,7 +180,6 @@ function Player:move(world, x, y, checkCrush, crush, reference)
                 if crushers[1] ~= crushers[2] or (not crushers[1] and not crushers[2]) then
                     -- death by crushed
                     game:resetToCheckpoint()
-                    changePos = false
                     Signal.emit("playerDeath")
                 end
             else
