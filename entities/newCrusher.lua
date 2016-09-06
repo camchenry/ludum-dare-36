@@ -1,9 +1,3 @@
--- ISSUE: player snaps when near above of crusher
--- BUG: when player is standing on a crusher moving downward, sometimes it can shake by a pixel or so
--- BUG: if a player is standing on a crusher and it reaches the bottom, the player may show a jump image for a frame
--- BUG: hit floor sound overplays while moving on a NewCrusher
-
-
 -- Specifications:
 
 -- There are 2 ways a collision can occur:
@@ -58,9 +52,9 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.currentStateTime = 0
 
     self.stateTimes = {
-        0,
+        0.2,
         2,
-        0,
+        0.4,
         3,
     }
     assert(#self.stateTimes % 2 == 0, "Number of states must be even")
@@ -102,7 +96,7 @@ function NewCrusher:move(world, x, y)
     if x ~= self.position.x or y ~= self.position.y then
         self.position.x, self.position.y = x, y
 
-        local extraCheck = 5
+        local extraCheck = 0
 
         local items, len = world:queryRect(self.position.x, self.position.y - extraCheck, self.width, self.height + extraCheck)
 
@@ -118,7 +112,7 @@ function NewCrusher:move(world, x, y)
                             x = self.position.x + self.width/2 - item.width/2
                         end
 
-                        item:move(world, x, math.floor(self.position.y - item.height), true, crush)
+                        item:move(world, x, self.position.y - item.height, true, crush, self)
                         item.touchedNewCrusher = true
                         item.touchingGround = true
                     end
@@ -157,6 +151,17 @@ function NewCrusher:findGoal()
     end
 
     return goal, disp
+end
+
+function NewCrusher:getSpeed()
+    local goal, disp = self:findGoal()
+
+    if goal then
+        local time = self.stateTimes[self.currentState]
+        return disp / time
+    end
+
+    return 0
 end
 
 function NewCrusher:update(dt, world)
@@ -199,8 +204,7 @@ function NewCrusher:update(dt, world)
 end
 
 function NewCrusher:draw()
-    love.graphics.rectangle('line', self.position.x, math.floor(self.position.y), self.width, self.height)
-    love.graphics.print(self.lastMove, self.position.x, self.position.y + self.height)
+    love.graphics.rectangle('line', self.position.x, math.floor(self.position.y+0.5), self.width, self.height)
 end
 
 return NewCrusher

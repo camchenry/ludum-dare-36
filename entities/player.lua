@@ -51,6 +51,8 @@ function Player:initialize(x, y)
     self.jumpControlTime = 0.3
     self.jumpControlTimer = 0
 
+    self.newCrusherReference = nil
+
     self.actionDelay = 0.4
 
     self.facing = -1
@@ -132,6 +134,10 @@ function Player:doAction()
 end
 
 function Player:move(world, x, y, checkCrush, crush, reference)
+    if reference then
+        self.newCrusherReference = reference
+    end
+
     if x ~= self.position.x or y ~= self.position.y then
         if checkCrush then
             -- potential issue here. if the postion x y has already been chosen by bump, then they are coordinates for a location already safe from crushing
@@ -191,7 +197,7 @@ function Player:move(world, x, y, checkCrush, crush, reference)
 end
 
 function Player:updateJump(isUp, isDown, dt)
-    if self.touchedNewCrusher then
+    if self.touchedNewCrusher or self.newCrusherReference or self.prevNewCrusherReference then
         self.canJump = true
     end
 
@@ -360,6 +366,8 @@ function Player:update(dt, world)
             if col.normal.y == -1 or col.normal.y == 1 then
 
                 if self.position.y <= other.position.y + other.height/2 then
+                    self.newCrusherReference = other
+
                     -- player is above
                     crushed.bottom = true
 
@@ -368,11 +376,10 @@ function Player:update(dt, world)
                     self.jumpState = false
                     self.canJump = true
                     self.touchingGround = true
-                    if not self.prevGround then
-                        self.prevGround = true
-                        Signal.emit("hitGround")
+
+                    if not (self.prevNewCrusherReference and self.newCrusherReference) then
+                        hitGround = true
                     end
-                    hitGround = true
 
                     if self.jumpControlTimer <= 0 then
                         self.touchedNewCrusher = true
@@ -408,10 +415,6 @@ function Player:update(dt, world)
                 self.jumpState = false
                 self.canJump = true
                 self.touchingGround = true
-                if not self.prevGround then
-                    self.prevGround = true
-                    Signal.emit("hitGround")
-                end
                 hitGround = true
             end
             if col.normal.y == 1 then
@@ -424,17 +427,19 @@ function Player:update(dt, world)
         end
     end
 
-    if not hitGround then
-        self.prevGround = false
-    end
-    if not hitCeil then
-        self.prevCeil = false
-    end
-    if not hitWall then
-        self.prevWall = false
+    if hitGround and not self.prevGround then
+        Signal.emit("hitGround")
     end
 
+    self.prevGround = hitGround
+    self.prevCeil = hitCeil
+    self.prevWall = hitWall
+
     self.prevX = self.position.x
+
+    if self.newCrusherReference and self.jumpControlTimer <= 0 then
+        actualY = self.newCrusherReference.position.y - self.height
+    end
 
     if changePos then
         self:move(world, actualX, actualY)
@@ -470,6 +475,24 @@ function Player:update(dt, world)
 
     self.prevTouchedNewCrusher = self.touchedNewCrusher
     self.touchedNewCrusher = false
+
+
+    self.prevNewCrusherReference = self.newCrusherReference
+    self.newCrusherReference = nil
+
+    self:checkFootBox()
+end
+
+function Player:checkFootBox()
+    local items, len = self.world:queryRect(self.position.x, self.position.y+self.height, self.width, 1)
+    for k, item in pairs(items) do
+        if item.class and item:isInstanceOf(NewCrusher) then
+            if self.jumpControlTimer <= 0 then
+                self.newCrusherReference = item
+                self.position.y = item.position.y - self.height
+            end
+        end
+    end
 end
 
 function Player:draw()
@@ -486,8 +509,8 @@ function Player:draw()
     end
     love.graphics.setColor(255, 255, 255)
 
-    if DEBUG and self.crusherTouchTimer > 0 then
-        love.graphics.setColor(255, 0, 255)
+    if DEBUG and (self.crusherTouchTimer > 0 or self.prevNewCrusherReference) then
+        --love.graphics.setColor(255, 0, 255)
     end
 
     local offset = 0
@@ -497,7 +520,7 @@ function Player:draw()
 
     local image = self.idleImage
 
-    if self.jumpTimer > 0 or not self.canJump and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.prevTouchedNewCrusher then
+    if self.jumpTimer > 0 or not self.canJump and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.prevTouchedNewCrusher and not self.prevNewCrusherReference then
         image = self.jumpImage
     end
 
@@ -507,7 +530,7 @@ function Player:draw()
         self.foundAnimation:draw(self.foundImage, x + self.attackImageOffset.x, y + self.attackImageOffset.y, 0, self.facing, 1)
     elseif self.attackTimer > 0 then
         self.attackAnimation:draw(self.attackImage, x + self.attackImageOffset.x, y + self.attackImageOffset.y, 0, self.facing, 1)
-    elseif self.velocity.x == 0 or not self.touchingGround then
+    elseif self.velocity.x == 0 or not self.touchingGround and not self.prevNewCrusherReference then
         love.graphics.draw(image, x, y, 0, self.facing, 1)
     else
         self.runAnimation:draw(self.runImage, x + self.runImageOffset.x, y + self.runImageOffset.y, 0, self.facing, 1)
