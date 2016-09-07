@@ -43,7 +43,6 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setFont(Fonts.default[14])
 
-    game.map = STI("assets/levels/main_level.lua", {"bump"}) 
     __overlay = {0, 0, 0, 0}
     Signal.register("GameVictory", function()
         Flux.to(__overlay, 2, {0, 0, 0, 255})
