@@ -31,14 +31,16 @@ function game:resetToCheckpoint(override)
 end
 
 function game:reset()
-    -- self.map = sti("assets/levels/main_level.lua", {"bump"}) 
     self.canvas = love.graphics.newCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
 
-    self.objects = {}
-    self.world = Bump.newWorld()
-    self.map:bump_init(self.world)
+    self.levelLoader = LevelLoader:new()
+    self.textItems = {} -- TODO refactor this out
+    self.level = self.levelLoader:load("main_level")
+    self.map = self.level.map
+    self.objects = self.level.objects
+    self.world = self.level.world
 
     local function add(obj)
         table.insert(self.objects, obj)
@@ -49,74 +51,6 @@ function game:reset()
     self.camera = Camera()
 
     self.player = add(Player:new(20, 1550))
-
-    self.textItems = {}
-
-    for i, object in pairs(self.map.objects) do
-        if object.type == "Wrench" then
-            self.wrench = add(Wrench:new(object.x, object.y, object.width, object.height))
-        end
-
-        if object.type == "Enemy" then
-            add(Enemy:new(object.x, object.y, object.properties))
-        end
-
-        if object.type == "MovingPlatform" then
-            local platform = add(MovingPlatform:new(object.x, object.y, object.width, object.height, object.properties))
-        end
-        
-        if object.type == "Console" then
-            self.console = Console:new(object.x, object.y, object.width, object.height, object.properties)
-        end
-
-        if object.type == "Checkpoint" then
-            add(Checkpoint:new(object.x, object.y, object.width, object.height))
-        end
-
-        if object.type == "Dropfloor" then
-            add(Dropfloor:new(object.x, object.y, object.width, object.height))
-        end
-
-        if object.type == "Lever" then
-            add(Lever:new(object.x, object.y, object.properties))
-        end
-
-        if object.type == "Gate" then
-            add(Gate:new(object.x, object.y, object.width, object.height, object.properties))
-        end
-
-        if object.type == "Crusher" then
-            add(Crusher:new(object.x, object.y, object.width, object.height, object.properties))
-        end
-
-        if object.type == "Bot" then
-            add(Bot:new(object.x, object.y, object.width, object.height, object.properties))
-        end
-
-        if object.type == "Spikes" then
-            add(Spikes:new(object.x, object.y, object.width, object.height, object.properties))
-        end
-
-        if object.type == "AreaTrigger" then
-            add(AreaTrigger:new(object.x, object.y, object.width, object.height, object.properties))
-        end
-
-        if object.type == "SecretLayer" then
-            self.secretLayer = SecretLayer:new(object.x, object.y, object.width, object.height, object.properties)
-        end
-
-        if object.type == "ShowText" then
-            table.insert(self.textItems, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
-        end
-
-        if object.type == "Teleport" then
-            add(Teleport:new(object.x, object.y, object.width, object.height, object.properties))
-        end
-
-        if object.type == "VictoryCondition" then
-            self.victoryCondition = VictoryCondition:new(object.x, object.y, object.width, object.height, object.properties)
-        end
-    end
 
     self.soundManager = SoundManager:new()
 
