@@ -504,7 +504,7 @@ function Player:draw()
 
     local image = self.idleImage
 
-    if self.jumpTimer > 0 or not self.canJump and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.prevTouchedNewCrusher and not self.prevNewCrusherReference then
+    if (self.jumpTimer > 0 or not self.canJump) and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.prevTouchedNewCrusher and not self.prevNewCrusherReference and not self.touchingGround then
         image = self.jumpImage
     end
 

@@ -105,10 +105,20 @@ function love.draw()
             )
         end
         if game.player then
+            local textX, textY = game:cameraCoords(game.player.position.x, game.player.position.y)
+
             Lume.push(info,
                 "X: " .. game.player.position.x,
                 "Y: " .. game.player.position.y,
+                "X2: " .. textX,
+                "Y2: " .. textY,
                 "Crush: " .. Inspect(game.player.lastCrush)
+            )
+        end
+        if  game.dot then
+            Lume.push(info,
+                "X: " .. game.dot.x,
+                "Y: " .. game.dot.y
             )
         end
         for i, text in ipairs(info) do

@@ -54,6 +54,8 @@ function game:reset()
 
     self.textItems = {}
 
+    self.dot = {x = 0, y = 0}
+
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
             self.wrench = add(Wrench:new(object.x, object.y, object.width, object.height))
@@ -191,7 +193,15 @@ function game:keypressed(key, code)
 end
 
 function game:mousepressed(x, y, mbutton)
+    self.dot.x, self.dot.y = self.camera.x + x/SCALEX, self.camera.y + y/SCALEY
+end
 
+function game:worldCoords(x, y)
+    return self.camera.x + x/SCALEX, self.camera.y + y/SCALEY
+end
+
+function game:cameraCoords(x, y)
+    return (x - self.camera.x)*SCALEX, (y - self.camera.y)*SCALEY
 end
 
 function game:draw()
@@ -222,9 +232,16 @@ function game:draw()
             if self.secretLayer then
                 self.secretLayer:draw()
             end
+
+
+            love.graphics.setColor(255, 0, 0)
+            love.graphics.circle('fill', self.dot.x, self.dot.y, 5)
         end)
     end)
 
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(self.canvas, 0, 0, 0, SCALEX, SCALEY)
+
+    local textX, textY = self:cameraCoords(self.player.position.x, self.player.position.y)
+    love.graphics.print("PLAYA", textX, textY)
 end
