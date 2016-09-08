@@ -1,13 +1,16 @@
-local Enemy = Class("Enemy")
+local Enemy = Class("Enemy", Object)
 
 Enemy.static.idleImage = love.graphics.newImage("assets/images/Enemy/Bug_Idle.png")
 Enemy.static.jumpImage = love.graphics.newImage("assets/images/Enemy/Bug_Jump.png")
 Enemy.static.walkImage = love.graphics.newImage("assets/images/Enemy/Bug_Walk.png")
 
-function Enemy:initialize(x, y, properties)
+function Enemy:initialize(x, y, w, h, properties)
     self.width, self.height = 32, 16
+
+    Object.initialize(self, x, y, self.width, self.height, properties)
+    self.name = "Enemy"
+
     self.startPosition = Vector(x, y)
-    self.position = Vector(x, y)
     self.color = {255, 255, 255, 255}
 
     self.direction    = properties.direction or 1
@@ -164,12 +167,21 @@ function Enemy:draw()
         end
     end
 
-    if DEBUG then
-        love.graphics.setColor(255, 0, 0)
-        love.graphics.rectangle('line', math.floor(self.position.x + 0.5), math.floor(self.position.y + 0.5), self.width - 0.5, self.height - 0.5)
-    end
-
     love.graphics.setColor(255, 255, 255)
+end
+
+function Enemy:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "Direction: " .. self.direction,
+        "Jump Interval: " .. self.jumpInterval,
+        "Jump Accel: " .. self.jumpAccel,
+        "Movement: " .. (self.movement and "true" or "false"),
+        "Jumping: " .. (self.jumping and "true" or "false"),
+        "Limit: " .. (self.limit and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 function Enemy:hit()

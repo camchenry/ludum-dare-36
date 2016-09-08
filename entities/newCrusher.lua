@@ -30,21 +30,20 @@
 -- bot centered on it while it is moving
 -- determines the direction of the bot after it is done moving
 
-local NewCrusher = Class("NewCrusher")
+local NewCrusher = Class("NewCrusher", Object)
 
 function NewCrusher:initialize(x, y, w, h, properties)
-    self.width = w
-    self.height = h
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "NewCrusher"
 
-    self.position = Vector(x, y)
     self.startPosition = Vector(x, y)
 
     self.on           = properties.on or true
     self.auto         = properties.auto or false
     self.direction    = properties.direction or "up"
     self.ID           = properties.ID or 0
-    self.collidable   = properties.collidable or true
-    self.pushable     = properties.pushable or false
+
+    self.collidable = true
 
     self.moving = false
     self.waiting = true
@@ -206,10 +205,18 @@ function NewCrusher:update(dt, world)
 end
 
 function NewCrusher:draw()
-    love.graphics.rectangle('line', self.position.x, math.floor(self.position.y+0.5), self.width, self.height)
-    if self.on and self.moving then
-        love.graphics.print(self.currentState, self.position.x, math.floor(self.position.y+0.5))
-    end
+    
+end
+
+function NewCrusher:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "Direction: " .. self.direction,
+        "Auto: " .. (self.auto and "true" or "false"),
+        "On: " .. (self.on and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return NewCrusher

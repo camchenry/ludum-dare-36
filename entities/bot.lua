@@ -1,24 +1,22 @@
 -- BUG: bot gets crushed after it should be centered on a crusher
 
-local Bot = Class("Bot")
+local Bot = Class("Bot", Object)
 
 Bot.static.image = love.graphics.newImage("assets/images/Misc/Bot.png")
 
 function Bot:initialize(x, y, w, h, properties)
-    self.width, self.height = 15, 15
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "Bot"
 
-    self.position = Vector(x, y)
     self.velocity = Vector(0, 0)
     self.acceleration = Vector(0, 0)
 
     self.resetPosition = Vector(x, y)
 
-    self.collidable = properties.collidable or false
-    self.pushable = properties.pushable or true
+    self.direction = properties.direction or 1
     self.controlled = properties.controlled or true
     self.acceptCheckpoint = properties.acceptCheckpoint or true
     self.directionOverride = properties.directionOverride or true
-    self.direction = properties.direction or 1
 
     self.animationTime = 0.3
 
@@ -208,19 +206,22 @@ function Bot:checkFootBox(world)
 end
 
 function Bot:draw()
-    if DEBUG then
-        love.graphics.setColor(255, 0, 0)
-        love.graphics.rectangle('line', self.position.x, self.position.y, self.width, self.height)
-    end
     love.graphics.setColor(255, 255, 255)
-
-    if DEBUG and self.crusherReference then
-        love.graphics.setColor(0, 255, 255)
-    end
 
     if not self.dead then
         self.animation:draw(Bot.image, math.floor(self.position.x), math.floor(self.position.y-1))
     end
+end
+
+function Bot:drawDebug(x, y)
+    local propertyStrings = {
+        "Direction: " .. self.direction,
+        "Controlled: " .. (self.controlled and "true" or "false"),
+        "Accept Checkpoint: " .. (self.acceptCheckpoint and "true" or "false"),
+        "Direction Override: " .. (self.directionOverride and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return Bot

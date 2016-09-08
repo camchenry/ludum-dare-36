@@ -1,10 +1,8 @@
-local Teleport = Class("Teleport")
+local Teleport = Class("Teleport", Object)
 
 function Teleport:initialize(x, y, w, h, properties)
-    self.width = w
-    self.height = h
-
-    self.position = Vector(x, y)
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "Teleport"
 
     self.ID         = properties.ID or 0
     self.activateID = properties.activateID or 0
@@ -39,6 +37,16 @@ function Teleport:teleportEntity(item)
             item.teleportedTimer = item.teleportedTime
         end
     end
+end
+
+function Teleport:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "Activate ID: " .. self.activateID,
+        "Activated: " .. (self.activated and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return Teleport

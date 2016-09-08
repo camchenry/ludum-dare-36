@@ -1,7 +1,8 @@
-local Mask = Class("Mask")
+local Mask = Class("Mask", Object)
 
 function Mask:initialize(x, y, w, h, properties)
-    self.position = Vector(x, y)
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "Mask"
 
     self.ID = properties.ID or 0
 
@@ -14,6 +15,14 @@ end
 
 function Mask:draw()
     love.graphics.draw(self.image, self.position.x, self.position.y)
+end
+
+function Mask:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return Mask

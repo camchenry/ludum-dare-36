@@ -58,11 +58,11 @@ function game:reset()
 
     for i, object in pairs(self.map.objects) do
         if object.type == "Wrench" then
-            self.wrench = add(Wrench:new(object.x, object.y, object.width, object.height))
+            self.wrench = add(Wrench:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Enemy" then
-            add(Enemy:new(object.x, object.y, object.properties))
+            add(Enemy:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "MovingPlatform" then
@@ -74,7 +74,7 @@ function game:reset()
         end
 
         if object.type == "Checkpoint" then
-            add(Checkpoint:new(object.x, object.y, object.width, object.height))
+            add(Checkpoint:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Dropfloor" then
@@ -82,7 +82,7 @@ function game:reset()
         end
 
         if object.type == "Lever" then
-            add(Lever:new(object.x, object.y, object.properties))
+            add(Lever:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Gate" then
@@ -122,7 +122,7 @@ function game:reset()
         end
 
         if object.type == "Spawn" then
-            self.player = add(Player:new(object.x, object.y))
+            self.player = add(Player:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "NewCrusher" then
@@ -210,6 +210,7 @@ function game:draw()
     self.canvas:renderTo(function()
         love.graphics.clear()  
         self.camera:draw(function()
+            love.graphics.setLineWidth(1)
             self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
 
@@ -242,6 +243,15 @@ function game:draw()
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(self.canvas, 0, 0, 0, SCALEX, SCALEY)
 
-    local textX, textY = self:cameraCoords(self.player.position.x, self.player.position.y)
-    love.graphics.print("PLAYA", textX, textY)
+    for _, obj in ipairs(self.objects) do
+        if obj.drawDebug then
+            local worldX, worldY = obj.position.x, obj.position.y
+            local cameraX, cameraY = self:cameraCoords(worldX, worldY)
+
+            cameraX = cameraX + obj.width * SCALEX
+            cameraX, cameraY = cameraX - cameraX % SCALEX, cameraY - cameraY % SCALEY
+
+            obj:drawDebug(cameraX, cameraY)
+        end
+    end
 end

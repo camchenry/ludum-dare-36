@@ -1,7 +1,10 @@
-local Player = Class("Player")
+local Player = Class("Player", Object)
 
-function Player:initialize(x, y)
+function Player:initialize(x, y, w, h, properties)
     self.width, self.height = 13, 31
+
+    Object.initialize(self, x, y, self.width, self.height, properties)
+    self.name = "Player"
 
     self.position = Vector(x, y)
     self.resetPosition = Vector(x, y)
@@ -481,21 +484,15 @@ end
 
 function Player:draw()
     if DEBUG then
-        love.graphics.setColor(255, 0, 0)
-        love.graphics.rectangle('line', math.floor(self.position.x+0.5+1), math.floor(self.position.y+0.5+1), self.width-1, self.height-1)
-
         love.graphics.setColor(0, 0, 255)
         local offset = 0
         if self.facing == -1 then
             offset = -8
         end
+        love.graphics.setLineWidth(1)
         love.graphics.rectangle('line', math.floor(self.position.x+0.5+1-self.attackBoxOffset.x*self.facing+offset), math.floor(self.position.y+0.5+1+self.attackBoxOffset.y), self.attackBoxSize.x, self.attackBoxSize.y)
     end
     love.graphics.setColor(255, 255, 255)
-
-    if DEBUG and (self.crusherTouchTimer > 0 or self.prevNewCrusherReference) then
-        --love.graphics.setColor(255, 0, 255)
-    end
 
     local offset = 0
     if self.facing == -1 then
@@ -519,6 +516,10 @@ function Player:draw()
     else
         self.runAnimation:draw(self.runImage, x + self.runImageOffset.x, y + self.runImageOffset.y, 0, self.facing, 1)
     end
+end
+
+function Player:drawDebug(x, y)
+    Object.drawDebug(self, x, y)
 end
 
 return Player

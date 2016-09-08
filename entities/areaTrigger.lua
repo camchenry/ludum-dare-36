@@ -1,10 +1,6 @@
-local AreaTrigger = Class("AreaTrigger")
+local AreaTrigger = Class("AreaTrigger", Object)
 
 function AreaTrigger:initialize(x, y, w, h, properties)
-    self.width = w
-    self.height = h
-
-    self.position = Vector(x, y)
 
     self.ID = properties.ID or 0
     self.ID2 = properties.ID2 or 0
@@ -13,8 +9,6 @@ function AreaTrigger:initialize(x, y, w, h, properties)
     self.signalOff = properties.signalOff or false
     self.waitPlayerAndBot = properties.waitPlayerAndBot or false
     self.transition = properties.transition or false
-    self.collidable = properties.collidable or false
-    self.pushable = properties.pushable or false
 
     self.prevActive = false
     self.active = false
@@ -72,6 +66,10 @@ function AreaTrigger:update(dt, world)
 end
 
 function AreaTrigger:draw()
+
+end
+
+function AreaTrigger:drawDebug(x, y)
 
 end
 

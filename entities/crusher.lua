@@ -1,9 +1,8 @@
-local Crusher = Class("Crusher")
+local Crusher = Class("Crusher", Object)
 
 function Crusher:initialize(x, y, w, h, properties)
-    self.position = Vector(x, y)
-    self.width = w
-    self.height = h
+	Object.initialize(self, x, y, w, h, properties)
+    self.name = "Crusher"
 
     self.prevHeight = h
 
@@ -23,6 +22,8 @@ function Crusher:initialize(x, y, w, h, properties)
     self.waitBot      = properties.waitBot or false
     self.resetItem    = properties.reset or true
     self.startOpen    = properties.startOpen or false
+	
+	self.name = "Crusher"
 
     if self.imgID == 2 then
         self.image = love.graphics.newImage("assets/images/Misc/Room4_Crusher.png")
@@ -273,6 +274,10 @@ function Crusher:draw()
     end
 
     love.graphics.setColor(255, 255, 255)
+end
+
+function Crusher:drawDebug(x, y)
+	Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return Crusher

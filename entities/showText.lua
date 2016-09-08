@@ -1,8 +1,8 @@
-local ShowText = Class("ShowText")
+local ShowText = Class("ShowText", Object)
 
 function ShowText:initialize(x, y, w, h, properties)
-    self.width = w
-    self.height = h
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "ShowText"
 
     self.ID     = properties.ID or 0
     self.textID = properties.textID or 0
@@ -52,6 +52,16 @@ function ShowText:draw()
             love.graphics.draw(self.image, self.position.x, self.position.y)
         end
     end
+end
+
+function ShowText:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "Text ID: " .. self.textID,
+        "Show Image: " .. (self.showImage and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return ShowText

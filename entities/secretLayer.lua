@@ -1,7 +1,8 @@
-local SecretLayer = Class("SecretLayer")
+local SecretLayer = Class("SecretLayer", Object)
 
 function SecretLayer:initialize(x, y, w, h, properties)
-    self.position = Vector(x, y)
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "SecretLayer"
 
     self.ID = properties.ID or 0
 
@@ -28,6 +29,15 @@ function SecretLayer:draw()
     if self.active then
         love.graphics.draw(self.image, self.position.x, self.position.y)
     end
+end
+
+function SecretLayer:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "Active: " .. (self.active and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return SecretLayer

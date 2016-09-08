@@ -1,9 +1,8 @@
-local Checkpoint = Class("Checkpoint")
+local Checkpoint = Class("Checkpoint", Object)
 
-function Checkpoint:initialize(x, y, w, h)
-    self.position = Vector(x, y)
-    self.width = w
-    self.height = h
+function Checkpoint:initialize(x, y, w, h, properties)
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "Checkpoint"
 end
 
 function Checkpoint:update(dt, world)
@@ -30,11 +29,11 @@ function Checkpoint:update(dt, world)
 end
 
 function Checkpoint:draw()
-    if DEBUG then
-        love.graphics.setColor(0, 255, 0)
-        love.graphics.rectangle('line', self.position.x, self.position.y, self.width, self.height)
-    end
-    love.graphics.setColor(255, 255, 255)
+
+end
+
+function Checkpoint:drawDebug(x, y)
+    Object.drawDebug(self, x, y)
 end
 
 return Checkpoint

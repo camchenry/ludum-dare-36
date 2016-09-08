@@ -1,11 +1,14 @@
-local Dropfloor = Class("Dropfloor")
+local Dropfloor = Class("Dropfloor", Object)
 
 function Dropfloor:initialize(x, y, w, h, properties)
-    self.position = Vector(x, y)
-    self.width = w
-    self.height = h
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "Dropfloor"
 
-    self.collidable = properties.collidable or true
+    self.collidable = true
+end
+
+function Dropfloor:drawDebug(x, y)
+    Object.drawDebug(self, x, y)
 end
 
 return Dropfloor
