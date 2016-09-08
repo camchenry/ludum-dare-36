@@ -17,8 +17,6 @@ STI     = require 'libs.sti'
 require 'states'
 require 'entities'
 
-loads = 0
-
 function love.load()
     local function makeFont(path)
         return setmetatable({}, {
@@ -44,9 +42,6 @@ function love.load()
     love.window.setIcon(love.image.newImageData('assets/images/icon.png'))
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setFont(Fonts.default[14])
-
-    --game.map = STI("assets/levels/main_level.lua", {"bump"}) 
-    game.map = STI("assets/levels/playground_level.lua", {"bump"}) 
 
     __overlay = {0, 0, 0, 0}
     Signal.register("GameVictory", function()
@@ -80,7 +75,6 @@ function love.draw()
     love.graphics.pop()
 
     if DEBUG then
-        love.graphics.setColor(255, 255, 255)
         love.graphics.push()
         love.graphics.setColor(255, 255, 255)
         love.graphics.setFont(Fonts.mono[14])
@@ -95,8 +89,7 @@ function love.draw()
                 "TEX: "  .. Lume.round(stats.texturememory / 1024 / 1024, .01) .. "MB",
                 "IMG#: " .. stats.images,
                 "FNT#: " .. stats.fonts,
-                "CVS#: " .. stats.canvases,
-                "Loads: " .. loads
+                "CVS#: " .. stats.canvases
             )
         end
         if game.world then
@@ -133,13 +126,15 @@ function love.keyreleased(key, code, isRepeat)
         love.event.quit()
     end
 
-    -- if key == "`" or key == 'f1' then
-    --     if love.keyboard.isDown("lshift", "rshift") then
-    --         DETAILED_DEBUG = not DETAILED_DEBUG
-    --     else
-    --         DEBUG = not DEBUG
-    --     end
-    -- end
+    if not RELEASE then
+        if key == "`" or key == 'f1' then
+            if love.keyboard.isDown("lshift", "rshift") then
+                DETAILED_DEBUG = not DETAILED_DEBUG
+            else
+                DEBUG = not DEBUG
+            end
+        end
+    end
 end
 
 function love.keypressed(key, code, isRepeat)

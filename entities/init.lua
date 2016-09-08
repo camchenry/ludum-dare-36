@@ -23,3 +23,5 @@ Director        = require "entities.director"
 SoundManager    = require "entities.sound.soundmanager"
 
 ScreenShake     = require "entities.fx.screenshake"
+
+LevelLoader     = require "entities.levelloader"
