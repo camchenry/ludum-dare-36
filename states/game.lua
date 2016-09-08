@@ -32,11 +32,11 @@ function game:reset()
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
 
     self.levelLoader = LevelLoader:new()
-    self.textItems = {} -- TODO refactor this out
     self.level = self.levelLoader:load("playground_level")
     self.map = self.level.map
     self.objects = self.level.objects
     self.world = self.level.world
+    self.player = self.level.player
 
     local function add(obj)
         table.insert(self.objects, obj)
@@ -58,10 +58,6 @@ end
 function game:update(dt)
     self.map:update(dt)
 
-    if self.console then
-        self.console:update(dt)
-    end
-
     for _, obj in ipairs(self.objects) do
         if obj.class and obj:isInstanceOf(Crusher) then
             obj.hasMoved = false
@@ -76,7 +72,7 @@ function game:update(dt)
 
     for _, obj in ipairs(self.objects) do
         if obj.update then
-            if obj.class and not obj:isInstanceOf(NewCrusher) then
+            if obj.class and not obj:isInstanceOf(NewCrusher) and not obj:isInstanceOf(Player) then
                 obj:update(dt, self.world)
             end
         end
@@ -127,26 +123,15 @@ function game:draw()
             self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
 
-            if self.console then
-                self.console:draw()
-            end
-
             for _, obj in ipairs(self.objects) do
                 if obj.draw then
                     obj:draw()
                 end
             end
 
-            for _, textItem in pairs(self.textItems) do
-                textItem:draw()
-            end
-
-            self.player:draw()
-
             if self.secretLayer then
                 self.secretLayer:draw()
             end
-
 
             love.graphics.setColor(255, 0, 0)
             love.graphics.circle('fill', self.dot.x, self.dot.y, 5)
