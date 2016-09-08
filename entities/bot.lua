@@ -205,7 +205,9 @@ function Bot:checkFootBox(world)
     end
 end
 
-function Bot:draw()
+function Bot:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     love.graphics.setColor(255, 255, 255)
 
     if not self.dead then

@@ -28,8 +28,8 @@ function Checkpoint:update(dt, world)
     end
 end
 
-function Checkpoint:draw()
-
+function Checkpoint:draw(debugOverride)
+    Object.draw(self, debugOverride)
 end
 
 function Checkpoint:drawDebug(x, y)

@@ -13,7 +13,9 @@ function Mask:update(dt)
 
 end
 
-function Mask:draw()
+function Mask:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     love.graphics.draw(self.image, self.position.x, self.position.y)
 end
 

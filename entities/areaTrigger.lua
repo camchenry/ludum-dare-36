@@ -67,8 +67,8 @@ function AreaTrigger:update(dt, world)
     end
 end
 
-function AreaTrigger:draw()
-
+function AreaTrigger:draw(debugOverride)
+    Object.draw(self, debugOverride)
 end
 
 function AreaTrigger:drawDebug(x, y)

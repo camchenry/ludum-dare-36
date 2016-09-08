@@ -40,6 +40,10 @@ function Director:update(dt, world)
     end
 end
 
+function Director:draw(debugOverride)
+    Object.draw(self, debugOverride)
+end
+
 function Director:drawDebug(x, y)
     local propertyStrings = {
         "Activate ID: " .. self.activateID,

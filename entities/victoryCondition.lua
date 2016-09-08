@@ -27,6 +27,10 @@ function VictoryCondition:check()
     end
 end
 
+function VictoryCondition:draw(debugOverride)
+    Object.draw(self, debugOverride)
+end
+
 function VictoryCondition:drawDebug(x, y)
     local propertyStrings = {
         "ID: " .. self.ID,

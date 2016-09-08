@@ -204,8 +204,8 @@ function NewCrusher:update(dt, world)
     end
 end
 
-function NewCrusher:draw()
-    
+function NewCrusher:draw(debugOverride)
+    Object.draw(self, debugOverride)
 end
 
 function NewCrusher:drawDebug(x, y)

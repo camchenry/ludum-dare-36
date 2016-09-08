@@ -14,12 +14,20 @@ function Object:initialize(x, y, w, h, properties)
     self.name = "Object"
 end
 
-function Object:drawDebug(x, y, propertyStrings)
-    love.graphics.setLineWidth(SCALEX)
-    love.graphics.setColor(255, 0, 0)
-    love.graphics.rectangle('line', x - self.width*SCALEX, y, self.width*SCALEX, self.height*SCALEY)
+function Object:draw(debugOverride, dx, dy)
+    if DEBUG and DRAW_HITBOXES or debugOverride then
+        dx, dy = dx or 0, dy or 0
 
+        love.graphics.setLineWidth(1)
+        love.graphics.setColor(127, 127, 127)
+        love.graphics.rectangle('line', math.floor(self.position.x + 1 + dx), math.floor(self.position.y + 1 + dy), self.width - 1, self.height - 1)
+        love.graphics.setColor(255, 255, 255)
+    end
+end
+
+function Object:drawDebug(x, y, propertyStrings)
     local spacing = 15
+    local margin = 5
 
     local info = {
         "Name: " .. self.name,
@@ -35,8 +43,21 @@ function Object:drawDebug(x, y, propertyStrings)
         end
     end
 
+    local maxWidth = 5
+    local currentFont = love.graphics.getFont()
+    for _, text in pairs(info) do
+        local textWidth = currentFont:getWidth(text)
+        if textWidth > maxWidth then
+            maxWidth = textWidth
+        end
+    end
+
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.rectangle("fill", x + 1*SCALEX - margin, y - margin, maxWidth + margin*2, spacing * #info + margin*2)
+
     for i, text in ipairs(info) do
-        love.graphics.print(text, x, y + (i-1)*spacing)
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.print(text, x + 1*SCALEX, y + (i-1)*spacing)
     end
 end
 
