@@ -1,6 +1,8 @@
 local AreaTrigger = Class("AreaTrigger", Object)
 
 function AreaTrigger:initialize(x, y, w, h, properties)
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "AreaTrigger"
 
     self.ID = properties.ID or 0
     self.ID2 = properties.ID2 or 0
@@ -70,7 +72,17 @@ function AreaTrigger:draw()
 end
 
 function AreaTrigger:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "ID2: " .. self.ID2,
+        "One Time: " .. (self.oneTime and "true" or "false"),
+        "Kill Bot: " .. (self.killBot and "true" or "false"),
+        "Signal Off: " .. (self.signalOff and "true" or "false"),
+        "WaitP&B: " .. (self.waitPlayerAndBot and "true" or "false"),
+        "Transition: " .. (self.transition and "true" or "false"),
+    }
 
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return AreaTrigger
