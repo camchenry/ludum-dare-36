@@ -15,3 +15,11 @@ DRAW_ATTACKBOX = false
 
 -- The item currently being inspected
 ACTIVE_ITEM = nil
+
+-- Dimensions of the game canvas
+CANVAS_WIDTH = 240
+CANVAS_HEIGHT = 160
+
+-- Scale factor of the game canvas
+SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
+SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT

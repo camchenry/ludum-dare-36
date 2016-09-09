@@ -4,7 +4,6 @@ function LevelLoader:initialize(directory)
     self.directory = directory or "assets/levels/"
 end
 
--- TODO refactor out references to the game state
 function LevelLoader:load(level)
     local map = STI(self.directory .. level .. ".lua", {"bump"})
     local objects = {}
@@ -69,7 +68,6 @@ function LevelLoader:load(level)
         end
     end
 
-    -- TODO fix this
     local textLayer = map:addCustomLayer("Text layer")
 
     textLayer.items = {}
@@ -90,13 +88,6 @@ function LevelLoader:load(level)
 
     function playerLayer:draw()
         self.player:draw()
-    end
-
-
-    print()
-    for i=1, #map.layers do
-        layer = map.layers[i]
-        print(layer.name)
     end
 
     for i, object in pairs(map.objects) do

@@ -1,8 +1,5 @@
 game = {}
 
-CANVAS_WIDTH = 240
-CANVAS_HEIGHT = 160
-
 function game:enter(from, ...)
     self:reset() 
     Signal.emit("gameEntered")
@@ -39,12 +36,6 @@ function game:reset()
     self.player = self.level.player
 
     ACTIVE_ITEM = nil
-
-    local function add(obj)
-        table.insert(self.objects, obj)
-        self.world:add(obj, obj.position.x, obj.position.y, obj.width, obj.height)
-        return obj
-    end
 
     self.camera = Camera()
 
