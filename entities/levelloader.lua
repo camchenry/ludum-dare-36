@@ -48,7 +48,7 @@ function LevelLoader:load(level)
     function objectsLayer:draw()
         for _, obj in ipairs(self.objects) do
             if obj.draw then
-                obj:draw(game.activeItem == obj)
+                obj:draw()
             end
         end
     end
@@ -65,7 +65,7 @@ function LevelLoader:load(level)
 
     function consoleLayer:draw()
         if self.console then
-            self.console:draw(game.activeItem == self.console)
+            self.console:draw()
         end
     end
 
@@ -76,7 +76,7 @@ function LevelLoader:load(level)
     
     function textLayer:draw()
         for _, item in pairs(self.items) do
-            item:draw(game.activeItem == item)
+            item:draw()
         end
     end
 
@@ -89,7 +89,7 @@ function LevelLoader:load(level)
     end
 
     function playerLayer:draw()
-        self.player:draw(game.activeItem == self.player)
+        self.player:draw()
     end
 
 

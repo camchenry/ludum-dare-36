@@ -38,7 +38,7 @@ function game:reset()
     self.world = self.level.world
     self.player = self.level.player
 
-    self.activeItem = nil
+    ACTIVE_ITEM = nil
 
     local function add(obj)
         table.insert(self.objects, obj)
@@ -151,9 +151,9 @@ function game:mousepressed(x, y, mbutton)
         return nil
     end)
 
-    self.activeItem = nil
+    ACTIVE_ITEM = nil
     if len > 0 then
-        self.activeItem = items[1]
+        ACTIVE_ITEM = items[1]
     end
 end
 
@@ -181,7 +181,7 @@ function game:draw()
             self.map:draw()
 
             if self.secretLayer then
-                self.secretLayer:draw(self.activeItem == self.secretLayer)
+                self.secretLayer:draw()
             end
         end)
     end)
@@ -191,7 +191,7 @@ function game:draw()
 
     if DEBUG then
         for _, obj in ipairs(self.objects) do
-            if obj.drawDebug and obj == self.activeItem then
+            if obj.drawDebug and obj == ACTIVE_ITEM then
                 local worldX, worldY = obj.position.x, obj.position.y
                 local cameraX, cameraY = self:cameraCoords(worldX + 0.5, worldY + 0.5)
 
