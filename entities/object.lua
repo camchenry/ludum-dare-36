@@ -14,8 +14,8 @@ function Object:initialize(x, y, w, h, properties)
     self.name = "Object"
 end
 
-function Object:draw(debugOverride, dx, dy)
-    if DEBUG and DRAW_HITBOXES or debugOverride then
+function Object:draw(dx, dy)
+    if DEBUG and DRAW_HITBOXES or ACTIVE_ITEM == self then
         dx, dy = dx or 0, dy or 0
 
         love.graphics.setLineWidth(1)

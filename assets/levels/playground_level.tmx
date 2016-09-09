@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="87">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="72">
  <tileset firstgid="1" name="Room3_Background" tilewidth="16" tileheight="16" tilecount="300" columns="20">
   <image source="../images/Backgrounds/Room3_Background.png" width="320" height="240"/>
  </tileset>
- <layer name="Tile Layer 1" width="100" height="100">
+ <layer name="Tiles" width="100" height="100">
   <properties>
    <property name="collidable" type="bool" value="true"/>
   </properties>
@@ -110,7 +110,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1">
+ <objectgroup name="Objects" visible="0">
   <object id="1" type="Spawn" x="896" y="624" width="16" height="32"/>
   <object id="2" type="NewCrusher" x="496" y="896" width="32" height="96">
    <properties>
@@ -130,7 +130,7 @@
   <object id="7" type="NewCrusher" x="544" y="944" width="32" height="96">
    <properties>
     <property name="auto" type="bool" value="true"/>
-    <property name="direction" value="down"/>
+    <property name="dir" value="down"/>
    </properties>
   </object>
   <object id="8" type="Lever" x="608" y="848" width="32" height="32">
@@ -302,39 +302,5 @@
     <property name="ID2" type="int" value="7"/>
    </properties>
   </object>
-  <object id="72" type="NewCrusher" x="320" y="864" width="32" height="96">
-   <properties>
-    <property name="auto" type="bool" value="true"/>
-    <property name="direction" value="left"/>
-   </properties>
-  </object>
-  <object id="73" type="NewCrusher" x="224" y="864" width="32" height="96">
-   <properties>
-    <property name="auto" type="bool" value="true"/>
-    <property name="direction" value="right"/>
-   </properties>
-  </object>
-  <object id="74" type="NewCrusher" x="144" y="864" width="32" height="96">
-   <properties>
-    <property name="auto" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="75" type="NewCrusher" x="48.6667" y="865.333" width="32" height="96">
-   <properties>
-    <property name="auto" type="bool" value="true"/>
-    <property name="direction" value="down"/>
-   </properties>
-  </object>
-  <object id="76" type="Dropfloor" x="359.5" y="879" width="48" height="16"/>
-  <object id="77" type="Dropfloor" x="359.5" y="941" width="48" height="16"/>
-  <object id="78" type="Dropfloor" x="263.667" y="923.167" width="48" height="16"/>
-  <object id="79" type="Dropfloor" x="263.167" y="868.5" width="48" height="16"/>
-  <object id="80" type="Dropfloor" x="182.667" y="869.333" width="36.6667" height="16"/>
-  <object id="81" type="Dropfloor" x="181.333" y="900" width="36.6667" height="16"/>
-  <object id="82" type="Dropfloor" x="180.333" y="932.667" width="36.6667" height="16"/>
-  <object id="83" type="Dropfloor" x="94.3333" y="871.333" width="36.6667" height="16"/>
-  <object id="84" type="Dropfloor" x="94.3333" y="902" width="36.6667" height="16"/>
-  <object id="85" type="Dropfloor" x="92.3333" y="939.333" width="36.6667" height="16"/>
-  <object id="86" type="Dropfloor" x="46.3333" y="980.667" width="384.667" height="16"/>
  </objectgroup>
 </map>

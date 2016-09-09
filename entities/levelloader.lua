@@ -17,9 +17,91 @@ function LevelLoader:load(level)
         return obj
     end
 
+    local objectsLayer = map:addCustomLayer("Objects layer")
+
+    objectsLayer.objects = objects
+
+    function objectsLayer:update(dt)
+        for _, obj in ipairs(self.objects) do
+            if obj.class and obj:isInstanceOf(Crusher) then
+                obj.hasMoved = false
+            end
+        end
+
+        for _, obj in ipairs(self.objects) do
+            if obj.update then
+                if obj.class and obj:isInstanceOf(NewCrusher) then
+                    obj:update(dt, world)
+                end
+            end
+        end
+
+        for _, obj in ipairs(self.objects) do
+            if obj.update then
+                if obj.class and not obj:isInstanceOf(NewCrusher) and not obj:isInstanceOf(Player) then
+                    obj:update(dt, world)
+                end
+            end
+        end
+    end
+
+    function objectsLayer:draw()
+        for _, obj in ipairs(self.objects) do
+            if obj.draw then
+                obj:draw()
+            end
+        end
+    end
+
+    local consoleLayer = map:addCustomLayer("Console layer")
+
+    consoleLayer.console = nil
+
+    function consoleLayer:update(dt)
+        if self.console then
+            self.console:update(dt)
+        end
+    end
+
+    function consoleLayer:draw()
+        if self.console then
+            self.console:draw()
+        end
+    end
+
+    -- TODO fix this
+    local textLayer = map:addCustomLayer("Text layer")
+
+    textLayer.items = {}
+    
+    function textLayer:draw()
+        for _, item in pairs(self.items) do
+            item:draw()
+        end
+    end
+
+    local playerLayer = map:addCustomLayer("Player layer")
+
+    playerLayer.player = nil
+
+    function playerLayer:update(dt)
+        self.player:update(dt, world)
+    end
+
+    function playerLayer:draw()
+        self.player:draw()
+    end
+
+
+    print()
+    for i=1, #map.layers do
+        layer = map.layers[i]
+        print(layer.name)
+    end
+
     for i, object in pairs(map.objects) do
         if object.type == "Wrench" then
-            game.wrench = add(Wrench:new(object.x, object.y, object.width, object.height, object.properties))
+            add(Wrench:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Enemy" then
@@ -27,11 +109,11 @@ function LevelLoader:load(level)
         end
 
         if object.type == "MovingPlatform" then
-            local platform = add(MovingPlatform:new(object.x, object.y, object.width, object.height, object.properties))
+            add(MovingPlatform:new(object.x, object.y, object.width, object.height, object.properties))
         end
         
         if object.type == "Console" then
-            game.console = Console:new(object.x, object.y, object.width, object.height, object.properties)
+            consoleLayer.console = Console:new(object.x, object.y, object.width, object.height, object.properties)
         end
 
         if object.type == "Checkpoint" then
@@ -71,7 +153,7 @@ function LevelLoader:load(level)
         end
 
         if object.type == "ShowText" then
-            table.insert(game.textItems, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
+            table.insert(textLayer.items, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Teleport" then
@@ -83,7 +165,7 @@ function LevelLoader:load(level)
         end
 
         if object.type == "Spawn" then
-            game.player = add(Player:new(object.x, object.y, object.width, object.height, object.properties))
+            playerLayer.player = add(Player:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "NewCrusher" then
@@ -98,7 +180,8 @@ function LevelLoader:load(level)
     return {
         map = map,
         world = world,
-        objects = objects,
+        objects = map.objects,
+        player = playerLayer.player,
     }
 end
 

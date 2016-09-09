@@ -32,13 +32,13 @@ function game:reset()
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
 
     self.levelLoader = LevelLoader:new()
-    self.textItems = {} -- TODO refactor this out
     self.level = self.levelLoader:load("playground_level")
     self.map = self.level.map
     self.objects = self.level.objects
     self.world = self.level.world
+    self.player = self.level.player
 
-    self.activeItem = nil
+    ACTIVE_ITEM = nil
 
     local function add(obj)
         table.insert(self.objects, obj)
@@ -68,30 +68,6 @@ end
 function game:update(dt)
     if not self.pause then
         self.map:update(dt)
-
-        if self.console then
-            self.console:update(dt)
-        end
-
-        for _, obj in ipairs(self.objects) do
-            if obj.class and obj:isInstanceOf(Crusher) then
-                obj.hasMoved = false
-            end
-        end
-
-        for _, obj in ipairs(self.objects) do
-            if obj.class and obj:isInstanceOf(NewCrusher) then
-                obj:update(dt, self.world)
-            end
-        end
-
-        for _, obj in ipairs(self.objects) do
-            if obj.update then
-                if obj.class and not obj:isInstanceOf(NewCrusher) then
-                    obj:update(dt, self.world)
-                end
-            end
-        end
 
         if self.secretLayer then
             self.secretLayer:update(dt)
@@ -175,9 +151,9 @@ function game:mousepressed(x, y, mbutton)
         return nil
     end)
 
-    self.activeItem = nil
+    ACTIVE_ITEM = nil
     if len > 0 then
-        self.activeItem = items[1]
+        ACTIVE_ITEM = items[1]
     end
 end
 
@@ -204,24 +180,8 @@ function game:draw()
             self.map:setDrawRange(math.floor(camera.x), math.floor(camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
 
-            if self.console then
-                self.console:draw(self.activeItem == self.console)
-            end
-
-            for _, obj in ipairs(self.objects) do
-                if obj.draw then
-                    obj:draw(self.activeItem == obj)
-                end
-            end
-
-            for _, textItem in pairs(self.textItems) do
-                textItem:draw(self.activeItem == textItem)
-            end
-
-            self.player:draw(self.activeItem == self.player)
-
             if self.secretLayer then
-                self.secretLayer:draw(self.activeItem == self.secretLayer)
+                self.secretLayer:draw()
             end
         end)
     end)
@@ -231,7 +191,7 @@ function game:draw()
 
     if DEBUG then
         for _, obj in ipairs(self.objects) do
-            if obj.drawDebug and obj == self.activeItem then
+            if obj.drawDebug and obj == ACTIVE_ITEM then
                 local worldX, worldY = obj.position.x, obj.position.y
                 local cameraX, cameraY = self:cameraCoords(worldX + 0.5, worldY + 0.5)
 

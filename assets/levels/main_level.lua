@@ -1,7 +1,7 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "0.17.0",
+  tiledversion = "2016.08.26",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
@@ -206,7 +206,7 @@ return {
     },
     {
       type = "tilelayer",
-      name = "Tile Layer 1",
+      name = "Tiles",
       x = 0,
       y = 0,
       width = 100,
@@ -354,7 +354,7 @@ return {
     },
     {
       type = "objectgroup",
-      name = "Object Layer 1",
+      name = "Objects",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -700,10 +700,10 @@ return {
           visible = true,
           properties = {
             ["ID"] = "2",
-            ["direction"] = "-1",
-            ["jumpAccel"] = "10000",
-            ["jumpInterval"] = "3",
-            ["jumping"] = "true"
+            ["direction"] = -1,
+            ["jumpAccel"] = 10000,
+            ["jumpInterval"] = 3,
+            ["jumping"] = true
           }
         },
         {
@@ -754,10 +754,10 @@ return {
           visible = true,
           properties = {
             ["ID"] = "2",
-            ["direction"] = "-1",
-            ["jumpAccel"] = "10000",
-            ["jumpInterval"] = "3",
-            ["jumping"] = "true"
+            ["direction"] = -1,
+            ["jumpAccel"] = 10000,
+            ["jumpInterval"] = 3,
+            ["jumping"] = true
           }
         },
         {
@@ -1293,7 +1293,7 @@ return {
           visible = true,
           properties = {
             ["ID"] = "500",
-            ["textID"] = "1"
+            ["textID"] = 1
           }
         },
         {
@@ -2269,7 +2269,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["crushTime"] = 0.6,
+            ["crushTime"] = 0.59999999999999998,
             ["dir"] = "up",
             ["img"] = 2,
             ["reset"] = false
@@ -2288,11 +2288,11 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["crushTime"] = 0.6,
+            ["crushTime"] = 0.59999999999999998,
             ["dir"] = "up",
             ["img"] = 2,
             ["reset"] = false,
-            ["waitTime"] = 0.8
+            ["waitTime"] = 0.80000000000000004
           }
         },
         {
@@ -2346,7 +2346,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["crushTime"] = 0.6,
+            ["crushTime"] = 0.59999999999999998,
             ["img"] = 2,
             ["reset"] = false
           }
@@ -2364,7 +2364,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["crushTime"] = 0.6,
+            ["crushTime"] = 0.59999999999999998,
             ["img"] = 2,
             ["reset"] = false
           }
@@ -2439,7 +2439,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.4,
+            ["crushTime"] = 0.40000000000000002,
             ["img"] = 8,
             ["reset"] = false
           }
@@ -2456,7 +2456,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.4,
+            ["crushTime"] = 0.40000000000000002,
             ["img"] = 8,
             ["reset"] = false
           }
@@ -2473,10 +2473,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.4,
+            ["crushTime"] = 0.40000000000000002,
             ["img"] = 8,
             ["reset"] = false,
-            ["waitTime"] = 0.6
+            ["waitTime"] = 0.59999999999999998
           }
         },
         {
@@ -2491,7 +2491,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.8,
+            ["crushTime"] = 0.80000000000000004,
             ["img"] = 15,
             ["reset"] = false,
             ["retractTime"] = 1.2,
@@ -2510,7 +2510,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.8,
+            ["crushTime"] = 0.80000000000000004,
             ["img"] = 15,
             ["reset"] = false,
             ["retractTime"] = 1.2,

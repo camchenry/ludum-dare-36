@@ -57,7 +57,7 @@
  <imagelayer name="Puzzle_Room3" offsetx="720" offsety="128">
   <image source="../images/Backgrounds/RoomPuzzle3_Background.png" width="560" height="464"/>
  </imagelayer>
- <layer name="Tile Layer 1" width="100" height="130" visible="0">
+ <layer name="Tiles" width="100" height="130" visible="0">
   <properties>
    <property name="collidable" type="bool" value="true"/>
   </properties>
@@ -194,7 +194,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1">
+ <objectgroup name="Objects">
   <object id="524" type="Console" x="160" y="1472" width="208" height="128">
    <properties>
     <property name="ID" value="20"/>
@@ -277,10 +277,10 @@
   <object id="556" type="Enemy" x="1192" y="1744" width="16" height="16">
    <properties>
     <property name="ID" value="2"/>
-    <property name="direction" value="-1"/>
-    <property name="jumpAccel" value="10000"/>
-    <property name="jumpInterval" value="3"/>
-    <property name="jumping" value="true"/>
+    <property name="direction" type="int" value="-1"/>
+    <property name="jumpAccel" type="int" value="10000"/>
+    <property name="jumpInterval" type="int" value="3"/>
+    <property name="jumping" type="bool" value="true"/>
    </properties>
   </object>
   <object id="557" type="Lever" x="688" y="2032" width="16" height="32">
@@ -301,10 +301,10 @@
   <object id="559" type="Enemy" x="1112" y="1744" width="16" height="16">
    <properties>
     <property name="ID" value="2"/>
-    <property name="direction" value="-1"/>
-    <property name="jumpAccel" value="10000"/>
-    <property name="jumpInterval" value="3"/>
-    <property name="jumping" value="true"/>
+    <property name="direction" type="int" value="-1"/>
+    <property name="jumpAccel" type="int" value="10000"/>
+    <property name="jumpInterval" type="int" value="3"/>
+    <property name="jumping" type="bool" value="true"/>
    </properties>
   </object>
   <object id="560" type="Dropfloor" x="1232" y="1600" width="32" height="16"/>
@@ -486,7 +486,7 @@
   <object id="595" type="ShowText" x="316" y="1550.27">
    <properties>
     <property name="ID" value="500"/>
-    <property name="textID" value="1"/>
+    <property name="textID" type="int" value="1"/>
    </properties>
   </object>
   <object id="597" type="Spikes" x="464" y="1984" width="32" height="16"/>
@@ -820,7 +820,7 @@
   <object id="680" type="Crusher" x="1152" y="1104" width="32" height="96">
    <properties>
     <property name="auto" type="bool" value="true"/>
-    <property name="crushTime" type="float" value="0.6"/>
+    <property name="crushTime" type="float" value="0.59999999999999998"/>
     <property name="dir" value="up"/>
     <property name="img" type="int" value="2"/>
     <property name="reset" type="bool" value="false"/>
@@ -829,11 +829,11 @@
   <object id="682" type="Crusher" x="1088" y="1104" width="32" height="96">
    <properties>
     <property name="auto" type="bool" value="true"/>
-    <property name="crushTime" type="float" value="0.6"/>
+    <property name="crushTime" type="float" value="0.59999999999999998"/>
     <property name="dir" value="up"/>
     <property name="img" type="int" value="2"/>
     <property name="reset" type="bool" value="false"/>
-    <property name="waitTime" type="float" value="0.8"/>
+    <property name="waitTime" type="float" value="0.80000000000000004"/>
    </properties>
   </object>
   <object id="683" type="Crusher" x="896" y="1104" width="32.5" height="97.5">
@@ -857,7 +857,7 @@
   <object id="685" type="Crusher" x="848" y="1104" width="32" height="96">
    <properties>
     <property name="auto" type="bool" value="true"/>
-    <property name="crushTime" type="float" value="0.6"/>
+    <property name="crushTime" type="float" value="0.59999999999999998"/>
     <property name="img" type="int" value="2"/>
     <property name="reset" type="bool" value="false"/>
    </properties>
@@ -865,7 +865,7 @@
   <object id="686" type="Crusher" x="752" y="1104" width="32" height="96">
    <properties>
     <property name="auto" type="bool" value="true"/>
-    <property name="crushTime" type="float" value="0.6"/>
+    <property name="crushTime" type="float" value="0.59999999999999998"/>
     <property name="img" type="int" value="2"/>
     <property name="reset" type="bool" value="false"/>
    </properties>
@@ -900,29 +900,29 @@
   </object>
   <object id="691" type="Crusher" x="992" y="1936" width="32" height="64">
    <properties>
-    <property name="crushTime" type="float" value="0.4"/>
+    <property name="crushTime" type="float" value="0.40000000000000002"/>
     <property name="img" type="int" value="8"/>
     <property name="reset" type="bool" value="false"/>
    </properties>
   </object>
   <object id="692" type="Crusher" x="1136" y="1936" width="32" height="64">
    <properties>
-    <property name="crushTime" type="float" value="0.4"/>
+    <property name="crushTime" type="float" value="0.40000000000000002"/>
     <property name="img" type="int" value="8"/>
     <property name="reset" type="bool" value="false"/>
    </properties>
   </object>
   <object id="693" type="Crusher" x="1088" y="1936" width="32" height="64">
    <properties>
-    <property name="crushTime" type="float" value="0.4"/>
+    <property name="crushTime" type="float" value="0.40000000000000002"/>
     <property name="img" type="int" value="8"/>
     <property name="reset" type="bool" value="false"/>
-    <property name="waitTime" type="float" value="0.6"/>
+    <property name="waitTime" type="float" value="0.59999999999999998"/>
    </properties>
   </object>
   <object id="694" type="Crusher" x="528" y="1856" width="32" height="80">
    <properties>
-    <property name="crushTime" type="float" value="0.8"/>
+    <property name="crushTime" type="float" value="0.80000000000000004"/>
     <property name="img" type="int" value="15"/>
     <property name="reset" type="bool" value="false"/>
     <property name="retractTime" type="float" value="1.2"/>
@@ -931,7 +931,7 @@
   </object>
   <object id="696" type="Crusher" x="480" y="1856" width="32" height="80">
    <properties>
-    <property name="crushTime" type="float" value="0.8"/>
+    <property name="crushTime" type="float" value="0.80000000000000004"/>
     <property name="img" type="int" value="15"/>
     <property name="reset" type="bool" value="false"/>
     <property name="retractTime" type="float" value="1.2"/>
