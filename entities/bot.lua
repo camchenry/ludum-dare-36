@@ -28,6 +28,8 @@ function Bot:initialize(x, y, w, h, properties)
     self.gravity = 160
     self.speed = 15
 
+    self.pushable = true
+
     self.movement = true
     self.dead = false
 
@@ -194,7 +196,7 @@ function Bot:checkFootBox(world)
             local y = item.position.y - self.height
 
             -- center the bot on the crusher
-            if item.on or item.waiting then
+            if not item.finishedMovement and item.moving then
                 x = item.position.x + item.width/2 - self.width/2
             end
 

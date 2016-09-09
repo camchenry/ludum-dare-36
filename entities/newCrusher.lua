@@ -37,6 +37,7 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.name = "NewCrusher"
 
     self.startPosition = Vector(x, y)
+    self.startWidth, self.startHeight = w, h
 
     self.on           = properties.on or true
     self.auto         = properties.auto or false
@@ -45,17 +46,25 @@ function NewCrusher:initialize(x, y, w, h, properties)
 
     self.collidable = true
 
+    self.horizontal = (self.direction == "left" or self.direction == "right")
+    self.reverse = (self.direction == "up" or self.direction == "left")
+
+    self.elevator = false
+
     self.moving = false
     self.waiting = true
+    self.finishedMovement = false
 
     self.beginState = 1
     self.currentState = self.beginState
     self.currentStateTime = 0
 
+    self.offset = 0
+
     self.stateTimes = {
-        0.2,
         1,
-        0.4,
+        1,
+        1,
         1,
     }
     assert(#self.stateTimes % 2 == 0, "Number of states must be even")
@@ -81,8 +90,6 @@ function NewCrusher:advanceState(world)
             self.currentState = self:getNextState(self.currentState)
             self.currentStateTime = 0
 
-            world:update(self, self.position.x, self.position.y)
-
             if not self.auto then
                 self.on = false
             end
@@ -93,9 +100,10 @@ function NewCrusher:advanceState(world)
     end
 end
 
-function NewCrusher:move(world, x, y)
-    if x ~= self.position.x or y ~= self.position.y then
+function NewCrusher:move(world, x, y, w, h)
+    --if x ~= self.position.x or y ~= self.position.y then
         self.position.x, self.position.y = x, y
+        self.width, self.height = w, h
 
         local extraCheck = 0
 
@@ -104,51 +112,48 @@ function NewCrusher:move(world, x, y)
         for k, item in pairs(items) do
             if item.pushable then
                 local crush = {}
-                if item.position.y <= self.position.y then
-                    if not item.jumpControlTimer or item.jumpControlTimer <= 0 then
-                        crush.bottom = true
-
-                        local x = item.position.x
-                        if item.controlled then
-                            x = self.position.x + self.width/2 - item.width/2
-                        end
-
-                        item:move(world, x, self.position.y - item.height, true, crush, self)
-                        item.touchedNewCrusher = true
-                        item.touchingGround = true
+                if self.horizontal then
+                    if item.position.x <= self.position.x then
+                        item:move(world, x - item.width, item.position.y, true, crush, self)
+                    else
+                        --error('ok')
+                        item:move(world, x + self.width + 5, item.position.y, true, crush, self)
                     end
                 else
-                    if self.lastMove > 0 then
-                        crush.top = true
-                        item:move(world, item.position.x, self.position.y + self.height, true, crush)
-                        
-                        item.velocity.y = math.max(0, item.velocity.y)
+                    if item.position.y <= self.position.y then
+                        if not item.jumpControlTimer or item.jumpControlTimer <= 0 then
+                            crush.bottom = true
+
+                            local x = item.position.x
+                            if item.controlled then
+                                x = self.position.x + self.width/2 - item.width/2
+                            end
+
+                            item:move(world, x, self.position.y - item.height, true, crush, self)
+                            item.touchedNewCrusher = true
+                            item.touchingGround = true
+                        end
+                    else
+                        if self.lastMove > 0 then
+                            crush.top = true
+                            item:move(world, item.position.x, self.position.y + self.height, true, crush)
+                            
+                            item.velocity.y = math.max(0, item.velocity.y)
+                        end
                     end
                 end
             end
         end
 
-        world:update(self, self.position.x, self.position.y)
-    end
+        world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
+    --end
 end
 
 function NewCrusher:findGoal()
-    local goal = false
-    local disp = 0
+    local goal = 0
 
-    -- account for reverse crushers
-    if (self.direction == "up" and self.currentState == 2 and self.moving) then
-        goal = self.startPosition.y + self.height
-        disp = self.height
-    elseif (self.direction == "up" and self.currentState == 4 and self.moving) then
-        goal = self.startPosition.y
-        disp = -self.height
-    elseif (self.direction == "down" and self.currentState == 2 and self.moving) then
-        goal = self.startPosition.y - self.height
-        disp = -self.height
-    elseif (self.direction == "down" and self.currentState == 4 and self.moving) then
-        goal = self.startPosition.y
-        disp = self.height
+    if self.currentState == 2 or self.currentState == 3 then
+        goal = 1
     end
 
     return goal, disp
@@ -166,41 +171,69 @@ function NewCrusher:getSpeed()
 end
 
 function NewCrusher:update(dt, world)
+    self.finishedMovement = false
+
     local doMove = true
 
     self.currentStateTime = self.currentStateTime + dt
 
     if self.currentStateTime >= self.stateTimes[self.currentState] then
-        local goal, disp = self:findGoal()
-        if goal then
-            self:move(world, self.startPosition.x, goal)
-        end
+        self.finishedMovement = true
         self:advanceState(world)
-        doMove = false
     end
 
     self.lastMove = 0
 
+    self.height = self.startHeight * (1 - self.offset)
+
     if doMove then
         local dy = 0
 
-        if self.waiting then
-            -- do nothing
-        elseif self.moving then
-            -- speed = dist / time
-            local goal, disp = self:findGoal()
+        if not self.waiting then
+            local goal = 0
 
-            if goal then
-                local time = self.stateTimes[self.currentState]
-                local speed = disp / time
-
-                dy = speed * dt
+            if self.currentState == 1 or self.currentState == 4 then
+                goal = 1
             end
+
+            local time = self.stateTimes[self.currentState]
+            local speed = 1 / time
+
+            dy = speed * dt
+
+            if self.currentState == 2 or self.currentState == 3 then
+                dy = dy * -1
+            end
+
+            if self.reverse then
+                dy = dy * -1
+            end
+
+            self.offset = self.offset + dy
+            self.offset = math.max(0, math.min(1, self.offset))
         end
 
         self.lastMove = dy
 
-        self:move(world, self.position.x, self.position.y + dy)
+        local x, y, width, height = self.startPosition.x, self.startPosition.y, self.startWidth, self.startHeight
+
+        if self.elevator then
+            if self.horizontal then
+                width = width * (1 - self.offset)
+            else
+                height = height * (1 - self.offset)
+            end
+        end
+
+        if not self.elevator or not self.reverse then
+            if self.horizontal then
+                x = x + self.offset * self.startWidth
+            else
+                y = y + self.offset * self.startHeight
+            end
+        end
+
+        self:move(world, x, y, width, height)
     end
 end
 
@@ -210,8 +243,13 @@ end
 
 function NewCrusher:drawDebug(x, y)
     local propertyStrings = {
+        "Offset: " .. self.offset,
+        "Current State: " .. self.currentState,
         "ID: " .. self.ID,
         "Direction: " .. self.direction,
+        "Moving: " .. (self.moving and "true" or "false"),
+        "Waiting: " .. (self.waiting and "true" or "false"),
+        "Finished Movement: " .. (self.finishedMovement and "true" or "false"),
         "Auto: " .. (self.auto and "true" or "false"),
         "On: " .. (self.on and "true" or "false"),
     }

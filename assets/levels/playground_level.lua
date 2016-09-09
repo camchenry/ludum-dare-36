@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 72,
+  nextobjectid = 87,
   properties = {},
   tilesets = {
     {
@@ -153,7 +153,7 @@ return {
     {
       type = "objectgroup",
       name = "Object Layer 1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -231,7 +231,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["dir"] = "down"
+            ["direction"] = "down"
           }
         },
         {
@@ -988,6 +988,212 @@ return {
             ["ID"] = 5,
             ["ID2"] = 7
           }
+        },
+        {
+          id = 72,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 320,
+          y = 864,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["auto"] = true,
+            ["direction"] = "left"
+          }
+        },
+        {
+          id = 73,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 224,
+          y = 864,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["auto"] = true,
+            ["direction"] = "right"
+          }
+        },
+        {
+          id = 74,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 144,
+          y = 864,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["auto"] = true
+          }
+        },
+        {
+          id = 75,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 48.6667,
+          y = 865.333,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["auto"] = true,
+            ["direction"] = "down"
+          }
+        },
+        {
+          id = 76,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 359.5,
+          y = 879,
+          width = 48,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 77,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 359.5,
+          y = 941,
+          width = 48,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 78,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 263.667,
+          y = 923.167,
+          width = 48,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 79,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 263.167,
+          y = 868.5,
+          width = 48,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 80,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 182.667,
+          y = 869.333,
+          width = 36.6667,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 81,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 181.333,
+          y = 900,
+          width = 36.6667,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 82,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 180.333,
+          y = 932.667,
+          width = 36.6667,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 83,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 94.3333,
+          y = 871.333,
+          width = 36.6667,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 84,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 94.3333,
+          y = 902,
+          width = 36.6667,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 85,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 92.3333,
+          y = 939.333,
+          width = 36.6667,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 86,
+          name = "",
+          type = "Dropfloor",
+          shape = "rectangle",
+          x = 46.3333,
+          y = 980.667,
+          width = 384.667,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }
