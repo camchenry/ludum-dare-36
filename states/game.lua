@@ -38,6 +38,8 @@ function game:reset()
     self.world = self.level.world
     self.player = self.level.player
 
+    self.activeItem = nil
+
     local function add(obj)
         table.insert(self.objects, obj)
         self.world:add(obj, obj.position.x, obj.position.y, obj.width, obj.height)
@@ -46,7 +48,15 @@ function game:reset()
 
     self.camera = Camera()
 
-    self.dot = {x = 0, y = 0}
+    self.debugCamera = Camera()
+    self.debugCameraSpeed = 4
+    self.debugCameraOffset = Vector(0, 0)
+    self.showDebugCamera = false
+
+    self.activeCamera = self.camera
+
+    self.pause = false
+
     self.soundManager = SoundManager:new()
 
     self.effects = {}
@@ -56,31 +66,34 @@ function game:reset()
 end
 
 function game:update(dt)
-    self.map:update(dt)
+    if not self.pause then
+        self.map:update(dt)
 
-    for _, obj in ipairs(self.objects) do
-        if obj.class and obj:isInstanceOf(Crusher) then
-            obj.hasMoved = false
-        end
-    end
-
-    for _, obj in ipairs(self.objects) do
-        if obj.class and obj:isInstanceOf(NewCrusher) then
-            obj:update(dt, self.world)
-        end
-    end
-
-    for _, obj in ipairs(self.objects) do
-        if obj.update then
-            if obj.class and not obj:isInstanceOf(NewCrusher) and not obj:isInstanceOf(Player) then
-                obj:update(dt, self.world)
+        for _, obj in ipairs(self.objects) do
+            if obj.class and obj:isInstanceOf(Crusher) then
+                obj.hasMoved = false
             end
         end
-    end
-    
 
-    if self.secretLayer then
-        self.secretLayer:update(dt)
+        for _, obj in ipairs(self.objects) do
+            if obj.update then
+                if obj.class and obj:isInstanceOf(NewCrusher) then
+                    obj:update(dt, self.world)
+                end
+            end
+        end
+
+        for _, obj in ipairs(self.objects) do
+            if obj.update then
+                if obj.class and not obj:isInstanceOf(NewCrusher) and not obj:isInstanceOf(Player) then
+                    obj:update(dt, self.world)
+                end
+            end
+        end
+
+        if self.secretLayer then
+            self.secretLayer:update(dt)
+        end
     end
 
     -- Change this to an option for disabling screen shake
@@ -88,8 +101,41 @@ function game:update(dt)
     if true then
         dx, dy = self.effects.screenShake:getOffset()
     end
-    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2 + dx))
-    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2 + dy))
+    self.camera:lockX(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2 + dx)
+    self.camera:lockY(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2 + dy)
+
+    if self.showDebugCamera then
+        local dx, dy = 0, 0
+        local isLeft, isRight = love.keyboard.isDown('a', 'left'), love.keyboard.isDown('d', 'right')
+        local isUp, isDown = love.keyboard.isDown('w', 'up'), love.keyboard.isDown('s', 'down')
+
+        if isLeft and isRight then
+            dx = 0
+        elseif isLeft then
+            dx = -self.debugCameraSpeed
+        elseif isRight then
+            dx = self.debugCameraSpeed
+        end
+
+        if isUp and isDown then
+            dy = 0
+        elseif isUp then
+            dy = -self.debugCameraSpeed
+        elseif isDown then
+            dy = self.debugCameraSpeed
+        end
+
+        if dx ~= 0 and dy ~= 0 then
+            local mult = math.sin(math.pi/4)
+            dx, dy = dx * mult, dy * mult
+        end
+
+        self.debugCameraOffset.x = self.debugCameraOffset.x + dx
+        self.debugCameraOffset.y = self.debugCameraOffset.y + dy
+
+        self.debugCamera:lockX(self.debugCameraOffset.x)
+        self.debugCamera:lockY(self.debugCameraOffset.y)
+    end
 
     self.soundManager:update(dt)
     for _, effect in pairs(self.effects) do
@@ -98,58 +144,92 @@ function game:update(dt)
 end
 
 function game:keypressed(key, code)
+    if key == "f2" then
+        self.pause = not self.pause
+    end
+    if key == "f3" then
+        self.showDebugCamera = not self.showDebugCamera
+
+        if self.showDebugCamera then
+            self.activeCamera = self.debugCamera
+            self.debugCameraOffset.x = self.camera.x
+            self.debugCameraOffset.y = self.camera.y
+        else
+            self.activeCamera = self.camera
+        end
+    end
+
     self.player:keypressed(key)
 end
 
 function game:mousepressed(x, y, mbutton)
-    self.dot.x, self.dot.y = self.camera.x + x/SCALEX, self.camera.y + y/SCALEY
+    local worldX, worldY = self:worldCoords(x, y)
+
+    local items, len = self.world:queryPoint(worldX, worldY, function(item)
+        if item.class then
+            return item
+        end
+
+        return nil
+    end)
+
+    self.activeItem = nil
+    if len > 0 then
+        self.activeItem = items[1]
+    end
 end
 
 function game:worldCoords(x, y)
-    return self.camera.x + x/SCALEX, self.camera.y + y/SCALEY
+    return self.activeCamera.x + x/SCALEX, self.activeCamera.y + y/SCALEY
 end
 
 function game:cameraCoords(x, y)
-    return (x - self.camera.x)*SCALEX, (y - self.camera.y)*SCALEY
+    return (x - self.activeCamera.x)*SCALEX, (y - self.activeCamera.y)*SCALEY
 end
 
 function game:draw()
     love.graphics.setBackgroundColor(32, 65, 77)
 
+    local camera = self.activeCamera
+    oldCameraX, oldCameraY = camera.x, camera.y
+    camera.x, camera.y = math.floor(camera.x), math.floor(camera.y)
+
     self.canvas:renderTo(function()
-        love.graphics.clear()  
-        self.camera:draw(function()
+        love.graphics.clear()
+
+        camera:draw(function()
             love.graphics.setLineWidth(1)
-            self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
+            self.map:setDrawRange(math.floor(camera.x), math.floor(camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
 
             for _, obj in ipairs(self.objects) do
                 if obj.draw then
-                    obj:draw()
+                    obj:draw(self.activeItem == obj)
                 end
             end
 
             if self.secretLayer then
-                self.secretLayer:draw()
+                self.secretLayer:draw(self.activeItem == self.secretLayer)
             end
-
-            love.graphics.setColor(255, 0, 0)
-            love.graphics.circle('fill', self.dot.x, self.dot.y, 5)
         end)
     end)
 
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(self.canvas, 0, 0, 0, SCALEX, SCALEY)
 
-    for _, obj in ipairs(self.objects) do
-        if obj.drawDebug then
-            local worldX, worldY = obj.position.x, obj.position.y
-            local cameraX, cameraY = self:cameraCoords(worldX, worldY)
+    if DEBUG then
+        for _, obj in ipairs(self.objects) do
+            if obj.drawDebug and obj == self.activeItem then
+                local worldX, worldY = obj.position.x, obj.position.y
+                local cameraX, cameraY = self:cameraCoords(worldX + 0.5, worldY + 0.5)
 
-            cameraX = cameraX + obj.width * SCALEX
-            cameraX, cameraY = cameraX - cameraX % SCALEX, cameraY - cameraY % SCALEY
+                cameraX = cameraX + obj.width * SCALEX
+                cameraX, cameraY = cameraX - cameraX % SCALEX, cameraY - cameraY % SCALEY
 
-            obj:drawDebug(cameraX, cameraY)
+                obj:drawDebug(cameraX, cameraY)
+            end
         end
     end
+
+    camera.x, camera.y = oldCameraX, oldCameraY
 end

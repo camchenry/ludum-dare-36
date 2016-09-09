@@ -39,6 +39,10 @@ function Teleport:teleportEntity(item)
     end
 end
 
+function Teleport:draw(debugOverride)
+    Object.draw(self, debugOverride)
+end
+
 function Teleport:drawDebug(x, y)
     local propertyStrings = {
         "ID: " .. self.ID,

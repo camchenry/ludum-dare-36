@@ -14,7 +14,9 @@ function Wrench:activate()
     self.activated = true
 end
 
-function Wrench:draw()
+function Wrench:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     if self.activated then
         love.graphics.setColor(255, 255, 255)
         love.graphics.draw(self.image, self.position.x + self.imageOffset.x, self.position.y + self.imageOffset.y)

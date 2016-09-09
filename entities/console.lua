@@ -37,7 +37,9 @@ function Console:update(dt)
     self.halfAnimation:update(dt)
 end
 
-function Console:draw()
+function Console:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     if self.progress == 0 then
         self.closedAnimation:draw(self.closedImage, self.position.x, self.position.y)
     elseif self.progress == 1 then

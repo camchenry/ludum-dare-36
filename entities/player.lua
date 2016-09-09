@@ -482,8 +482,10 @@ function Player:checkFootBox(world)
     end
 end
 
-function Player:draw()
-    if DEBUG then
+function Player:draw(debugOverride)
+    Object.draw(self, debugOverride, 0.5, 0.5)
+    
+    if DEBUG and DRAW_ATTACKBOX then
         love.graphics.setColor(0, 0, 255)
         local offset = 0
         if self.facing == -1 then

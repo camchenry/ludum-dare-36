@@ -46,7 +46,9 @@ function ShowText:update(dt, world)
 
 end
 
-function ShowText:draw()
+function ShowText:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     if self.showImage then
         if self.image then
             love.graphics.draw(self.image, self.position.x, self.position.y)

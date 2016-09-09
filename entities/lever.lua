@@ -22,7 +22,9 @@ function Lever:reset()
     self.active = false
 end
 
-function Lever:draw()
+function Lever:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     local image = Lever.offImage
 
     if self.active then

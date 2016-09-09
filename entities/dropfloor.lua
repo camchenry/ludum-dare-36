@@ -7,6 +7,10 @@ function Dropfloor:initialize(x, y, w, h, properties)
     self.collidable = true
 end
 
+function Dropfloor:draw(debugOverride)
+    Object.draw(self, debugOverride)
+end
+
 function Dropfloor:drawDebug(x, y)
     Object.drawDebug(self, x, y)
 end

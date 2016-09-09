@@ -5,6 +5,10 @@ function Spikes:initialize(x, y, w, h, properties)
     self.name = "Spikes"
 end
 
+function Spikes:draw(debugOverride)
+    Object.draw(self, debugOverride)
+end
+
 function Spikes:drawDebug(x, y)
     Object.drawDebug(self, x, y)
 end

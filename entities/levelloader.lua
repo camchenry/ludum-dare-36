@@ -26,7 +26,7 @@ function LevelLoader:load(level)
     end
 
     function playerLayer:draw()
-        self.player:draw()
+        self.player:draw(game.activeItem == self.player)
     end
 
     local consoleLayer = map:addCustomLayer("Console layer", 3)
@@ -41,7 +41,7 @@ function LevelLoader:load(level)
 
     function consoleLayer:draw()
         if self.console then
-            self.console:draw()
+            self.console:draw(game.activeItem == self.console)
         end
     end
 
@@ -52,7 +52,7 @@ function LevelLoader:load(level)
     
     function textLayer:draw()
         for _, item in pairs(self.items) do
-            item:draw()
+            item:draw(game.activeItem == item)
         end
     end
 

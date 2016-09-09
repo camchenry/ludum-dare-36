@@ -25,7 +25,9 @@ function SecretLayer:update(dt)
     end
 end
 
-function SecretLayer:draw()
+function SecretLayer:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     if self.active then
         love.graphics.draw(self.image, self.position.x, self.position.y)
     end

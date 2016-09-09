@@ -147,7 +147,9 @@ function Enemy:update(dt, world)
     self.walkAnimation:update(dt)
 end
 
-function Enemy:draw()
+function Enemy:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     love.graphics.setColor(255, 255, 255)
 
     if self.visible then

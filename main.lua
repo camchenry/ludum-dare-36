@@ -134,6 +134,10 @@ function love.keyreleased(key, code, isRepeat)
                 DEBUG = not DEBUG
             end
         end
+
+        if key == "f4" then
+            DRAW_HITBOXES = not DRAW_HITBOXES
+        end
     end
 end
 
