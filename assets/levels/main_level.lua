@@ -206,7 +206,7 @@ return {
     },
     {
       type = "tilelayer",
-      name = "Tile Layer 1",
+      name = "Tiles",
       x = 0,
       y = 0,
       width = 100,
@@ -354,7 +354,7 @@ return {
     },
     {
       type = "objectgroup",
-      name = "Object Layer 1",
+      name = "Objects",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -1293,7 +1293,7 @@ return {
           visible = true,
           properties = {
             ["ID"] = "500",
-            ["textID"] = "1"
+            ["textID"] = 1
           }
         },
         {

@@ -34,7 +34,7 @@ return {
   layers = {
     {
       type = "tilelayer",
-      name = "Tile Layer 1",
+      name = "Tiles",
       x = 0,
       y = 0,
       width = 100,
@@ -152,7 +152,7 @@ return {
     },
     {
       type = "objectgroup",
-      name = "Object Layer 1",
+      name = "Objects",
       visible = false,
       opacity = 1,
       offsetx = 0,

@@ -57,7 +57,7 @@
  <imagelayer name="Puzzle_Room3" offsetx="720" offsety="128">
   <image source="../images/Backgrounds/RoomPuzzle3_Background.png" width="560" height="464"/>
  </imagelayer>
- <layer name="Tile Layer 1" width="100" height="130" visible="0">
+ <layer name="Tiles" width="100" height="130" visible="0">
   <properties>
    <property name="collidable" type="bool" value="true"/>
   </properties>
@@ -194,7 +194,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1">
+ <objectgroup name="Objects">
   <object id="524" type="Console" x="160" y="1472" width="208" height="128">
    <properties>
     <property name="ID" value="20"/>

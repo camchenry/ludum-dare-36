@@ -69,28 +69,6 @@ function game:update(dt)
     if not self.pause then
         self.map:update(dt)
 
-        for _, obj in ipairs(self.objects) do
-            if obj.class and obj:isInstanceOf(Crusher) then
-                obj.hasMoved = false
-            end
-        end
-
-        for _, obj in ipairs(self.objects) do
-            if obj.update then
-                if obj.class and obj:isInstanceOf(NewCrusher) then
-                    obj:update(dt, self.world)
-                end
-            end
-        end
-
-        for _, obj in ipairs(self.objects) do
-            if obj.update then
-                if obj.class and not obj:isInstanceOf(NewCrusher) and not obj:isInstanceOf(Player) then
-                    obj:update(dt, self.world)
-                end
-            end
-        end
-
         if self.secretLayer then
             self.secretLayer:update(dt)
         end
@@ -201,12 +179,6 @@ function game:draw()
             love.graphics.setLineWidth(1)
             self.map:setDrawRange(math.floor(camera.x), math.floor(camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
-
-            for _, obj in ipairs(self.objects) do
-                if obj.draw then
-                    obj:draw(self.activeItem == obj)
-                end
-            end
 
             if self.secretLayer then
                 self.secretLayer:draw(self.activeItem == self.secretLayer)

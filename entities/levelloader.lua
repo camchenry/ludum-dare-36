@@ -17,19 +17,43 @@ function LevelLoader:load(level)
         return obj
     end
 
-    local playerLayer = map:addCustomLayer("Player layer", 2)
+    local objectsLayer = map:addCustomLayer("Objects layer")
 
-    playerLayer.player = nil
+    objectsLayer.objects = objects
 
-    function playerLayer:update(dt)
-        self.player:update(dt, world)
+    function objectsLayer:update(dt)
+        for _, obj in ipairs(self.objects) do
+            if obj.class and obj:isInstanceOf(Crusher) then
+                obj.hasMoved = false
+            end
+        end
+
+        for _, obj in ipairs(self.objects) do
+            if obj.update then
+                if obj.class and obj:isInstanceOf(NewCrusher) then
+                    obj:update(dt, world)
+                end
+            end
+        end
+
+        for _, obj in ipairs(self.objects) do
+            if obj.update then
+                if obj.class and not obj:isInstanceOf(NewCrusher) and not obj:isInstanceOf(Player) then
+                    obj:update(dt, world)
+                end
+            end
+        end
     end
 
-    function playerLayer:draw()
-        self.player:draw(game.activeItem == self.player)
+    function objectsLayer:draw()
+        for _, obj in ipairs(self.objects) do
+            if obj.draw then
+                obj:draw(game.activeItem == obj)
+            end
+        end
     end
 
-    local consoleLayer = map:addCustomLayer("Console layer", 3)
+    local consoleLayer = map:addCustomLayer("Console layer")
 
     consoleLayer.console = nil
 
@@ -56,6 +80,25 @@ function LevelLoader:load(level)
         end
     end
 
+    local playerLayer = map:addCustomLayer("Player layer")
+
+    playerLayer.player = nil
+
+    function playerLayer:update(dt)
+        self.player:update(dt, world)
+    end
+
+    function playerLayer:draw()
+        self.player:draw(game.activeItem == self.player)
+    end
+
+
+    print()
+    for i=1, #map.layers do
+        layer = map.layers[i]
+        print(layer.name)
+    end
+
     for i, object in pairs(map.objects) do
         if object.type == "Wrench" then
             add(Wrench:new(object.x, object.y, object.width, object.height, object.properties))
@@ -66,7 +109,7 @@ function LevelLoader:load(level)
         end
 
         if object.type == "MovingPlatform" then
-            local platform = add(MovingPlatform:new(object.x, object.y, object.width, object.height, object.properties))
+            add(MovingPlatform:new(object.x, object.y, object.width, object.height, object.properties))
         end
         
         if object.type == "Console" then
@@ -137,7 +180,7 @@ function LevelLoader:load(level)
     return {
         map = map,
         world = world,
-        objects = objects,
+        objects = map.objects,
         player = playerLayer.player,
     }
 end
