@@ -1,12 +1,13 @@
 intro = {}
 
-sti = require "libs.sti"
-
-CANVAS_WIDTH = 240
-CANVAS_HEIGHT = 160
-
 function intro:init()
-
+    Signal.register('stateTransition', function(state)
+        Flux.to(self.overlay, 1.5, {0, 0, 0, 255})
+            :oncomplete(function()
+                State.switch(_G[state])
+                return
+            end)
+    end)
 end
 
 function intro:resume()
@@ -15,56 +16,23 @@ end
 
 function intro:enter(prev, ...)
     self:reset()
-    self.camera:lookAt(30*16, 17*16)
 
     self.overlay = {0, 0, 0, 0}
 end
 
 function intro:reset()
-    self.map = sti("assets/levels/intro_level.lua", {"bump"}) 
     self.canvas = love.graphics.newCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
 
-    self.objects = {}
-    self.world = Bump.newWorld()
-    self.map:bump_init(self.world)
-
-    local function add(obj)
-        table.insert(self.objects, obj)
-        self.world:add(obj, obj.position.x, obj.position.y, obj.width, obj.height)
-        return obj
-    end
+    self.levelLoader = LevelLoader:new()
+    self.level = self.levelLoader:load("intro_level")
+    self.map = self.level.map
+    self.objects = self.level.objects
+    self.world = self.level.world
+    self.player = self.level.player
 
     self.camera = Camera()
-
-    self.textItems = {}
-
-    for i, object in pairs(self.map.objects) do
-        if object.type == "Spawn" then
-            self.player = add(Player:new(object.x, object.y))
-        end
-
-        if object.type == "ShowText" then
-            table.insert(self.textItems, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
-        end
-
-        if object.type == "Mask" then
-            self.mask = Mask:new(object.x, object.y, object.width, object.height, object.properties)
-        end
-
-        if object.type == "AreaTrigger" then
-            local trigger = add(AreaTrigger:new(object.x, object.y, object.width, object.height, object.properties))
-            
-            trigger.onTransition = function()
-                Flux.to(self.overlay, 1.5, {0, 0, 0, 255})
-                    :oncomplete(function()
-                        State.switch(_G[trigger.transition])
-                        return
-                    end)
-            end
-        end
-    end
 
     --self.soundManager = SoundManager:new()
 
@@ -76,12 +44,6 @@ end
 
 function intro:update(dt)
     self.map:update(dt)
-
-    for _, obj in ipairs(self.objects) do
-        if obj.update then
-            obj:update(dt, self.world)
-        end
-    end
 
     -- Change this to an option for disabling screen shake
     local dx, dy = 0, 0
@@ -109,24 +71,8 @@ function intro:draw()
     self.camera:attach(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
     self.canvas:renderTo(function()
         love.graphics.clear()
-        self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
+        self.map:setDrawRange(math.floor(self.camera.x - CANVAS_WIDTH/2), math.floor(self.camera.y - CANVAS_HEIGHT/2), CANVAS_WIDTH, CANVAS_HEIGHT)
         self.map:draw()
-
-        for _, obj in ipairs(self.objects) do
-            if obj.draw then
-                if obj == self.player and State.current() ~= intro then
-
-                else
-                    obj:draw()
-                end
-            end
-        end
-
-        self.mask:draw()
-
-        for _, textItem in pairs(self.textItems) do
-            textItem:draw()
-        end
     end)
     self.camera:detach()
 
