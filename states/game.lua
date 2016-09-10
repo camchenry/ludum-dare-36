@@ -59,10 +59,6 @@ end
 function game:update(dt)
     if not self.pause then
         self.map:update(dt)
-
-        if self.secretLayer then
-            self.secretLayer:update(dt)
-        end
     end
 
     -- Change this to an option for disabling screen shake
@@ -170,10 +166,6 @@ function game:draw()
             love.graphics.setLineWidth(1)
             self.map:setDrawRange(math.floor(camera.x), math.floor(camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
             self.map:draw()
-
-            if self.secretLayer then
-                self.secretLayer:draw()
-            end
         end)
     end)
 

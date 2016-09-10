@@ -18,7 +18,7 @@ function SecretLayer:update(dt)
 
     for _, obj in pairs(game.objects) do
         if obj.class and obj:isInstanceOf(AreaTrigger) then
-            if obj.active then
+            if obj.ID == self.ID and obj.active then
                 self.active = false
             end
         end

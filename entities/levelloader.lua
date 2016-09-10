@@ -90,6 +90,22 @@ function LevelLoader:load(level)
         self.player:draw()
     end
 
+    local secretLayer = map:addCustomLayer("Secret layer")
+
+    secretLayer.secrets = {}
+
+    function secretLayer:draw()
+        for _, item in pairs(self.secrets) do
+            item:draw()
+        end
+    end
+
+    function secretLayer:update(dt)
+        for _, item in pairs(self.secrets) do
+            item:update(dt)
+        end
+    end
+
     for i, object in pairs(map.objects) do
         if object.type == "Wrench" then
             add(Wrench:new(object.x, object.y, object.width, object.height, object.properties))
@@ -140,7 +156,7 @@ function LevelLoader:load(level)
         end
 
         if object.type == "SecretLayer" then
-            game.secretLayer = SecretLayer:new(object.x, object.y, object.width, object.height, object.properties)
+            table.insert(secretLayer.secrets, SecretLayer:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "ShowText" then
@@ -152,7 +168,7 @@ function LevelLoader:load(level)
         end
 
         if object.type == "VictoryCondition" then
-            game.victoryCondition = VictoryCondition:new(object.x, object.y, object.width, object.height, object.properties)
+            table.insert(objects, VictoryCondition:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Spawn" then
@@ -171,7 +187,7 @@ function LevelLoader:load(level)
     return {
         map = map,
         world = world,
-        objects = map.objects,
+        objects = objects,
         player = playerLayer.player,
     }
 end
