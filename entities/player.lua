@@ -91,6 +91,8 @@ function Player:initialize(x, y, w, h, properties)
     self.collidable = false
     self.pushable = true
     self.acceptCheckpoint = true
+
+    self.augments = {red = false, green = false, blue = false}
 end
 
 function Player:reset(world)
@@ -482,7 +484,7 @@ function Player:checkFootBox(world)
     end
 end
 
-function Player:draw(debugOverride)
+function Player:draw()
     Object.draw(self, 0.5, 0.5)
     
     if DEBUG and DRAW_ATTACKBOX then
@@ -518,6 +520,35 @@ function Player:draw(debugOverride)
     else
         self.runAnimation:draw(self.runImage, x + self.runImageOffset.x, y + self.runImageOffset.y, 0, self.facing, 1)
     end
+
+    love.graphics.setLineWidth(1)
+
+    local f = 5
+    local sep = 5
+    local s = 5
+
+    local x, y = self.position.x + self.width/2 + 0.5, self.position.y - f - s/2 + 0.5
+
+    if self.augments.red then
+        love.graphics.setColor(255, 0, 0)
+        love.graphics.rectangle('fill', x-s/2, y-s/2, s, s)
+    end
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.rectangle('line', x-s/2, y-s/2, s, s)
+
+    if self.augments.green then
+        love.graphics.setColor(0, 255, 0)
+        love.graphics.rectangle('fill', x-s*3/2-sep, y-s/2, s, s)
+    end
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.rectangle('line', x-s*3/2-sep, y-s/2, s, s)
+
+    if self.augments.blue then
+        love.graphics.setColor(0, 0, 255)
+        love.graphics.rectangle('fill', x+s/2+sep, y-s/2, s, s)
+    end
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.rectangle('line', x+s/2+sep, y-s/2, s, s)
 end
 
 function Player:drawDebug(x, y)

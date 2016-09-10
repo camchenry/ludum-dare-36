@@ -19,6 +19,7 @@ Mask            = require "entities.mask"
 VictoryCondition= require "entities.victoryCondition"
 NewCrusher      = require "entities.newCrusher"
 Director        = require "entities.director"
+Augment         = require "entities.augment"
 
 SoundManager    = require "entities.sound.soundmanager"
 

@@ -43,6 +43,7 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.auto         = properties.auto or false
     self.direction    = properties.direction or "up"
     self.ID           = properties.ID or 0
+    self.augment      = properties.augment or "none"
 
     self.collidable = true
 
@@ -73,9 +74,13 @@ function NewCrusher:initialize(x, y, w, h, properties)
 
     Signal.register("activate", function(ID, ID2)
         if ID == self.ID or ID2 == self.ID then
-            self.on = not self.on
+            self:activate()
         end
     end)
+end
+
+function NewCrusher:activate()
+    self.on = not self.on
 end
 
 function NewCrusher:getNextState()
@@ -238,6 +243,18 @@ function NewCrusher:update(dt, world)
 end
 
 function NewCrusher:draw(debugOverride)
+
+    love.graphics.setColor(255, 255, 255)
+    if self.augment == "red" then
+        love.graphics.setColor(255, 0, 0)
+    elseif self.augment == "green" then
+        love.graphics.setColor(0, 255, 0)
+    elseif self.augment == "blue" then
+        love.graphics.setColor(0, 0, 255)
+    end
+    
+    love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
+
     Object.draw(self, debugOverride)
 end
 
