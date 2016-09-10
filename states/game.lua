@@ -142,6 +142,14 @@ function game:mousepressed(x, y, mbutton)
     if len > 0 then
         ACTIVE_ITEM = items[1]
     end
+
+    for i = 1, len do
+        if items[i]:isInstanceOf(NewCrusher) then
+            if self.player.augments[items[i].augment] or items[i].augment == "none" then
+                items[i]:activate()
+            end
+        end
+    end
 end
 
 function game:worldCoords(x, y)

@@ -83,6 +83,7 @@
  </objecttype>
  <objecttype name="NewCrusher" color="#0000ff">
   <property name="ID" type="int" default="0"/>
+  <property name="augment" type="string" default="none"/>
   <property name="auto" type="bool" default="false"/>
   <property name="collidable" type="bool" default="true"/>
   <property name="direction" type="string" default="up"/>
@@ -103,5 +104,8 @@
   <property name="oneTime" type="bool" default="false"/>
   <property name="pushable" type="bool" default="false"/>
   <property name="switchID" type="int" default="0"/>
+ </objecttype>
+ <objecttype name="Augment" color="#5500ff">
+  <property name="powerup" type="string" default="none"/>
  </objecttype>
 </objecttypes>

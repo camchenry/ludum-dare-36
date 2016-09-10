@@ -182,6 +182,10 @@ function LevelLoader:load(level)
         if object.type == "Director" then
             add(Director:new(object.x, object.y, object.width, object.height, object.properties))
         end
+
+        if object.type == "Augment" then
+            add(Augment:new(object.x, object.y, object.width, object.height, object.properties))
+        end
     end
 
     return {
