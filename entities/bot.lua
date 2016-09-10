@@ -128,7 +128,7 @@ function Bot:update(dt, world)
 
     local newPos = newPos + self.velocity * dt
 
-    if self.newCrusherReference then
+    if self.newCrusherReference and not self.newCrusherReference.horizontal then
         newPos.y = self.newCrusherReference.position.y - self.height
         self.velocity.y = 0
         self.touchingGround = true

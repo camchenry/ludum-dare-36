@@ -77,12 +77,13 @@
  </objecttype>
  <objecttype name="NewCrusher" color="#0000ff">
   <property name="ID" type="int" default="0"/>
+  <property name="augment" type="string" default="none"/>
   <property name="auto" type="bool" default="false"/>
   <property name="collidable" type="bool" default="true"/>
-  <property name="direction" type="string" default="1"/>
+  <property name="direction" type="string" default="up"/>
+  <property name="elevator" type="bool" default="false"/>
   <property name="on" type="bool" default="true"/>
   <property name="pushable" type="bool" default="false"/>
-  <property name="startState" type="string" default="in"/>
  </objecttype>
  <objecttype name="Mask" color="#55ffff">
   <property name="ID" type="int" default="0"/>

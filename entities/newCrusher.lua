@@ -44,13 +44,13 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.direction    = properties.direction or "up"
     self.ID           = properties.ID or 0
     self.augment      = properties.augment or "none"
+    self.elevator     = properties.elevator or false
 
     self.collidable = true
 
     self.horizontal = (self.direction == "left" or self.direction == "right")
     self.reverse = (self.direction == "up" or self.direction == "left")
 
-    self.elevator = false
 
     self.moving = false
     self.waiting = true
@@ -119,10 +119,11 @@ function NewCrusher:move(world, x, y, w, h)
                 local crush = {}
                 if self.horizontal then
                     if item.position.x <= self.position.x then
+                        crush.right = true
                         item:move(world, x - item.width, item.position.y, true, crush, self)
                     else
-                        --error('ok')
-                        item:move(world, x + self.width + 5, item.position.y, true, crush, self)
+                        crush.left = true
+                        item:move(world, x + self.width, item.position.y, true, crush, self)
                     end
                 else
                     if item.position.y <= self.position.y then
@@ -139,12 +140,10 @@ function NewCrusher:move(world, x, y, w, h)
                             item.touchingGround = true
                         end
                     else
-                        if self.lastMove > 0 then
-                            crush.top = true
-                            item:move(world, item.position.x, self.position.y + self.height, true, crush)
-                            
-                            item.velocity.y = math.max(0, item.velocity.y)
-                        end
+                        crush.top = true
+                        item:move(world, item.position.x, self.position.y + self.height, true, crush)
+                        
+                        item.velocity.y = math.max(0, item.velocity.y)
                     end
                 end
             end
