@@ -151,11 +151,13 @@ function game:mousepressed(x, y, mbutton)
 end
 
 function game:worldCoords(x, y)
-    return self.activeCamera.x + x/SCALEX, self.activeCamera.y + y/SCALEY
+    return self.activeCamera.x + x/SCALEX - CANVAS_WIDTH/2,
+           self.activeCamera.y + y/SCALEY - CANVAS_HEIGHT/2
 end
 
 function game:cameraCoords(x, y)
-    return (x - self.activeCamera.x)*SCALEX, (y - self.activeCamera.y)*SCALEY
+    return (x - self.activeCamera.x + CANVAS_WIDTH/2)*SCALEX, 
+           (y - self.activeCamera.y + CANVAS_HEIGHT/2)*SCALEY
 end
 
 function game:draw()
