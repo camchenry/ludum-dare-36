@@ -52,8 +52,6 @@ function game:reset()
 
     self.effects = {}
     self.effects.screenShake = ScreenShake:new()
-
-    love.graphics.setLineStyle("rough")
 end
 
 function game:update(dt)
@@ -66,8 +64,8 @@ function game:update(dt)
     if true then
         dx, dy = self.effects.screenShake:getOffset()
     end
-    self.camera:lockX(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2 + dx)
-    self.camera:lockY(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2 + dy)
+    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 + dx))
+    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 + dy))
 
     if self.showDebugCamera then
         local dx, dy = 0, 0
@@ -154,20 +152,20 @@ end
 
 function game:draw()
     love.graphics.setBackgroundColor(32, 65, 77)
+    love.graphics.setLineWidth(1)
+    love.graphics.setLineStyle("rough")
 
     local camera = self.activeCamera
     oldCameraX, oldCameraY = camera.x, camera.y
     camera.x, camera.y = math.floor(camera.x), math.floor(camera.y)
 
+    camera:attach(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
     self.canvas:renderTo(function()
         love.graphics.clear()
-
-        camera:draw(function()
-            love.graphics.setLineWidth(1)
-            self.map:setDrawRange(math.floor(camera.x), math.floor(camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
-            self.map:draw()
-        end)
+        self.map:setDrawRange(math.floor(camera.x - CANVAS_WIDTH/2), math.floor(camera.y - CANVAS_HEIGHT/2), CANVAS_WIDTH, CANVAS_HEIGHT)
+        self.map:draw()
     end)
+    camera:detach()
 
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(self.canvas, 0, 0, 0, SCALEX, SCALEY)

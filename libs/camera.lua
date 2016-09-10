@@ -102,48 +102,42 @@ function camera:zoomTo(zoom)
 	return self
 end
 
-function camera:attach(clip)
-	-- clip   nil or {x, y, w, h}
-	self.clip = clip
-	local x,y,w,h
-	if clip then
-		x,y,w,h = unpack(clip)
-		self._sx,self._sy,self._sw,self._sh = love.graphics.getScissor()
+function camera:attach(x,y,w,h, noclip)
+	x,y = x or 0, y or 0
+	w,h = w or love.graphics.getWidth(), h or love.graphics.getHeight()
+
+	self._sx,self._sy,self._sw,self._sh = love.graphics.getScissor()
+	if not noclip then
 		love.graphics.setScissor(x,y,w,h)
-	else
-		x,y,w,h = 0,0,love.graphics.getDimensions()
 	end
 
 	local cx,cy = x+w/2, y+h/2
 	love.graphics.push()
-	-- scale and rotate about the center of the screen
 	love.graphics.translate(cx, cy)
 	love.graphics.scale(self.scale)
 	love.graphics.rotate(self.rot)
-	love.graphics.translate(-cx, -cy)
 	love.graphics.translate(-self.x, -self.y)
 end
 
 function camera:detach()
 	love.graphics.pop()
-	if self.clip then
-		love.graphics.setScissor(self._sx,self._sy,self._sw,self._sh)
-	end
+	love.graphics.setScissor(self._sx,self._sy,self._sw,self._sh)
 end
 
 function camera:draw(...)
-	local x,y,w,h,func,clip_region
+	local x,y,w,h,noclip,func
 	local nargs = select("#", ...)
 	if nargs == 1 then
 		func = ...
 	elseif nargs == 5 then
 		x,y,w,h,func = ...
-		clip_region = {x,y,w,h}
+	elseif nargs == 6 then
+		x,y,w,h,noclip,func = ...
 	else
 		error("Invalid arguments to camera:draw()")
 	end
 
-	self:attach(clip_region)
+	self:attach(x,y,w,h,noclip)
 	func()
 	self:detach()
 end

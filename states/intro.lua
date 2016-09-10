@@ -88,8 +88,8 @@ function intro:update(dt)
     if true then
         dx, dy = self.effects.screenShake:getOffset()
     end
-    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 - CANVAS_WIDTH/2 + dx))
-    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 - CANVAS_HEIGHT/2 + dy))
+    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 + dx))
+    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 + dy))
 
     --self.soundManager:update(dt)
     for _, effect in pairs(self.effects) do
@@ -106,29 +106,29 @@ function intro:mousepressed(x, y, mbutton)
 end
 
 function intro:draw()
+    self.camera:attach(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
     self.canvas:renderTo(function()
-        love.graphics.clear()  
-        self.camera:draw(function()
-            self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
-            self.map:draw()
+        love.graphics.clear()
+        self.map:setDrawRange(math.floor(self.camera.x), math.floor(self.camera.y), CANVAS_WIDTH, CANVAS_HEIGHT)
+        self.map:draw()
 
-            for _, obj in ipairs(self.objects) do
-                if obj.draw then
-                    if obj == self.player and State.current() ~= intro then
+        for _, obj in ipairs(self.objects) do
+            if obj.draw then
+                if obj == self.player and State.current() ~= intro then
 
-                    else
-                        obj:draw()
-                    end
+                else
+                    obj:draw()
                 end
             end
+        end
 
-            self.mask:draw()
+        self.mask:draw()
 
-            for _, textItem in pairs(self.textItems) do
-                textItem:draw()
-            end
-        end)
+        for _, textItem in pairs(self.textItems) do
+            textItem:draw()
+        end
     end)
+    self.camera:detach()
 
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(self.canvas, 0, 0, 0, SCALEX, SCALEY)
