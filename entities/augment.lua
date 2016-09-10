@@ -23,8 +23,8 @@ function Augment:draw()
     Object.draw(self)
 end
 
-function Augment:drawDebug()
-    Object.drawDebug(self)
+function Augment:drawDebug(x, y)
+    Object.drawDebug(self, x, y)
 end
 
 return Augment

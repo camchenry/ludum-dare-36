@@ -35,6 +35,8 @@ function game:reset()
     self.world = self.level.world
     self.player = self.level.player
 
+    self.dot = {x = 0, y = 0}
+
     ACTIVE_ITEM = nil
 
     self.camera = Camera()
@@ -126,6 +128,7 @@ function game:keypressed(key, code)
 end
 
 function game:mousepressed(x, y, mbutton)
+    self.dot.x, self.dot.y = x, y
     local worldX, worldY = self:worldCoords(x, y)
 
     local items, len = self.world:queryPoint(worldX, worldY, function(item)
@@ -172,6 +175,7 @@ function game:draw()
         love.graphics.clear()
         self.map:setDrawRange(math.floor(camera.x - CANVAS_WIDTH/2), math.floor(camera.y - CANVAS_HEIGHT/2), CANVAS_WIDTH, CANVAS_HEIGHT)
         self.map:draw()
+        love.graphics.circle("fill", self.dot.x, self.dot.y, 5)
     end)
     camera:detach()
 
