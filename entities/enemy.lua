@@ -5,27 +5,31 @@ Enemy.static.jumpImage = love.graphics.newImage("assets/images/Enemy/Bug_Jump.pn
 Enemy.static.walkImage = love.graphics.newImage("assets/images/Enemy/Bug_Walk.png")
 
 function Enemy:initialize(x, y, w, h, properties)
-    self.width, self.height = 32, 16
-
-    Object.initialize(self, x, y, self.width, self.height, properties)
+    Object.initialize(self, x, y, w, h, properties)
+    self.width = 32
+    self.height = 16
     self.name = "Enemy"
 
     self.startPosition = Vector(x, y)
     self.color = {255, 255, 255, 255}
 
     self.direction    = properties.direction or 1
-    self.right        = properties.right or 2.0
     self.jumpInterval = properties.jumpInterval or 3.0
     self.jumpAccel    = properties.jumpAccel or 1000.0
     self.ID           = properties.ID or 0
     self.movement     = properties.movement or false
     self.jumping      = properties.jumping or false
-    self.limit        = properties.limit or true
+    if properties.limits then
+        local limits = loadstring("return {" .. properties.limits .. "}")()
+        self.limits = {}
+        self.limits.left = limits[1] * TILE_WIDTH
+        self.limits.right = limits[2] * TILE_WIDTH
+    end
 
     self.startDirection = self.direction    
 
     self.visible = true
-    self.dead = false
+    self.alive = true
 
     self.hitColorTime = 0.1
     self.fallAmount = 500
@@ -51,11 +55,11 @@ function Enemy:initialize(x, y, w, h, properties)
 end
 
 function Enemy:reset(world)
-    self.position = Vector(self.startPosition.x, self.startPosition.y)
+    self.position = self.startPosition:clone()
     world:update(self, self.position.x, self.position.y)
     self.direction = self.startDirection
     self.visible = true
-    self.dead = false
+    self.alive = true
     self.fallOffset = 0
     self.acceleration = Vector(0, 0)
     self.velocity = Vector(0, 0)
@@ -65,35 +69,11 @@ end
 function Enemy:update(dt, world)
     self.acceleration = Vector(0, self.gravity)
 
-    local newPos = Vector(self.position.x, self.position.y)
-
-    if self.movement and not self.dead then
-        if self.limit then
-            if self.direction == -1 then
-                local distance = self.startPosition.x + self.right - self.position.x
-                if distance > 0 then
-                    newPos.x = math.min(self.startPosition.x + self.right, self.position.x + self.speed*dt)
-                elseif distance <= 0 then
-                    self.direction = self.direction * -1
-                end
-            elseif self.direction == 1 then
-                local distance = self.position.x - self.startPosition.x
-                if distance > 0 then
-                    newPos.x = math.max(self.startPosition.x, self.position.x - self.speed*dt)
-                elseif distance <= 0 then
-                    self.direction = self.direction * -1
-                end
-            end
-        else
-            if self.direction == -1 then
-                newPos.x = self.position.x + self.speed*dt
-            elseif self.direction == 1 then
-                newPos.x = self.position.x - self.speed*dt
-            end
-        end
+    if self.movement and self.alive then
+        self.velocity.x = self.speed * self.direction
     end
 
-    if self.jumping and not self.dead then
+    if self.jumping and self.alive then
         if self.jumpTimer <= 0 then
             self.jumpTimer = self.jumpInterval
             self.acceleration.y = -self.jumpAccel
@@ -102,47 +82,35 @@ function Enemy:update(dt, world)
         self.jumpTimer = math.max(0, self.jumpTimer - dt)
     end
 
-    self.velocity = self.velocity + self.acceleration*dt
-
-    self.position = newPos + self.velocity*dt
-
-    local actualX, actualY, cols, len = game.world:move(self, self.position.x, self.position.y, function(item, other)
-        if other.class and other:isInstanceOf(Player) then
-            return nil
+    if self.limits then
+        -- too far left of boundary
+        if self.direction == -1 and self.position.x <= self.limits.left then
+            self.direction = self.direction * -1
         end
-        if other.class and other:isInstanceOf(Enemy) then
-            return nil
-        end
-        if other.class and other:isInstanceOf(Console) then
-            return nil
-        end
-        return "slide"
-    end)
 
-    for k, col in pairs(cols) do
-        local other = col.other
-        if other.class and other:isInstanceOf(Wrench) then
-
-        elseif other.class and other:isInstanceOf(Gate) then
-            if col.normal.y == 1 then
-                --self.acceleration.y = 0
-            end
-            if math.abs(col.normal.x) == 1 then
-                if other.width > 2 and other.height > 2 then
-                    self.direction = self.direction * -1
-                end
-            end
-        else
-            if math.abs(col.normal.x) == 1 then
-                self.direction = self.direction * -1
-            end
-            if col.normal.y == -1 then
-                self.velocity.y = 0
-            end
+        -- too far right of boundary
+        if self.direction == 1 and self.position.x >= self.limits.right then
+            self.direction = self.direction * -1
         end
     end
 
-    self.position = Vector(actualX, actualY)
+    self.velocity = self.velocity + self.acceleration * dt
+    self.position = self.position + self.velocity * dt
+
+    local filter = function(item, other)
+        return (not other.class or other.collidable) and "slide" or false
+    end
+
+    self.position.x, self.position.y, cols = game.world:move(self, self.position.x, self.position.y, filter)
+
+    for k, col in pairs(cols) do
+        if math.abs(col.normal.x) == 1 then
+            self.direction = self.direction * -1
+        end
+        if col.normal.y == -1 then
+            self.velocity.y = 0
+        end
+    end
 
     self.walkAnimation:update(dt)
 end
@@ -157,19 +125,34 @@ function Enemy:draw(debugOverride)
 
         local image = Enemy.idleImage
 
-        if not self.movement then
+        if self.movement then
+            self.walkAnimation:draw(
+                Enemy.walkImage, 
+                math.floor(self.position.x + self.imageOffset.x), 
+                math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 
+                0, 
+                -self.direction, 
+                1, 
+                Enemy.idleImage:getWidth()/2, 
+                0
+            )
+        else
             if self.position.y < self.startPosition.y then
                 image = Enemy.jumpImage
             end
 
-            love.graphics.draw(image, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, image:getWidth()/2, 0)
-
-        else
-            self.walkAnimation:draw(Enemy.walkImage, math.floor(self.position.x + self.imageOffset.x), math.floor(self.position.y + self.imageOffset.y + self.fallOffset), 0, self.direction, 1, Enemy.idleImage:getWidth()/2, 0)
+            love.graphics.draw(
+                image, 
+                math.floor(self.position.x + self.imageOffset.x),
+                math.floor(self.position.y + self.imageOffset.y + self.fallOffset),
+                0, 
+                -self.direction, 
+                1, 
+                image:getWidth()/2, 
+                0
+            )
         end
     end
-
-    love.graphics.setColor(255, 255, 255)
 end
 
 function Enemy:drawDebug(x, y)
@@ -180,18 +163,18 @@ function Enemy:drawDebug(x, y)
         "Jump Accel: " .. self.jumpAccel,
         "Movement: " .. (self.movement and "true" or "false"),
         "Jumping: " .. (self.jumping and "true" or "false"),
-        "Limit: " .. (self.limit and "true" or "false"),
+        "Limits: " .. (self.limits and ("%d, %d"):format(self.limits[1], self.limits[2]) or "nil"),
     }
 
     Object.drawDebug(self, x, y, propertyStrings)
 end
 
 function Enemy:hit()
-    if not self.dead then
+    if self.alive then
         -- keep the enemy loaded, just make them invisible
         -- they will need to be restored if you return to a checkpoint
         self.fallOffset = 0
-        self.dead = true
+        self.alive = false
 
         Signal.emit("enemyDeath")
 

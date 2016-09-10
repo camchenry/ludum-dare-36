@@ -23,3 +23,7 @@ CANVAS_HEIGHT = 160
 -- Scale factor of the game canvas
 SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
 SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
+
+-- Dimensions of the tiles in the map
+TILE_WIDTH = 16
+TILE_HEIGHT = 16

@@ -221,15 +221,14 @@
   </object>
   <object id="538" type="Enemy" x="992" y="1584" width="16" height="16">
    <properties>
-    <property name="movement" value="false"/>
-    <property name="right" value="200"/>
+    <property name="direction" type="int" value="-1"/>
+    <property name="movement" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="539" type="Enemy" x="1136" y="1360" width="16" height="16">
+  <object id="539" type="Enemy" x="1120" y="1360" width="16" height="16">
    <properties>
-    <property name="direction" value="-1"/>
-    <property name="movement" value="true"/>
-    <property name="right" value="80"/>
+    <property name="limits" value="70, 78"/>
+    <property name="movement" type="bool" value="true"/>
    </properties>
   </object>
   <object id="540" type="Gate" x="480" y="1152" width="16" height="48">
@@ -986,6 +985,6 @@
     <property name="img" type="int" value="22"/>
    </properties>
   </object>
-  <object id="702" type="Spawn" x="32" y="1568" width="16" height="16"/>
+  <object id="702" type="Spawn" x="32" y="1552" width="16" height="16"/>
  </objectgroup>
 </map>

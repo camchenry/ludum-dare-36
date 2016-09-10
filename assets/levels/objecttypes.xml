@@ -28,15 +28,13 @@
  </objecttype>
  <objecttype name="Wrench" color="#5555ff"/>
  <objecttype name="AreaTrigger" color="#ffef0f">
-  <property name="ID" type="int" default="-1"/>
-  <property name="ID2" type="int" default="-1"/>
+  <property name="ID" type="int" default="0"/>
   <property name="collidable" type="bool" default="false"/>
   <property name="killBot" type="bool" default="false"/>
   <property name="oneTime" type="bool" default="false"/>
   <property name="pushable" type="bool" default="false"/>
   <property name="signalOff" type="bool" default="false"/>
   <property name="transition" type="bool" default="false"/>
-  <property name="waitPlayerAndBot" type="bool" default="false"/>
  </objecttype>
  <objecttype name="ShowText" color="#00b3ff">
   <property name="ID" type="int" default="0"/>
@@ -45,9 +43,6 @@
  <objecttype name="Bot" color="#7d62a4">
   <property name="acceptCheckpoint" type="bool" default="true"/>
   <property name="collidable" type="bool" default="false"/>
-  <property name="controlled" type="bool" default="true"/>
-  <property name="direction" type="int" default="1"/>
-  <property name="directionOverride" type="bool" default="true"/>
   <property name="pushable" type="bool" default="true"/>
  </objecttype>
  <objecttype name="Lever" color="#26a400">
@@ -73,9 +68,8 @@
   <property name="jumpAccel" type="float" default="1000"/>
   <property name="jumpInterval" type="float" default="3"/>
   <property name="jumping" type="bool" default="false"/>
-  <property name="limit" type="bool" default="true"/>
+  <property name="limits" type="string"/>
   <property name="movement" type="bool" default="false"/>
-  <property name="right" type="float" default="2"/>
  </objecttype>
  <objecttype name="VictoryCondition" color="#000000">
   <property name="ID" type="int" default="0"/>
@@ -83,29 +77,17 @@
  </objecttype>
  <objecttype name="NewCrusher" color="#0000ff">
   <property name="ID" type="int" default="0"/>
-  <property name="augment" type="string" default="none"/>
   <property name="auto" type="bool" default="false"/>
   <property name="collidable" type="bool" default="true"/>
-  <property name="direction" type="string" default="up"/>
+  <property name="direction" type="string" default="1"/>
   <property name="on" type="bool" default="true"/>
   <property name="pushable" type="bool" default="false"/>
+  <property name="startState" type="string" default="in"/>
  </objecttype>
  <objecttype name="Mask" color="#55ffff">
   <property name="ID" type="int" default="0"/>
  </objecttype>
  <objecttype name="SecretLayer" color="#aa0000">
   <property name="ID" type="int" default="0"/>
- </objecttype>
- <objecttype name="Director" color="#005500">
-  <property name="activateID" type="int" default="0"/>
-  <property name="collidable" type="bool" default="false"/>
-  <property name="direction" type="int" default="1"/>
-  <property name="on" type="bool" default="true"/>
-  <property name="oneTime" type="bool" default="false"/>
-  <property name="pushable" type="bool" default="false"/>
-  <property name="switchID" type="int" default="0"/>
- </objecttype>
- <objecttype name="Augment" color="#5500ff">
-  <property name="powerup" type="string" default="none"/>
  </objecttype>
 </objecttypes>

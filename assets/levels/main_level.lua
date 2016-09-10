@@ -562,8 +562,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["movement"] = "false",
-            ["right"] = "200"
+            ["direction"] = -1,
+            ["movement"] = false
           }
         },
         {
@@ -571,16 +571,15 @@ return {
           name = "",
           type = "Enemy",
           shape = "rectangle",
-          x = 1136,
+          x = 1120,
           y = 1360,
           width = 16,
           height = 16,
           rotation = 0,
           visible = true,
           properties = {
-            ["direction"] = "-1",
-            ["movement"] = "true",
-            ["right"] = "80"
+            ["limits"] = "70, 78",
+            ["movement"] = true
           }
         },
         {
@@ -2621,7 +2620,7 @@ return {
           type = "Spawn",
           shape = "rectangle",
           x = 32,
-          y = 1568,
+          y = 1552,
           width = 16,
           height = 16,
           rotation = 0,

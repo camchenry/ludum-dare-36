@@ -351,7 +351,7 @@ function Player:update(dt, world)
                 self.foundTimer = self.foundTime
             end
         elseif other.class and other:isInstanceOf(Enemy) then
-            if other.visible and not other.dead then
+            if other.visible and other.alive then
                 -- return to last checkpoint
                 -- revive any enemies that have died since the last checkpoint
                 -- return any moving platforms and levers to their state before the last checkpoint
