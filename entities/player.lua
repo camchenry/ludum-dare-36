@@ -293,7 +293,7 @@ function Player:update(dt, world)
 
     local crushed = {}
 
-    if self.newCrusherReference and self.jumpControlTimer <= 0 then
+    if self.newCrusherReference and self.jumpControlTimer <= 0 and not self.newCrusherReference.horizontal then
         newPos.y = self.newCrusherReference.position.y - self.height
         self.velocity.y = 0
         self.touchingGround = true
