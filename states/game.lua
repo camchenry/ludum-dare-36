@@ -128,8 +128,8 @@ function game:keypressed(key, code)
 end
 
 function game:mousepressed(x, y, mbutton)
-    self.dot.x, self.dot.y = x, y
     local worldX, worldY = self:worldCoords(x, y)
+    self.dot.x, self.dot.y = worldX, worldY
 
     local items, len = self.world:queryPoint(worldX, worldY, function(item)
         if item.class then
