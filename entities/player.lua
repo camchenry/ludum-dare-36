@@ -566,11 +566,7 @@ function Player:draw()
     if (self.jumpTimer > 0 or not self.canJump) and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.prevTouchedNewCrusher and not self.prevNewCrusherReference and not self.touchingGround then
         image = self.jumpImage
     end
-
-    if self.newCrusherReference then
-        love.graphics.setColor(255, 255, 0)
-    end
-
+    
     local x, y = math.floor(self.position.x + self.imageOffset.x*self.facing + offset + 0.5), math.floor(self.position.y + self.imageOffset.y + 0.5)
 
     if self.foundTimer > 0 then
