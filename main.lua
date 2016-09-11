@@ -114,6 +114,12 @@ function love.draw()
                 "Crush: " .. Inspect(game.player.lastCrush)
             )
         end
+        if LASTPOS then
+            Lume.push(info,
+                "X: " .. LASTPOS.x,
+                "Y: " .. LASTPOS.y
+            )
+        end
         for i, text in ipairs(info) do
             love.graphics.print(text, 5, 2 + (i-1)*15)
         end

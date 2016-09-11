@@ -163,7 +163,7 @@ function Enemy:drawDebug(x, y)
         "Jump Accel: " .. self.jumpAccel,
         "Movement: " .. (self.movement and "true" or "false"),
         "Jumping: " .. (self.jumping and "true" or "false"),
-        "Limits: " .. (self.limits and ("%d, %d"):format(self.limits[1], self.limits[2]) or "nil"),
+        --"Limits: " .. (self.limits and ("%d, %d"):format(self.limits[1], self.limits[2]) or "nil"),
     }
 
     Object.drawDebug(self, x, y, propertyStrings)

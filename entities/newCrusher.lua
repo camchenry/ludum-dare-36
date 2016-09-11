@@ -32,6 +32,36 @@
 
 local NewCrusher = Class("NewCrusher", Object)
 
+NewCrusher.static.images = {}
+NewCrusher.static.images[1] = love.graphics.newImage("assets/images/Misc/Room_Gate_TrapDoor.png")
+NewCrusher.static.images[2] = love.graphics.newImage("assets/images/Misc/Room4_Crusher.png")
+NewCrusher.static.images[3] = love.graphics.newImage("assets/images/Misc/Room5_UpwardCrusher.png")
+NewCrusher.static.images[4] = love.graphics.newImage("assets/images/Misc/Room6_Door.png")
+NewCrusher.static.images[5] = love.graphics.newImage("assets/images/Misc/Room7_TrapDoor.png")
+
+NewCrusher.static.images[6] = love.graphics.newImage("assets/images/Misc/Room9_LargeTrapDoor.png")
+NewCrusher.static.images[7] = love.graphics.newImage("assets/images/Misc/Room9_SmallTrapDoor.png")
+NewCrusher.static.images[8] = love.graphics.newImage("assets/images/Misc/Room10_Crushers.png")
+NewCrusher.static.images[9] = love.graphics.newImage("assets/images/Misc/Room11_Door.png")
+NewCrusher.static.images[10] = love.graphics.newImage("assets/images/Misc/puzzleRoom1_LargeElevator.png")
+
+NewCrusher.static.images[11] = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_SmallElevator_FirstPart.png")
+NewCrusher.static.images[12] = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_SmallElevator_SecondPart.png")
+NewCrusher.static.images[13] = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_TrapDoor_GoingLeft.png")
+NewCrusher.static.images[14] = love.graphics.newImage("assets/images/Misc/PuzzleRoom1_TrapDoor_GoingRight.png")
+NewCrusher.static.images[15] = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_Crusher.png")
+
+NewCrusher.static.images[16] = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_ExitElevator.png")
+NewCrusher.static.images[17] = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_Gate.png")
+NewCrusher.static.images[18] = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_LongElevator.png")
+NewCrusher.static.images[19] = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_SmallElevator.png")
+NewCrusher.static.images[20] = love.graphics.newImage("assets/images/Misc/PuzzleRoom2_SmallTrapDoor.png")
+
+NewCrusher.static.images[21] = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_Bridges.png")
+NewCrusher.static.images[22] = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_SmallDoors.png")
+NewCrusher.static.images[23] = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_Elevator.png")
+
+
 function NewCrusher:initialize(x, y, w, h, properties)
     Object.initialize(self, x, y, w, h, properties)
     self.name = "NewCrusher"
@@ -39,13 +69,14 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.startPosition = Vector(x, y)
     self.startWidth, self.startHeight = w, h
 
-    self.on           = properties.on or true
+    self.on           = properties.on or false
     self.auto         = properties.auto or false
     self.direction    = properties.direction or "up"
     self.ID           = properties.ID or 0
     self.augment      = properties.augment or "none"
     self.elevator     = properties.elevator or false
     self.clickable    = properties.clickable or false
+    self.imgID        = properties.imgID or 0
 
     self.collidable = true
 
@@ -55,6 +86,11 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.moving = false
     self.waiting = true
     self.finishedMovement = false
+
+    self.image = nil
+    if NewCrusher.images[self.imgID] then
+        self.image = NewCrusher.images[self.imgID]
+    end
 
     self.beginState = 1
     self.currentState = self.beginState
@@ -253,7 +289,6 @@ function NewCrusher:update(dt, world)
 end
 
 function NewCrusher:draw(debugOverride)
-
     love.graphics.setColor(255, 255, 255)
     if self.augment == "red" then
         love.graphics.setColor(255, 0, 0)
@@ -264,6 +299,20 @@ function NewCrusher:draw(debugOverride)
     end
     
     love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
+
+    if self.image then
+        if self.elevator then
+            local x1, y1 = game:cameraCoords(self.startPosition.x, self.startPosition.y)
+            local x2, y2 = game:cameraCoords(self.startPosition.x + self.startWidth, self.startPosition.y + self.startHeight)
+            local w, h = x2 - x1, y2 - y1
+            love.graphics.setScissor(self.startPosition.x - game.camera.x + CANVAS_WIDTH/2, self.startPosition.y - game.camera.y + CANVAS_HEIGHT/2, self.startWidth, self.startHeight)
+            LASTPOS = {x = self.startPosition.x - game.camera.x + CANVAS_WIDTH/2, y = self.startPosition.y - game.camera.y + CANVAS_HEIGHT/2}
+        end
+
+        love.graphics.draw(self.image, self.position.x - (self.startWidth - self.width), self.position.y - (self.startHeight - self.height))
+    
+        love.graphics.setScissor()
+    end
 
     Object.draw(self, debugOverride)
 end

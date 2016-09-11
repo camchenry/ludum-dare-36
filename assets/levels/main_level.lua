@@ -1,14 +1,14 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "2016.08.26",
+  tiledversion = "0.17.0",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
   height = 130,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 703,
+  nextobjectid = 704,
   properties = {},
   tilesets = {
     {
@@ -355,7 +355,7 @@ return {
     {
       type = "objectgroup",
       name = "Objects",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -2268,7 +2268,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["crushTime"] = 0.59999999999999998,
+            ["crushTime"] = 0.6,
             ["dir"] = "up",
             ["img"] = 2,
             ["reset"] = false
@@ -2287,11 +2287,11 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["crushTime"] = 0.59999999999999998,
+            ["crushTime"] = 0.6,
             ["dir"] = "up",
             ["img"] = 2,
             ["reset"] = false,
-            ["waitTime"] = 0.80000000000000004
+            ["waitTime"] = 0.8
           }
         },
         {
@@ -2345,7 +2345,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["crushTime"] = 0.59999999999999998,
+            ["crushTime"] = 0.6,
             ["img"] = 2,
             ["reset"] = false
           }
@@ -2363,7 +2363,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["crushTime"] = 0.59999999999999998,
+            ["crushTime"] = 0.6,
             ["img"] = 2,
             ["reset"] = false
           }
@@ -2438,7 +2438,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.40000000000000002,
+            ["crushTime"] = 0.4,
             ["img"] = 8,
             ["reset"] = false
           }
@@ -2455,7 +2455,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.40000000000000002,
+            ["crushTime"] = 0.4,
             ["img"] = 8,
             ["reset"] = false
           }
@@ -2472,10 +2472,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.40000000000000002,
+            ["crushTime"] = 0.4,
             ["img"] = 8,
             ["reset"] = false,
-            ["waitTime"] = 0.59999999999999998
+            ["waitTime"] = 0.6
           }
         },
         {
@@ -2490,7 +2490,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.80000000000000004,
+            ["crushTime"] = 0.8,
             ["img"] = 15,
             ["reset"] = false,
             ["retractTime"] = 1.2,
@@ -2509,7 +2509,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["crushTime"] = 0.80000000000000004,
+            ["crushTime"] = 0.8,
             ["img"] = 15,
             ["reset"] = false,
             ["retractTime"] = 1.2,
@@ -2619,13 +2619,32 @@ return {
           name = "",
           type = "Spawn",
           shape = "rectangle",
-          x = 32,
-          y = 1552,
+          x = 1232,
+          y = 1152,
           width = 16,
           height = 16,
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 703,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 1184,
+          y = 1104,
+          width = 32,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["auto"] = true,
+            ["direction"] = "up",
+            ["elevator"] = true,
+            ["imgID"] = 2,
+            ["on"] = true
+          }
         }
       }
     }
