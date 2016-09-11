@@ -51,7 +51,6 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.horizontal = (self.direction == "left" or self.direction == "right")
     self.reverse = (self.direction == "up" or self.direction == "left")
 
-
     self.moving = false
     self.waiting = true
     self.finishedMovement = false
@@ -135,6 +134,7 @@ function NewCrusher:move(world, x, y, w, h)
                                 x = self.position.x + self.width/2 - item.width/2
                             end
 
+                            if crush.top then error(Inspect(crush)) end
                             item:move(world, x, self.position.y - item.height, true, crush, self)
                             item.touchedNewCrusher = true
                             item.touchingGround = true
@@ -156,7 +156,7 @@ end
 function NewCrusher:findGoal()
     local goal = 0
 
-    if self.currentState == 2 or self.currentState == 3 then
+    if self.currentState == 1 or self.currentState == 4 then
         goal = 1
     end
 
@@ -184,6 +184,11 @@ function NewCrusher:update(dt, world)
     if self.currentStateTime >= self.stateTimes[self.currentState] then
         self.finishedMovement = true
         self:advanceState(world)
+        if self.offset > 0.5 then
+            self.offset = 1
+        else
+            self.offset = 0
+        end
     end
 
     self.lastMove = 0

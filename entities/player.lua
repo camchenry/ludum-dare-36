@@ -138,16 +138,88 @@ function Player:doAction()
     end
 end
 
-function Player:move(world, x, y, checkCrush, crush, reference)
+function Player:move(world, tryX, tryY, checkCrush, crush, reference)
     if reference then
         self.newCrusherReference = reference
     end
 
     if x ~= self.position.x or y ~= self.position.y then
         if checkCrush then
+            w, h = self.width, self.height
+            local crushed = {}
+            if crush then
+                crushed.top = crush.top
+                crushed.bottom = crush.bottom
+                crushed.left = crush.left
+                crushed.right = crush.right
+            end
+            local crushers = {top = "", bottom = "", left = "", right = ""}
+
+            local x, y = tryX, tryY
+            if reference then 
+                if reference.horizontal then
+                    y = self.position.y
+                else
+                    x = self.position.x
+                end
+            end
+
+            if not crush or crush.bottom then
+                local itemsTop, lenTop = world:querySegment(x, y, x+w, y, function(item)
+                    if not item.class or item.collidable then
+                        return true
+                    end
+
+                    return false
+                end)
+
+                crushed.top = lenTop > 0
+                crushers.top = itemsTop[1]
+            end
+
+            if not crush or crush.top then
+                --if crush and crush.top then error(Inspect(crush)..'\n'..Inspect(crushed)..'\n'..Inspect(thing)) end
+                local itemsBottom, lenBottom = world:querySegment(x, y+h, x+w, y+h, function(item)
+                    if not item.class or item.collidable then
+                        return true
+                    end
+
+                    return false
+                end)
+
+                crushed.bottom = lenBottom > 0
+                crushers.bottom = itemsBottom[1]
+            end
+
+            if not crush or crush.right then
+                local itemsLeft, lenLeft = world:querySegment(x, y, x, y+h, function(item)
+                    if not item.class or item.collidable then
+                        return true
+                    end
+
+                    return false
+                end)
+
+                crushed.left = lenLeft > 0
+                crushers.left = itemsLeft[1]
+            end
+            
+            if not crush or crush.left then
+                local itemsRight, lenRight = world:querySegment(x+w, y, x+w, y+h, function(item)
+                    if not item.class or item.collidable then
+                        return true
+                    end
+
+                    return false
+                end)
+
+                crushed.right = lenRight > 0
+                crushers.right = itemsRight[1]
+            end
+
             -- potential issue here. if the postion x y has already been chosen by bump, then they are coordinates for a location already safe from crushing
             -- this evaluates collisions between the current position and the desired position
-            local actualX, actualY, cols = world:check(self, x, y, function(item, other)
+            local actualX, actualY, cols = world:check(self, tryX, tryY, function(item, other)
                 if not other.class or other.collidable then
                     return "slide"
                 end
@@ -155,31 +227,6 @@ function Player:move(world, x, y, checkCrush, crush, reference)
                 return false
             end)
 
-            local crushed = crush or {}
-            local crushers = {top = "", bottom = "", left = "", right = ""}
-
-            for k, col in pairs(cols) do
-                local other = col.other
-                
-                if not other.class or other.collidable then
-                    if col.normal.y == 1 then
-                        crushed.top = true
-                        crushers.top = other
-                    end
-                    if col.normal.y == -1 then
-                        crushed.bottom = true
-                        crushers.bottom = other
-                    end
-                    if col.normal.x == 1 and self.prevGround then
-                        crushed.left = true
-                        crushers.left = other
-                    end
-                    if col.normal.x == -1 and self.prevGround then
-                        crushed.right = true
-                        crushers.right = other
-                    end
-                end
-            end
 
             if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
                 if crushers[1] ~= crushers[2] or (not crushers[1] and not crushers[2]) then
@@ -194,7 +241,7 @@ function Player:move(world, x, y, checkCrush, crush, reference)
 
             self.lastCrush = crushed
         else
-            self.position.x, self.position.y = x, y
+            self.position.x, self.position.y = tryX, tryY
             world:update(self, self.position.x, self.position.y)
         end
     end
