@@ -79,7 +79,7 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.imgID        = properties.imgID or 0
     self.delay        = properties.delay or 0
     self.resettable   = properties.resettable or false
-    self.beginState = properties.beginState or 1
+    self.beginState   = properties.beginState or 1
 
     self.collidable = true
 
