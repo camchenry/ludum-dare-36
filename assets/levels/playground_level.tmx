@@ -322,6 +322,7 @@
    <properties>
     <property name="ID" type="int" value="0"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="clickable" type="bool" value="true"/>
     <property name="on" type="bool" value="false"/>
    </properties>
   </object>
@@ -330,6 +331,7 @@
     <property name="ID" type="int" value="0"/>
     <property name="augment" value="blue"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="clickable" type="bool" value="true"/>
     <property name="on" type="bool" value="false"/>
    </properties>
   </object>
@@ -338,6 +340,7 @@
     <property name="ID" type="int" value="0"/>
     <property name="augment" value="red"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="clickable" type="bool" value="true"/>
     <property name="on" type="bool" value="false"/>
    </properties>
   </object>
@@ -348,6 +351,7 @@
     <property name="ID" type="int" value="0"/>
     <property name="augment" value="green"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="clickable" type="bool" value="true"/>
     <property name="on" type="bool" value="false"/>
    </properties>
   </object>

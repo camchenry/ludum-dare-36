@@ -147,7 +147,7 @@ function game:mousepressed(x, y, mbutton)
     for i = 1, len do
         if items[i]:isInstanceOf(NewCrusher) then
             if self.player.augments[items[i].augment] or items[i].augment == "none" then
-                items[i]:activate()
+                items[i]:activate(true)
             end
         end
     end

@@ -45,6 +45,7 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.ID           = properties.ID or 0
     self.augment      = properties.augment or "none"
     self.elevator     = properties.elevator or false
+    self.clickable    = properties.clickable or false
 
     self.collidable = true
 
@@ -78,8 +79,10 @@ function NewCrusher:initialize(x, y, w, h, properties)
     end)
 end
 
-function NewCrusher:activate()
-    self.on = not self.on
+function NewCrusher:activate(clicked)
+    if not clicked or self.clickable then
+        self.on = not self.on
+    end
 end
 
 function NewCrusher:getNextState()
@@ -184,6 +187,8 @@ function NewCrusher:update(dt, world)
     if self.currentStateTime >= self.stateTimes[self.currentState] then
         self.finishedMovement = true
         self:advanceState(world)
+
+        -- this ensures an offset fully reaches its end
         if self.offset > 0.5 then
             self.offset = 1
         else

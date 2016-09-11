@@ -1073,6 +1073,7 @@ return {
           properties = {
             ["ID"] = 0,
             ["auto"] = false,
+            ["clickable"] = true,
             ["on"] = false
           }
         },
@@ -1091,6 +1092,7 @@ return {
             ["ID"] = 0,
             ["augment"] = "blue",
             ["auto"] = false,
+            ["clickable"] = true,
             ["on"] = false
           }
         },
@@ -1109,6 +1111,7 @@ return {
             ["ID"] = 0,
             ["augment"] = "red",
             ["auto"] = false,
+            ["clickable"] = true,
             ["on"] = false
           }
         },
@@ -1153,6 +1156,7 @@ return {
             ["ID"] = 0,
             ["augment"] = "green",
             ["auto"] = false,
+            ["clickable"] = true,
             ["on"] = false
           }
         },
