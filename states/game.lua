@@ -134,8 +134,22 @@ function game:keypressed(key, code)
             self.activeCamera = self.camera
         end
     end
+    
+    -- experiment shaders feature, remove this later
+    if key == "f9" then
+        self.currentShader = self.currentShader + 1
+
+        if self.currentShader > #self.shaders then 
+            self.currentShader = 1 
+        end
+    end
 
     self.player:keypressed(key)
+end
+
+function game:mousemoved(x, y, dx, dy)
+    local bands = love.mouse.getX() / love.graphics.getWidth() * 16
+    self.shaders[3]:send("num_bands", math.ceil(bands))
 end
 
 function game:mousepressed(x, y, mbutton)
@@ -193,7 +207,9 @@ function game:draw()
     camera:detach()
 
     love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setShader(self.shaders[self.currentShader])
     love.graphics.draw(self.canvas, 0, 0, 0, SCALEX, SCALEY)
+    love.graphics.setShader()
 
     if DEBUG then
         for _, obj in ipairs(self.objects) do
