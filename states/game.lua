@@ -56,11 +56,14 @@ function game:reset()
     self.effects = {}
     self.effects.screenShake = ScreenShake:new()
     self.shaders = {
-        love.graphics.newShader("shaders/identity.frag"),
+        love.graphics.newShader("shaders/identity.glsl"),
         love.graphics.newShader("shaders/greyscale.frag"),
         love.graphics.newShader("shaders/posterize.frag"),
+        love.graphics.newShader("shaders/distort.vert"),
     }
     self.shaders[3]:send("num_bands", 3);
+    -- self.shaders[4]:send("canvasWidth", CANVAS_WIDTH);
+    -- self.shaders[4]:send("canvasHeight", CANVAS_HEIGHT);
     self.currentShader = 1
 end
 
