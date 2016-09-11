@@ -80,6 +80,7 @@
   <property name="ID" type="int" default="0"/>
   <property name="augment" type="string" default="none"/>
   <property name="auto" type="bool" default="false"/>
+  <property name="beginState" type="int" default="1"/>
   <property name="clickable" type="bool" default="false"/>
   <property name="collidable" type="bool" default="true"/>
   <property name="direction" type="string" default="up"/>

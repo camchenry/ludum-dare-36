@@ -445,7 +445,9 @@
    <properties>
     <property name="ID" type="int" value="22"/>
     <property name="auto" type="bool" value="false"/>
-    <property name="inWait" type="float" value="1.2"/>
+    <property name="direction" value="down"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="inWait" type="float" value="2"/>
     <property name="on" type="bool" value="true"/>
    </properties>
   </object>
@@ -468,7 +470,9 @@
    <properties>
     <property name="ID" type="int" value="22"/>
     <property name="auto" type="bool" value="false"/>
-    <property name="inWait" type="float" value="1.2"/>
+    <property name="direction" value="down"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="inWait" type="float" value="2"/>
     <property name="on" type="bool" value="true"/>
    </properties>
   </object>
@@ -483,6 +487,7 @@
    <properties>
     <property name="auto" type="bool" value="true"/>
     <property name="direction" value="right"/>
+    <property name="on" type="bool" value="true"/>
    </properties>
   </object>
   <object id="133" type="Bot" x="960" y="1200" width="15" height="15">
@@ -516,6 +521,7 @@
     <property name="auto" type="bool" value="true"/>
     <property name="direction" value="left"/>
     <property name="elevator" type="bool" value="true"/>
+    <property name="on" type="bool" value="true"/>
    </properties>
   </object>
   <object id="140" type="NewCrusher" x="1060" y="1232" width="44" height="32">
@@ -523,6 +529,7 @@
     <property name="auto" type="bool" value="true"/>
     <property name="direction" value="right"/>
     <property name="elevator" type="bool" value="true"/>
+    <property name="on" type="bool" value="true"/>
    </properties>
   </object>
   <object id="141" type="Bot" x="1040" y="1248" width="15" height="15">

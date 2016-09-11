@@ -1622,7 +1622,9 @@ return {
           properties = {
             ["ID"] = 22,
             ["auto"] = false,
-            ["inWait"] = 1.2,
+            ["direction"] = "down",
+            ["elevator"] = true,
+            ["inWait"] = 2,
             ["on"] = true
           }
         },
@@ -1687,7 +1689,9 @@ return {
           properties = {
             ["ID"] = 22,
             ["auto"] = false,
-            ["inWait"] = 1.2,
+            ["direction"] = "down",
+            ["elevator"] = true,
+            ["inWait"] = 2,
             ["on"] = true
           }
         },
@@ -1733,7 +1737,8 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["direction"] = "right"
+            ["direction"] = "right",
+            ["on"] = true
           }
         },
         {
@@ -1840,7 +1845,8 @@ return {
           properties = {
             ["auto"] = true,
             ["direction"] = "left",
-            ["elevator"] = true
+            ["elevator"] = true,
+            ["on"] = true
           }
         },
         {
@@ -1857,7 +1863,8 @@ return {
           properties = {
             ["auto"] = true,
             ["direction"] = "right",
-            ["elevator"] = true
+            ["elevator"] = true,
+            ["on"] = true
           }
         },
         {

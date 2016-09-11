@@ -77,26 +77,19 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.elevator     = properties.elevator or false
     self.clickable    = properties.clickable or false
     self.imgID        = properties.imgID or 0
+    self.delay        = properties.delay or 0
+    self.resettable   = properties.resettable or false
+    self.beginState = properties.beginState or 1
 
     self.collidable = true
 
     self.horizontal = (self.direction == "left" or self.direction == "right")
     self.reverse = (self.direction == "up" or self.direction == "left")
 
-    self.moving = false
-    self.waiting = true
-    self.finishedMovement = false
-
     self.image = nil
     if NewCrusher.images[self.imgID] then
         self.image = NewCrusher.images[self.imgID]
     end
-
-    self.beginState = 1
-    self.currentState = self.beginState
-    self.currentStateTime = 0
-
-    self.offset = 0
 
     self.stateTimes = {
         properties.outWait or 1,
@@ -106,13 +99,27 @@ function NewCrusher:initialize(x, y, w, h, properties)
     }
     assert(#self.stateTimes % 2 == 0, "Number of states must be even")
 
-    self.lastMove = 0
+
+    self:reset(true)
 
     Signal.register("activate", function(ID, ID2)
         if ID == self.ID or ID2 == self.ID then
             self:activate()
         end
     end)
+end
+
+function NewCrusher:reset(override)
+    if self.resettable or override then
+        self.lastMove = 0
+        self.currentState = self.beginState
+        self.currentStateTime = 0
+        self.offset = 0
+        self.delayTimer = self.delay
+        self.moving = false
+        self.waiting = true
+        self.finishedMovement = false
+    end
 end
 
 function NewCrusher:activate(clicked)
@@ -215,76 +222,80 @@ function NewCrusher:getSpeed()
 end
 
 function NewCrusher:update(dt, world)
-    self.finishedMovement = false
+    if self.delayTimer > 0 then
+        self.delayTimer = math.max(0, self.delayTimer - dt)
+    else
+        self.finishedMovement = false
 
-    local doMove = true
+        local doMove = true
 
-    self.currentStateTime = self.currentStateTime + dt
+        self.currentStateTime = self.currentStateTime + dt
 
-    if self.currentStateTime >= self.stateTimes[self.currentState] then
-        self.finishedMovement = true
-        self:advanceState(world)
+        if self.currentStateTime >= self.stateTimes[self.currentState] then
+            self.finishedMovement = true
+            self:advanceState(world)
 
-        -- this ensures an offset fully reaches its end
-        if self.offset > 0.5 then
-            self.offset = 1
-        else
-            self.offset = 0
-        end
-    end
-
-    self.lastMove = 0
-
-    self.height = self.startHeight * (1 - self.offset)
-
-    if doMove then
-        local dy = 0
-
-        if not self.waiting then
-            local goal = 0
-
-            if self.currentState == 1 or self.currentState == 4 then
-                goal = 1
-            end
-
-            local time = self.stateTimes[self.currentState]
-            local speed = 1 / time
-
-            dy = speed * dt
-
-            if self.currentState == 2 or self.currentState == 3 then
-                dy = dy * -1
-            end
-
-            if self.reverse then
-                dy = dy * -1
-            end
-
-            self.offset = self.offset + dy
-            self.offset = math.max(0, math.min(1, self.offset))
-        end
-
-        self.lastMove = dy
-
-        local x, y, width, height = self.startPosition.x, self.startPosition.y, self.startWidth, self.startHeight
-
-        if self.elevator then
-            if self.horizontal then
-                width = width * (1 - self.offset)
+            -- this ensures an offset fully reaches its end
+            if self.offset > 0.5 then
+                self.offset = 1
             else
-                height = height * (1 - self.offset)
+                self.offset = 0
             end
         end
 
-        if not self.elevator or not self.reverse then
-            if self.horizontal then
-                x = x + self.offset * self.startWidth
-            else
-                y = y + self.offset * self.startHeight
-            end
-        end
+        self.lastMove = 0
 
-        self:move(world, x, y, width, height)
+        self.height = self.startHeight * (1 - self.offset)
+
+        if doMove then
+            local dy = 0
+
+            if not self.waiting then
+                local goal = 0
+
+                if self.currentState == 1 or self.currentState == 4 then
+                    goal = 1
+                end
+
+                local time = self.stateTimes[self.currentState]
+                local speed = 1 / time
+
+                dy = speed * dt
+
+                if self.currentState == 2 or self.currentState == 3 then
+                    dy = dy * -1
+                end
+
+                if self.reverse then
+                    dy = dy * -1
+                end
+
+                self.offset = self.offset + dy
+                self.offset = math.max(0, math.min(1, self.offset))
+            end
+
+            self.lastMove = dy
+
+            local x, y, width, height = self.startPosition.x, self.startPosition.y, self.startWidth, self.startHeight
+
+            if self.elevator then
+                if self.horizontal then
+                    width = width * (1 - self.offset)
+                else
+                    height = height * (1 - self.offset)
+                end
+            end
+
+            if not self.elevator or not self.reverse then
+                if self.horizontal then
+                    x = x + self.offset * self.startWidth
+                else
+                    y = y + self.offset * self.startHeight
+                end
+            end
+
+            self:move(world, x, y, width, height)
+        end
     end
 end
 
@@ -328,6 +339,8 @@ function NewCrusher:drawDebug(x, y)
         "Finished Movement: " .. (self.finishedMovement and "true" or "false"),
         "Auto: " .. (self.auto and "true" or "false"),
         "On: " .. (self.on and "true" or "false"),
+        "Reverse: " .. (self.reverse and "true" or "false"),
+        "Elevator: " .. (self.elevator and "true" or "false"),
     }
 
     Object.drawDebug(self, x, y, propertyStrings)
