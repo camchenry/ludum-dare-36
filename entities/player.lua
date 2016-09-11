@@ -235,6 +235,11 @@ function Player:move(world, tryX, tryY, checkCrush, crush, reference)
                     Signal.emit("playerDeath")
                 end
             else
+                -- this is a hacky fix to an issue where player would be teleported instead of properly crushed
+                if math.abs(tryX - actualX) > 4 then
+                    game:resetToCheckpoint()
+                    Signal.emit("playerDeath")
+                end
                 self.position.x, self.position.y = actualX, actualY
                 world:update(self, self.position.x, self.position.y)
             end
@@ -421,7 +426,6 @@ function Player:update(dt, world)
             changePos = false
         elseif other.class and other:isInstanceOf(NewCrusher) then
             if col.normal.y == -1 or col.normal.y == 1 then
-
                 if self.position.y <= other.position.y + other.height/2 then
                 else
                     -- hitting the crusher from underneath
@@ -473,9 +477,16 @@ function Player:update(dt, world)
     self.prevWall = hitWall
 
     self.prevX = self.position.x
+    local prevPosition = Vector(self.position.x, self.position.y)
 
     if changePos then
         self:move(world, actualX, actualY)
+    end
+
+    if (self.position - prevPosition):len() > (newPos - prevPosition):len() then
+        -- GET CRUSHED!
+        game:resetToCheckpoint()
+        Signal.emit("playerDeath")
     end
 
     self.attackTimer = math.max(0, self.attackTimer - dt)
@@ -554,6 +565,10 @@ function Player:draw()
 
     if (self.jumpTimer > 0 or not self.canJump) and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.prevTouchedNewCrusher and not self.prevNewCrusherReference and not self.touchingGround then
         image = self.jumpImage
+    end
+
+    if self.newCrusherReference then
+        love.graphics.setColor(255, 255, 0)
     end
 
     local x, y = math.floor(self.position.x + self.imageOffset.x*self.facing + offset + 0.5), math.floor(self.position.y + self.imageOffset.y + 0.5)
