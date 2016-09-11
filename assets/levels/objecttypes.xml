@@ -44,6 +44,7 @@
   <property name="acceptCheckpoint" type="bool" default="true"/>
   <property name="collidable" type="bool" default="false"/>
   <property name="pushable" type="bool" default="true"/>
+  <property name="resettable" type="bool" default="true"/>
  </objecttype>
  <objecttype name="Lever" color="#26a400">
   <property name="ID" type="int" default="0"/>
@@ -83,7 +84,11 @@
   <property name="collidable" type="bool" default="true"/>
   <property name="direction" type="string" default="up"/>
   <property name="elevator" type="bool" default="false"/>
+  <property name="inTime" type="float" default="1"/>
+  <property name="inWait" type="float" default="1"/>
   <property name="on" type="bool" default="true"/>
+  <property name="outTime" type="float" default="1"/>
+  <property name="outWait" type="float" default="1"/>
   <property name="pushable" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Mask" color="#55ffff">
@@ -91,5 +96,13 @@
  </objecttype>
  <objecttype name="SecretLayer" color="#aa0000">
   <property name="ID" type="int" default="0"/>
+ </objecttype>
+ <objecttype name="Director" color="#ffff7f">
+  <property name="activateID" type="int" default="0"/>
+  <property name="direction" type="int" default="1"/>
+  <property name="on" type="bool" default="true"/>
+  <property name="oneTime" type="bool" default="false"/>
+  <property name="switchID" type="int" default="0"/>
+  <property name="switchID2" type="int" default="0"/>
  </objecttype>
 </objecttypes>

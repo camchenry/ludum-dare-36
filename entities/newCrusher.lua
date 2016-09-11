@@ -63,10 +63,10 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.offset = 0
 
     self.stateTimes = {
-        1,
-        1,
-        1,
-        1,
+        properties.outWait or 1,
+        properties.outTime or 1,
+        properties.inWait  or 1,
+        properties.inTime  or 1,
     }
     assert(#self.stateTimes % 2 == 0, "Number of states must be even")
 
@@ -135,10 +135,11 @@ function NewCrusher:move(world, x, y, w, h)
                             local x = item.position.x
                             if item.controlled then
                                 x = self.position.x + self.width/2 - item.width/2
+                                item:move(world, x, self.position.y - item.height, false)
+                            else
+                                item:move(world, x, self.position.y - item.height, true, crush, self)
                             end
 
-                            if crush.top then error(Inspect(crush)) end
-                            item:move(world, x, self.position.y - item.height, true, crush, self)
                             item.touchedNewCrusher = true
                             item.touchingGround = true
                         end

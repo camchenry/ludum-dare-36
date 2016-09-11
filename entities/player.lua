@@ -235,11 +235,6 @@ function Player:move(world, tryX, tryY, checkCrush, crush, reference)
                     Signal.emit("playerDeath")
                 end
             else
-                -- this is a hacky fix to an issue where player would be teleported instead of properly crushed
-                if math.abs(tryX - actualX) > 4 then
-                    game:resetToCheckpoint()
-                    Signal.emit("playerDeath")
-                end
                 self.position.x, self.position.y = actualX, actualY
                 world:update(self, self.position.x, self.position.y)
             end
@@ -564,7 +559,7 @@ function Player:draw()
 
     local image = self.idleImage
 
-    if (self.jumpTimer > 0 or not self.canJump) and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.prevTouchedNewCrusher and not self.prevNewCrusherReference and not self.touchingGround then
+    if (self.jumpTimer > 0 or not self.canJump) and self.crusherTouchTimer <= 0 and not self.crusherReference and not self.prevTouchedNewCrusher and not self.prevNewCrusherReference and not self.touchingGround and not self.newCrusherReference then
         image = self.jumpImage
     end
 
