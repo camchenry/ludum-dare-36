@@ -99,7 +99,6 @@ function NewCrusher:initialize(x, y, w, h, properties)
     }
     assert(#self.stateTimes % 2 == 0, "Number of states must be even")
 
-
     self:reset(true)
 
     Signal.register("activate", function(ID, ID2)
@@ -119,6 +118,7 @@ function NewCrusher:reset(override)
         self.moving = false
         self.waiting = true
         self.finishedMovement = false
+        self.initial = true
     end
 end
 
@@ -133,7 +133,9 @@ function NewCrusher:getNextState()
 end
 
 function NewCrusher:advanceState(world)
-    if self.auto or self.on or self.waiting then
+    if self.auto or self.on or (self.waiting and not self.initial) then
+        self.initial = false
+
         local spareTime = self.currentStateTime - self.stateTimes[self.currentState]
 
         if self.on or self.waiting then

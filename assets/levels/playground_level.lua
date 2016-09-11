@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 153,
+  nextobjectid = 155,
   properties = {},
   tilesets = {
     {
@@ -172,7 +172,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["auto"] = true
+            ["auto"] = true,
+            ["on"] = true
           }
         },
         {
@@ -218,7 +219,8 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["direction"] = "down"
+            ["direction"] = "down",
+            ["on"] = true
           }
         },
         {
@@ -302,7 +304,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["auto"] = true
+            ["auto"] = true,
+            ["on"] = true
           }
         },
         {
@@ -317,7 +320,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["auto"] = true
+            ["auto"] = true,
+            ["on"] = false
           }
         },
         {
@@ -1177,7 +1181,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["auto"] = true
+            ["auto"] = true,
+            ["on"] = true
           }
         },
         {
@@ -1193,7 +1198,8 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["direction"] = "down"
+            ["direction"] = "down",
+            ["on"] = true
           }
         },
         {
@@ -1221,7 +1227,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["auto"] = true
+            ["auto"] = true,
+            ["on"] = true
           }
         },
         {
@@ -1237,7 +1244,8 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["direction"] = "down"
+            ["direction"] = "down",
+            ["on"] = true
           }
         },
         {
@@ -1253,7 +1261,8 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["direction"] = "left"
+            ["direction"] = "left",
+            ["on"] = true
           }
         },
         {
@@ -1269,7 +1278,8 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["direction"] = "right"
+            ["direction"] = "right",
+            ["on"] = true
           }
         },
         {
@@ -1303,8 +1313,8 @@ return {
           name = "",
           type = "Spawn",
           shape = "rectangle",
-          x = 960,
-          y = 1232,
+          x = 704,
+          y = 848,
           width = 16,
           height = 32,
           rotation = 0,
@@ -1324,7 +1334,8 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["direction"] = "left"
+            ["direction"] = "left",
+            ["on"] = true
           }
         },
         {
@@ -1393,7 +1404,8 @@ return {
           properties = {
             ["auto"] = true,
             ["direction"] = "left",
-            ["elevator"] = true
+            ["elevator"] = true,
+            ["on"] = true
           }
         },
         {
@@ -1410,7 +1422,8 @@ return {
           properties = {
             ["auto"] = true,
             ["direction"] = "right",
-            ["elevator"] = true
+            ["elevator"] = true,
+            ["on"] = true
           }
         },
         {
@@ -1439,7 +1452,8 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
-            ["elevator"] = true
+            ["elevator"] = true,
+            ["on"] = true
           }
         },
         {
@@ -1456,7 +1470,8 @@ return {
           properties = {
             ["auto"] = true,
             ["direction"] = "down",
-            ["elevator"] = true
+            ["elevator"] = true,
+            ["on"] = true
           }
         },
         {
@@ -2005,7 +2020,7 @@ return {
           name = "",
           type = "Wrench",
           shape = "rectangle",
-          x = 944,
+          x = 928,
           y = 1232,
           width = 48,
           height = 32,
@@ -2044,6 +2059,34 @@ return {
             ["activateID"] = -1,
             ["direction"] = 1
           }
+        },
+        {
+          id = 153,
+          name = "",
+          type = "Lever",
+          shape = "rectangle",
+          x = 496,
+          y = 624,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 0
+          }
+        },
+        {
+          id = 154,
+          name = "",
+          type = "Wrench",
+          shape = "rectangle",
+          x = 704,
+          y = 848,
+          width = 16,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }
