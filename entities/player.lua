@@ -433,6 +433,14 @@ function Player:update(dt, world)
                     self.jumpState = false
                 end
             end
+            if col.normal.x == -1 or col.normal.x == 1 then
+                self.velocity.x = 0
+                if not self.prevWall then
+                    self.prevWall = true
+                    Signal.emit("hitWall")
+                end
+                hitWall = true
+            end
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
@@ -501,8 +509,7 @@ function Player:update(dt, world)
         self.runAnimation:gotoFrame(1)
     end
 
-    
-    if self.canMove and self.jumpTimer == 0 and self.touchingGround then
+    if self.canMove and not hitWall and self.jumpTimer == 0 and self.touchingGround then
         self.footstepTimer = (self.footstepTimer + dt)
     end
 
