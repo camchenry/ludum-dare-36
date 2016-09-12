@@ -47,6 +47,7 @@ end
 function Lever:hit()
     if self.oneTime and self.active then return end
     Signal.emit("activate", self.ID)
+    Signal.emit("leverActivate")
     self.active = not self.active
     return true
 end

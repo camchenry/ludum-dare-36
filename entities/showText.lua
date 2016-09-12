@@ -36,8 +36,11 @@ function ShowText:initialize(x, y, w, h, properties)
     end
 
     Signal.register("activate", function(ID)
-        if ID == self.ID then
+        if ID == self.ID and ID ~= 0 then
             self.showImage = not self.showImage
+            if self.showImage then
+                Signal.emit("textActivate")
+            end
         end
     end)
 end

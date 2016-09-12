@@ -23,8 +23,10 @@ function SoundManager:initialize(directory)
 		end
 	end
 
-    self.sounds.startJump:setVolume(0.8)
+    self.sounds.startJump:setVolume(0.5)
+    self.sounds.startJump:setPitch(0.9)
     self.sounds.bugDeath:setVolume(0.9)
+    self.sounds.hitCeiling:setVolume(0.85)
 
 	self.musicVolume = 0.75
     self.currentMusicVolume = 0.75
@@ -48,9 +50,11 @@ function SoundManager:initialize(directory)
         'playerDeath',
         'enemyDeath',
         'getWrench',
-        'activate',
+        -- 'activate',
         'playerFootstep',
         'gameEntered',
+        'textActivate',
+        'leverActivate',
     }
 
     local function firstToUpper(str)
@@ -108,7 +112,7 @@ end
 function SoundManager:onHitWall()
     if self.timers.hitWall == 0 then
         self.sounds.hitWall:play()
-        self.timers.hitWall = 0.5
+        self.timers.hitWall = 0.1
     end
 end
 
@@ -134,8 +138,12 @@ function SoundManager:onGetWrench()
     self.sounds.wrenchPickup:play() 
 end
 
-function SoundManager:onActivate()
+function SoundManager:onLeverActivate()
     self.sounds.leverActivate:play()
+end
+
+function SoundManager:onTextActivate()
+    self.sounds.textActivate:play()
 end
 
 function SoundManager:onPlayerFootstep()
