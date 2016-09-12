@@ -8,7 +8,7 @@ DEBUG = true
 DETAILED_DEBUG = true
 
 -- If hitboxes should be drawn for all objects
-DRAW_HITBOXES = true
+DRAW_HITBOXES = false
 
 -- If the hitbox for the player's attack should be shown
 DRAW_ATTACKBOX = false

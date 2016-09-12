@@ -103,7 +103,7 @@ function NewCrusher:initialize(x, y, w, h, properties)
 
     Signal.register("activate", function(ID, ID2)
         if ID == self.ID or ID2 == self.ID then
-            self:activate()
+            self:activate(false)
         end
     end)
 end
@@ -119,6 +119,10 @@ function NewCrusher:reset(override)
         self.waiting = true
         self.finishedMovement = false
         self.initial = true
+
+        if self.currentState >= 3 then
+            self.offset = 1
+        end
     end
 end
 
@@ -268,11 +272,7 @@ function NewCrusher:update(dt, world)
                     dy = dy * -1
                 end
 
-                if self.reverse then
-                    dy = dy * -1
-                end
-
-                self.offset = self.offset + dy
+                self.offset = self.offset - dy
                 self.offset = math.max(0, math.min(1, self.offset))
             end
 
@@ -314,15 +314,21 @@ function NewCrusher:draw(debugOverride)
     love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
 
     if self.image then
+        local x, y = self.position.x - (self.startWidth - self.width), self.position.y - (self.startHeight - self.height)
+
         if self.elevator then
             local x1, y1 = game:cameraCoords(self.startPosition.x, self.startPosition.y)
             local x2, y2 = game:cameraCoords(self.startPosition.x + self.startWidth, self.startPosition.y + self.startHeight)
             local w, h = x2 - x1, y2 - y1
             love.graphics.setScissor(self.startPosition.x - game.camera.x + CANVAS_WIDTH/2, self.startPosition.y - game.camera.y + CANVAS_HEIGHT/2, self.startWidth, self.startHeight)
             LASTPOS = {x = self.startPosition.x - game.camera.x + CANVAS_WIDTH/2, y = self.startPosition.y - game.camera.y + CANVAS_HEIGHT/2}
+        
+            if not self.reverse then
+                x, y = self.position.x, self.position.y
+            end
         end
 
-        love.graphics.draw(self.image, self.position.x - (self.startWidth - self.width), self.position.y - (self.startHeight - self.height))
+        love.graphics.draw(self.image, math.floor(x + 0.5), math.floor(y + 0.5))
     
         love.graphics.setScissor()
     end
