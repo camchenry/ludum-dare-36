@@ -104,6 +104,10 @@ function Player:reset(world)
     self.crusherReference = nil
     self.lastCrusherReference = nil
     self.crusherTouchTimer = 0
+    self.jumpState = false
+    self.canJump = false
+    self.startedJump = false
+    self.touchingGround = false
 end
 
 function Player:keypressed(key)

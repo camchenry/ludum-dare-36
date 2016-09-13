@@ -157,7 +157,10 @@ end
 function Bot:reset(world)
     if self.resettable then
         self.position = Vector(self.resetPosition.x, self.resetPosition.y)
-        world:update(self, self.position.x, self.position.y)
+        game.world:update(self, self.resetPosition.x, self.resetPosition.y)
+        self.startTimer = 5
+        self.acceleration = Vector(0, 0)
+        self.velocity = Vector(0, 0)
     end
 end
 
@@ -184,6 +187,8 @@ function Bot:update(dt, world)
         self.touchingGround = true
     end
 
+    local changePos = true
+
     local actualX, actualY, cols, len = world:check(self, newPos.x, newPos.y, function(item, other)
         if other.class and other:isInstanceOf(Spikes) then
             return "cross"
@@ -204,6 +209,7 @@ function Bot:update(dt, world)
             else
                 self:reset(world)
             end
+            changePos = false
         elseif other.class and other:isInstanceOf(NewCrusher) then
             if col.normal.y == -1 or col.normal.y == 1 then
 
@@ -226,9 +232,11 @@ function Bot:update(dt, world)
 
     local prevPosition = Vector(self.position.x, self.position.y)
 
-    self:move(world, actualX, actualY)
+    if changePos then
+        self:move(world, actualX, actualY)
+    end
 
-    if (self.position - prevPosition):len() > (newPos - prevPosition):len() then
+    if self.startTimer <= 0 and (self.position - prevPosition):len() > (newPos - prevPosition):len() then
         -- GET CRUSHED!
         game:resetToCheckpoint()
         Signal.emit("botDeath")
@@ -271,7 +279,7 @@ function Bot:draw(debugOverride)
     love.graphics.setColor(255, 255, 255)
 
     if not self.dead then
-        self.animation:draw(Bot.image, math.floor(self.position.x+0.5), math.floor(self.position.y-1+0.5))
+        self.animation:draw(Bot.image, math.floor(self.position.x), math.floor(self.position.y-1+0.5))
     end
 end
 

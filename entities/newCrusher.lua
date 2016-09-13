@@ -77,8 +77,8 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.elevator     = properties.elevator or false
     self.clickable    = properties.clickable or false
     self.imgID        = properties.imgID or 0
-    self.delay        = properties.delay or 0
-    self.resettable   = properties.resettable or false
+    self.delay        = properties.startDelay or 0
+    self.resettable   = properties.resettable or true
     self.beginState   = properties.beginState or 1
 
     self.collidable = true
@@ -99,7 +99,7 @@ function NewCrusher:initialize(x, y, w, h, properties)
     }
     assert(#self.stateTimes % 2 == 0, "Number of states must be even")
 
-    self:reset(true)
+    self:reset(nil, true)
 
     Signal.register("activate", function(ID, ID2)
         if ID == self.ID or ID2 == self.ID then
@@ -108,7 +108,7 @@ function NewCrusher:initialize(x, y, w, h, properties)
     end)
 end
 
-function NewCrusher:reset(override)
+function NewCrusher:reset(world, override)
     if self.resettable or override then
         self.lastMove = 0
         self.currentState = self.beginState
@@ -230,7 +230,9 @@ end
 
 function NewCrusher:update(dt, world)
     if self.delayTimer > 0 then
-        self.delayTimer = math.max(0, self.delayTimer - dt)
+        if self.on then
+            self.delayTimer = math.max(0, self.delayTimer - dt)
+        end
     else
         self.finishedMovement = false
 
@@ -350,6 +352,7 @@ function NewCrusher:drawDebug(x, y)
         "On: " .. (self.on and "true" or "false"),
         "Reverse: " .. (self.reverse and "true" or "false"),
         "Elevator: " .. (self.elevator and "true" or "false"),
+        "Delay Timer: " .. Lume.round(self.delayTimer, .01)
     }
 
     Object.drawDebug(self, x, y, propertyStrings)

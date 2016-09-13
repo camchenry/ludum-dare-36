@@ -8,7 +8,7 @@ return {
   height = 130,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 731,
+  nextobjectid = 733,
   properties = {},
   tilesets = {
     {
@@ -1039,23 +1039,6 @@ return {
           visible = true,
           properties = {
             ["ID"] = "100"
-          }
-        },
-        {
-          id = 590,
-          name = "",
-          type = "AreaTrigger",
-          shape = "rectangle",
-          x = 464,
-          y = 1296,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = "20",
-            ["killBot"] = true,
-            ["oneTime"] = true
           }
         },
         {
@@ -2211,8 +2194,8 @@ return {
           name = "",
           type = "Spawn",
           shape = "rectangle",
-          x = 1232,
-          y = 1168,
+          x = 609,
+          y = 1119,
           width = 16,
           height = 16,
           rotation = 0,
@@ -2256,7 +2239,7 @@ return {
             ["elevator"] = true,
             ["imgID"] = 2,
             ["on"] = true,
-            ["startDelay"] = 0.8
+            ["startDelay"] = 0
           }
         },
         {
@@ -2494,7 +2477,9 @@ return {
           height = 15,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["resettable"] = false
+          }
         },
         {
           id = 718,
@@ -2502,9 +2487,9 @@ return {
           type = "AreaTrigger",
           shape = "rectangle",
           x = 240,
-          y = 1136,
+          y = 1152,
           width = 32,
-          height = 32,
+          height = 16,
           rotation = 0,
           visible = true,
           properties = {
@@ -2532,12 +2517,12 @@ return {
             ["elevator"] = true,
             ["imgID"] = 10,
             ["inTime"] = 5,
-            ["inWait"] = 5,
+            ["inWait"] = 0,
             ["on"] = false,
             ["outTime"] = 5,
-            ["outWait"] = 5,
+            ["outWait"] = 0,
             ["resettable"] = false,
-            ["startDelay"] = 0.5
+            ["startDelay"] = 1
           }
         },
         {
@@ -2604,7 +2589,7 @@ return {
           properties = {
             ["ID"] = 8,
             ["auto"] = false,
-            ["beginState"] = 3,
+            ["beginState"] = 1,
             ["clickable"] = false,
             ["direction"] = "right",
             ["elevator"] = true,
@@ -2621,7 +2606,7 @@ return {
           type = "NewCrusher",
           shape = "rectangle",
           x = 432,
-          y = 1344,
+          y = 1360,
           width = 32,
           height = 16,
           rotation = 0,
@@ -2629,7 +2614,7 @@ return {
           properties = {
             ["ID"] = 20,
             ["auto"] = false,
-            ["beginState"] = 3,
+            ["beginState"] = 1,
             ["clickable"] = false,
             ["direction"] = "right",
             ["elevator"] = true,
@@ -2652,7 +2637,7 @@ return {
           properties = {
             ["ID"] = 20,
             ["auto"] = false,
-            ["beginState"] = 3,
+            ["beginState"] = 1,
             ["clickable"] = false,
             ["direction"] = "right",
             ["elevator"] = true,
@@ -2705,9 +2690,39 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = 501,
+            ["ID"] = 500,
             ["textID"] = 2
           }
+        },
+        {
+          id = 731,
+          name = "",
+          type = "AreaTrigger",
+          shape = "rectangle",
+          x = 464,
+          y = 1296,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 20,
+            ["killBot"] = true,
+            ["oneTime"] = true
+          }
+        },
+        {
+          id = 732,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 336,
+          y = 1104,
+          width = 32,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }
