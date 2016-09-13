@@ -9,6 +9,7 @@ function Object:initialize(x, y, w, h, properties)
     if properties then
         self.collidable = properties.collidable or false
         self.pushable = properties.pushable or false
+        self.resettable = properties.resettable or true
     end
 
     self.name = "Object"

@@ -12,6 +12,7 @@ function Director:initialize(x, y, w, h, properties)
     self.on         = properties.on or true
     
     self.activated = false
+    self.startDirection = self.direction
 
     Signal.register("activate", function(ID)
         if ID == self.activateID then
@@ -21,6 +22,11 @@ function Director:initialize(x, y, w, h, properties)
             self.direction = self.direction * -1
         end
     end)
+end
+
+function Director:reset(world)
+    self.activated = false
+    self.direction = self.startDirection
 end
 
 function Director:update(dt, world)

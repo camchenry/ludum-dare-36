@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="733">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="777">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -184,7 +184,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,80,80,80,80,0,0,0,0,0,80,80,80,80,80,80,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,0,0,0,80,0,0,0,0,0,0,80,0,0,0,0,0,80,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,80,0,0,80,0,0,0,0,0,80,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,0,80,80,80,80,80,0,0,80,0,0,0,80,80,80,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,80,0,0,80,0,0,0,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,80,0,0,0,0,0,0,0,0,0,0,80,0,0,0,80,0,0,80,0,0,0,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,80,0,0,0,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,80,80,0,0,80,0,0,80,0,80,80,80,0,0,0,80,0,0,80,0,0,0,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,80,80,0,0,80,0,0,80,0,80,80,80,0,80,80,80,0,0,80,80,80,80,80,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,0,0,80,80,80,80,80,80,80,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,0,0,0,0,0,0,80,80,80,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,0,0,
@@ -226,133 +226,12 @@
    </properties>
   </object>
   <object id="547" type="Dropfloor" x="1280" y="1264" width="32" height="16"/>
-  <object id="553" type="Gate" x="1104" y="1696" width="48" height="12.75">
-   <properties>
-    <property name="ID" value="2"/>
-    <property name="crushTime" value="0"/>
-    <property name="dir" value="left"/>
-    <property name="img" value="5"/>
-    <property name="open" value="true"/>
-    <property name="retractTime" value="0"/>
-   </properties>
-  </object>
-  <object id="554" type="Gate" x="1184" y="1696" width="48" height="12.75">
-   <properties>
-    <property name="ID" value="2"/>
-    <property name="crushTime" value="0"/>
-    <property name="dir" value="left"/>
-    <property name="img" value="5"/>
-    <property name="open" value="true"/>
-    <property name="retractTime" value="0"/>
-   </properties>
-  </object>
-  <object id="555" type="Lever" x="1520" y="1664" width="16" height="32">
-   <properties>
-    <property name="ID" value="2"/>
-    <property name="oneTime" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="556" type="Enemy" x="1192" y="1744" width="16" height="16">
-   <properties>
-    <property name="ID" value="2"/>
-    <property name="direction" type="int" value="-1"/>
-    <property name="jumpAccel" type="int" value="10000"/>
-    <property name="jumpInterval" type="int" value="3"/>
-    <property name="jumping" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="557" type="Lever" x="688" y="2032" width="16" height="32">
-   <properties>
-    <property name="ID" value="6"/>
-   </properties>
-  </object>
-  <object id="558" type="Gate" x="640" y="2016" width="16" height="48">
-   <properties>
-    <property name="ID" value="6"/>
-    <property name="canClose" value="false"/>
-    <property name="crushTime" value="1"/>
-    <property name="dir" value="up"/>
-    <property name="img" value="9"/>
-    <property name="retractTime" value="1"/>
-   </properties>
-  </object>
-  <object id="559" type="Enemy" x="1112" y="1744" width="16" height="16">
-   <properties>
-    <property name="ID" value="2"/>
-    <property name="direction" type="int" value="-1"/>
-    <property name="jumpAccel" type="int" value="10000"/>
-    <property name="jumpInterval" type="int" value="3"/>
-    <property name="jumping" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="560" type="Dropfloor" x="1232" y="1600" width="32" height="16"/>
   <object id="568" type="Spikes" x="304" y="1200" width="32" height="16"/>
   <object id="569" type="Checkpoint" x="240" y="1312" width="32" height="48"/>
   <object id="570" type="Dropfloor" x="432" y="1312" width="32" height="16"/>
   <object id="571" type="Spikes" x="336" y="1344" width="32" height="16"/>
   <object id="572" type="Spikes" x="384" y="1344" width="32" height="16"/>
-  <object id="573" type="Gate" x="1328" y="1920" width="48" height="12.75">
-   <properties>
-    <property name="ID" value="3"/>
-    <property name="auto" value="false"/>
-    <property name="crushTime" value="1"/>
-    <property name="dir" value="right"/>
-    <property name="img" value="6"/>
-    <property name="retractTime" value="1"/>
-   </properties>
-  </object>
-  <object id="574" type="Gate" x="1504" y="1920" width="48" height="12.75">
-   <properties>
-    <property name="ID" value="3"/>
-    <property name="auto" value="false"/>
-    <property name="crushTime" value="1"/>
-    <property name="dir" value="right"/>
-    <property name="img" value="6"/>
-    <property name="retractTime" value="1"/>
-   </properties>
-  </object>
-  <object id="575" type="Gate" x="1456" y="1984" width="32" height="12.75">
-   <properties>
-    <property name="ID" value="3"/>
-    <property name="auto" value="false"/>
-    <property name="crushTime" value="1"/>
-    <property name="dir" value="left"/>
-    <property name="img" value="7"/>
-    <property name="retractTime" value="1"/>
-   </properties>
-  </object>
-  <object id="576" type="Lever" x="1296" y="1952" width="16" height="32">
-   <properties>
-    <property name="ID" value="3"/>
-   </properties>
-  </object>
-  <object id="577" type="Enemy" x="1344" y="1904" width="16" height="16">
-   <properties>
-    <property name="ID" value="3"/>
-    <property name="direction" value="-1"/>
-    <property name="limit" value="false"/>
-    <property name="movement" value="true"/>
-    <property name="right" value="64"/>
-   </properties>
-  </object>
-  <object id="578" type="Enemy" x="1520" y="1904" width="16" height="16">
-   <properties>
-    <property name="ID" value="3"/>
-    <property name="direction" value="-1"/>
-    <property name="limit" value="false"/>
-    <property name="movement" value="true"/>
-    <property name="right" value="64"/>
-   </properties>
-  </object>
-  <object id="580" type="Gate" x="368" y="1600" width="32" height="12.75">
-   <properties>
-    <property name="ID" value="71"/>
-    <property name="auto" value="false"/>
-    <property name="dir" value="left"/>
-    <property name="dontReset" type="bool" value="true"/>
-    <property name="img" value="1"/>
-   </properties>
-  </object>
   <object id="581" type="Checkpoint" x="1056" y="1552" width="16" height="48"/>
   <object id="582" type="Checkpoint" x="1408" y="1856" width="16" height="64"/>
   <object id="583" type="Checkpoint" x="1200" y="1936" width="16" height="64"/>
@@ -391,73 +270,10 @@
   <object id="599" type="Dropfloor" x="400" y="1936" width="32" height="16"/>
   <object id="600" type="Dropfloor" x="400" y="1968" width="32" height="16"/>
   <object id="601" type="Dropfloor" x="400" y="2000" width="32" height="16"/>
-  <object id="602" type="Gate" x="512" y="1968" width="32" height="12.75">
-   <properties>
-    <property name="ID" value="52"/>
-    <property name="crushTime" value="1"/>
-    <property name="dir" value="right"/>
-    <property name="img" value="20"/>
-    <property name="open" value="true"/>
-    <property name="retractTime" value="1"/>
-   </properties>
-  </object>
-  <object id="603" type="Gate" x="464" y="1968" width="32" height="12.75">
-   <properties>
-    <property name="ID" value="51"/>
-    <property name="crushTime" value="1"/>
-    <property name="dir" value="right"/>
-    <property name="img" value="20"/>
-    <property name="retractTime" value="1"/>
-   </properties>
-  </object>
-  <object id="607" type="AreaTrigger" x="608" y="1952" width="16" height="16">
-   <properties>
-    <property name="ID" value="71"/>
-    <property name="killBot" type="bool" value="true"/>
-    <property name="oneTime" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="608" type="Gate" x="592" y="1840" width="32" height="12.75">
-   <properties>
-    <property name="ID" value="71"/>
-    <property name="auto" value="false"/>
-    <property name="crushTime" value=""/>
-    <property name="dir" value="left"/>
-    <property name="dontReset" type="bool" value="true"/>
-    <property name="img" value="1"/>
-    <property name="retractTime" value="1"/>
-   </properties>
-  </object>
-  <object id="609" type="Lever" x="464" y="1904" width="16" height="32">
-   <properties>
-    <property name="ID" value="51"/>
-   </properties>
-  </object>
-  <object id="610" type="Lever" x="560" y="1904" width="16" height="32">
-   <properties>
-    <property name="ID" value="52"/>
-   </properties>
-  </object>
   <object id="614" type="Checkpoint" x="400" y="1888" width="32" height="48"/>
   <object id="616" type="Dropfloor" x="592" y="1792" width="32" height="16"/>
   <object id="617" type="Dropfloor" x="608" y="1888" width="16" height="16"/>
   <object id="618" type="Dropfloor" x="592" y="1824" width="32" height="16"/>
-  <object id="619" type="Crusher" x="577" y="1965" width="15" height="3">
-   <properties>
-    <property name="ID" value="5022"/>
-    <property name="auto" value="false"/>
-    <property name="botDir" value="0"/>
-    <property name="dir" value="down"/>
-    <property name="img" value="0"/>
-    <property name="open" value="false"/>
-   </properties>
-  </object>
-  <object id="620" type="AreaTrigger" x="448" y="1952" width="16" height="16">
-   <properties>
-    <property name="ID" value="5022"/>
-    <property name="oneTime" type="bool" value="false"/>
-   </properties>
-  </object>
   <object id="623" type="Gate" x="480" y="1552" width="14" height="48">
    <properties>
     <property name="ID" value="71"/>
@@ -473,25 +289,6 @@
     <property name="direction" value="-1"/>
     <property name="movement" value="true"/>
     <property name="right" value="80"/>
-   </properties>
-  </object>
-  <object id="626" type="Enemy" x="1032" y="1984" width="16" height="16">
-   <properties>
-    <property name="direction" value="-1"/>
-    <property name="movement" value="false"/>
-    <property name="right" value="200"/>
-   </properties>
-  </object>
-  <object id="635" type="AreaTrigger" x="733" y="2032" width="22" height="32">
-   <properties>
-    <property name="ID" value="502"/>
-    <property name="signalOff" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="636" type="ShowText" x="744.005" y="2014.02">
-   <properties>
-    <property name="ID" value="502"/>
-    <property name="textID" value="3"/>
    </properties>
   </object>
   <object id="638" type="Teleport" x="224" y="1552" width="64" height="48">
@@ -702,67 +499,6 @@
   <object id="677" type="Spikes" x="864" y="186.667" width="32" height="6"/>
   <object id="678" type="Checkpoint" x="1232" y="224" width="32.6667" height="32"/>
   <object id="679" type="Checkpoint" x="240" y="1152" width="32" height="48"/>
-  <object id="691" type="Crusher" x="992" y="1936" width="32" height="64">
-   <properties>
-    <property name="crushTime" type="float" value="0.4"/>
-    <property name="img" type="int" value="8"/>
-    <property name="reset" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="692" type="Crusher" x="1136" y="1936" width="32" height="64">
-   <properties>
-    <property name="crushTime" type="float" value="0.4"/>
-    <property name="img" type="int" value="8"/>
-    <property name="reset" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="693" type="Crusher" x="1088" y="1936" width="32" height="64">
-   <properties>
-    <property name="crushTime" type="float" value="0.4"/>
-    <property name="img" type="int" value="8"/>
-    <property name="reset" type="bool" value="false"/>
-    <property name="waitTime" type="float" value="0.6"/>
-   </properties>
-  </object>
-  <object id="694" type="Crusher" x="528" y="1856" width="32" height="80">
-   <properties>
-    <property name="crushTime" type="float" value="0.8"/>
-    <property name="img" type="int" value="15"/>
-    <property name="reset" type="bool" value="false"/>
-    <property name="retractTime" type="float" value="1.2"/>
-    <property name="waitTime" type="float" value="1"/>
-   </properties>
-  </object>
-  <object id="696" type="Crusher" x="480" y="1856" width="32" height="80">
-   <properties>
-    <property name="crushTime" type="float" value="0.8"/>
-    <property name="img" type="int" value="15"/>
-    <property name="reset" type="bool" value="false"/>
-    <property name="retractTime" type="float" value="1.2"/>
-    <property name="waitTime" type="float" value="0"/>
-   </properties>
-  </object>
-  <object id="697" type="Crusher" x="560" y="1968" width="16" height="32">
-   <properties>
-    <property name="ID" type="int" value="51"/>
-    <property name="auto" type="bool" value="false"/>
-    <property name="crushTime" type="float" value="0"/>
-    <property name="dir" value="down"/>
-    <property name="img" type="int" value="19"/>
-    <property name="startOpen" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="698" type="Crusher" x="368" y="1632" width="32" height="176">
-   <properties>
-    <property name="auto" type="bool" value="false"/>
-    <property name="crushTime" type="float" value="5"/>
-    <property name="dir" value="down"/>
-    <property name="img" type="int" value="16"/>
-    <property name="reset" type="bool" value="false"/>
-    <property name="retractTime" type="float" value="5"/>
-    <property name="waitPlayer" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="699" type="Crusher" x="1232" y="256" width="32" height="256">
    <properties>
     <property name="crushTime" type="float" value="5"/>
@@ -790,9 +526,9 @@
     <property name="img" type="int" value="22"/>
    </properties>
   </object>
-  <object id="702" type="Spawn" x="609" y="1119" width="16" height="16"/>
   <object id="703" type="NewCrusher" x="1088" y="1104" width="32" height="96">
    <properties>
+    <property name="ID" type="int" value="-1"/>
     <property name="auto" type="bool" value="true"/>
     <property name="direction" value="up"/>
     <property name="elevator" type="bool" value="true"/>
@@ -803,6 +539,7 @@
   </object>
   <object id="704" type="NewCrusher" x="1152" y="1104" width="32" height="96">
    <properties>
+    <property name="ID" type="int" value="-1"/>
     <property name="auto" type="bool" value="true"/>
     <property name="direction" value="up"/>
     <property name="elevator" type="bool" value="true"/>
@@ -813,6 +550,7 @@
   </object>
   <object id="705" type="NewCrusher" x="848" y="1104" width="32" height="96">
    <properties>
+    <property name="ID" type="int" value="-1"/>
     <property name="auto" type="bool" value="true"/>
     <property name="direction" value="up"/>
     <property name="elevator" type="bool" value="true"/>
@@ -823,6 +561,7 @@
   </object>
   <object id="706" type="NewCrusher" x="752" y="1104" width="32" height="96">
    <properties>
+    <property name="ID" type="int" value="-1"/>
     <property name="auto" type="bool" value="true"/>
     <property name="direction" value="up"/>
     <property name="elevator" type="bool" value="true"/>
@@ -833,6 +572,7 @@
   </object>
   <object id="707" type="NewCrusher" x="800" y="1104" width="32" height="96">
    <properties>
+    <property name="ID" type="int" value="-1"/>
     <property name="auto" type="bool" value="true"/>
     <property name="direction" value="down"/>
     <property name="elevator" type="bool" value="true"/>
@@ -843,6 +583,7 @@
   </object>
   <object id="708" type="NewCrusher" x="896" y="1104" width="32" height="96">
    <properties>
+    <property name="ID" type="int" value="-1"/>
     <property name="auto" type="bool" value="true"/>
     <property name="direction" value="down"/>
     <property name="elevator" type="bool" value="true"/>
@@ -933,6 +674,7 @@
   <object id="718" type="AreaTrigger" x="240" y="1152" width="32" height="16">
    <properties>
     <property name="ID" type="int" value="529"/>
+    <property name="oneTime" type="bool" value="true"/>
     <property name="waitPlayerAndBot" type="bool" value="true"/>
    </properties>
   </object>
@@ -1031,7 +773,7 @@
     <property name="oneTime" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="726" type="AreaTrigger" x="640" y="1168" width="16" height="32">
+  <object id="726" type="AreaTrigger" x="637" y="1168" width="22" height="32">
    <properties>
     <property name="ID" type="int" value="500"/>
     <property name="signalOff" type="bool" value="true"/>
@@ -1050,6 +792,340 @@
     <property name="oneTime" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="732" type="Checkpoint" x="336" y="1104" width="32" height="48"/>
+  <object id="735" type="Lever" x="1520" y="1664" width="16" height="32">
+   <properties>
+    <property name="ID" type="int" value="2"/>
+    <property name="oneTime" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="736" type="NewCrusher" x="1184" y="1696" width="48" height="16">
+   <properties>
+    <property name="ID" type="int" value="2"/>
+    <property name="beginState" type="int" value="3"/>
+    <property name="direction" value="left"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="5"/>
+    <property name="inTime" type="float" value="0"/>
+    <property name="inWait" type="float" value="0"/>
+    <property name="outTime" type="float" value="0"/>
+    <property name="outWait" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="737" type="NewCrusher" x="1104" y="1696" width="48" height="16">
+   <properties>
+    <property name="ID" type="int" value="2"/>
+    <property name="beginState" type="int" value="3"/>
+    <property name="direction" value="left"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="5"/>
+    <property name="inTime" type="float" value="0"/>
+    <property name="inWait" type="float" value="0"/>
+    <property name="outTime" type="float" value="0"/>
+    <property name="outWait" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="739" type="Enemy" x="1192" y="1744" width="16" height="16">
+   <properties>
+    <property name="ID" type="int" value="2"/>
+    <property name="jumpAccel" type="float" value="10000"/>
+    <property name="jumping" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="740" type="Enemy" x="1112" y="1744" width="16" height="16">
+   <properties>
+    <property name="ID" type="int" value="2"/>
+    <property name="jumpAccel" type="float" value="10000"/>
+    <property name="jumping" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="742" type="Enemy" x="1520" y="1904" width="16" height="16">
+   <properties>
+    <property name="ID" type="int" value="3"/>
+    <property name="direction" type="int" value="-1"/>
+    <property name="movement" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="743" type="Enemy" x="1344" y="1904" width="16" height="16">
+   <properties>
+    <property name="ID" type="int" value="3"/>
+    <property name="direction" type="int" value="1"/>
+    <property name="movement" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="744" type="Lever" x="1296" y="1952" width="16" height="32">
+   <properties>
+    <property name="ID" type="int" value="3"/>
+    <property name="oneTime" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="746" type="NewCrusher" x="1328" y="1920" width="48" height="16">
+   <properties>
+    <property name="ID" type="int" value="3"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="left"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="6"/>
+    <property name="inTime" type="float" value="0"/>
+    <property name="inWait" type="float" value="0"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="747" type="NewCrusher" x="1504" y="1920" width="48" height="16">
+   <properties>
+    <property name="ID" type="int" value="3"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="left"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="6"/>
+    <property name="inTime" type="float" value="0"/>
+    <property name="inWait" type="float" value="0"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="748" type="NewCrusher" x="1456" y="1984" width="32" height="16">
+   <properties>
+    <property name="ID" type="int" value="3"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="right"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="7"/>
+    <property name="inTime" type="float" value="0"/>
+    <property name="inWait" type="float" value="0"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="749" type="NewCrusher" x="1136" y="1936" width="32" height="64">
+   <properties>
+    <property name="ID" type="int" value="-1"/>
+    <property name="auto" type="bool" value="true"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="up"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="8"/>
+    <property name="inTime" type="float" value="1"/>
+    <property name="inWait" type="float" value="0.2"/>
+    <property name="on" type="bool" value="true"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0.2"/>
+   </properties>
+  </object>
+  <object id="750" type="NewCrusher" x="992" y="1936" width="32" height="64">
+   <properties>
+    <property name="ID" type="int" value="-1"/>
+    <property name="auto" type="bool" value="true"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="up"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="8"/>
+    <property name="inTime" type="float" value="1"/>
+    <property name="inWait" type="float" value="0.2"/>
+    <property name="on" type="bool" value="true"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0.2"/>
+   </properties>
+  </object>
+  <object id="751" type="NewCrusher" x="1088" y="1936" width="32" height="64">
+   <properties>
+    <property name="ID" type="int" value="-1"/>
+    <property name="auto" type="bool" value="true"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="up"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="8"/>
+    <property name="inTime" type="float" value="1"/>
+    <property name="inWait" type="float" value="0.2"/>
+    <property name="on" type="bool" value="true"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0.2"/>
+    <property name="startDelay" type="float" value="1.2"/>
+   </properties>
+  </object>
+  <object id="753" type="Enemy" x="1032" y="1984" width="16" height="16"/>
+  <object id="754" type="AreaTrigger" x="733" y="2032" width="22" height="32">
+   <properties>
+    <property name="ID" type="int" value="502"/>
+    <property name="signalOff" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="755" type="ShowText" x="734" y="2004" width="20" height="20">
+   <properties>
+    <property name="ID" type="int" value="502"/>
+    <property name="textID" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="756" type="Lever" x="688" y="2032" width="16" height="32">
+   <properties>
+    <property name="ID" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="757" type="NewCrusher" x="640" y="2016" width="16" height="48">
+   <properties>
+    <property name="ID" type="int" value="6"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="up"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="9"/>
+    <property name="inTime" type="float" value="1"/>
+    <property name="inWait" type="float" value="0.2"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0.2"/>
+   </properties>
+  </object>
+  <object id="758" type="NewCrusher" x="480" y="1856" width="32" height="80">
+   <properties>
+    <property name="ID" type="int" value="-1"/>
+    <property name="auto" type="bool" value="true"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="up"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="15"/>
+    <property name="inTime" type="float" value="1"/>
+    <property name="inWait" type="float" value="0.2"/>
+    <property name="on" type="bool" value="true"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0.2"/>
+   </properties>
+  </object>
+  <object id="759" type="NewCrusher" x="528" y="1856" width="32" height="80">
+   <properties>
+    <property name="ID" type="int" value="-1"/>
+    <property name="auto" type="bool" value="true"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="up"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="15"/>
+    <property name="inTime" type="float" value="1"/>
+    <property name="inWait" type="float" value="0.2"/>
+    <property name="on" type="bool" value="true"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0.2"/>
+    <property name="startDelay" type="float" value="1.2"/>
+   </properties>
+  </object>
+  <object id="760" type="Lever" x="464" y="1904" width="16" height="32">
+   <properties>
+    <property name="ID" type="int" value="51"/>
+   </properties>
+  </object>
+  <object id="761" type="Lever" x="560" y="1904" width="16" height="32">
+   <properties>
+    <property name="ID" type="int" value="52"/>
+   </properties>
+  </object>
+  <object id="762" type="NewCrusher" x="464" y="1968" width="32" height="16">
+   <properties>
+    <property name="ID" type="int" value="51"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="direction" value="left"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="20"/>
+    <property name="inTime" type="float" value="1"/>
+    <property name="inWait" type="float" value="0"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="763" type="NewCrusher" x="512" y="1968" width="32" height="16">
+   <properties>
+    <property name="ID" type="int" value="52"/>
+    <property name="beginState" type="int" value="3"/>
+    <property name="direction" value="left"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="20"/>
+    <property name="inTime" type="float" value="1"/>
+    <property name="inWait" type="float" value="0"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="764" type="NewCrusher" x="560" y="1968" width="16" height="32">
+   <properties>
+    <property name="ID" type="int" value="51"/>
+    <property name="auto" type="bool" value="false"/>
+    <property name="beginState" type="int" value="3"/>
+    <property name="clickable" type="bool" value="false"/>
+    <property name="direction" value="down"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="19"/>
+    <property name="inWait" type="float" value="0"/>
+    <property name="on" type="bool" value="false"/>
+    <property name="outWait" type="float" value="0"/>
+    <property name="startDelay" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="765" type="AreaTrigger" x="608" y="1952" width="16" height="16">
+   <properties>
+    <property name="ID" type="int" value="71"/>
+    <property name="killBot" type="bool" value="true"/>
+    <property name="oneTime" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="766" type="NewCrusher" x="592" y="1840" width="32" height="16">
+   <properties>
+    <property name="ID" type="int" value="71"/>
+    <property name="auto" type="bool" value="false"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="clickable" type="bool" value="false"/>
+    <property name="direction" value="right"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="1"/>
+    <property name="on" type="bool" value="false"/>
+    <property name="startDelay" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="767" type="Director" x="560" y="1952" width="16" height="16">
+   <properties>
+    <property name="activateID" type="int" value="0"/>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="switchID" type="int" value="1997"/>
+   </properties>
+  </object>
+  <object id="768" type="AreaTrigger" x="448" y="1952" width="16" height="16">
+   <properties>
+    <property name="ID" type="int" value="1997"/>
+   </properties>
+  </object>
+  <object id="769" type="NewCrusher" x="368" y="1632" width="32" height="176">
+   <properties>
+    <property name="ID" type="int" value="1998"/>
+    <property name="beginState" type="int" value="3"/>
+    <property name="direction" value="down"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="16"/>
+    <property name="inTime" type="float" value="6"/>
+    <property name="inWait" type="float" value="1"/>
+    <property name="outTime" type="float" value="6"/>
+    <property name="outWait" type="float" value="1"/>
+   </properties>
+  </object>
+  <object id="770" type="NewCrusher" x="368" y="1600" width="32" height="16">
+   <properties>
+    <property name="ID" type="int" value="71"/>
+    <property name="auto" type="bool" value="false"/>
+    <property name="beginState" type="int" value="1"/>
+    <property name="clickable" type="bool" value="false"/>
+    <property name="direction" value="right"/>
+    <property name="elevator" type="bool" value="true"/>
+    <property name="imgID" type="int" value="1"/>
+    <property name="on" type="bool" value="false"/>
+    <property name="startDelay" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="773" type="Spawn" x="32" y="1552" width="16" height="16"/>
+  <object id="775" type="Bot" x="560" y="1984" width="15" height="15">
+   <properties>
+    <property name="resettable" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="776" type="AreaTrigger" x="368" y="1760" width="32" height="32">
+   <properties>
+    <property name="ID" type="int" value="1998"/>
+    <property name="oneTime" type="bool" value="true"/>
+    <property name="waitPlayerAndBot" type="bool" value="false"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
