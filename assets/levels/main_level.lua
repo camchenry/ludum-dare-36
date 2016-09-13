@@ -8,7 +8,7 @@ return {
   height = 130,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 718,
+  nextobjectid = 731,
   properties = {},
   tilesets = {
     {
@@ -722,62 +722,6 @@ return {
           properties = {}
         },
         {
-          id = 561,
-          name = "",
-          type = "Lever",
-          shape = "rectangle",
-          x = 312,
-          y = 1280,
-          width = 16,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = "8"
-          }
-        },
-        {
-          id = 563,
-          name = "",
-          type = "Gate",
-          shape = "rectangle",
-          x = 336,
-          y = 1312,
-          width = 32,
-          height = 12.75,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = "8",
-            ["auto"] = "false",
-            ["crushTime"] = "1",
-            ["dir"] = "left",
-            ["img"] = "13",
-            ["open"] = "true",
-            ["retractTime"] = "1"
-          }
-        },
-        {
-          id = 564,
-          name = "",
-          type = "Gate",
-          shape = "rectangle",
-          x = 384,
-          y = 1312,
-          width = 32,
-          height = 12.75,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = "8",
-            ["auto"] = "false",
-            ["crushTime"] = "1",
-            ["dir"] = "left",
-            ["img"] = "13",
-            ["retractTime"] = "1"
-          }
-        },
-        {
           id = 568,
           name = "",
           type = "Spikes",
@@ -956,27 +900,6 @@ return {
           }
         },
         {
-          id = 579,
-          name = "",
-          type = "Gate",
-          shape = "rectangle",
-          x = 368,
-          y = 1456,
-          width = 32,
-          height = 12.75,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = "20",
-            ["auto"] = "false",
-            ["crushTime"] = "1",
-            ["dir"] = "left",
-            ["dontReset"] = true,
-            ["img"] = "1",
-            ["retractTime"] = "1"
-          }
-        },
-        {
           id = 580,
           name = "",
           type = "Gate",
@@ -1133,27 +1056,6 @@ return {
             ["ID"] = "20",
             ["killBot"] = true,
             ["oneTime"] = true
-          }
-        },
-        {
-          id = 591,
-          name = "",
-          type = "Gate",
-          shape = "rectangle",
-          x = 432,
-          y = 1344,
-          width = 32,
-          height = 12.75,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = "20",
-            ["auto"] = "false",
-            ["crushTime"] = "1",
-            ["dir"] = "left",
-            ["dontReset"] = true,
-            ["img"] = "1",
-            ["retractTime"] = "1"
           }
         },
         {
@@ -1500,38 +1402,6 @@ return {
             ["direction"] = "-1",
             ["movement"] = "false",
             ["right"] = "200"
-          }
-        },
-        {
-          id = 633,
-          name = "",
-          type = "ShowText",
-          shape = "rectangle",
-          x = 648,
-          y = 1150,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = "501",
-            ["textID"] = "2"
-          }
-        },
-        {
-          id = 634,
-          name = "",
-          type = "AreaTrigger",
-          shape = "rectangle",
-          x = 637,
-          y = 1168,
-          width = 22,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = "501",
-            ["signalOff"] = true
           }
         },
         {
@@ -2149,46 +2019,6 @@ return {
           properties = {}
         },
         {
-          id = 688,
-          name = "",
-          type = "Crusher",
-          shape = "rectangle",
-          x = 240,
-          y = 1168,
-          width = 32,
-          height = 192,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["activateOnce"] = true,
-            ["auto"] = false,
-            ["dir"] = "down",
-            ["img"] = 10,
-            ["reset"] = false,
-            ["retractTime"] = 5,
-            ["waitBot"] = true,
-            ["waitPlayer"] = true
-          }
-        },
-        {
-          id = 689,
-          name = "",
-          type = "Crusher",
-          shape = "rectangle",
-          x = 288,
-          y = 1312,
-          width = 16,
-          height = 48,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = 8,
-            ["auto"] = false,
-            ["dir"] = "down",
-            ["img"] = 12
-          }
-        },
-        {
           id = 691,
           name = "",
           type = "Crusher",
@@ -2381,8 +2211,8 @@ return {
           name = "",
           type = "Spawn",
           shape = "rectangle",
-          x = 674.667,
-          y = 1161.33,
+          x = 1232,
+          y = 1168,
           width = 16,
           height = 16,
           rotation = 0,
@@ -2523,12 +2353,12 @@ return {
           properties = {
             ["ID"] = 200,
             ["auto"] = false,
-            ["beginState"] = 2,
+            ["beginState"] = 3,
             ["clickable"] = false,
             ["direction"] = "up",
             ["elevator"] = true,
             ["imgID"] = 4,
-            ["on"] = true,
+            ["on"] = false,
             ["startDelay"] = 0
           }
         },
@@ -2590,7 +2420,9 @@ return {
             ["direction"] = "down",
             ["elevator"] = true,
             ["imgID"] = 11,
+            ["inWait"] = 0,
             ["on"] = false,
+            ["outWait"] = 0,
             ["startDelay"] = 0
           }
         },
@@ -2608,12 +2440,14 @@ return {
           properties = {
             ["ID"] = 7,
             ["auto"] = false,
-            ["beginState"] = 1,
+            ["beginState"] = 3,
             ["clickable"] = false,
             ["direction"] = "left",
             ["elevator"] = true,
             ["imgID"] = 14,
+            ["inWait"] = 0,
             ["on"] = false,
+            ["outWait"] = 0,
             ["startDelay"] = 0
           }
         },
@@ -2663,26 +2497,216 @@ return {
           properties = {}
         },
         {
-          id = 717,
+          id = 718,
           name = "",
-          type = "NewCrusher",
+          type = "AreaTrigger",
           shape = "rectangle",
-          x = 352,
-          y = 1152,
-          width = 16,
-          height = 64,
+          x = 240,
+          y = 1136,
+          width = 32,
+          height = 32,
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = 7,
+            ["ID"] = 529,
+            ["waitPlayerAndBot"] = true
+          }
+        },
+        {
+          id = 719,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 240,
+          y = 1168,
+          width = 32,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 529,
             ["auto"] = false,
             ["beginState"] = 1,
             ["clickable"] = false,
             ["direction"] = "down",
             ["elevator"] = true,
-            ["imgID"] = 11,
+            ["imgID"] = 10,
+            ["inTime"] = 5,
+            ["inWait"] = 5,
+            ["on"] = false,
+            ["outTime"] = 5,
+            ["outWait"] = 5,
+            ["resettable"] = false,
+            ["startDelay"] = 0.5
+          }
+        },
+        {
+          id = 720,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 288,
+          y = 1312,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 8,
+            ["auto"] = false,
+            ["beginState"] = 1,
+            ["clickable"] = false,
+            ["direction"] = "down",
+            ["elevator"] = true,
+            ["imgID"] = 12,
+            ["inWait"] = 0,
+            ["on"] = false,
+            ["outWait"] = 0,
+            ["startDelay"] = 0
+          }
+        },
+        {
+          id = 721,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 336,
+          y = 1312,
+          width = 32,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 8,
+            ["auto"] = false,
+            ["beginState"] = 3,
+            ["clickable"] = false,
+            ["direction"] = "right",
+            ["elevator"] = true,
+            ["imgID"] = 13,
+            ["inWait"] = 0,
+            ["on"] = false,
+            ["outWait"] = 0,
+            ["startDelay"] = 0
+          }
+        },
+        {
+          id = 722,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 384,
+          y = 1312,
+          width = 32,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 8,
+            ["auto"] = false,
+            ["beginState"] = 3,
+            ["clickable"] = false,
+            ["direction"] = "right",
+            ["elevator"] = true,
+            ["imgID"] = 13,
+            ["inWait"] = 0,
+            ["on"] = false,
+            ["outWait"] = 0,
+            ["startDelay"] = 0
+          }
+        },
+        {
+          id = 723,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 432,
+          y = 1344,
+          width = 32,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 20,
+            ["auto"] = false,
+            ["beginState"] = 3,
+            ["clickable"] = false,
+            ["direction"] = "right",
+            ["elevator"] = true,
+            ["imgID"] = 1,
             ["on"] = false,
             ["startDelay"] = 0
+          }
+        },
+        {
+          id = 724,
+          name = "",
+          type = "NewCrusher",
+          shape = "rectangle",
+          x = 368,
+          y = 1456,
+          width = 32,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 20,
+            ["auto"] = false,
+            ["beginState"] = 3,
+            ["clickable"] = false,
+            ["direction"] = "right",
+            ["elevator"] = true,
+            ["imgID"] = 1,
+            ["on"] = false,
+            ["startDelay"] = 0
+          }
+        },
+        {
+          id = 725,
+          name = "",
+          type = "Lever",
+          shape = "rectangle",
+          x = 312,
+          y = 1280,
+          width = 16,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 8,
+            ["oneTime"] = false
+          }
+        },
+        {
+          id = 726,
+          name = "",
+          type = "AreaTrigger",
+          shape = "rectangle",
+          x = 640,
+          y = 1168,
+          width = 16,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 500,
+            ["signalOff"] = true
+          }
+        },
+        {
+          id = 730,
+          name = "",
+          type = "ShowText",
+          shape = "rectangle",
+          x = 638,
+          y = 1140,
+          width = 20,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["ID"] = 501,
+            ["textID"] = 2
           }
         }
       }

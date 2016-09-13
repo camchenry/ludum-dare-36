@@ -185,6 +185,7 @@ function NewCrusher:move(world, x, y, w, h)
                             if item.controlled then
                                 x = self.position.x + self.width/2 - item.width/2
                                 item:move(world, x, self.position.y - item.height, false)
+                                item:move(world, x, self.position.y - item.height, true, crush, self)
                             else
                                 item:move(world, x, self.position.y - item.height, true, crush, self)
                             end
@@ -311,8 +312,6 @@ function NewCrusher:draw(debugOverride)
         love.graphics.setColor(0, 0, 255)
     end
     
-    love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
-
     if self.image then
         local x, y = self.position.x - (self.startWidth - self.width), self.position.y - (self.startHeight - self.height)
 
@@ -331,6 +330,8 @@ function NewCrusher:draw(debugOverride)
         love.graphics.draw(self.image, math.floor(x + 0.5), math.floor(y + 0.5))
     
         love.graphics.setScissor()
+    else
+        love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
     end
 
     Object.draw(self, debugOverride)

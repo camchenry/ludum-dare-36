@@ -254,7 +254,7 @@ function Bot:checkFootBox(world)
             local y = item.position.y - self.height
 
             -- center the bot on the crusher
-            if not item.finishedMovement and item.moving then
+            if not item.finishedMovement and item.moving and not item.horizontal then
                 x = item.position.x + item.width/2 - self.width/2
             end
 
@@ -271,7 +271,7 @@ function Bot:draw(debugOverride)
     love.graphics.setColor(255, 255, 255)
 
     if not self.dead then
-        self.animation:draw(Bot.image, math.floor(self.position.x), math.floor(self.position.y-1))
+        self.animation:draw(Bot.image, math.floor(self.position.x+0.5), math.floor(self.position.y-1+0.5))
     end
 end
 

@@ -35,6 +35,7 @@
   <property name="pushable" type="bool" default="false"/>
   <property name="signalOff" type="bool" default="false"/>
   <property name="transition" type="bool" default="false"/>
+  <property name="waitPlayerAndBot" type="bool" default="false"/>
  </objecttype>
  <objecttype name="ShowText" color="#00b3ff">
   <property name="ID" type="int" default="0"/>
@@ -92,7 +93,7 @@
   <property name="outTime" type="float" default="1"/>
   <property name="outWait" type="float" default="1"/>
   <property name="pushable" type="bool" default="false"/>
-  <property name="resettable" type="bool" default="false"/>
+  <property name="resettable" type="bool" default="true"/>
   <property name="startDelay" type="float" default="0"/>
  </objecttype>
  <objecttype name="Mask" color="#55ffff">

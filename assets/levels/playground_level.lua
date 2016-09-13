@@ -1313,8 +1313,8 @@ return {
           name = "",
           type = "Spawn",
           shape = "rectangle",
-          x = 464,
-          y = 1088,
+          x = 944,
+          y = 1232,
           width = 16,
           height = 32,
           rotation = 0,
@@ -2074,19 +2074,6 @@ return {
           properties = {
             ["ID"] = 0
           }
-        },
-        {
-          id = 154,
-          name = "",
-          type = "Wrench",
-          shape = "rectangle",
-          x = 464,
-          y = 1088,
-          width = 16,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {}
         },
         {
           id = 155,
