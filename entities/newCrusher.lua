@@ -81,6 +81,11 @@ function NewCrusher:initialize(x, y, w, h, properties)
     self.resettable   = properties.resettable or true
     self.beginState   = properties.beginState or 1
 
+
+    if self.reverse then
+        self.beginState = 3
+    end
+
     self.collidable = true
 
     self.horizontal = (self.direction == "left" or self.direction == "right")

@@ -29,8 +29,8 @@ function game:reset()
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
 
     self.levelLoader = LevelLoader:new()
-    --self.level = self.levelLoader:load("playground_level")
-    self.level = self.levelLoader:load("main_level")
+    self.level = self.levelLoader:load("playground_level")
+    --self.level = self.levelLoader:load("main_level")
     self.map = self.level.map
     self.objects = self.level.objects
     self.world = self.level.world

@@ -1043,6 +1043,7 @@ return {
           properties = {
             ["ID"] = 0,
             ["auto"] = false,
+            ["beginState"] = 3,
             ["clickable"] = true,
             ["on"] = false
           }
@@ -1062,6 +1063,7 @@ return {
             ["ID"] = 0,
             ["augment"] = "blue",
             ["auto"] = false,
+            ["beginState"] = 3,
             ["clickable"] = true,
             ["on"] = false
           }
@@ -1081,6 +1083,7 @@ return {
             ["ID"] = 0,
             ["augment"] = "red",
             ["auto"] = false,
+            ["beginState"] = 3,
             ["clickable"] = true,
             ["on"] = false
           }
@@ -1126,6 +1129,7 @@ return {
             ["ID"] = 0,
             ["augment"] = "green",
             ["auto"] = false,
+            ["beginState"] = 3,
             ["clickable"] = true,
             ["on"] = false
           }
@@ -1198,6 +1202,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
+            ["beginState"] = 3,
             ["direction"] = "down",
             ["on"] = true
           }
@@ -1228,6 +1233,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
+            ["beginState"] = 3,
             ["on"] = true
           }
         },
@@ -1278,6 +1284,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
+            ["beginState"] = 3,
             ["direction"] = "right",
             ["on"] = true
           }
@@ -1313,8 +1320,8 @@ return {
           name = "",
           type = "Spawn",
           shape = "rectangle",
-          x = 944,
-          y = 1232,
+          x = 720,
+          y = 848,
           width = 16,
           height = 32,
           rotation = 0,
@@ -1469,6 +1476,7 @@ return {
           visible = true,
           properties = {
             ["auto"] = true,
+            ["beginState"] = 3,
             ["direction"] = "down",
             ["elevator"] = true,
             ["on"] = true
@@ -2020,8 +2028,8 @@ return {
           name = "",
           type = "Wrench",
           shape = "rectangle",
-          x = 928,
-          y = 1232,
+          x = 704,
+          y = 848,
           width = 48,
           height = 32,
           rotation = 0,
@@ -2106,6 +2114,7 @@ return {
           properties = {
             ["ID"] = 15,
             ["auto"] = false,
+            ["beginState"] = 3,
             ["direction"] = "down",
             ["on"] = false
           }
@@ -2177,6 +2186,7 @@ return {
           properties = {
             ["ID"] = 15,
             ["auto"] = false,
+            ["beginState"] = 3,
             ["direction"] = "left",
             ["elevator"] = false,
             ["on"] = false

@@ -312,6 +312,7 @@
    <properties>
     <property name="ID" type="int" value="0"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="clickable" type="bool" value="true"/>
     <property name="on" type="bool" value="false"/>
    </properties>
@@ -321,6 +322,7 @@
     <property name="ID" type="int" value="0"/>
     <property name="augment" value="blue"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="clickable" type="bool" value="true"/>
     <property name="on" type="bool" value="false"/>
    </properties>
@@ -330,6 +332,7 @@
     <property name="ID" type="int" value="0"/>
     <property name="augment" value="red"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="clickable" type="bool" value="true"/>
     <property name="on" type="bool" value="false"/>
    </properties>
@@ -341,6 +344,7 @@
     <property name="ID" type="int" value="0"/>
     <property name="augment" value="green"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="clickable" type="bool" value="true"/>
     <property name="on" type="bool" value="false"/>
    </properties>
@@ -357,6 +361,7 @@
   <object id="89" type="NewCrusher" x="336" y="560" width="32" height="96">
    <properties>
     <property name="auto" type="bool" value="true"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="direction" value="down"/>
     <property name="on" type="bool" value="true"/>
    </properties>
@@ -365,6 +370,7 @@
   <object id="91" type="NewCrusher" x="288" y="464" width="32" height="96">
    <properties>
     <property name="auto" type="bool" value="true"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="on" type="bool" value="true"/>
    </properties>
   </object>
@@ -385,13 +391,14 @@
   <object id="94" type="NewCrusher" x="96" y="720" width="80" height="32">
    <properties>
     <property name="auto" type="bool" value="true"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="direction" value="right"/>
     <property name="on" type="bool" value="true"/>
    </properties>
   </object>
   <object id="95" type="Dropfloor" x="96" y="592" width="32" height="16"/>
   <object id="96" type="Checkpoint" x="192" y="608" width="16" height="48"/>
-  <object id="97" type="Spawn" x="944" y="1232" width="16" height="32"/>
+  <object id="97" type="Spawn" x="720" y="848" width="16" height="32"/>
   <object id="98" type="NewCrusher" x="96" y="832" width="80" height="32">
    <properties>
     <property name="auto" type="bool" value="true"/>
@@ -430,6 +437,7 @@
   <object id="107" type="NewCrusher" x="288" y="320" width="32" height="96">
    <properties>
     <property name="auto" type="bool" value="true"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="direction" value="down"/>
     <property name="elevator" type="bool" value="true"/>
     <property name="on" type="bool" value="true"/>
@@ -600,7 +608,7 @@
     <property name="elevator" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="149" type="Wrench" x="928" y="1232" width="48" height="32"/>
+  <object id="149" type="Wrench" x="704" y="848" width="48" height="32"/>
   <object id="150" type="Director" x="1184" y="1200" width="32" height="16">
    <properties>
     <property name="activateID" type="int" value="-1"/>
@@ -629,6 +637,7 @@
    <properties>
     <property name="ID" type="int" value="15"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="direction" value="down"/>
     <property name="on" type="bool" value="false"/>
    </properties>
@@ -660,6 +669,7 @@
    <properties>
     <property name="ID" type="int" value="15"/>
     <property name="auto" type="bool" value="false"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="direction" value="left"/>
     <property name="elevator" type="bool" value="false"/>
     <property name="on" type="bool" value="false"/>
