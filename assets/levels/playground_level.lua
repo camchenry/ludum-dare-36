@@ -182,9 +182,9 @@ return {
           type = "NewCrusher",
           shape = "rectangle",
           x = 656,
-          y = 880,
+          y = 848,
           width = 32,
-          height = 120,
+          height = 152,
           rotation = 0,
           visible = true,
           properties = {
@@ -429,7 +429,11 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["auto"] = false
+            ["auto"] = false,
+            ["inTime"] = 1,
+            ["inWait"] = 1,
+            ["outTime"] = 1,
+            ["outWait"] = 1
           }
         },
         {

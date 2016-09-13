@@ -117,7 +117,7 @@
     <property name="on" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="4" type="NewCrusher" x="656" y="880" width="32" height="120">
+  <object id="4" type="NewCrusher" x="656" y="848" width="32" height="152">
    <properties>
     <property name="auto" type="bool" value="false"/>
    </properties>
@@ -173,6 +173,10 @@
   <object id="27" type="NewCrusher" x="1024" y="880" width="16" height="48">
    <properties>
     <property name="auto" type="bool" value="false"/>
+    <property name="inTime" type="float" value="1"/>
+    <property name="inWait" type="float" value="1"/>
+    <property name="outTime" type="float" value="1"/>
+    <property name="outWait" type="float" value="1"/>
    </properties>
   </object>
   <object id="28" type="NewCrusher" x="1104" y="832" width="32" height="96">

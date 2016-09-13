@@ -534,10 +534,16 @@ function Player:update(dt, world)
 end
 
 function Player:checkFootBox(world)
-    local items, len = world:queryRect(self.position.x, self.position.y+self.height, self.width, 1)
+    local items, len = world:queryRect(self.position.x, self.position.y+self.height, self.width, 1, function(item)
+        if not item.class or (item.class and not item:isInstanceOf(Player) and item.collidable) then
+            return true
+        end
+        return false
+    end)
+
     for k, item in pairs(items) do
         if item.class and item:isInstanceOf(NewCrusher) then
-            if self.jumpControlTimer <= 0 then
+            if len == 1 and self.jumpControlTimer <= 0 then
                 self.newCrusherReference = item
                 local y = item.position.y - self.height
                 self:move(world, self.position.x, y, false)
@@ -547,6 +553,8 @@ function Player:checkFootBox(world)
             end
         end
     end
+
+    self.lastLen = len
 end
 
 function Player:draw()
@@ -617,7 +625,11 @@ function Player:draw()
 end
 
 function Player:drawDebug(x, y)
-    Object.drawDebug(self, x, y)
+    local propertyStrings = {
+        "Last len: " .. self.lastLen,
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return Player
