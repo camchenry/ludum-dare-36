@@ -540,7 +540,7 @@ function Player:checkFootBox(world)
             if self.jumpControlTimer <= 0 then
                 self.newCrusherReference = item
                 local y = item.position.y - self.height
-                self:move(world, self.position.x, y, true)
+                self:move(world, self.position.x, y, false)
                 self.velocity.y = 0
                 self.touchingGround = true
                 self.jumpTimer = 0

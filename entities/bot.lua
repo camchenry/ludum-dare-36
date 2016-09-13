@@ -266,7 +266,7 @@ function Bot:checkFootBox(world)
                 x = item.position.x + item.width/2 - self.width/2
             end
 
-            self:move(world, x, y, true)
+            self:move(world, x, y, false)
             self.velocity.y = 0
             self.touchingGround = true
         end
