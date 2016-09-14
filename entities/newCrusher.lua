@@ -128,6 +128,31 @@ function NewCrusher:reset(world, override)
         if self.currentState >= 3 then
             self.offset = 1
         end
+
+        local x, y, width, height = self.startPosition.x, self.startPosition.y, self.startWidth, self.startHeight
+
+        if self.elevator then
+            if self.horizontal then
+                width = width * (1 - self.offset)
+            else
+                height = height * (1 - self.offset)
+            end
+        end
+
+        if not self.elevator or not self.reverse then
+            if self.horizontal then
+                x = x + self.offset * self.startWidth
+            else
+                 y = y + self.offset * self.startHeight
+            end
+        end
+
+        if world then
+            self:move(game.world, x, y, width, height)
+        else
+            self.position.x, self.position.y = x, y
+            self.width, self.height = math.max(1, width), math.max(1, height)
+        end
     end
 end
 

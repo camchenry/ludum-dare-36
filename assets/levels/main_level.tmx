@@ -1013,7 +1013,7 @@
     <property name="startDelay" type="float" value="0"/>
    </properties>
   </object>
-  <object id="773" type="Spawn" x="581.333" y="2029.33" width="16" height="16"/>
+  <object id="773" type="Spawn" x="32" y="1552" width="16" height="16"/>
   <object id="775" type="Bot" x="560" y="1984" width="15" height="15">
    <properties>
     <property name="resettable" type="bool" value="false"/>
@@ -1201,6 +1201,5 @@
     <property name="ID2" type="int" value="1338"/>
    </properties>
   </object>
-  <object id="797" type="Wrench" x="544" y="2032" width="16" height="32"/>
  </objectgroup>
 </map>

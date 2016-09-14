@@ -254,19 +254,27 @@ function Bot:update(dt, world)
 end
 
 function Bot:checkFootBox(world)
-    local items, len = world:queryRect(self.position.x, self.position.y+self.height, self.width, 1)
+    local items, len = world:queryRect(self.position.x, self.position.y+self.height, self.width, 1, function(item)
+        if not item.class or (item.class and not item:isInstanceOf(Player) and item.collidable) then
+            return true
+        end
+        return false
+    end)
+
     for k, item in pairs(items) do
         if item.class and item:isInstanceOf(NewCrusher) then
-            self.newCrusherReference = item
-            local x = self.position.x
-            local y = item.position.y - self.height
+            if len == 1 then
+                local x = self.position.x
+                local y = item.position.y - self.height
 
-            -- center the bot on the crusher
-            if not item.finishedMovement and item.moving and not item.horizontal then
-                x = item.position.x + item.width/2 - self.width/2
+                -- center the bot on the crusher
+                if not item.finishedMovement and item.moving and not item.horizontal then
+                    x = item.position.x + item.width/2 - self.width/2
+                end
+
+                self:move(world, x, y, false)
             end
-
-            self:move(world, x, y, false)
+            self.newCrusherReference = item
             self.velocity.y = 0
             self.touchingGround = true
         end
