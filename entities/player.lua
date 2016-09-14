@@ -61,7 +61,7 @@ function Player:initialize(x, y, w, h, properties)
     self.facing = -1
 
     self.teleportedTime = 1
-    self.teleportedTimer = self.teleportedTime
+    self.teleportedTimer = 0
 
     self.idleImage = love.graphics.newImage("assets/images/Hero/Hero_Idle.png")
     self.jumpImage = love.graphics.newImage("assets/images/Hero/Hero_Jump.png")
@@ -486,11 +486,11 @@ function Player:update(dt, world)
     self.prevX = self.position.x
     local prevPosition = Vector(self.position.x, self.position.y)
 
-    if changePos then
+    if changePos and self.teleportedTimer <= 0 then
         self:move(world, actualX, actualY)
     end
 
-    if (self.position - prevPosition):len() > (newPos - prevPosition):len() then
+    if self.teleportedTimer <= 0 and (self.position - prevPosition):len() > (newPos - prevPosition):len() then
         -- GET CRUSHED!
         game:resetToCheckpoint()
         Signal.emit("playerDeath")
@@ -543,10 +543,12 @@ function Player:checkFootBox(world)
 
     for k, item in pairs(items) do
         if item.class and item:isInstanceOf(NewCrusher) then
-            if len == 1 and self.jumpControlTimer <= 0 then
+            if self.jumpControlTimer <= 0 then
+                if len == 1 then
+                    local y = item.position.y - self.height
+                    self:move(world, self.position.x, y, false)
+                end
                 self.newCrusherReference = item
-                local y = item.position.y - self.height
-                self:move(world, self.position.x, y, false)
                 self.velocity.y = 0
                 self.touchingGround = true
                 self.jumpTimer = 0

@@ -93,7 +93,7 @@
   <property name="outTime" type="float" default="1"/>
   <property name="outWait" type="float" default="1"/>
   <property name="pushable" type="bool" default="false"/>
-  <property name="resettable" type="bool" default="true"/>
+  <property name="resettable" type="bool" default="false"/>
   <property name="startDelay" type="float" default="0"/>
  </objecttype>
  <objecttype name="Mask" color="#55ffff">
