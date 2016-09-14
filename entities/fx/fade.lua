@@ -42,14 +42,16 @@ end
 function Fade:onSubscribe(source)
     table.insert(self.subscribers, source)
 
-    if self.tween then self.tween:stop() end
-    self.tween = Flux.to(self.color, self.times.fadeOut, {0, 0, 0, 255})
-        :onstart(function()
-            self.state = "fadingOut"
-        end)
-        :oncomplete(function()
-            self.state = "faded"
-        end)
+    if not self:isActive() then
+        if self.tween then self.tween:stop() end
+        self.tween = Flux.to(self.color, self.times.fadeOut, {0, 0, 0, 255})
+            :onstart(function()
+                self.state = "fadingOut"
+            end)
+            :oncomplete(function()
+                self.state = "faded"
+            end)
+    end
 end
 
 function Fade:onUnsubscribe(source)
