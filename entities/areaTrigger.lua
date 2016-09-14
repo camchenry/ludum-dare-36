@@ -54,7 +54,7 @@ function AreaTrigger:update(dt, world)
     end
 
     if self.active and self.transition then
-        Signal.emit("stateTransition", self.transition)
+        Transition:to(self.transition)
     end
 
     if self.active and not self.prevActive then

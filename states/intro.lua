@@ -1,13 +1,7 @@
 intro = {}
 
 function intro:init()
-    Signal.register('stateTransition', function(state)
-        Flux.to(self.overlay, 1.5, {0, 0, 0, 255})
-            :oncomplete(function()
-                State.switch(_G[state])
-                return
-            end)
-    end)
+
 end
 
 function intro:resume()

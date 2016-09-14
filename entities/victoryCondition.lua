@@ -23,7 +23,7 @@ end
 
 function VictoryCondition:check()
     if self.condition1 and self.condition2 then
-        Signal.emit("GameVictory")
+        Transition:to(victory)
     end
 end
 

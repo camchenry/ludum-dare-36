@@ -17,6 +17,10 @@ STI     = require 'libs.sti'
 require 'states'
 require 'entities'
 
+-- These are special, they are globally accessible, and they are instantiated only once
+Fade = (require 'entities.fx.fade'):new()
+Transition = (require 'entities.transition'):new()
+
 function love.load()
     local function makeFont(path)
         return setmetatable({}, {
@@ -43,15 +47,6 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setFont(Fonts.default[14])
 
-    __overlay = {0, 0, 0, 0}
-    Signal.register("GameVictory", function()
-        Flux.to(__overlay, 2, {0, 0, 0, 255})
-            :oncomplete(function()
-                State.switch(victory)
-                __overlay = {0, 0, 0, 0} 
-            end)
-    end)
-
     -- Draw is left out so we can override it ourselves
     local callbacks = {'errhand', 'update'}
     for k in pairs(love.handlers) do
@@ -64,15 +59,14 @@ end
 
 function love.update(dt)
     Flux.update(dt)
+    Fade:update(dt)
+    Transition:update(dt)
 end
 
 function love.draw()
     State.current():draw()
 
-    love.graphics.push()
-    love.graphics.setColor(__overlay)
-    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-    love.graphics.pop()
+    Fade:draw()
 
     if DEBUG then
         love.graphics.push()
