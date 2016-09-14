@@ -58,6 +58,12 @@ function Enemy:reset(world)
     self.position = self.startPosition:clone()
     world:update(self, self.position.x, self.position.y)
     self.direction = self.startDirection
+
+    if self.deathTween then
+        self.deathTween:stop()
+        self.deathTween = nil
+    end
+
     self.visible = true
     self.alive = true
     self.fallOffset = 0
@@ -163,6 +169,7 @@ function Enemy:drawDebug(x, y)
         "Jump Accel: " .. self.jumpAccel,
         "Movement: " .. (self.movement and "true" or "false"),
         "Jumping: " .. (self.jumping and "true" or "false"),
+        "Alive: " .. (self.alive and "true" or "false"),
         --"Limits: " .. (self.limits and ("%d, %d"):format(self.limits[1], self.limits[2]) or "nil"),
     }
 
@@ -178,11 +185,12 @@ function Enemy:hit()
 
         Signal.emit("enemyDeath")
 
-        Flux.to(self.color, self.hitColorTime, {255, 0, 0})
+        self.deathTween = Flux.to(self.color, self.hitColorTime, {255, 0, 0})
             :after(self.hitColorTime, {255, 255, 255})
                 :after(self, self.fallTime, {fallOffset = self.fallAmount})
                     :oncomplete(function()
                         self.visible = false
+                        self.deathTween = nil
                     end)
     end
 end
