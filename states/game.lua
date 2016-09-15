@@ -59,6 +59,7 @@ function game:reset()
         love.graphics.newShader("shaders/greyscale.frag"),
         love.graphics.newShader("shaders/posterize.frag"),
         love.graphics.newShader("shaders/distort.vert"),
+        love.graphics.newShader("shaders/replace_color.glsl")
     }
     self.shaders[3]:send("num_bands", 3);
     -- self.shaders[4]:send("canvasWidth", CANVAS_WIDTH);

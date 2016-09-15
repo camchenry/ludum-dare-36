@@ -400,7 +400,6 @@ function Player:update(dt, world)
                 Signal.emit("getWrench")
                 self.foundAnimation:gotoFrame(1)
                 self.foundTimer = self.foundTime
-                error('ok hey')
             end
         elseif other.class and other:isInstanceOf(Enemy) then
             if other.visible and other.alive then
@@ -597,34 +596,33 @@ function Player:draw()
         self.runAnimation:draw(self.runImage, x + self.runImageOffset.x, y + self.runImageOffset.y, 0, self.facing, 1)
     end
 
-    love.graphics.setLineWidth(1)
+    -- love.graphics.setLineWidth(1)
 
-    local f = 5
-    local sep = 5
-    local s = 5
+    -- local f = 5
+    -- local sep = 5
+    -- local s = 5
 
-    local x, y = self.position.x + self.width/2 + 0.5, self.position.y - f - s/2 + 0.5
+    -- local x, y = self.position.x + self.width/2 + 0.5, self.position.y - f - s/2 + 0.5
+    -- if self.augments.red then
+    --     love.graphics.setColor(255, 0, 0)
+    --     love.graphics.rectangle('fill', x-s/2, y-s/2, s, s)
+    -- end
+    -- love.graphics.setColor(255, 255, 255)
+    -- love.graphics.rectangle('line', x-s/2, y-s/2, s, s)
 
-    if self.augments.red then
-        love.graphics.setColor(255, 0, 0)
-        love.graphics.rectangle('fill', x-s/2, y-s/2, s, s)
-    end
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.rectangle('line', x-s/2, y-s/2, s, s)
+    -- if self.augments.green then
+    --     love.graphics.setColor(0, 255, 0)
+    --     love.graphics.rectangle('fill', x-s*3/2-sep, y-s/2, s, s)
+    -- end
+    -- love.graphics.setColor(255, 255, 255)
+    -- love.graphics.rectangle('line', x-s*3/2-sep, y-s/2, s, s)
 
-    if self.augments.green then
-        love.graphics.setColor(0, 255, 0)
-        love.graphics.rectangle('fill', x-s*3/2-sep, y-s/2, s, s)
-    end
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.rectangle('line', x-s*3/2-sep, y-s/2, s, s)
-
-    if self.augments.blue then
-        love.graphics.setColor(0, 0, 255)
-        love.graphics.rectangle('fill', x+s/2+sep, y-s/2, s, s)
-    end
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.rectangle('line', x+s/2+sep, y-s/2, s, s)
+    -- if self.augments.blue then
+    --     love.graphics.setColor(0, 0, 255)
+    --     love.graphics.rectangle('fill', x+s/2+sep, y-s/2, s, s)
+    -- end
+    -- love.graphics.setColor(255, 255, 255)
+    -- love.graphics.rectangle('line', x+s/2+sep, y-s/2, s, s)
 end
 
 function Player:drawDebug(x, y)
