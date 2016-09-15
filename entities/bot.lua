@@ -161,6 +161,7 @@ function Bot:reset(world)
         self.startTimer = 5
         self.acceleration = Vector(0, 0)
         self.velocity = Vector(0, 0)
+        self.newCrusherReference = nil
     end
 end
 

@@ -486,7 +486,7 @@ function Player:update(dt, world)
     self.prevX = self.position.x
     local prevPosition = Vector(self.position.x, self.position.y)
 
-    if changePos and self.teleportedTimer <= 0 then
+    if changePos then
         self:move(world, actualX, actualY)
     end
 

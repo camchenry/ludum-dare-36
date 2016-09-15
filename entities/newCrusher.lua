@@ -148,7 +148,9 @@ function NewCrusher:reset(world, override)
         end
 
         if world then
-            self:move(game.world, x, y, width, height)
+            self.position.x, self.position.y = x, y
+            self.width, self.height = width, height
+            world:update(self, self.position.x, self.position.y, math.max(1, self.width), math.max(1, self.height))
         else
             self.position.x, self.position.y = x, y
             self.width, self.height = math.max(1, width), math.max(1, height)
@@ -196,7 +198,7 @@ function NewCrusher:move(world, x, y, w, h)
         local items, len = world:queryRect(self.position.x, self.position.y - extraCheck, self.width, self.height + extraCheck)
 
         for k, item in pairs(items) do
-            if item.pushable then
+            if item.pushable and item ~= self then
                 local crush = {}
                 if self.horizontal then
                     if item.position.x <= self.position.x then

@@ -32,7 +32,7 @@ end
 function Teleport:teleportEntity(item)
     for _, obj in pairs(game.objects) do
         if obj.class and obj:isInstanceOf(Teleport) and not obj.out and obj.ID == self.ID then
-            item.position = Vector(obj.position.x + obj.width/2 - item.width/2, obj.position.y + obj.height/2)
+            item.position = Vector(obj.position.x + obj.width/2 - item.width/2, obj.position.y)
             game.world:update(item, item.position.x, item.position.y)
             item.teleportedTimer = item.teleportedTime
         end

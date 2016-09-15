@@ -82,7 +82,7 @@ function Enemy:update(dt, world)
     if self.jumping and self.alive then
         if self.jumpTimer <= 0 then
             self.jumpTimer = self.jumpInterval
-            self.acceleration.y = -self.jumpAccel
+            self.velocity.y = -self.jumpAccel
         end
 
         self.jumpTimer = math.max(0, self.jumpTimer - dt)
