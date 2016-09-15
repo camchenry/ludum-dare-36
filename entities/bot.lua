@@ -157,7 +157,7 @@ end
 function Bot:reset(world)
     if self.resettable then
         self.position = Vector(self.resetPosition.x, self.resetPosition.y)
-        game.world:update(self, self.resetPosition.x, self.resetPosition.y)
+        world:update(self, self.resetPosition.x, self.resetPosition.y)
         self.startTimer = 5
         self.acceleration = Vector(0, 0)
         self.velocity = Vector(0, 0)

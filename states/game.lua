@@ -6,18 +6,18 @@ function game:enter(from, ...)
 end
 
 function game:resetToCheckpoint(override)
-    for _, obj in ipairs(self.objects) do
+    for _, obj in ipairs(self.level.objects) do
         if obj.reset then
             if not obj:isInstanceOf(Bot) then
-                obj:reset(self.world)
+                obj:reset(self.level.world)
             end
         end
     end
 
-    for _, obj in ipairs(self.objects) do
+    for _, obj in ipairs(self.level.objects) do
         if obj.reset then
             if obj:isInstanceOf(Bot) then
-                obj:reset(self.world)
+                obj:reset(self.level.world)
             end
         end
     end
@@ -30,10 +30,6 @@ function game:reset()
 
     self.levelLoader = LevelLoader:new()
     self.level = self.levelLoader:load("intro_level")
-    self.map = self.level.map
-    self.objects = self.level.objects
-    self.world = self.level.world
-    self.player = self.level.player
 
     self.dot = {x = 0, y = 0}
 
@@ -69,7 +65,7 @@ end
 
 function game:update(dt)
     if not self.pause then
-        self.map:update(dt)
+        self.level.map:update(dt)
     end
 
     -- Change this to an option for disabling screen shake
@@ -77,8 +73,8 @@ function game:update(dt)
     if true then
         dx, dy = self.effects.screenShake:getOffset()
     end
-    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 + dx))
-    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 + dy))
+    self.camera:lockX(math.floor(self.level.player.position.x + self.level.player.width/2 + dx))
+    self.camera:lockY(math.floor(self.level.player.position.y + self.level.player.height/2 + dy))
 
     if self.showDebugCamera then
         local dx, dy = 0, 0
@@ -144,7 +140,7 @@ function game:keypressed(key, code)
         end
     end
 
-    self.player:keypressed(key)
+    self.level.player:keypressed(key)
 end
 
 function game:mousemoved(x, y, dx, dy)
@@ -156,7 +152,7 @@ function game:mousepressed(x, y, mbutton)
     local worldX, worldY = self:worldCoords(x, y)
     self.dot.x, self.dot.y = worldX, worldY
 
-    local items, len = self.world:queryPoint(worldX, worldY, function(item)
+    local items, len = self.level.world:queryPoint(worldX, worldY, function(item)
         if item.class then
             return item
         end
@@ -171,7 +167,7 @@ function game:mousepressed(x, y, mbutton)
 
     for i = 1, len do
         if items[i]:isInstanceOf(NewCrusher) then
-            if self.player.augments[items[i].augment] or items[i].augment == "none" then
+            if self.level.player.augments[items[i].augment] or items[i].augment == "none" then
                 items[i]:activate(true)
             end
         end
@@ -200,8 +196,8 @@ function game:draw()
     camera:attach(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
     self.canvas:renderTo(function()
         love.graphics.clear()
-        self.map:setDrawRange(math.floor(camera.x - CANVAS_WIDTH/2), math.floor(camera.y - CANVAS_HEIGHT/2), CANVAS_WIDTH, CANVAS_HEIGHT)
-        self.map:draw()
+        self.level.map:setDrawRange(math.floor(camera.x - CANVAS_WIDTH/2), math.floor(camera.y - CANVAS_HEIGHT/2), CANVAS_WIDTH, CANVAS_HEIGHT)
+        self.level.map:draw()
         love.graphics.circle("fill", self.dot.x, self.dot.y, 5)
     end)
     camera:detach()
@@ -212,7 +208,7 @@ function game:draw()
     love.graphics.setShader()
 
     if DEBUG then
-        for _, obj in ipairs(self.objects) do
+        for _, obj in ipairs(self.level.objects) do
             if obj.drawDebug and obj == ACTIVE_ITEM then
                 local worldX, worldY = obj.position.x, obj.position.y
                 local cameraX, cameraY = self:cameraCoords(worldX + 0.5, worldY + 0.5)

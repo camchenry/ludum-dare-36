@@ -49,7 +49,7 @@ function Enemy:initialize(x, y, w, h, properties)
 
     Signal.register("activate", function(ID)
         if ID == self.ID then
-            self:reset(game.world)
+            self:reset(game.level.world)
         end
     end)
 end
@@ -107,7 +107,7 @@ function Enemy:update(dt, world)
         return (not other.class or other.collidable) and "slide" or false
     end
 
-    self.position.x, self.position.y, cols = game.world:move(self, self.position.x, self.position.y, filter)
+    self.position.x, self.position.y, cols = world:move(self, self.position.x, self.position.y, filter)
 
     for k, col in pairs(cols) do
         if math.abs(col.normal.x) == 1 then

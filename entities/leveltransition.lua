@@ -11,13 +11,7 @@ end
 function LevelTransition:update(dt)
     if self.transitioning then
         if Fade:isActive() then
-            -- TODO level transition knows too much about loading the level?
-            local level = self.loader:load(self.toLevel)
-            self.workingState.level = level
-            self.workingState.map = level.map
-            self.workingState.objects = level.objects
-            self.workingState.world = level.world
-            self.workingState.player = level.player
+            self.workingState.level = self.loader:load(self.toLevel)
             Fade:unsubscribe("leveltransition")
             self.transitioning = false
             Signal.emit("levelEntered", self.toLevel)
