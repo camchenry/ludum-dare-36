@@ -7,10 +7,8 @@ function ScreenShake:initialize()
     self.velocity = Vector(0, 0)
     self.angle = 0
 
-    Signal.register('activate', function(id)
-        if id == 1 then
-            self:shake(2, 2, true) 
-        end
+    Signal.register('doorActivate', function(id)
+        self:shake(1.5, 2, true) 
     end)
 end
 
