@@ -1,7 +1,7 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "0.17.0",
+  tiledversion = "2016.09.09",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
@@ -196,7 +196,7 @@ return {
           visible = true,
           properties = {
             ["oneTime"] = true,
-            ["transition"] = "game"
+            ["transition"] = "main_level"
           }
         },
         {

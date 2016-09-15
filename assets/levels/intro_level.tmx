@@ -118,7 +118,7 @@
   <object id="4" type="AreaTrigger" x="720" y="320" width="48" height="96">
    <properties>
     <property name="oneTime" type="bool" value="true"/>
-    <property name="transition" value="game"/>
+    <property name="transition" value="main_level"/>
    </properties>
   </object>
   <object id="5" type="ShowText" x="352" y="352" width="16" height="16">

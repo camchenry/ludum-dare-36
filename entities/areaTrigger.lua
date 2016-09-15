@@ -54,7 +54,7 @@ function AreaTrigger:update(dt, world)
     end
 
     if self.active and self.transition then
-        Transition:to(self.transition)
+        LevelTransition:to(self.transition)
     end
 
     if self.active and not self.prevActive then

@@ -26,3 +26,4 @@ SoundManager    = require "entities.sound.soundmanager"
 ScreenShake     = require "entities.fx.screenshake"
 
 LevelLoader     = require "entities.levelloader"
+LevelTransition = require "entities.leveltransition"

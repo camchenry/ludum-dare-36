@@ -20,6 +20,7 @@ require 'entities'
 -- These are special, they are globally accessible, and they are instantiated only once
 Fade = (require 'entities.fx.fade'):new()
 Transition = (require 'entities.transition'):new()
+LevelTransition = (require 'entities.leveltransition'):new(game, LevelLoader:new())
 
 function love.load()
     local function makeFont(path)
@@ -53,7 +54,7 @@ function love.load()
         callbacks[#callbacks+1] = k
     end
     State.registerEvents(callbacks)
-    State.switch(intro)
+    State.switch(game)
     State.push(menu)
 end
 
@@ -61,6 +62,7 @@ function love.update(dt)
     Flux.update(dt)
     Fade:update(dt)
     Transition:update(dt)
+    LevelTransition:update(dt)
 end
 
 function love.draw()
