@@ -123,13 +123,13 @@
   </object>
   <object id="5" type="ShowText" x="352" y="352" width="16" height="16">
    <properties>
-    <property name="id" value="1"/>
-    <property name="textID" value="4"/>
+    <property name="ID" type="int" value="1"/>
+    <property name="textID" type="int" value="4"/>
    </properties>
   </object>
   <object id="7" type="AreaTrigger" x="336" y="368" width="72" height="48">
    <properties>
-    <property name="id" value="1"/>
+    <property name="ID" type="int" value="1"/>
     <property name="signalOff" type="bool" value="true"/>
    </properties>
   </object>

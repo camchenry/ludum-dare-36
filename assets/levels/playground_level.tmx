@@ -402,7 +402,7 @@
   </object>
   <object id="95" type="Dropfloor" x="96" y="592" width="32" height="16"/>
   <object id="96" type="Checkpoint" x="192" y="608" width="16" height="48"/>
-  <object id="97" type="Spawn" x="704" y="848" width="16" height="32"/>
+  <object id="97" type="Spawn" x="801" y="846" width="16" height="32"/>
   <object id="98" type="NewCrusher" x="96" y="832" width="80" height="32">
    <properties>
     <property name="auto" type="bool" value="true"/>

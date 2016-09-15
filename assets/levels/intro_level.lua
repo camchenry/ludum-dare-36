@@ -211,8 +211,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["id"] = "1",
-            ["textID"] = "4"
+            ["ID"] = 1,
+            ["textID"] = 4
           }
         },
         {
@@ -227,7 +227,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["id"] = "1",
+            ["ID"] = 1,
             ["signalOff"] = true
           }
         },
