@@ -355,7 +355,7 @@ return {
     {
       type = "objectgroup",
       name = "Objects",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -2903,8 +2903,8 @@ return {
           name = "",
           type = "Spawn",
           shape = "rectangle",
-          x = 1360,
-          y = 1728,
+          x = 32,
+          y = 1552,
           width = 16,
           height = 16,
           rotation = 0,
@@ -2928,19 +2928,6 @@ return {
             ["limits"] = "86, 92",
             ["movement"] = true
           }
-        },
-        {
-          id = 809,
-          name = "",
-          type = "Wrench",
-          shape = "rectangle",
-          x = 1360,
-          y = 1728,
-          width = 16,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {}
         }
       }
     }

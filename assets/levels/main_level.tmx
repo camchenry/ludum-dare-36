@@ -194,7 +194,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0
 </data>
  </layer>
- <objectgroup name="Objects">
+ <objectgroup name="Objects" visible="0">
   <object id="524" type="Console" x="160" y="1472" width="208" height="128">
    <properties>
     <property name="ID" value="20"/>
@@ -1207,7 +1207,7 @@
     <property name="resettable" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="807" type="Spawn" x="1360" y="1728" width="16" height="16"/>
+  <object id="807" type="Spawn" x="32" y="1552" width="16" height="16"/>
   <object id="808" type="Enemy" x="1408" y="1744" width="16" height="16">
    <properties>
     <property name="jumpAccel" type="float" value="1000"/>
@@ -1216,6 +1216,5 @@
     <property name="movement" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="809" type="Wrench" x="1360" y="1728" width="16" height="32"/>
  </objectgroup>
 </map>
