@@ -134,7 +134,7 @@ function game:keypressed(key, code)
             self.activeCamera = self.camera
         end
     end
-    
+
     -- experiment shaders feature, remove this later
     if key == "f9" then
         self.currentShader = self.currentShader + 1

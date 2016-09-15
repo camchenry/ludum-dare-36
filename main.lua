@@ -20,7 +20,7 @@ require 'entities'
 -- These are special, they are globally accessible, and they are instantiated only once
 Fade = (require 'entities.fx.fade'):new()
 Transition = (require 'entities.transition'):new()
-LevelTransition = (require 'entities.leveltransition'):new(game, LevelLoader:new())
+LevelTransition = (require 'entities.leveltransition'):new()
 
 function love.load()
     local function makeFont(path)

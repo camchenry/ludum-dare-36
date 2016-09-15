@@ -1,6 +1,6 @@
 local LevelTransition = Class("LevelTransition")
 
-function LevelTransition:initialize(state)
+function LevelTransition:initialize()
     -- this tells which state to work on
     self.workingState = game
 
@@ -20,6 +20,7 @@ function LevelTransition:update(dt)
             self.workingState.player = level.player
             Fade:unsubscribe("leveltransition")
             self.transitioning = false
+            Signal.emit("levelEntered", self.toLevel)
         end
     end
 end

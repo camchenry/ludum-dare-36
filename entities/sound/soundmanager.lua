@@ -53,6 +53,7 @@ function SoundManager:initialize(directory)
         -- 'activate',
         'playerFootstep',
         'gameEntered',
+        'levelEntered',
         'textActivate',
         'leverActivate',
     }
@@ -154,10 +155,16 @@ function SoundManager:onPlayerFootstep()
 end
 
 function SoundManager:onGameEntered()
-    self.music.boom:play()
 
-    self.currentMusic = self.music.ambient1
-    self.currentMusic:play()
+end
+
+function SoundManager:onLevelEntered(level)
+    if level == "main_level" then
+        self.music.boom:play()
+
+        self.currentMusic = self.music.ambient1
+        self.currentMusic:play()
+    end
 end
 
 return SoundManager
