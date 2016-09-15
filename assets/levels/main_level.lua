@@ -8,7 +8,7 @@ return {
   height = 130,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 809,
+  nextobjectid = 810,
   properties = {},
   tilesets = {
     {
@@ -355,7 +355,7 @@ return {
     {
       type = "objectgroup",
       name = "Objects",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -2903,8 +2903,8 @@ return {
           name = "",
           type = "Spawn",
           shape = "rectangle",
-          x = 32,
-          y = 1552,
+          x = 1360,
+          y = 1728,
           width = 16,
           height = 16,
           rotation = 0,
@@ -2928,6 +2928,19 @@ return {
             ["limits"] = "86, 92",
             ["movement"] = true
           }
+        },
+        {
+          id = 809,
+          name = "",
+          type = "Wrench",
+          shape = "rectangle",
+          x = 1360,
+          y = 1728,
+          width = 16,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }

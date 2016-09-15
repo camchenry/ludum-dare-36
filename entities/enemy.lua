@@ -129,6 +129,11 @@ function Enemy:draw(debugOverride)
     if self.visible then
         love.graphics.setColor(self.color)
 
+        if not self.alive then
+            love.graphics.setColor(181, 220, 161)
+            love.graphics.setShader(game.shaders[5])
+        end
+
         local image = Enemy.idleImage
 
         if self.movement then
@@ -158,6 +163,8 @@ function Enemy:draw(debugOverride)
                 0
             )
         end
+
+        love.graphics.setShader()
     end
 end
 
@@ -185,13 +192,12 @@ function Enemy:hit()
 
         Signal.emit("enemyDeath")
 
-        self.deathTween = Flux.to(self.color, self.hitColorTime, {255, 0, 0})
-            :after(self.hitColorTime, {255, 255, 255})
-                :after(self, self.fallTime, {fallOffset = self.fallAmount})
-                    :oncomplete(function()
-                        self.visible = false
-                        self.deathTween = nil
-                    end)
+        self.deathTween = Flux.to(self.color, self.hitColorTime, {})
+            :after(self, self.fallTime, {fallOffset = self.fallAmount})
+                :oncomplete(function()
+                    self.visible = false
+                    self.deathTween = nil
+                end)
     end
 end
 

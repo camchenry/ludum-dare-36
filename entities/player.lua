@@ -400,7 +400,6 @@ function Player:update(dt, world)
                 Signal.emit("getWrench")
                 self.foundAnimation:gotoFrame(1)
                 self.foundTimer = self.foundTime
-                error('ok hey')
             end
         elseif other.class and other:isInstanceOf(Enemy) then
             if other.visible and other.alive then

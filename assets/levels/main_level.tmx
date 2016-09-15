@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="809">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="130" tilewidth="16" tileheight="16" nextobjectid="810">
  <tileset firstgid="1" name="Room_Gate_GateClosed" tilewidth="16" tileheight="16" tilecount="208" columns="26">
   <properties>
    <property name="collidable" value="true"/>
@@ -194,7 +194,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,0,0
 </data>
  </layer>
- <objectgroup name="Objects" visible="0">
+ <objectgroup name="Objects">
   <object id="524" type="Console" x="160" y="1472" width="208" height="128">
    <properties>
     <property name="ID" value="20"/>
@@ -1207,7 +1207,7 @@
     <property name="resettable" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="807" type="Spawn" x="32" y="1552" width="16" height="16"/>
+  <object id="807" type="Spawn" x="1360" y="1728" width="16" height="16"/>
   <object id="808" type="Enemy" x="1408" y="1744" width="16" height="16">
    <properties>
     <property name="jumpAccel" type="float" value="1000"/>
@@ -1216,5 +1216,6 @@
     <property name="movement" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="809" type="Wrench" x="1360" y="1728" width="16" height="32"/>
  </objectgroup>
 </map>
