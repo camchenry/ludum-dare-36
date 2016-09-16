@@ -59,10 +59,12 @@ function love.load()
 end
 
 function love.update(dt)
-    Flux.update(dt)
-    Fade:update(dt)
-    Transition:update(dt)
-    LevelTransition:update(dt)
+    if RUNNING then
+        Flux.update(dt)
+        Fade:update(dt)
+        Transition:update(dt)
+        LevelTransition:update(dt)
+    end
 end
 
 function love.draw()
@@ -88,12 +90,12 @@ function love.draw()
                 "CVS#: " .. stats.canvases
             )
         end
-        if game.world then
+        if game.level.world then
             Lume.push(info,
-                "Bump items: " .. game.world:countItems()
+                "Bump items: " .. game.level.world:countItems()
             )
         end
-        if  game.dot then
+        if game.dot then
             Lume.push(info,
                 "X: " .. game.dot.x,
                 "Y: " .. game.dot.y
@@ -137,10 +139,15 @@ function love.keyreleased(key, code, isRepeat)
             end
         end
 
+        if key == "f2" then
+            RUNNING = not RUNNING
+        end
+
         if key == "f4" then
             DRAW_HITBOXES = not DRAW_HITBOXES
         end
     end
+
 end
 
 function love.keypressed(key, code, isRepeat)

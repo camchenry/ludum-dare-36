@@ -13,6 +13,9 @@ DRAW_HITBOXES = false
 -- If the hitbox for the player's attack should be shown
 DRAW_ATTACKBOX = false
 
+-- Game will not be updated if not running, but debug controls will still work
+RUNNING = false
+
 -- The item currently being inspected
 ACTIVE_ITEM = nil
 

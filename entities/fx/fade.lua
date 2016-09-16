@@ -21,7 +21,7 @@ function Fade:initialize()
 end
 
 function Fade:update(dt)
-    print(Inspect(self.subscribers))
+
 end
 
 function Fade:draw()

@@ -12,6 +12,7 @@ function LevelTransition:update(dt)
     if self.transitioning then
         if Fade:isActive() then
             self.workingState.level = self.loader:load(self.toLevel)
+            self.workingState.player = self.workingState.level.player
             Fade:unsubscribe("leveltransition")
             self.transitioning = false
             Signal.emit("levelEntered", self.toLevel)

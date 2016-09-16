@@ -24,28 +24,23 @@ function game:resetToCheckpoint(override)
 end
 
 function game:reset()
+    -- Game canvas, rendered at a small resolution and scaled up
     self.canvas = love.graphics.newCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     SCALEX = love.graphics.getWidth() / CANVAS_WIDTH
     SCALEY = love.graphics.getHeight() / CANVAS_HEIGHT
 
     self.levelLoader = LevelLoader:new()
     self.level = self.levelLoader:load("intro_level")
+    self.player = self.level.player
 
-    self.dot = {x = 0, y = 0}
+    RUNNING = true
 
-    ACTIVE_ITEM = nil
-
+    -- Game camera
+    -- It is not zoomed, so it works with native resolution coords (!)
     self.camera = Camera()
-
-    self.debugCamera = Camera()
-    self.debugCameraSpeed = 4
-    self.debugCameraOffset = Vector(0, 0)
-    self.showDebugCamera = false
-
     self.activeCamera = self.camera
 
-    self.pause = false
-
+    -- Audio and visual effects
     self.soundManager = SoundManager:new()
 
     self.effects = {}
@@ -58,14 +53,25 @@ function game:reset()
         love.graphics.newShader("shaders/replace_color.glsl")
     }
     self.shaders[3]:send("num_bands", 3);
-    -- self.shaders[4]:send("canvasWidth", CANVAS_WIDTH);
-    -- self.shaders[4]:send("canvasHeight", CANVAS_HEIGHT);
     self.currentShader = 1
+
+    -- Debug stuff
+    ACTIVE_ITEM = nil
+    self.debugCamera = Camera()
+    self.debugCameraSpeed = 4
+    self.debugCameraOffset = Vector(0, 0)
+    self.showDebugCamera = false
+    self.dot = {x = 0, y = 0}
 end
 
 function game:update(dt)
-    if not self.pause then
+    if RUNNING then
         self.level.map:update(dt)
+
+        self.soundManager:update(dt)
+        for _, effect in pairs(self.effects) do
+            effect:update(dt)
+        end
     end
 
     -- Change this to an option for disabling screen shake
@@ -73,8 +79,8 @@ function game:update(dt)
     if true then
         dx, dy = self.effects.screenShake:getOffset()
     end
-    self.camera:lockX(math.floor(self.level.player.position.x + self.level.player.width/2 + dx))
-    self.camera:lockY(math.floor(self.level.player.position.y + self.level.player.height/2 + dy))
+    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 + dx))
+    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 + dy))
 
     if self.showDebugCamera then
         local dx, dy = 0, 0
@@ -108,18 +114,10 @@ function game:update(dt)
         self.debugCamera:lockX(self.debugCameraOffset.x)
         self.debugCamera:lockY(self.debugCameraOffset.y)
     end
-
-    self.soundManager:update(dt)
-    for _, effect in pairs(self.effects) do
-        effect:update(dt)
-    end
 end
 
 function game:keypressed(key, code)
-    if key == "f2" then
-        self.pause = not self.pause
-    end
-    if key == "f3" then
+    if DEBUG and key == "f3" then
         self.showDebugCamera = not self.showDebugCamera
 
         if self.showDebugCamera then
@@ -132,7 +130,7 @@ function game:keypressed(key, code)
     end
 
     -- experiment shaders feature, remove this later
-    if key == "f9" then
+    if DEBUG and key == "f9" then
         self.currentShader = self.currentShader + 1
 
         if self.currentShader > #self.shaders then 
@@ -140,7 +138,7 @@ function game:keypressed(key, code)
         end
     end
 
-    self.level.player:keypressed(key)
+    self.player:keypressed(key)
 end
 
 function game:mousemoved(x, y, dx, dy)
@@ -150,7 +148,8 @@ end
 
 function game:mousepressed(x, y, mbutton)
     local worldX, worldY = self:worldCoords(x, y)
-    self.dot.x, self.dot.y = worldX, worldY
+    self.dot.x = worldX 
+    self.dot.y = worldY
 
     local items, len = self.level.world:queryPoint(worldX, worldY, function(item)
         if item.class then
@@ -167,7 +166,7 @@ function game:mousepressed(x, y, mbutton)
 
     for i = 1, len do
         if items[i]:isInstanceOf(NewCrusher) then
-            if self.level.player.augments[items[i].augment] or items[i].augment == "none" then
+            if self.player.augments[items[i].augment] or items[i].augment == "none" then
                 items[i]:activate(true)
             end
         end
@@ -190,13 +189,18 @@ function game:draw()
     love.graphics.setLineStyle("rough")
 
     local camera = self.activeCamera
-    oldCameraX, oldCameraY = camera.x, camera.y
-    camera.x, camera.y = math.floor(camera.x), math.floor(camera.y)
+    oldCameraX = camera.x
+    oldCameraY = camera.y
+    camera.x = math.floor(camera.x)
+    camera.y = math.floor(camera.y)
+
+    local translatedX = camera.x - CANVAS_WIDTH/2
+    local translatedY = camera.y - CANVAS_HEIGHT/2
 
     camera:attach(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
     self.canvas:renderTo(function()
         love.graphics.clear()
-        self.level.map:setDrawRange(math.floor(camera.x - CANVAS_WIDTH/2), math.floor(camera.y - CANVAS_HEIGHT/2), CANVAS_WIDTH, CANVAS_HEIGHT)
+        self.level.map:setDrawRange(translatedX, translatedY, CANVAS_WIDTH, CANVAS_HEIGHT)
         self.level.map:draw()
         love.graphics.circle("fill", self.dot.x, self.dot.y, 5)
     end)
@@ -210,16 +214,19 @@ function game:draw()
     if DEBUG then
         for _, obj in ipairs(self.level.objects) do
             if obj.drawDebug and obj == ACTIVE_ITEM then
-                local worldX, worldY = obj.position.x, obj.position.y
+                local worldX = obj.position.x
+                local worldY = obj.position.y
                 local cameraX, cameraY = self:cameraCoords(worldX + 0.5, worldY + 0.5)
 
                 cameraX = cameraX + obj.width * SCALEX
-                cameraX, cameraY = cameraX - cameraX % SCALEX, cameraY - cameraY % SCALEY
+                cameraX = cameraX - cameraX % SCALEX
+                cameraY = cameraY - cameraY % SCALEY
 
                 obj:drawDebug(cameraX, cameraY)
             end
         end
     end
 
-    camera.x, camera.y = oldCameraX, oldCameraY
+    camera.x = oldCameraX
+    camera.y = oldCameraY
 end
