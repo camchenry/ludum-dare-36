@@ -39,7 +39,7 @@ return {
       name = "RoomGate",
       visible = true,
       opacity = 1,
-      offsetx = 1,
+      offsetx = 0,
       offsety = 1440,
       image = "../images/Backgrounds/Room_Gate_Background.png",
       properties = {}
@@ -355,7 +355,7 @@ return {
     {
       type = "objectgroup",
       name = "Objects",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -1468,7 +1468,7 @@ return {
           x = 304,
           y = 1152,
           width = 32,
-          height = 16,
+          height = 13,
           rotation = 0,
           visible = true,
           properties = {
@@ -1612,7 +1612,7 @@ return {
           x = 336,
           y = 1312,
           width = 32,
-          height = 16,
+          height = 13,
           rotation = 0,
           visible = true,
           properties = {
@@ -1638,7 +1638,7 @@ return {
           x = 384,
           y = 1312,
           width = 32,
-          height = 16,
+          height = 13,
           rotation = 0,
           visible = true,
           properties = {
@@ -1664,7 +1664,7 @@ return {
           x = 432,
           y = 1360,
           width = 32,
-          height = 16,
+          height = 13,
           rotation = 0,
           visible = true,
           properties = {
@@ -1687,7 +1687,7 @@ return {
           x = 368,
           y = 1456,
           width = 32,
-          height = 16,
+          height = 13,
           rotation = 0,
           visible = true,
           properties = {
@@ -2761,7 +2761,7 @@ return {
           properties = {
             ["ID"] = 137,
             ["beginState"] = 3,
-            ["direction"] = "left",
+            ["direction"] = "right",
             ["elevator"] = true,
             ["imgID"] = 21,
             ["inTime"] = 1,

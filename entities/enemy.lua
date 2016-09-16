@@ -130,7 +130,7 @@ function Enemy:draw(debugOverride)
     if self.visible then
         love.graphics.setColor(self.color)
 
-        if self.colorFlash then
+        if not self.alive then
             love.graphics.setColor(181, 220, 161)
             love.graphics.setShader(game.shaders[5])
         end
