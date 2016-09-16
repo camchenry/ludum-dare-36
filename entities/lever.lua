@@ -23,6 +23,8 @@ function Lever:reset()
 end
 
 function Lever:draw(debugOverride)
+    love.graphics.setColor(255, 255, 255)
+
     Object.draw(self, debugOverride)
     
     local image = Lever.offImage

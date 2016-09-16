@@ -10,7 +10,7 @@ function Checkpoint:update(dt, world)
 
     for _, item in pairs(items) do
         if item.class and item.acceptCheckpoint then
-            item.resetPosition = Vector(self.position.x + self.width/2 - item.width/2, self.position.y + self.height/2 - item.height/2)
+            item.resetPosition = Vector(self.position.x + self.width/2 - item.width/2, self.position.y + self.height - item.height)
         end
     end
 
