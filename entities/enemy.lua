@@ -31,11 +31,10 @@ function Enemy:initialize(x, y, w, h, properties)
     self.visible = true
     self.alive = true
 
-    self.hitColorTime = 0.1
     self.fallAmount = 500
     self.fallTime = 2
     self.colorFlash = false
-    self.colorFlashTime = 0.1
+    self.colorFlashTime = 4/60
 
     self.speed = 25
     self.gravity = 160
@@ -57,14 +56,14 @@ function Enemy:initialize(x, y, w, h, properties)
 end
 
 function Enemy:reset(world)
-    self.position = self.startPosition:clone()
-    world:update(self, self.position.x, self.position.y)
-    self.direction = self.startDirection
-
     if self.deathTween then
         self.deathTween:stop()
         self.deathTween = nil
     end
+
+    self.position = self.startPosition:clone()
+    world:update(self, self.position.x, self.position.y)
+    self.direction = self.startDirection
 
     self.visible = true
     self.alive = true
@@ -194,18 +193,11 @@ function Enemy:hit()
 
         Signal.emit("enemyDeath")
 
-        self.deathTween = Flux.to(self.color, self.hitColorTime, {})
-            :after(self, self.fallTime, {fallOffset = self.fallAmount})
-                :oncomplete(function()
-                    self.visible = false
-                    self.deathTween = nil
-                end)
-
-
-        self.colorFlash = true
-        Flux.to(self, self.colorFlashTime, {}):oncomplete(function()
-            self.colorFlash = false
-        end)
+        self.deathTween = Flux.to(self, self.fallTime, {fallOffset = self.fallAmount})
+            :oncomplete(function()
+                self.visible = false
+                self.deathTween = nil
+            end)
     end
 end
 

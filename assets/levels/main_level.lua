@@ -8,7 +8,7 @@ return {
   height = 130,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 810,
+  nextobjectid = 813,
   properties = {},
   tilesets = {
     {
@@ -39,7 +39,7 @@ return {
       name = "RoomGate",
       visible = true,
       opacity = 1,
-      offsetx = 0,
+      offsetx = 1,
       offsety = 1440,
       image = "../images/Backgrounds/Room_Gate_Background.png",
       properties = {}
@@ -1870,7 +1870,7 @@ return {
           name = "",
           type = "Enemy",
           shape = "rectangle",
-          x = 1520,
+          x = 1528,
           y = 1904,
           width = 16,
           height = 16,
@@ -1934,7 +1934,7 @@ return {
             ["imgID"] = 6,
             ["inTime"] = 0,
             ["inWait"] = 0,
-            ["outTime"] = 1,
+            ["outTime"] = 0.5,
             ["outWait"] = 0,
             ["resettable"] = true
           }
@@ -1958,7 +1958,7 @@ return {
             ["imgID"] = 6,
             ["inTime"] = 0,
             ["inWait"] = 0,
-            ["outTime"] = 1,
+            ["outTime"] = 0.5,
             ["outWait"] = 0,
             ["resettable"] = true
           }
@@ -2928,6 +2928,19 @@ return {
             ["limits"] = "86, 92",
             ["movement"] = true
           }
+        },
+        {
+          id = 812,
+          name = "",
+          type = "Checkpoint",
+          shape = "rectangle",
+          x = 704,
+          y = 464,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }
