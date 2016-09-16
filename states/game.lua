@@ -202,7 +202,9 @@ function game:draw()
         love.graphics.clear()
         self.level.map:setDrawRange(translatedX, translatedY, CANVAS_WIDTH, CANVAS_HEIGHT)
         self.level.map:draw()
-        love.graphics.circle("fill", self.dot.x, self.dot.y, 5)
+        if DEBUG then
+            love.graphics.circle("fill", self.dot.x, self.dot.y, 5)
+        end
     end)
     camera:detach()
 

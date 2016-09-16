@@ -34,6 +34,8 @@ function Enemy:initialize(x, y, w, h, properties)
     self.hitColorTime = 0.1
     self.fallAmount = 500
     self.fallTime = 2
+    self.colorFlash = false
+    self.colorFlashTime = 0.1
 
     self.speed = 25
     self.gravity = 160
@@ -129,7 +131,7 @@ function Enemy:draw(debugOverride)
     if self.visible then
         love.graphics.setColor(self.color)
 
-        if not self.alive then
+        if self.colorFlash then
             love.graphics.setColor(181, 220, 161)
             love.graphics.setShader(game.shaders[5])
         end
@@ -198,6 +200,12 @@ function Enemy:hit()
                     self.visible = false
                     self.deathTween = nil
                 end)
+
+
+        self.colorFlash = true
+        Flux.to(self, self.colorFlashTime, {}):oncomplete(function()
+            self.colorFlash = false
+        end)
     end
 end
 

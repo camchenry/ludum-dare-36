@@ -56,7 +56,7 @@ function Player:initialize(x, y, w, h, properties)
 
     self.newCrusherReference = nil
 
-    self.actionDelay = 0.4
+    self.actionDelay = 0.0
 
     self.facing = -1
 

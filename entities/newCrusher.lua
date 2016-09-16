@@ -334,6 +334,12 @@ function NewCrusher:update(dt, world)
             self:move(world, x, y, width, height)
         end
     end
+
+    if self.width <= 1 or self.height <= 1 then
+        self.collidable = false
+    else
+        self.collidable = true
+    end
 end
 
 function NewCrusher:draw(debugOverride)
