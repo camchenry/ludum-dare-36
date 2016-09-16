@@ -27,6 +27,8 @@ function SoundManager:initialize(directory)
     self.sounds.startJump:setPitch(0.9)
     self.sounds.bugDeath:setVolume(0.9)
     self.sounds.hitCeiling:setVolume(0.85)
+    self.sounds.wrenchSwing:setPitch(0.9)
+    self.sounds.wrenchSwing:setVolume(0.75)
 
 	self.musicVolume = 0.75
     self.currentMusicVolume = 0.75
@@ -56,6 +58,7 @@ function SoundManager:initialize(directory)
         'levelEntered',
         'textActivate',
         'leverActivate',
+        'wrenchSwing',
     }
 
     local function firstToUpper(str)
@@ -137,6 +140,10 @@ end
 
 function SoundManager:onGetWrench()
     self.sounds.wrenchPickup:play() 
+end
+
+function SoundManager:onWrenchSwing()
+    self:playDelayed(0.05, self.sounds.wrenchSwing)
 end
 
 function SoundManager:onLeverActivate()

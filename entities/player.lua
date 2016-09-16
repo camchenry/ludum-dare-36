@@ -123,6 +123,8 @@ function Player:doAction()
         self.attackTimer = self.attackTime
         self.attackAnimation:gotoFrame(1)
 
+        Signal.emit("wrenchSwing")
+
         Flux.to(self, self.actionDelay, {}):oncomplete(function()
             local offset = 0
             if self.facing == -1 then
