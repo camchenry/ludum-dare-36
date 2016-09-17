@@ -123,7 +123,6 @@ function Player:doAction()
         self.attackTimer = self.attackTime
         self.attackAnimation:gotoFrame(1)
 
-        Signal.emit("wrenchSwing")
 
         Flux.to(self, self.actionDelay, {}):oncomplete(function()
             local offset = 0
@@ -132,16 +131,23 @@ function Player:doAction()
             end
             local x, y = math.floor(self.position.x-self.attackBoxOffset.x*self.facing+offset+1), math.floor(self.position.y+0.5+1+self.attackBoxOffset.y)
             local items, len = self.world:queryRect(x, y, self.attackBoxSize.x, self.attackBoxSize.y)
+            local didHit = false
             for k, item in pairs(items) do
                 if item.class and item:isInstanceOf(Enemy) then
                     item:hit()
+                    didHit = true
                 end
                 if item.class and item:isInstanceOf(Lever) then
                     item:hit()
+                    didHit = true
                 end
+            end
+            if not didHit then
+                Signal.emit('wrenchSwing')
             end
         end)
     end
+
 end
 
 function Player:move(world, tryX, tryY, checkCrush, crush, reference)

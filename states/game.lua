@@ -129,6 +129,10 @@ function game:keypressed(key, code)
         end
     end
 
+    if DEBUG and key == "f12" then
+        self.player.wrenchPower = not self.player.wrenchPower
+    end
+
     -- experiment shaders feature, remove this later
     if DEBUG and key == "f9" then
         self.currentShader = self.currentShader + 1
