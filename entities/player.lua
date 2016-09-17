@@ -134,12 +134,10 @@ function Player:doAction()
             local didHit = false
             for k, item in pairs(items) do
                 if item.class and item:isInstanceOf(Enemy) then
-                    item:hit()
-                    didHit = true
+                    didHit = item:hit()
                 end
                 if item.class and item:isInstanceOf(Lever) then
-                    item:hit()
-                    didHit = true
+                    didHit = item:hit()
                 end
             end
             if not didHit then

@@ -198,6 +198,8 @@ function Enemy:hit()
                 self.visible = false
                 self.deathTween = nil
             end)
+
+        return true
     end
 end
 
