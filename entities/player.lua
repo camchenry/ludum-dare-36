@@ -427,8 +427,9 @@ function Player:update(dt, world)
                 self.velocity.y = 0
             end
         elseif other.class and other:isInstanceOf(Spikes) then
-            self:reset(world)
+            game:resetToCheckpoint()
             changePos = false
+            Signal.emit("playerDeath")
         elseif other.class and other:isInstanceOf(NewCrusher) then
             if col.normal.y == -1 or col.normal.y == 1 then
                 if self.position.y <= other.position.y + other.height/2 then
@@ -512,13 +513,6 @@ function Player:update(dt, world)
     self.attackAnimation:update(dt)
     self.foundAnimation:update(dt)
 
-    -- Don't update the run animation if we aren't actually able to run
-    if self.canMove and self.jumpTimer == 0 then
-        self.runAnimation:update(dt)
-    else
-        self.runAnimation:gotoFrame(1)
-    end
-
     if self.canMove and not hitWall and self.jumpTimer == 0 and self.touchingGround then
         self.footstepTimer = (self.footstepTimer + dt)
     end
@@ -537,6 +531,13 @@ function Player:update(dt, world)
     self.newCrusherReference = nil
 
     self:checkFootBox(world)
+
+    -- Don't update the run animation if we aren't actually able to run
+    if self.touchingGround then
+        self.runAnimation:update(dt)
+    else
+        self.runAnimation:gotoFrame(1)
+    end
 end
 
 function Player:checkFootBox(world)

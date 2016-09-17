@@ -517,6 +517,7 @@
    <properties>
     <property name="ID" type="int" value="7"/>
     <property name="oneTime" type="bool" value="false"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="716" type="Bot" x="401" y="1200.5" width="15" height="15">
@@ -627,6 +628,7 @@
    <properties>
     <property name="ID" type="int" value="8"/>
     <property name="oneTime" type="bool" value="false"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="726" type="AreaTrigger" x="637" y="1168" width="22" height="32">
@@ -652,6 +654,7 @@
    <properties>
     <property name="ID" type="int" value="2"/>
     <property name="oneTime" type="bool" value="true"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="736" type="NewCrusher" x="1184" y="1696" width="48" height="16">
@@ -714,6 +717,7 @@
    <properties>
     <property name="ID" type="int" value="3"/>
     <property name="oneTime" type="bool" value="true"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="746" type="NewCrusher" x="1328" y="1920" width="48" height="16">
@@ -794,7 +798,7 @@
    <properties>
     <property name="ID" type="int" value="-1"/>
     <property name="auto" type="bool" value="true"/>
-    <property name="beginState" type="int" value="1"/>
+    <property name="beginState" type="int" value="3"/>
     <property name="direction" value="up"/>
     <property name="elevator" type="bool" value="true"/>
     <property name="imgID" type="int" value="8"/>
@@ -804,7 +808,7 @@
     <property name="outTime" type="float" value="1"/>
     <property name="outWait" type="float" value="0.2"/>
     <property name="resettable" type="bool" value="true"/>
-    <property name="startDelay" type="float" value="1.2"/>
+    <property name="startDelay" type="float" value="0"/>
    </properties>
   </object>
   <object id="753" type="Enemy" x="1032" y="1984" width="16" height="16"/>
@@ -823,6 +827,7 @@
   <object id="756" type="Lever" x="688" y="2032" width="16" height="32">
    <properties>
     <property name="ID" type="int" value="6"/>
+    <property name="oneTime" type="bool" value="true"/>
    </properties>
   </object>
   <object id="757" type="NewCrusher" x="640" y="2016" width="16" height="48">
@@ -874,11 +879,13 @@
   <object id="760" type="Lever" x="464" y="1904" width="16" height="32">
    <properties>
     <property name="ID" type="int" value="51"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="761" type="Lever" x="560" y="1904" width="16" height="32">
    <properties>
     <property name="ID" type="int" value="52"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="762" type="NewCrusher" x="464" y="1968" width="32" height="16">
@@ -1064,30 +1071,35 @@
    <properties>
     <property name="ID" type="int" value="133"/>
     <property name="oneTime" type="bool" value="true"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="785" type="Lever" x="1072" y="224" width="16" height="32">
    <properties>
     <property name="ID" type="int" value="134"/>
     <property name="oneTime" type="bool" value="false"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="786" type="Lever" x="992" y="224" width="16" height="32">
    <properties>
     <property name="ID" type="int" value="135"/>
     <property name="oneTime" type="bool" value="false"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="787" type="Lever" x="928" y="224" width="16" height="32">
    <properties>
     <property name="ID" type="int" value="136"/>
     <property name="oneTime" type="bool" value="false"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="788" type="Lever" x="864" y="224" width="16" height="32">
    <properties>
     <property name="ID" type="int" value="137"/>
     <property name="oneTime" type="bool" value="false"/>
+    <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="789" type="NewCrusher" x="1088" y="288" width="32" height="16">
@@ -1207,7 +1219,7 @@
     <property name="resettable" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="807" type="Spawn" x="32" y="1552" width="16" height="16"/>
+  <object id="807" type="Spawn" x="32" y="1568" width="16" height="16"/>
   <object id="808" type="Enemy" x="1408" y="1744" width="16" height="16">
    <properties>
     <property name="jumpAccel" type="float" value="1000"/>

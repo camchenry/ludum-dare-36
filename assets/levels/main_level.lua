@@ -1515,7 +1515,8 @@ return {
           visible = true,
           properties = {
             ["ID"] = 7,
-            ["oneTime"] = false
+            ["oneTime"] = false,
+            ["resettable"] = true
           }
         },
         {
@@ -1715,7 +1716,8 @@ return {
           visible = true,
           properties = {
             ["ID"] = 8,
-            ["oneTime"] = false
+            ["oneTime"] = false,
+            ["resettable"] = true
           }
         },
         {
@@ -1780,7 +1782,8 @@ return {
           visible = true,
           properties = {
             ["ID"] = 2,
-            ["oneTime"] = true
+            ["oneTime"] = true,
+            ["resettable"] = true
           }
         },
         {
@@ -1912,7 +1915,8 @@ return {
           visible = true,
           properties = {
             ["ID"] = 3,
-            ["oneTime"] = true
+            ["oneTime"] = true,
+            ["resettable"] = true
           }
         },
         {
@@ -2053,7 +2057,7 @@ return {
           properties = {
             ["ID"] = -1,
             ["auto"] = true,
-            ["beginState"] = 1,
+            ["beginState"] = 3,
             ["direction"] = "up",
             ["elevator"] = true,
             ["imgID"] = 8,
@@ -2063,7 +2067,7 @@ return {
             ["outTime"] = 1,
             ["outWait"] = 0.2,
             ["resettable"] = true,
-            ["startDelay"] = 1.2
+            ["startDelay"] = 0
           }
         },
         {
@@ -2123,7 +2127,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = 6
+            ["ID"] = 6,
+            ["oneTime"] = true
           }
         },
         {
@@ -2214,7 +2219,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = 51
+            ["ID"] = 51,
+            ["resettable"] = true
           }
         },
         {
@@ -2229,7 +2235,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["ID"] = 52
+            ["ID"] = 52,
+            ["resettable"] = true
           }
         },
         {
@@ -2584,7 +2591,8 @@ return {
           visible = true,
           properties = {
             ["ID"] = 133,
-            ["oneTime"] = true
+            ["oneTime"] = true,
+            ["resettable"] = true
           }
         },
         {
@@ -2600,7 +2608,8 @@ return {
           visible = true,
           properties = {
             ["ID"] = 134,
-            ["oneTime"] = false
+            ["oneTime"] = false,
+            ["resettable"] = true
           }
         },
         {
@@ -2616,7 +2625,8 @@ return {
           visible = true,
           properties = {
             ["ID"] = 135,
-            ["oneTime"] = false
+            ["oneTime"] = false,
+            ["resettable"] = true
           }
         },
         {
@@ -2632,7 +2642,8 @@ return {
           visible = true,
           properties = {
             ["ID"] = 136,
-            ["oneTime"] = false
+            ["oneTime"] = false,
+            ["resettable"] = true
           }
         },
         {
@@ -2648,7 +2659,8 @@ return {
           visible = true,
           properties = {
             ["ID"] = 137,
-            ["oneTime"] = false
+            ["oneTime"] = false,
+            ["resettable"] = true
           }
         },
         {
@@ -2904,7 +2916,7 @@ return {
           type = "Spawn",
           shape = "rectangle",
           x = 32,
-          y = 1552,
+          y = 1568,
           width = 16,
           height = 16,
           rotation = 0,

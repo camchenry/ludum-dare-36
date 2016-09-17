@@ -50,6 +50,7 @@
  <objecttype name="Lever" color="#26a400">
   <property name="ID" type="int" default="0"/>
   <property name="oneTime" type="bool" default="false"/>
+  <property name="resettable" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Checkpoint" color="#ffffff"/>
  <objecttype name="Teleport" color="#b41cff">

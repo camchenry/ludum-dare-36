@@ -335,7 +335,7 @@ function NewCrusher:update(dt, world)
         end
     end
 
-    if self.width <= 1 or self.height <= 1 then
+    if self.horizontal and (self.width <= 1 or self.height <= 1) then
         self.collidable = false
     else
         self.collidable = true

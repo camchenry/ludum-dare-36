@@ -10,8 +10,9 @@ function Lever:initialize(x, y, w, h, properties)
     Object.initialize(self, x, y, self.width, self.height, properties)
     self.name = "Lever"
 
-    self.ID      = properties.ID or 0
-    self.oneTime = properties.oneTime or false
+    self.ID         = properties.ID or 0
+    self.oneTime    = properties.oneTime or false
+    self.resettable = properties.resettable or false
 
     self.active = false
 
@@ -19,7 +20,9 @@ function Lever:initialize(x, y, w, h, properties)
 end
 
 function Lever:reset()
-    self.active = false
+    if self.resettable then
+        self.active = false
+    end
 end
 
 function Lever:draw(debugOverride)
