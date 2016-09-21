@@ -1,11 +1,11 @@
 -- Disables the ability to toggle the debug view
-RELEASE = false
+RELEASE = true
 
 -- Show debug view or not
-DEBUG = true
+DEBUG = false
 
 -- Whether or not to show more detailed debug info
-DETAILED_DEBUG = true
+DETAILED_DEBUG = false
 
 -- If hitboxes should be drawn for all objects
 DRAW_HITBOXES = false
