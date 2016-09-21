@@ -591,7 +591,7 @@ function Player:draw()
         image = self.jumpImage
     end
 
-    local x, y = math.floor(self.position.x + self.imageOffset.x*self.facing + offset + 0.5), math.floor(self.position.y + self.imageOffset.y + 0.5)
+    local x, y = math.floor(self.position.x + self.imageOffset.x*self.facing + offset), math.floor(self.position.y + self.imageOffset.y)
 
     if self.foundTimer > 0 then
         self.foundAnimation:draw(self.foundImage, x + self.attackImageOffset.x, y + self.attackImageOffset.y, 0, self.facing, 1)
