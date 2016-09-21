@@ -367,7 +367,7 @@ function NewCrusher:draw(debugOverride)
             end
         end
 
-        love.graphics.draw(self.image, math.floor(x + 0.5), math.floor(y + 0.5))
+        love.graphics.draw(self.image, math.floor(x), math.floor(y))
     
         love.graphics.setScissor()
     else
