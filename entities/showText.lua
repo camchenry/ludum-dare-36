@@ -35,13 +35,17 @@ function ShowText:initialize(x, y, w, h, properties)
         self.position = Vector(self.position.x - self.image:getWidth()/2, self.position.y - self.image:getHeight()/2)
     end
 
-    Signal.register("activate", function(ID)
+    local activateSignal = Signal.register("activate", function(ID)
         if ID == self.ID and ID ~= 0 then
             self.showImage = not self.showImage
             if self.showImage then
                 Signal.emit("textActivate")
             end
         end
+    end)
+
+    Signal.register("levelEntered", function(level)
+        Signal.remove("activate", activateSignal)
     end)
 end
 
