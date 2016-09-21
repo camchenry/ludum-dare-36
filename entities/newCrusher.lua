@@ -210,7 +210,7 @@ function NewCrusher:move(world, x, y, w, h)
                     end
                 else
                     if item.position.y <= self.position.y then
-                        if not item.jumpControlTimer or item.jumpControlTimer <= 0 then
+                        --if not item.jumpControlTimer or item.jumpControlTimer <= 0 then
                             crush.bottom = true
 
                             local x = item.position.x
@@ -224,7 +224,7 @@ function NewCrusher:move(world, x, y, w, h)
 
                             item.touchedNewCrusher = true
                             item.touchingGround = true
-                        end
+                        --end
                     else
                         crush.top = true
                         item:move(world, item.position.x, self.position.y + self.height, true, crush)

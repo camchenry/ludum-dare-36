@@ -433,7 +433,7 @@ function Player:update(dt, world)
         elseif other.class and other:isInstanceOf(NewCrusher) then
             if col.normal.y == -1 or col.normal.y == 1 then
                 if self.position.y <= other.position.y + other.height/2 then
-                    Signal.emit("hitGround")
+                    hitGround = true
                 else
                     -- hitting the crusher from underneath
                     -- if velocity is negavitive, make it 0. otherwise keep the current velocity
@@ -443,24 +443,17 @@ function Player:update(dt, world)
                     self.jumpTimer = 0
                     self.canJump = false
                     self.jumpState = false
-                    Signal.emit("hitCeiling")
+
+                    hitCeil = true
                 end
             end
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
-                if not self.prevWall then
-                    self.prevWall = true
-                    Signal.emit("hitWall")
-                end
                 hitWall = true
             end
         else
             if col.normal.x == -1 or col.normal.x == 1 then
                 self.velocity.x = 0
-                if not self.prevWall then
-                    self.prevWall = true
-                    Signal.emit("hitWall")
-                end
                 hitWall = true
             end
             if col.normal.y == -1 or col.normal.y == 1 then
@@ -475,10 +468,6 @@ function Player:update(dt, world)
                 hitGround = true
             end
             if col.normal.y == 1 then
-                if not self.prevCeil then
-                    self.prevCeil = true
-                    Signal.emit("hitCeiling")
-                end
                 hitCeil = true
             end
         end
@@ -486,6 +475,14 @@ function Player:update(dt, world)
 
     if hitGround and not self.prevGround then
         Signal.emit("hitGround")
+    end
+
+    if hitWall and not self.prevWall then
+        Signal.emit("hitWall")
+    end
+
+    if hitCeil and not self.prevCeil then
+        Signal.emit("hitCeiling")
     end
 
     self.prevGround = hitGround
