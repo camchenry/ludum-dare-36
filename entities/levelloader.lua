@@ -204,6 +204,8 @@ function LevelLoader:load(level)
         return a.zindex < b.zindex
     end)
 
+    Signal.emit("levelLoaded", level)
+
     return {
         map = map,
         world = world,
