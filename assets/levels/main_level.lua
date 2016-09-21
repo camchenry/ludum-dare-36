@@ -1,7 +1,7 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "2016.09.09",
+  tiledversion = "0.17.0",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
@@ -1275,7 +1275,7 @@ return {
             ["on"] = true,
             ["outTime"] = 1,
             ["resettable"] = true,
-            ["startDelay"] = 0.29999999999999999
+            ["startDelay"] = 0.3
           }
         },
         {
@@ -1298,7 +1298,7 @@ return {
             ["inTime"] = 0.5,
             ["on"] = true,
             ["resettable"] = true,
-            ["startDelay"] = 0.80000000000000004
+            ["startDelay"] = 0.8
           }
         },
         {
@@ -1321,7 +1321,7 @@ return {
             ["inTime"] = 0.5,
             ["on"] = true,
             ["resettable"] = true,
-            ["startDelay"] = 0.80000000000000004
+            ["startDelay"] = 0.8
           }
         },
         {
@@ -1344,7 +1344,7 @@ return {
             ["inTime"] = 0.5,
             ["on"] = true,
             ["resettable"] = true,
-            ["startDelay"] = 0.80000000000000004
+            ["startDelay"] = 0.8
           }
         },
         {
@@ -1367,7 +1367,7 @@ return {
             ["inTime"] = 0.5,
             ["on"] = true,
             ["resettable"] = true,
-            ["startDelay"] = 0.80000000000000004
+            ["startDelay"] = 0.8
           }
         },
         {
@@ -1531,7 +1531,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["resettable"] = false
+            ["resettable"] = true
           }
         },
         {
@@ -2009,11 +2009,11 @@ return {
             ["direction"] = "up",
             ["elevator"] = true,
             ["imgID"] = 8,
-            ["inTime"] = 0.59999999999999998,
-            ["inWait"] = 0.20000000000000001,
+            ["inTime"] = 0.6,
+            ["inWait"] = 0.2,
             ["on"] = true,
             ["outTime"] = 1,
-            ["outWait"] = 0.20000000000000001,
+            ["outWait"] = 0.2,
             ["resettable"] = true
           }
         },
@@ -2035,11 +2035,11 @@ return {
             ["direction"] = "up",
             ["elevator"] = true,
             ["imgID"] = 8,
-            ["inTime"] = 0.59999999999999998,
-            ["inWait"] = 0.20000000000000001,
+            ["inTime"] = 0.6,
+            ["inWait"] = 0.2,
             ["on"] = true,
             ["outTime"] = 1,
-            ["outWait"] = 0.20000000000000001,
+            ["outWait"] = 0.2,
             ["resettable"] = true
           }
         },
@@ -2061,11 +2061,11 @@ return {
             ["direction"] = "up",
             ["elevator"] = true,
             ["imgID"] = 8,
-            ["inTime"] = 0.59999999999999998,
-            ["inWait"] = 0.20000000000000001,
+            ["inTime"] = 0.6,
+            ["inWait"] = 0.2,
             ["on"] = true,
             ["outTime"] = 1,
-            ["outWait"] = 0.20000000000000001,
+            ["outWait"] = 0.2,
             ["resettable"] = true,
             ["startDelay"] = 0
           }
@@ -2149,9 +2149,9 @@ return {
             ["elevator"] = true,
             ["imgID"] = 9,
             ["inTime"] = 1,
-            ["inWait"] = 0.20000000000000001,
+            ["inWait"] = 0.2,
             ["outTime"] = 1,
-            ["outWait"] = 0.20000000000000001
+            ["outWait"] = 0.2
           }
         },
         {
@@ -2173,10 +2173,10 @@ return {
             ["elevator"] = true,
             ["imgID"] = 15,
             ["inTime"] = 1,
-            ["inWait"] = 0.20000000000000001,
+            ["inWait"] = 0.2,
             ["on"] = true,
             ["outTime"] = 1,
-            ["outWait"] = 0.20000000000000001,
+            ["outWait"] = 0.2,
             ["resettable"] = true
           }
         },
@@ -2199,10 +2199,10 @@ return {
             ["elevator"] = true,
             ["imgID"] = 15,
             ["inTime"] = 1,
-            ["inWait"] = 0.20000000000000001,
+            ["inWait"] = 0.2,
             ["on"] = true,
             ["outTime"] = 1,
-            ["outWait"] = 0.20000000000000001,
+            ["outWait"] = 0.2,
             ["resettable"] = true,
             ["startDelay"] = 1.2
           }
@@ -2446,7 +2446,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["resettable"] = false
+            ["resettable"] = true
           }
         },
         {
@@ -2892,7 +2892,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["resettable"] = false
+            ["resettable"] = true
           }
         },
         {
@@ -2907,7 +2907,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["resettable"] = false
+            ["resettable"] = true
           }
         },
         {
@@ -2916,7 +2916,7 @@ return {
           type = "Spawn",
           shape = "rectangle",
           x = 32,
-          y = 1568,
+          y = 1552,
           width = 16,
           height = 16,
           rotation = 0,
