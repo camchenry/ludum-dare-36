@@ -1,14 +1,14 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "0.17.0",
+  tiledversion = "2016.09.09",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
   height = 100,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 170,
+  nextobjectid = 172,
   properties = {},
   tilesets = {
     {
@@ -521,23 +521,6 @@ return {
           properties = {}
         },
         {
-          id = 34,
-          name = "",
-          type = "Gate",
-          shape = "rectangle",
-          x = 1040,
-          y = 752,
-          width = 16,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = 1,
-            ["direction"] = "up",
-            ["open"] = true
-          }
-        },
-        {
           id = 35,
           name = "",
           type = "Lever",
@@ -609,22 +592,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
-        },
-        {
-          id = 41,
-          name = "",
-          type = "Gate",
-          shape = "rectangle",
-          x = 992,
-          y = 624,
-          width = 32,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["ID"] = 2,
-            ["direction"] = "right"
-          }
         },
         {
           id = 42,

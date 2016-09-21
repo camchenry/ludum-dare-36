@@ -14,6 +14,9 @@ function Lever:initialize(x, y, w, h, properties)
     self.oneTime    = properties.oneTime or false
     self.resettable = properties.resettable or false
 
+    -- Levers should be drawn behind enemies, the bot, etc
+    self.zindex = properties.zindex or -99
+
     self.active = false
 
     self.imageOffset = Vector(-2, -1)

@@ -18,6 +18,7 @@ function Bot:initialize(x, y, w, h, properties)
     self.acceptCheckpoint  = properties.acceptCheckpoint or true
     self.directionOverride = properties.directionOverride or true
     self.resettable        = properties.resettable or true
+    self.zindex            = properties.zindex or 99
 
     self.animationTime = 0.3
 

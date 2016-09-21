@@ -10,6 +10,7 @@ function Object:initialize(x, y, w, h, properties)
         self.collidable = properties.collidable or false
         self.pushable = properties.pushable or false
         self.resettable = properties.resettable or true
+        self.zindex = properties.zindex or 0
     end
 
     self.name = "Object"

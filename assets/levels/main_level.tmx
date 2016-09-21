@@ -386,7 +386,7 @@
     <property name="on" type="bool" value="true"/>
     <property name="outTime" type="float" value="1"/>
     <property name="resettable" type="bool" value="true"/>
-    <property name="startDelay" type="float" value="0.3"/>
+    <property name="startDelay" type="float" value="0.29999999999999999"/>
    </properties>
   </object>
   <object id="705" type="NewCrusher" x="848" y="1104" width="32" height="96">
@@ -399,7 +399,7 @@
     <property name="inTime" type="float" value="0.5"/>
     <property name="on" type="bool" value="true"/>
     <property name="resettable" type="bool" value="true"/>
-    <property name="startDelay" type="float" value="0.8"/>
+    <property name="startDelay" type="float" value="0.80000000000000004"/>
    </properties>
   </object>
   <object id="706" type="NewCrusher" x="752" y="1104" width="32" height="96">
@@ -412,7 +412,7 @@
     <property name="inTime" type="float" value="0.5"/>
     <property name="on" type="bool" value="true"/>
     <property name="resettable" type="bool" value="true"/>
-    <property name="startDelay" type="float" value="0.8"/>
+    <property name="startDelay" type="float" value="0.80000000000000004"/>
    </properties>
   </object>
   <object id="707" type="NewCrusher" x="800" y="1104" width="32" height="96">
@@ -425,7 +425,7 @@
     <property name="inTime" type="float" value="0.5"/>
     <property name="on" type="bool" value="true"/>
     <property name="resettable" type="bool" value="true"/>
-    <property name="startDelay" type="float" value="0.8"/>
+    <property name="startDelay" type="float" value="0.80000000000000004"/>
    </properties>
   </object>
   <object id="708" type="NewCrusher" x="896" y="1104" width="32" height="96">
@@ -438,7 +438,7 @@
     <property name="inTime" type="float" value="0.5"/>
     <property name="on" type="bool" value="true"/>
     <property name="resettable" type="bool" value="true"/>
-    <property name="startDelay" type="float" value="0.8"/>
+    <property name="startDelay" type="float" value="0.80000000000000004"/>
    </properties>
   </object>
   <object id="709" type="NewCrusher" x="720" y="1152" width="16" height="48">
@@ -770,11 +770,11 @@
     <property name="direction" value="up"/>
     <property name="elevator" type="bool" value="true"/>
     <property name="imgID" type="int" value="8"/>
-    <property name="inTime" type="float" value="0.6"/>
-    <property name="inWait" type="float" value="0.2"/>
+    <property name="inTime" type="float" value="0.59999999999999998"/>
+    <property name="inWait" type="float" value="0.20000000000000001"/>
     <property name="on" type="bool" value="true"/>
     <property name="outTime" type="float" value="1"/>
-    <property name="outWait" type="float" value="0.2"/>
+    <property name="outWait" type="float" value="0.20000000000000001"/>
     <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
@@ -786,11 +786,11 @@
     <property name="direction" value="up"/>
     <property name="elevator" type="bool" value="true"/>
     <property name="imgID" type="int" value="8"/>
-    <property name="inTime" type="float" value="0.6"/>
-    <property name="inWait" type="float" value="0.2"/>
+    <property name="inTime" type="float" value="0.59999999999999998"/>
+    <property name="inWait" type="float" value="0.20000000000000001"/>
     <property name="on" type="bool" value="true"/>
     <property name="outTime" type="float" value="1"/>
-    <property name="outWait" type="float" value="0.2"/>
+    <property name="outWait" type="float" value="0.20000000000000001"/>
     <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
@@ -802,11 +802,11 @@
     <property name="direction" value="up"/>
     <property name="elevator" type="bool" value="true"/>
     <property name="imgID" type="int" value="8"/>
-    <property name="inTime" type="float" value="0.6"/>
-    <property name="inWait" type="float" value="0.2"/>
+    <property name="inTime" type="float" value="0.59999999999999998"/>
+    <property name="inWait" type="float" value="0.20000000000000001"/>
     <property name="on" type="bool" value="true"/>
     <property name="outTime" type="float" value="1"/>
-    <property name="outWait" type="float" value="0.2"/>
+    <property name="outWait" type="float" value="0.20000000000000001"/>
     <property name="resettable" type="bool" value="true"/>
     <property name="startDelay" type="float" value="0"/>
    </properties>
@@ -838,9 +838,9 @@
     <property name="elevator" type="bool" value="true"/>
     <property name="imgID" type="int" value="9"/>
     <property name="inTime" type="float" value="1"/>
-    <property name="inWait" type="float" value="0.2"/>
+    <property name="inWait" type="float" value="0.20000000000000001"/>
     <property name="outTime" type="float" value="1"/>
-    <property name="outWait" type="float" value="0.2"/>
+    <property name="outWait" type="float" value="0.20000000000000001"/>
    </properties>
   </object>
   <object id="758" type="NewCrusher" x="480" y="1856" width="32" height="80">
@@ -852,10 +852,10 @@
     <property name="elevator" type="bool" value="true"/>
     <property name="imgID" type="int" value="15"/>
     <property name="inTime" type="float" value="1"/>
-    <property name="inWait" type="float" value="0.2"/>
+    <property name="inWait" type="float" value="0.20000000000000001"/>
     <property name="on" type="bool" value="true"/>
     <property name="outTime" type="float" value="1"/>
-    <property name="outWait" type="float" value="0.2"/>
+    <property name="outWait" type="float" value="0.20000000000000001"/>
     <property name="resettable" type="bool" value="true"/>
    </properties>
   </object>
@@ -868,10 +868,10 @@
     <property name="elevator" type="bool" value="true"/>
     <property name="imgID" type="int" value="15"/>
     <property name="inTime" type="float" value="1"/>
-    <property name="inWait" type="float" value="0.2"/>
+    <property name="inWait" type="float" value="0.20000000000000001"/>
     <property name="on" type="bool" value="true"/>
     <property name="outTime" type="float" value="1"/>
-    <property name="outWait" type="float" value="0.2"/>
+    <property name="outWait" type="float" value="0.20000000000000001"/>
     <property name="resettable" type="bool" value="true"/>
     <property name="startDelay" type="float" value="1.2"/>
    </properties>

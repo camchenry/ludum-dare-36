@@ -44,7 +44,7 @@ return {
     },
     {
       type = "tilelayer",
-      name = "Tile Layer 1",
+      name = "Tiles",
       x = 0,
       y = 0,
       width = 100,
@@ -162,7 +162,7 @@ return {
     },
     {
       type = "objectgroup",
-      name = "Object Layer 1",
+      name = "Objects",
       visible = false,
       opacity = 1,
       offsetx = 0,
@@ -244,6 +244,18 @@ return {
           visible = true,
           properties = {}
         }
+      }
+    },
+    {
+      type = "imagelayer",
+      name = "Pillar mask",
+      visible = true,
+      opacity = 1,
+      offsetx = 686,
+      offsety = 224,
+      image = "../images/Misc/Village_PillarMask.png",
+      properties = {
+        ["zindex"] = 999
       }
     }
   }

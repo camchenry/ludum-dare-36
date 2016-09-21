@@ -188,6 +188,22 @@ function LevelLoader:load(level)
         end
     end
 
+    local layers = {}
+    for i, layer in ipairs(map.layers) do
+        layers[i] = layer
+        layer.zindex = layer.properties.zindex or i
+    end
+    map.layers = layers
+
+    -- Put the highest z-index layer as being drawn last
+    map.layers = Lume.sort(map.layers, function(a, b) 
+        return a.zindex < b.zindex
+    end)
+
+    objectsLayer.objects = Lume.sort(objectsLayer.objects, function(a, b)
+        return a.zindex < b.zindex
+    end)
+
     return {
         map = map,
         world = world,
