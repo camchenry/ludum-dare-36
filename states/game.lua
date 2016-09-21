@@ -79,8 +79,8 @@ function game:update(dt)
     if true then
         dx, dy = self.effects.screenShake:getOffset()
     end
-    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 + dx + 0.5))
-    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 + dy + 0.5))
+    self.camera:lockX(math.floor(self.player.position.x + self.player.width/2 + dx))
+    self.camera:lockY(math.floor(self.player.position.y + self.player.height/2 + dy))
 
     if self.showDebugCamera then
         local dx, dy = 0, 0

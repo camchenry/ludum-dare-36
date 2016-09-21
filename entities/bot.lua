@@ -289,7 +289,7 @@ function Bot:draw(debugOverride)
     love.graphics.setColor(255, 255, 255)
 
     if not self.dead then
-        self.animation:draw(Bot.image, math.floor(self.position.x), math.floor(self.position.y-1))
+        self.animation:draw(Bot.image, math.floor(self.position.x), math.floor(self.position.y-0.5))
     end
 end
 
