@@ -1,7 +1,8 @@
-local Console = Class("Console")
+local Console = Class("Console", Object)
 
 function Console:initialize(x, y, w, h, properties)
-    self.position = Vector(x, y)
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "Console"
 
     self.interval = 3
 
@@ -36,7 +37,9 @@ function Console:update(dt)
     self.halfAnimation:update(dt)
 end
 
-function Console:draw()
+function Console:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     if self.progress == 0 then
         self.closedAnimation:draw(self.closedImage, self.position.x, self.position.y)
     elseif self.progress == 1 then
@@ -44,6 +47,15 @@ function Console:draw()
     elseif self.progress == 2 then
         love.graphics.draw(self.openImage, self.position.x, self.position.y)
     end
+end
+
+function Console:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "ID2: " .. self.ID2,
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return Console

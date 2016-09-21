@@ -4,7 +4,6 @@ function LevelLoader:initialize(directory)
     self.directory = directory or "assets/levels/"
 end
 
--- TODO refactor out references to the game state
 function LevelLoader:load(level)
     local map = STI(self.directory .. level .. ".lua", {"bump"})
     local objects = {}
@@ -17,33 +16,123 @@ function LevelLoader:load(level)
         return obj
     end
 
+    local objectsLayer = map:addCustomLayer("Objects layer")
+
+    objectsLayer.objects = objects
+
+    function objectsLayer:update(dt)
+        for _, obj in ipairs(self.objects) do
+            if obj.class and obj:isInstanceOf(Crusher) then
+                obj.hasMoved = false
+            end
+        end
+
+        for _, obj in ipairs(self.objects) do
+            if obj.update then
+                if obj.class and obj:isInstanceOf(NewCrusher) then
+                    obj:update(dt, world)
+                end
+            end
+        end
+
+        for _, obj in ipairs(self.objects) do
+            if obj.update then
+                if obj.class and not obj:isInstanceOf(NewCrusher) and not obj:isInstanceOf(Player) then
+                    obj:update(dt, world)
+                end
+            end
+        end
+    end
+
+    function objectsLayer:draw()
+        for _, obj in ipairs(self.objects) do
+            if obj.draw then
+                obj:draw()
+            end
+        end
+    end
+
+    local consoleLayer = map:addCustomLayer("Console layer")
+
+    consoleLayer.console = nil
+
+    function consoleLayer:update(dt)
+        if self.console then
+            self.console:update(dt)
+        end
+    end
+
+    function consoleLayer:draw()
+        if self.console then
+            self.console:draw()
+        end
+    end
+
+    local textLayer = map:addCustomLayer("Text layer")
+
+    textLayer.items = {}
+    
+    function textLayer:draw()
+        for _, item in pairs(self.items) do
+            item:draw()
+        end
+    end
+
+    local playerLayer = map:addCustomLayer("Player layer")
+
+    playerLayer.player = nil
+
+    function playerLayer:update(dt)
+        self.player:update(dt, world)
+    end
+
+    function playerLayer:draw()
+        self.player:draw()
+    end
+
+    local secretLayer = map:addCustomLayer("Secret layer")
+
+    secretLayer.secrets = {}
+
+    function secretLayer:draw()
+        for _, item in pairs(self.secrets) do
+            item:draw()
+        end
+    end
+
+    function secretLayer:update(dt)
+        for _, item in pairs(self.secrets) do
+            item:update(dt)
+        end
+    end
+
     for i, object in pairs(map.objects) do
         if object.type == "Wrench" then
-            game.wrench = add(Wrench:new(object.x, object.y, object.width, object.height))
+            add(Wrench:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Enemy" then
-            add(Enemy:new(object.x, object.y, object.properties))
+            add(Enemy:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "MovingPlatform" then
-            local platform = add(MovingPlatform:new(object.x, object.y, object.width, object.height, object.properties))
+            add(MovingPlatform:new(object.x, object.y, object.width, object.height, object.properties))
         end
         
         if object.type == "Console" then
-            game.console = Console:new(object.x, object.y, object.width, object.height, object.properties)
+            consoleLayer.console = Console:new(object.x, object.y, object.width, object.height, object.properties)
         end
 
         if object.type == "Checkpoint" then
-            add(Checkpoint:new(object.x, object.y, object.width, object.height))
+            add(Checkpoint:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Dropfloor" then
-            add(Dropfloor:new(object.x, object.y, object.width, object.height))
+            add(Dropfloor:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Lever" then
-            add(Lever:new(object.x, object.y, object.properties))
+            add(Lever:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Gate" then
@@ -67,11 +156,11 @@ function LevelLoader:load(level)
         end
 
         if object.type == "SecretLayer" then
-            game.secretLayer = SecretLayer:new(object.x, object.y, object.width, object.height, object.properties)
+            table.insert(secretLayer.secrets, SecretLayer:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "ShowText" then
-            table.insert(game.textItems, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
+            table.insert(textLayer.items, ShowText:new(object.x, object.y, object.width, object.height, object.properties))
         end
 
         if object.type == "Teleport" then
@@ -79,14 +168,49 @@ function LevelLoader:load(level)
         end
 
         if object.type == "VictoryCondition" then
-            game.victoryCondition = VictoryCondition:new(object.x, object.y, object.width, object.height, object.properties)
+            table.insert(objects, VictoryCondition:new(object.x, object.y, object.width, object.height, object.properties))
+        end
+
+        if object.type == "Spawn" then
+            playerLayer.player = add(Player:new(object.x, object.y, object.width, object.height, object.properties))
+        end
+
+        if object.type == "NewCrusher" then
+            add(NewCrusher:new(object.x, object.y, object.width, object.height, object.properties))
+        end
+
+        if object.type == "Director" then
+            add(Director:new(object.x, object.y, object.width, object.height, object.properties))
+        end
+
+        if object.type == "Augment" then
+            add(Augment:new(object.x, object.y, object.width, object.height, object.properties))
         end
     end
+
+    local layers = {}
+    for i, layer in ipairs(map.layers) do
+        layers[i] = layer
+        layer.zindex = layer.properties.zindex or i
+    end
+    map.layers = layers
+
+    -- Put the highest z-index layer as being drawn last
+    map.layers = Lume.sort(map.layers, function(a, b) 
+        return a.zindex < b.zindex
+    end)
+
+    objectsLayer.objects = Lume.sort(objectsLayer.objects, function(a, b)
+        return a.zindex < b.zindex
+    end)
+
+    Signal.emit("levelLoaded", level)
 
     return {
         map = map,
         world = world,
         objects = objects,
+        player = playerLayer.player,
     }
 end
 

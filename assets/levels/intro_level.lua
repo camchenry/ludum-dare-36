@@ -1,7 +1,7 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "2016.08.26",
+  tiledversion = "2016.09.09",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
@@ -44,7 +44,7 @@ return {
     },
     {
       type = "tilelayer",
-      name = "Tile Layer 1",
+      name = "Tiles",
       x = 0,
       y = 0,
       width = 100,
@@ -162,7 +162,7 @@ return {
     },
     {
       type = "objectgroup",
-      name = "Object Layer 1",
+      name = "Objects",
       visible = false,
       opacity = 1,
       offsetx = 0,
@@ -175,8 +175,8 @@ return {
           name = "",
           type = "Spawn",
           shape = "rectangle",
-          x = 380.091,
-          y = 352.727,
+          x = 366.667,
+          y = 320,
           width = 15,
           height = 14.5,
           rotation = 0,
@@ -196,7 +196,7 @@ return {
           visible = true,
           properties = {
             ["oneTime"] = true,
-            ["transition"] = "game"
+            ["transition"] = "main_level"
           }
         },
         {
@@ -211,8 +211,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["id"] = "1",
-            ["textID"] = "4"
+            ["ID"] = 1,
+            ["textID"] = 4
           }
         },
         {
@@ -227,7 +227,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["id"] = "1",
+            ["ID"] = 1,
             ["signalOff"] = true
           }
         },
@@ -244,6 +244,18 @@ return {
           visible = true,
           properties = {}
         }
+      }
+    },
+    {
+      type = "imagelayer",
+      name = "Pillar mask",
+      visible = true,
+      opacity = 1,
+      offsetx = 686,
+      offsety = 224,
+      image = "../images/Misc/Village_PillarMask.png",
+      properties = {
+        ["zindex"] = 999
       }
     }
   }

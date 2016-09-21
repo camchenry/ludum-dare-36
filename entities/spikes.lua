@@ -1,10 +1,16 @@
-local Spikes = Class("Spikes")
+local Spikes = Class("Spikes", Object)
 
-function Spikes:initialize(x, y, w, h)
-    self.width = w
-    self.height = h
+function Spikes:initialize(x, y, w, h, properties)
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "Spikes"
+end
 
-    self.position = Vector(x, y)
+function Spikes:draw(debugOverride)
+    Object.draw(self, debugOverride)
+end
+
+function Spikes:drawDebug(x, y)
+    Object.drawDebug(self, x, y)
 end
 
 return Spikes

@@ -1,9 +1,10 @@
-local SecretLayer = Class("SecretLayer")
+local SecretLayer = Class("SecretLayer", Object)
 
 function SecretLayer:initialize(x, y, w, h, properties)
-    self.position = Vector(x, y)
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "SecretLayer"
 
-    self.ID = tonumber(properties.ID) or 0
+    self.ID = properties.ID or 0
 
     self.image = love.graphics.newImage("assets/images/Misc/Room3_TopLayer.png")
 
@@ -15,19 +16,30 @@ function SecretLayer:update(dt)
 
     self.active = true
 
-    for _, obj in pairs(game.objects) do
+    for _, obj in pairs(game.level.objects) do
         if obj.class and obj:isInstanceOf(AreaTrigger) then
-            if obj.active then
+            if obj.ID == self.ID and obj.active then
                 self.active = false
             end
         end
     end
 end
 
-function SecretLayer:draw()
+function SecretLayer:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     if self.active then
         love.graphics.draw(self.image, self.position.x, self.position.y)
     end
+end
+
+function SecretLayer:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "Active: " .. (self.active and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return SecretLayer

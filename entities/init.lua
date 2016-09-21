@@ -1,3 +1,4 @@
+Object          = require "entities.object"
 Player          = require "entities.player"
 Wrench          = require "entities.wrench"
 Enemy           = require "entities.enemy"
@@ -16,9 +17,13 @@ ShowText        = require "entities.showText"
 Teleport        = require "entities.teleport"
 Mask            = require "entities.mask"
 VictoryCondition= require "entities.victoryCondition"
+NewCrusher      = require "entities.newCrusher"
+Director        = require "entities.director"
+Augment         = require "entities.augment"
 
 SoundManager    = require "entities.sound.soundmanager"
 
 ScreenShake     = require "entities.fx.screenshake"
 
 LevelLoader     = require "entities.levelloader"
+LevelTransition = require "entities.leveltransition"

@@ -1,27 +1,36 @@
-local Bot = Class("Bot")
+-- BUG: bot gets crushed after it should be centered on a crusher
+
+local Bot = Class("Bot", Object)
+
+Bot.static.image = love.graphics.newImage("assets/images/Misc/Bot.png")
 
 function Bot:initialize(x, y, w, h, properties)
-    self.width, self.height = 15, 15
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "Bot"
 
-    self.position = Vector(x, y)
     self.velocity = Vector(0, 0)
     self.acceleration = Vector(0, 0)
 
     self.resetPosition = Vector(x, y)
 
-    self.noCheckpoint = properties.noCheckpoint
+    self.direction         = properties.direction or 1
+    self.controlled        = properties.controlled or true
+    self.acceptCheckpoint  = properties.acceptCheckpoint or true
+    self.directionOverride = properties.directionOverride or true
+    self.resettable        = properties.resettable or true
+    self.zindex            = properties.zindex or 99
 
     self.animationTime = 0.3
 
     self.prevX = x
 
-    self.image = love.graphics.newImage("assets/images/Misc/Bot.png")
-    local g = Anim8.newGrid(16, 16, self.image:getWidth(), self.image:getHeight())
+    local g = Anim8.newGrid(16, 16, Bot.image:getWidth(), Bot.image:getHeight())
     self.animation = Anim8.newAnimation(g('1-2', 1), self.animationTime)
 
     self.gravity = 160
-    self.direction = 1
     self.speed = 15
+
+    self.pushable = true
 
     self.movement = true
     self.dead = false
@@ -29,6 +38,117 @@ function Bot:initialize(x, y, w, h, properties)
     self.crusherReference = nil
     self.crusherTimer = 0
     self.crusherTime = 0.3
+
+    self.startTimer = 5
+end
+
+function Bot:move(world, tryX, tryY, checkCrush, crush, reference)
+    if reference then
+        self.newCrusherReference = reference
+    end
+
+    if x ~= self.position.x or y ~= self.position.y then
+        if checkCrush then
+            w, h = self.width, self.height
+            local crushed = {}
+            if crush then
+                crushed.top = crush.top
+                crushed.bottom = crush.bottom
+                crushed.left = crush.left
+                crushed.right = crush.right
+            end
+            local crushers = {top = "", bottom = "", left = "", right = ""}
+
+            local x, y = tryX, tryY
+            if reference then 
+                if reference.horizontal then
+                    y = self.position.y
+                else
+                    x = self.position.x
+                end
+            end
+
+            if not crush or crush.bottom then
+                local itemsTop, lenTop = world:querySegment(x, y, x+w, y, function(item)
+                    if not item.class or item.collidable then
+                        return true
+                    end
+
+                    return false
+                end)
+
+                crushed.top = lenTop > 0
+                crushers.top = itemsTop[1]
+            end
+
+            if not crush or crush.top then
+                --if crush and crush.top then error(Inspect(crush)..'\n'..Inspect(crushed)..'\n'..Inspect(thing)) end
+                local itemsBottom, lenBottom = world:querySegment(x, y+h, x+w, y+h, function(item)
+                    if not item.class or item.collidable then
+                        return true
+                    end
+
+                    return false
+                end)
+
+                crushed.bottom = lenBottom > 0
+                crushers.bottom = itemsBottom[1]
+            end
+
+            if not crush or crush.right then
+                local itemsLeft, lenLeft = world:querySegment(x, y, x, y+h, function(item)
+                    if not item.class or item.collidable then
+                        return true
+                    end
+
+                    return false
+                end)
+
+                crushed.left = lenLeft > 0
+                crushers.left = itemsLeft[1]
+            end
+            
+            if not crush or crush.left then
+                local itemsRight, lenRight = world:querySegment(x+w, y, x+w, y+h, function(item)
+                    if not item.class or item.collidable then
+                        return true
+                    end
+
+                    return false
+                end)
+
+                crushed.right = lenRight > 0
+                crushers.right = itemsRight[1]
+            end
+
+            -- potential issue here. if the postion x y has already been chosen by bump, then they are coordinates for a location already safe from crushing
+            -- this evaluates collisions between the current position and the desired position
+            local actualX, actualY, cols = world:check(self, tryX, tryY, function(item, other)
+                if not other.class or other.collidable then
+                    return "slide"
+                end
+
+                return false
+            end)
+
+
+            if (crushed.top and crushed.bottom) or (crushed.left and crushed.right) then
+                if crushers[1] ~= crushers[2] or (not crushers[1] and not crushers[2]) then
+                    -- death by crushed
+                    game:resetToCheckpoint()
+                    Signal.emit("botDeath")
+                end
+            else
+                self.position.x, self.position.y = actualX, actualY
+                world:update(self, self.position.x, self.position.y)
+            end
+
+            self.lastCrush = crushed
+        else
+            self.position.x, self.position.y = tryX, tryY
+            world:update(self, self.position.x, self.position.y)
+        end
+    end
 end
 
 function Bot:kill()
@@ -36,8 +156,14 @@ function Bot:kill()
 end
 
 function Bot:reset(world)
-    self.position = Vector(self.resetPosition.x, self.resetPosition.y)
-    world:update(self, self.position.x, self.position.y)
+    if self.resettable then
+        self.position = Vector(self.resetPosition.x, self.resetPosition.y)
+        world:update(self, self.resetPosition.x, self.resetPosition.y)
+        self.startTimer = 5
+        self.acceleration = Vector(0, 0)
+        self.velocity = Vector(0, 0)
+        self.newCrusherReference = nil
+    end
 end
 
 function Bot:update(dt, world)
@@ -55,58 +181,48 @@ function Bot:update(dt, world)
 
     self.velocity = self.velocity + self.acceleration*dt
 
-    self.position = newPos + self.velocity*dt
+    local newPos = newPos + self.velocity * dt
 
-    local actualX, actualY, cols, len = game.world:check(self, self.position.x, self.position.y, function(item, other)
-        if other.class and other:isInstanceOf(Player) then
-            return false
-        end
+    if self.newCrusherReference and not self.newCrusherReference.horizontal then
+        newPos.y = self.newCrusherReference.position.y - self.height
+        self.velocity.y = 0
+        self.touchingGround = true
+    end
+
+    local changePos = true
+
+    local actualX, actualY, cols, len = world:check(self, newPos.x, newPos.y, function(item, other)
         if other.class and other:isInstanceOf(Spikes) then
             return "cross"
         end
-        if other.class and other:isInstanceOf(AreaTrigger) then
-            return false
+
+        if not other.class or other.collidable then
+            return "slide"
         end
-        if other.class and other:isInstanceOf(Checkpoint) then
-            if not self.noCheckpoint then
-                self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
-            end
-            return false
-        end
-        return "slide"
+
+        return false
     end)
-
-    if self.crusherReference then
-        if self.crusherReference.botDir ~= 0 then
-            --self.direction = self.crusherReference.botDir
-        end
-
-        if self.crusherTimer == 0 then
-            self.crusherReference = nil
-        end
-    end
 
     for k, col in pairs(cols) do
         local other = col.other
-        if other.class and other:isInstanceOf(Crusher) then
-            if col.normal.y == -1 then
-                self.touchingGround = true
-                self.velocity.y = 0
-                self.crusherReference = other
-                self.crusherTimer = self.crusherTime
-            elseif col.normal.y == 1 then
-                self.velocity.y = 0
-                self.crusherReference = other
+        if other.class and other:isInstanceOf(Spikes) then
+            if self.startTimer <= 0 then
+                game:resetToCheckpoint()
+            else
+                self:reset(world)
             end
-            if other.botDir ~= 0 then
-                --self.direction = other.botDir
+            changePos = false
+        elseif other.class and other:isInstanceOf(NewCrusher) then
+            if col.normal.y == -1 or col.normal.y == 1 then
+
+                if self.position.y <= other.position.y + other.height/2 then
+                else
+                    -- hitting the crusher from underneath
+                    -- if velocity is negavitive, make it 0. otherwise keep the current velocity
+                    -- this is intended to make the player begin to fall as soon as they hit a crusher from underneath
+                    self.velocity.y = math.max(0, self.velocity.y)
+                end
             end
-        elseif other.class and other:isInstanceOf(Spikes) then
-            --self:reset(world)
-            --game:resetToCheckpoint(true)
-            game:resetToCheckpoint()
-        elseif other.class and other:isInstanceOf(Checkpoint) then
-            self.resetPosition = Vector(other.position.x + other.width/2, other.position.y)
         end
 
         if math.abs(col.normal.x) == 1 then
@@ -116,79 +232,76 @@ function Bot:update(dt, world)
         end
     end
 
-    if self.crusherReference and self.crusherReference.crushing and (not self.crusherReference.open or (self.crusherReference.open and self.crusherReference.canClose)) then
-        if not self.crusherReference.hasMoved then
-            -- move crusher first
-            self.crusherReference:update(dt, world, true)
-        end
+    local prevPosition = Vector(self.position.x, self.position.y)
 
-        newPos.x = self.crusherReference.position.x + self.crusherReference.width/2 - self.width/2
-        newPos.y = self.crusherReference.position.y - self.height
+    if changePos then
+        self:move(world, actualX, actualY)
+    end
 
-        if self.crusherReference.direction == "up" then
-            newPos.y = self.crusherReference.position.y + self.crusherReference.height + self.velocity.y * dt + 5
-        end
-
-        --if math.abs(newPos.y - self.position.y) > self.height/2 or math.abs(self.prevX - self.position.x) > self.width/2 then
-        --    -- death by crushed
-        --    game:resetToCheckpoint()
-        --    changePos = false
-        --    error('botDeath')
-        --end
-
-        self.prevX = self.position.x
-
-        world:update(self, newPos.x, newPos.y)
-        self.position = Vector(newPos.x, newPos.y)
-    else
-
-        local actualX, actualY, cols, len = game.world:move(self, self.position.x, self.position.y, function(item, other)
-            if other.class and other:isInstanceOf(Player) then
-                return "cross"
-            end
-            if other.class and other:isInstanceOf(Enemy) then
-                return nil
-            end
-            if other.class and other:isInstanceOf(Console) then
-                return nil
-            end
-            if other.class and other:isInstanceOf(Spikes) then
-                return false
-            end
-            if other.class and other:isInstanceOf(Checkpoint) then
-                return false
-            end
-            if other.class and other:isInstanceOf(AreaTrigger) then
-                return false
-            end
-
-            return "slide"
-            end)
-
-        self.prevX = self.position.x
-
-        self.position = Vector(actualX, actualY)
+    if self.startTimer <= 0 and (self.position - prevPosition):len() > (newPos - prevPosition):len() then
+        -- GET CRUSHED!
+        game:resetToCheckpoint()
+        Signal.emit("botDeath")
     end
 
     self.crusherTimer = math.max(0, self.crusherTimer - dt)
+    self.startTimer = math.max(0, self.startTimer - dt)
 
     self.animation:update(dt)
+
+    self.prevNewCrusherReference = self.newCrusherReference
+    self.newCrusherReference = nil
+
+    self:checkFootBox(world)
 end
 
-function Bot:draw()
-    if DEBUG then
-        love.graphics.setColor(255, 0, 0)
-        love.graphics.rectangle('line', self.position.x, self.position.y, self.width, self.height)
+function Bot:checkFootBox(world)
+    local items, len = world:queryRect(self.position.x, self.position.y+self.height, self.width, 1, function(item)
+        if not item.class or (item.class and not item:isInstanceOf(Player) and item.collidable) then
+            return true
+        end
+        return false
+    end)
+
+    for k, item in pairs(items) do
+        if item.class and item:isInstanceOf(NewCrusher) then
+            if len == 1 then
+                local x = self.position.x
+                local y = item.position.y - self.height
+
+                -- center the bot on the crusher
+                if not item.finishedMovement and item.moving and not item.horizontal then
+                    x = item.position.x + item.width/2 - self.width/2
+                end
+
+                self:move(world, x, y, false)
+            end
+            self.newCrusherReference = item
+            self.velocity.y = 0
+            self.touchingGround = true
+        end
     end
+end
+
+function Bot:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     love.graphics.setColor(255, 255, 255)
 
-    if DEBUG and self.crusherReference then
-        love.graphics.setColor(0, 255, 255)
-    end
-
     if not self.dead then
-        self.animation:draw(self.image, math.floor(self.position.x), math.floor(self.position.y-1))
+        self.animation:draw(Bot.image, math.floor(self.position.x), math.floor(self.position.y-1+0.5))
     end
+end
+
+function Bot:drawDebug(x, y)
+    local propertyStrings = {
+        "Direction: " .. self.direction,
+        "Controlled: " .. (self.controlled and "true" or "false"),
+        "Accept Checkpoint: " .. (self.acceptCheckpoint and "true" or "false"),
+        "Direction Override: " .. (self.directionOverride and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return Bot

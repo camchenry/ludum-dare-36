@@ -6,7 +6,7 @@
  <imagelayer name="Village Background" offsetx="192" offsety="224">
   <image source="../images/Backgrounds/Village_Background.png" width="688" height="272"/>
  </imagelayer>
- <layer name="Tile Layer 1" width="100" height="100" visible="0">
+ <layer name="Tiles" width="100" height="100" visible="0">
   <properties>
    <property name="collidable" type="bool" value="true"/>
   </properties>
@@ -113,26 +113,32 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1" visible="0">
-  <object id="3" type="Spawn" x="380.091" y="352.727" width="15" height="14.5"/>
+ <objectgroup name="Objects" visible="0">
+  <object id="3" type="Spawn" x="366.667" y="320" width="15" height="14.5"/>
   <object id="4" type="AreaTrigger" x="720" y="320" width="48" height="96">
    <properties>
     <property name="oneTime" type="bool" value="true"/>
-    <property name="transition" value="game"/>
+    <property name="transition" value="main_level"/>
    </properties>
   </object>
   <object id="5" type="ShowText" x="352" y="352" width="16" height="16">
    <properties>
-    <property name="id" value="1"/>
-    <property name="textID" value="4"/>
+    <property name="ID" type="int" value="1"/>
+    <property name="textID" type="int" value="4"/>
    </properties>
   </object>
   <object id="7" type="AreaTrigger" x="336" y="368" width="72" height="48">
    <properties>
-    <property name="id" value="1"/>
+    <property name="ID" type="int" value="1"/>
     <property name="signalOff" type="bool" value="true"/>
    </properties>
   </object>
   <object id="8" type="Mask" x="686" y="224" width="194" height="191.727"/>
  </objectgroup>
+ <imagelayer name="Pillar mask" offsetx="686" offsety="224">
+  <image source="../images/Misc/Village_PillarMask.png" width="194" height="192"/>
+  <properties>
+   <property name="zindex" type="int" value="999"/>
+  </properties>
+ </imagelayer>
 </map>

@@ -1,14 +1,12 @@
-local Teleport = Class("Teleport")
+local Teleport = Class("Teleport", Object)
 
 function Teleport:initialize(x, y, w, h, properties)
-    self.width = w
-    self.height = h
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "Teleport"
 
-    self.position = Vector(x, y)
-
-    self.ID = tonumber(properties.ID) or 0
-    self.activateID = tonumber(properties.activateID) or 0
-    self.out = properties.out
+    self.ID         = properties.ID or 0
+    self.activateID = properties.activateID or 0
+    self.out        = properties.out or false
 
     self.activated = false
 
@@ -32,13 +30,27 @@ function Teleport:update(dt, world)
 end
 
 function Teleport:teleportEntity(item)
-    for _, obj in pairs(game.objects) do
+    for _, obj in pairs(game.level.objects) do
         if obj.class and obj:isInstanceOf(Teleport) and not obj.out and obj.ID == self.ID then
-            item.position = Vector(obj.position.x + obj.width/2 - item.width/2, obj.position.y + obj.height/2)
-            game.world:update(item, item.position.x, item.position.y)
-            item.teleported = true
+            item.position = Vector(obj.position.x + obj.width/2 - item.width/2, obj.position.y + obj.height - item.height)
+            game.level.world:update(item, item.position.x, item.position.y)
+            item.teleportedTimer = item.teleportedTime
         end
     end
+end
+
+function Teleport:draw(debugOverride)
+    Object.draw(self, debugOverride)
+end
+
+function Teleport:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "Activate ID: " .. self.activateID,
+        "Activated: " .. (self.activated and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return Teleport

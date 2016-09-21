@@ -17,6 +17,11 @@ STI     = require 'libs.sti'
 require 'states'
 require 'entities'
 
+-- These are special, they are globally accessible, and they are instantiated only once
+Fade = (require 'entities.fx.fade'):new()
+Transition = (require 'entities.transition'):new()
+LevelTransition = (require 'entities.leveltransition'):new()
+
 function love.load()
     local function makeFont(path)
         return setmetatable({}, {
@@ -43,36 +48,29 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setFont(Fonts.default[14])
 
-    __overlay = {0, 0, 0, 0}
-    Signal.register("GameVictory", function()
-        Flux.to(__overlay, 2, {0, 0, 0, 255})
-            :oncomplete(function()
-                State.switch(victory)
-                __overlay = {0, 0, 0, 0} 
-            end)
-    end)
-
     -- Draw is left out so we can override it ourselves
     local callbacks = {'errhand', 'update'}
     for k in pairs(love.handlers) do
         callbacks[#callbacks+1] = k
     end
     State.registerEvents(callbacks)
-    State.switch(intro)
+    State.switch(game)
     State.push(menu)
 end
 
 function love.update(dt)
-    Flux.update(dt)
+    if RUNNING then
+        Flux.update(dt)
+        Fade:update(dt)
+        Transition:update(dt)
+        LevelTransition:update(dt)
+    end
 end
 
 function love.draw()
     State.current():draw()
 
-    love.graphics.push()
-    love.graphics.setColor(__overlay)
-    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-    love.graphics.pop()
+    Fade:draw()
 
     if DEBUG then
         love.graphics.push()
@@ -92,11 +90,32 @@ function love.draw()
                 "CVS#: " .. stats.canvases
             )
         end
+        if game.level.world then
+            Lume.push(info,
+                "Bump items: " .. game.level.world:countItems()
+            )
+        end
+        if game.dot then
+            Lume.push(info,
+                "X: " .. game.dot.x,
+                "Y: " .. game.dot.y
+            )
+        end
         if game.player then
+            local textX, textY = game:cameraCoords(game.player.position.x, game.player.position.y)
+
             Lume.push(info,
                 "X: " .. game.player.position.x,
                 "Y: " .. game.player.position.y,
+                "X2: " .. textX,
+                "Y2: " .. textY,
                 "Crush: " .. Inspect(game.player.lastCrush)
+            )
+        end
+        if LASTPOS then
+            Lume.push(info,
+                "X: " .. LASTPOS.x,
+                "Y: " .. LASTPOS.y
             )
         end
         for i, text in ipairs(info) do
@@ -119,7 +138,16 @@ function love.keyreleased(key, code, isRepeat)
                 DEBUG = not DEBUG
             end
         end
+
+        if key == "f2" then
+            RUNNING = not RUNNING
+        end
+
+        if key == "f4" then
+            DRAW_HITBOXES = not DRAW_HITBOXES
+        end
     end
+
 end
 
 function love.keypressed(key, code, isRepeat)

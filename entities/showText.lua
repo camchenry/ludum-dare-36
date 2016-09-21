@@ -1,11 +1,11 @@
-local ShowText = Class("ShowText")
+local ShowText = Class("ShowText", Object)
 
 function ShowText:initialize(x, y, w, h, properties)
-    self.width = w
-    self.height = h
+    Object.initialize(self, x, y, w, h, properties)
+    self.name = "ShowText"
 
-    self.ID = tonumber(properties.ID) or 0
-    self.textID = tonumber(properties.textID) or 0
+    self.ID     = properties.ID or 0
+    self.textID = properties.textID or 0
 
     self.showImage = false
 
@@ -35,10 +35,17 @@ function ShowText:initialize(x, y, w, h, properties)
         self.position = Vector(self.position.x - self.image:getWidth()/2, self.position.y - self.image:getHeight()/2)
     end
 
-    Signal.register("activate", function(ID)
-        if ID == self.ID then
+    local activateSignal = Signal.register("activate", function(ID)
+        if ID == self.ID and ID ~= 0 then
             self.showImage = not self.showImage
+            if self.showImage then
+                Signal.emit("textActivate")
+            end
         end
+    end)
+
+    Signal.register("levelEntered", function(level)
+        Signal.remove("activate", activateSignal)
     end)
 end
 
@@ -46,12 +53,24 @@ function ShowText:update(dt, world)
 
 end
 
-function ShowText:draw()
+function ShowText:draw(debugOverride)
+    Object.draw(self, debugOverride)
+    
     if self.showImage then
         if self.image then
             love.graphics.draw(self.image, self.position.x, self.position.y)
         end
     end
+end
+
+function ShowText:drawDebug(x, y)
+    local propertyStrings = {
+        "ID: " .. self.ID,
+        "Text ID: " .. self.textID,
+        "Show Image: " .. (self.showImage and "true" or "false"),
+    }
+
+    Object.drawDebug(self, x, y, propertyStrings)
 end
 
 return ShowText

@@ -11,12 +11,14 @@ function Gate:initialize(x, y, w, h, properties)
     self.startWidth = w
     self.startHeight = h
 
-    self.direction = properties.dir or "up"
-    self.ID = tonumber(properties.ID) or 0
-    self.ID2 = tonumber(properties.ID2) or 0
-    self.imgID = tonumber(properties.img) or 0
-    self.retractTime = tonumber(properties.retractTime) or 0
-    self.crushTime = tonumber(properties.crushTime) or 0
+    self.direction   = properties.direction or "up"
+    self.ID          = properties.ID or 0
+    self.ID2         = properties.ID2 or 0
+    self.imgID       = properties.img or 0
+    self.retractTime = properties.retractTime or 1.0
+    self.crushTime   = properties.crushTime or 1.0
+    self.canClose = properties.canClose or true
+    self.dontReset = properties.dontReset or false
 
     if self.imgID == 1 then
         self.image = love.graphics.newImage("assets/images/Misc/Room_Gate_TrapDoor.png")
@@ -42,18 +44,10 @@ function Gate:initialize(x, y, w, h, properties)
         self.image = love.graphics.newImage("assets/images/Misc/RoomPuzzle3_Bridges.png")
     end
 
-    if properties.canClose and properties.canClose == "false" then
-        self.canClose = false
-    else
-        self.canClose = true
-    end
-
     self.activateTime = 2
     self.activating = false
 
-    self.dontReset = properties.dontReset
-
-    if properties.open and properties.open == "true" then
+    if properties.open then
         self.startOpen = true
         self.activeOn = false
         if self.direction == "up" then
