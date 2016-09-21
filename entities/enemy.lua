@@ -19,6 +19,7 @@ function Enemy:initialize(x, y, w, h, properties)
     self.ID           = properties.ID or 0
     self.movement     = properties.movement or false
     self.jumping      = properties.jumping or false
+    self.zindex       = properties.zindex or 98
     if properties.limits then
         local limits = loadstring("return {" .. properties.limits .. "}")()
         self.limits = {}
