@@ -42,7 +42,7 @@ function love.conf(t)
 
     t.releases = {
         title = "Debug Quest",
-        version = "1.0.0",
+        version = "1.1.0",
         package = "debug-quest",
         identifier = "com.camchenry.debug-quest",
         loveVersion = "0.10.1",
