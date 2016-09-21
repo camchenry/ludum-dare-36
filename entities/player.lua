@@ -433,6 +433,7 @@ function Player:update(dt, world)
         elseif other.class and other:isInstanceOf(NewCrusher) then
             if col.normal.y == -1 or col.normal.y == 1 then
                 if self.position.y <= other.position.y + other.height/2 then
+                    Signal.emit("hitGround")
                 else
                     -- hitting the crusher from underneath
                     -- if velocity is negavitive, make it 0. otherwise keep the current velocity
@@ -442,6 +443,7 @@ function Player:update(dt, world)
                     self.jumpTimer = 0
                     self.canJump = false
                     self.jumpState = false
+                    Signal.emit("hitCeiling")
                 end
             end
             if col.normal.x == -1 or col.normal.x == 1 then
